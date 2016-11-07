@@ -1,0 +1,35 @@
+//Media query mixins
+
+//Extra small devices
+@mixin xs($width: 'min') {
+    @media (#{$width}-width: $break-extra-small) {
+        @content;
+    }
+}
+//Small devices (landscape phones)
+@mixin sm($width: 'min') {
+    @media (#{$width}-width: $break-small) {
+        @content;
+    }
+}
+
+//Medium devices (tablets)
+@mixin md($width: 'min') {
+    @media (#{$width}-width: $break-medium) {
+        @content;
+    }
+}
+
+//Large devices (desktops)
+@mixin lg($width: 'min') {
+    @media (#{$width}-width: $break-large) {
+        @content;
+    }
+}
+
+//Extra large devices (large desktops)
+@mixin xl($width: 'min') {
+    @media (#{$width}-width: $break-extra-large) {
+        @content;
+    }
+}

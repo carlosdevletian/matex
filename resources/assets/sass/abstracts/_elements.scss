@@ -1,0 +1,26 @@
+//Footer Perfecto
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin: 0 0 $footer-size;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: $footer-size;
+    width: 100%;
+}
+////
+
+img {
+    -khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}

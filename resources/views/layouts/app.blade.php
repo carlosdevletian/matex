@@ -27,6 +27,9 @@
         <!-- Styles -->
         <link href="{{ URL::to('css/app.css') }}" rel="stylesheet">
 
+        <!-- Sweet Alert -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/5.1.0/sweetalert2.min.css">
+
         @stack('styles')
     </head>
     <body>
@@ -43,6 +46,11 @@
         <!-- Scripts -->
         <script src="{{ URL::to('js/app.js') }}"></script>
 
-        @stack('unique_scripts')
+        <!-- Sweet Alert -->
+        <script src="https://cdn.jsdelivr.net/sweetalert2/5.1.0/sweetalert2.min.js"></script>
+
+        @include('layouts.flash')
+
+        @stack('scripts')
     </body>
 </html>

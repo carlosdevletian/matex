@@ -14,3 +14,8 @@
 Route::get('/', function () {
     return view('home');
 })->name('home');
+
+Route::post('/contact', [
+    'uses' => 'HomeController@contact',
+    'as' => 'contact'
+]);

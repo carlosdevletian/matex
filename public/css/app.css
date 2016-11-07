@@ -20,6 +20,9 @@ img {
   -ms-user-select: none;
   user-select: none; }
 
+textarea {
+  resize: vertical; }
+
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -5785,6 +5788,29 @@ button.close {
 @media print {
   .hidden-print {
     display: none !important; } }
+
+.Map {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1; }
+  .Map__section {
+    height: 70vh;
+    position: relative; }
+  .Map__text {
+    position: relative;
+    z-index: 2;
+    margin-top: 10px;
+    padding: 5px;
+    color: white;
+    background-color: rgba(42, 54, 71, 0.8); }
+
+.Section {
+  height: 70vh; }
+  .Section--main {
+    background-color: red; }
 
 .Footer {
   text-align: center; }

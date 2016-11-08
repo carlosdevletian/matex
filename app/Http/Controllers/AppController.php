@@ -6,7 +6,7 @@ use App\Mail\ContactEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-class HomeController extends Controller
+class AppController extends Controller
 {
     public function contact(Request $request){
         $this->validate($request, ['email' => 'required|email', 'subject' => 'required', 'body' => 'required']);
@@ -19,6 +19,6 @@ class HomeController extends Controller
 
         flash()->success('Muchas gracias', 'El correo fue enviado exitosamente');
 
-        return redirect()->route('home');
+        return redirect()->back();
     }
 }

@@ -5,6 +5,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
 
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <!-- SEO -->
         {{-- <meta name="description" content="Guava - Diseño y desarrollo de páginas y aplicaciones web. Creamos experiencias inolvidables que se adaptan a tus necesidades.">
         <meta name="keywords" content="Guava, Desarrollo, Pagina, Paginas, Aplicacion, Web, Internet, Diseno, Grafico, Contratar, Servicio, Caracas, Venezuela">
@@ -30,6 +33,13 @@
         <!-- Sweet Alert -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/6.0.1/sweetalert2.min.css">
 
+        <!-- Scripts -->
+        <script>
+            window.Laravel = <?php echo json_encode([
+                'csrfToken' => csrf_token(),
+            ]); ?>
+        </script>
+
         @stack('styles')
     </head>
     <body>
@@ -43,12 +53,12 @@
             @include('layouts.footer')
         </footer>
 
-        <!-- Scripts -->
-        <script src="{{ URL::to('js/app.js') }}"></script>
-
         <!-- Sweet Alert -->
         <script src="https://cdn.jsdelivr.net/sweetalert2/6.0.1/sweetalert2.min.js"></script>
 
+        <!-- Scripts -->
+        <script src="{{ URL::to('js/app.js') }}"></script>
+        
         @include('layouts.flash')
 
         @stack('scripts')

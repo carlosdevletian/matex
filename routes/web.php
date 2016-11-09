@@ -19,3 +19,12 @@ Route::post('/contact', [
     'uses' => 'AppController@contact',
     'as' => 'contact'
 ]);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard')->middleware('auth');;
+
+//Product Resource Route (REST) Si se quieren agregar mas rutas que las 7 de REST se deben agregar antes
+Route::resource('products', 'ProductController');
+
+Auth::routes();

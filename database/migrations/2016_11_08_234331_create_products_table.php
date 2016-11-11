@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('title');
 			$table->string('description');
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }

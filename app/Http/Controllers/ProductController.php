@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Image;
 use App\Product;
 use Illuminate\Http\Request;
 
@@ -49,11 +50,18 @@ class ProductController extends Controller
     {
         $this->validate($request,[
 			'title' => 'required|max:120',
-			'description' => 'required'
+			'description' => 'required',
+            'file' => 'file|max:10000|mimes:gif,jpg,jpeg,png'
 		]);
 
+        if ($request->hasFile('file')) {
+            $path = $this->storeImage($request->file);
+        } else {
+            $path = null;
+        }
+
 		//Para poder guardar un objeto de esta forma los atributos se deben poner como fillables en el modelo
-		$product = Product::create(['title' => $request['title'], 'description' => $request['description']]);
+		$product = Product::create(['title' => $request['title'], 'description' => $request['description'], 'file' => $path]);
 
         flash()->success('Listo', 'El producto ha sido creado');
 
@@ -93,11 +101,22 @@ class ProductController extends Controller
     {
         $this->validate($request,[
 			'title' => 'required|max:120',
-			'description' => 'required'
+			'description' => 'required',
+            'file' => 'file|max:10000|mimes:gif,jpg,jpeg,png'
 		]);
 
+        if ($request->hasFile('file')) {
+            $path = $this->storeImage($request->file);
+        } else {
+            if($request->has('remove-cover')){
+                $path = null;
+            }else {
+                $path = $product->file;
+            }
+        }
+
 		//Para poder updatear un objeto de esta forma los atributos se deben poner como fillables en el modelo
-		$product->update(['title' => $request['title'], 'description' => $request['description']]);
+		$product->update(['title' => $request['title'], 'description' => $request['description'], 'file' => $path]);
 
         flash()->success('Listo', 'El producto ha sido actualizado');
 
@@ -121,5 +140,33 @@ class ProductController extends Controller
         flash()->success('Error', 'El producto no pudo ser eliminado. Por favor intente nuevamente');
 
         return back();
+    }
+
+    /**
+     * Store an image from a request.
+     *
+     * @return String $path
+     */
+    public function storeImage($file)
+    {
+        //Create Image from Request
+        $image = Image::make($file)->resize(null, 1080, function ($constraint) {
+    		$constraint->aspectRatio();
+    		$constraint->upsize();
+    	});
+
+        //Create unique path to image
+        $path = 'images/products/' . md5($image) . '.' . $file->extension();
+
+        //Make sure directory exists
+        if (!is_dir('images/products/'))
+        {
+            mkdir('images/products/', 0777, true);
+        }
+
+        //Save image
+        $image->save($path, 85);
+
+        return $path;
     }
 }

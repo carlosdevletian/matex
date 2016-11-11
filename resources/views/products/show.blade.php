@@ -8,6 +8,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
+                @unless(empty($product->file))
+                    <img src="{{ URL::to( $product->file ) }}" alt="cover" class="img-responsive" width="100%" />
+                @endif
 				<h2>{{ $product->title }}</h2>
 				<h4>{{ $product->description }}</h4>
 				@if(Auth::check())

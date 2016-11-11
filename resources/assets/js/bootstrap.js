@@ -43,3 +43,9 @@ require('bootstrap-sass');
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+/**
+ * User Packages
+ */
+
+require('dropify/dist/js/dropify.min.js');

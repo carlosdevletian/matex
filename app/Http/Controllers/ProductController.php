@@ -149,14 +149,16 @@ class ProductController extends Controller
      */
     public function storeImage($file)
     {
-        //Create Image from Request
+        //Create Image from Request and resizing to a height of 1080
         $image = Image::make($file)->resize(null, 1080, function ($constraint) {
     		$constraint->aspectRatio();
     		$constraint->upsize();
     	});
 
         //Create unique path to image
-        $path = 'images/products/' . md5($image) . '.' . $file->extension();
+        $directory = 'images/products/';
+        $file_name = md5($image) . '.' . $file->extension();
+        $path = $directory . $file_name;
 
         //Make sure directory exists
         if (!is_dir('images/products/'))
@@ -164,8 +166,13 @@ class ProductController extends Controller
             mkdir('images/products/', 0777, true);
         }
 
-        //Save image
-        $image->save($path, 85);
+        //Save image (Move if its a gif because intervention does not support it)
+        if($file->extension() == 'gif'){
+            $file->move($directory, $file_name);
+        } else {
+            //85 represents the image quality (from 100 being best to 0)
+            $image->save($path, 85);
+        }
 
         return $path;
     }

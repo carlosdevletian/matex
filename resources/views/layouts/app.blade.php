@@ -30,9 +30,6 @@
         <!-- Styles -->
         <link href="{{ URL::to('css/app.css') }}" rel="stylesheet">
 
-        <!-- Sweet Alert -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/6.0.1/sweetalert2.min.css">
-
         <!-- Scripts -->
         <script>
             window.Laravel = <?php echo json_encode([
@@ -53,12 +50,9 @@
             @include('layouts.footer')
         </footer>
 
-        <!-- Sweet Alert -->
-        <script src="https://cdn.jsdelivr.net/sweetalert2/6.0.1/sweetalert2.min.js"></script>
-
         <!-- Scripts -->
         <script src="{{ URL::to('js/app.js') }}"></script>
-        
+
         @include('layouts.flash')
 
         @stack('scripts')

@@ -14,6 +14,7 @@ require('laravel-elixir-vue-2');
  */
 
 elixir((mix) => {
-    mix.sass('app.scss')
+    mix.copy('node_modules/dropify/src/fonts', 'public/fonts')
+       .sass('app.scss')
        .webpack('app.js');
 });

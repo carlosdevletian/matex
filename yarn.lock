@@ -1043,6 +1043,10 @@ es6-iterator@2:
     es5-ext "^0.10.7"
     es6-symbol "3"
 
+es6-promise@latest:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.0.5.tgz#7882f30adde5b240ccfa7f7d78c548330951ae42"
+
 es6-symbol@^3.0.2, es6-symbol@~3.1, es6-symbol@3:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/es6-symbol/-/es6-symbol-3.1.0.tgz#94481c655e7a7cad82eba832d97d5433496d7ffa"
@@ -3777,6 +3781,12 @@ svgo@^0.7.0:
     mkdirp "~0.5.1"
     sax "~1.2.1"
     whet.extend "~0.9.9"
+
+sweetalert2:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-6.0.1.tgz#1518ed5c81b66d973a34a17a94a57e717016bd75"
+  dependencies:
+    es6-promise latest
 
 tapable@^0.1.8, tapable@~0.1.8:
   version "0.1.10"

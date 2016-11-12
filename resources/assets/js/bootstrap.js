@@ -48,4 +48,6 @@ require('bootstrap-sass');
  * User Packages
  */
 
-require('dropify/dist/js/dropify.min.js');
+window.swal = require('sweetalert2');
+
+require('dropify');

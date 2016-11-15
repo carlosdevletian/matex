@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+// use File;
 use Image;
 use App\Product;
 use Illuminate\Http\Request;
@@ -115,6 +116,12 @@ class ProductController extends Controller
             }
         }
 
+        // if($request->has('remove-cover')){
+        //     if(File::isFile($product->file)){
+        //         File::delete($product->file);
+        //     }
+        // }
+
 		//Para poder updatear un objeto de esta forma los atributos se deben poner como fillables en el modelo
 		$product->update(['title' => $request['title'], 'description' => $request['description'], 'file' => $path]);
 
@@ -131,7 +138,16 @@ class ProductController extends Controller
      */
     public function destroy($product)
     {
+        $file = $product->file;
+
         if($product->delete()){
+
+            // El delete de archivos esta comentado puesto que debe decidirse el comportamiento a utilizar.
+            // En este caso las imagenes se guardan con md5 por ello borrar una imagen puede borrar una de otro producto.
+            // if(File::isFile($file)){
+            //     File::delete($file);
+            // }
+
             flash()->success('Listo', 'El producto ha sido eliminado');
 
             return redirect()->action('ProductController@index');

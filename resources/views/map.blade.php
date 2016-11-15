@@ -9,7 +9,7 @@
 
 @push('scripts')
 	<!--Script del mapa, puede ser map.js o styledmap.js (al styled se le pueden poner colores)-->
-	<script src="{{ URL::to('js/map.js') }}"></script>
+	<script async src="{{ URL::to('js/map.js') }}"></script>
 	<!--Se puede cambiar el lenguaje al final del src-->
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrA2CwdNDt-62Ka7eWq_CNiPeF3jUUpcM&callback=initMap&language=en"></script>
 @endpush

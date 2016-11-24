@@ -51,7 +51,7 @@
         </footer>
 
         <!-- Scripts -->
-        <script async src="{{ URL::to('js/app.js') }}"></script>
+        <script src="{{ URL::to('js/app.js') }}"></script>
 
         @include('layouts.flash')
 

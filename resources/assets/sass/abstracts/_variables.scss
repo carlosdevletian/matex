@@ -5,6 +5,13 @@ $break-medium: 768px;
 $break-large: 992px;
 $break-extra-large: 1200px;
 
+//Colors
+$brand-primary: #0000AA;
+$brand-secondary: #F16A01;
+
+//Border
+$border-radius-base: 5px;
+
 //Typography
 $font-family-sans-serif: sans-serif;
 $font-size-base: 14px;
@@ -21,9 +28,9 @@ $body-bg: #f5f8fa;
 
 //Navbar
 $navbar-height: 50px;
-$navbar-default-bg: #F4F6F6;
+$navbar-default-bg: white;
 $navbar-default-color: black;
-$navbar-default-border: darken($navbar-default-bg, 6.5%);
+$navbar-default-border: darken($brand-secondary, 6.5%);
 $navbar-margin-bottom: 0px;
 
 //Navbar links

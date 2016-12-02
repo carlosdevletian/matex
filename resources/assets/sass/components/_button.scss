@@ -1,0 +1,8 @@
+.Button--design {
+    @include button($brand-secondary, true, 12pt);
+    margin-bottom: 30px;
+    width: 30%;
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+}

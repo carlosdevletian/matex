@@ -1,0 +1,24 @@
+.Landing {
+    padding-top: 8vh;
+    height: 94vh;
+    background-image: radial-gradient(circle, #1659CF, $brand-primary 60%);
+
+    &__title {
+        font-size: 24pt;
+    }
+
+    &__body {
+        font-size: 16pt;
+        line-height: 1.4;
+    }
+
+    &__image {
+        -webkit-filter: drop-shadow(3px 3px 2px #222);
+        filter:         drop-shadow(3px 3px 2px #222);
+        width: 600px;
+    }
+
+    &__design {
+        padding-top: 12vh;
+    }
+}

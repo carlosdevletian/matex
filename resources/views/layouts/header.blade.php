@@ -8,14 +8,13 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a  href="{{ route('home') }}">
-				<img class="navbar-logo" src="{{ URL::to("images/logo-xs.png") }}" alt="logo" height="28" onmousedown="return false"/>
+				<img class="navbar-logo" src="{{ URL::to("images/matex.png") }}" alt="logo" height="28" onmousedown="return false"/>
 			</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="{{ route('home') }}">About</a></li>
-				<li><a href="{{ route('home') }}">Contact</a></li>
-                <li><a href="{{ url('/products') }}">Products</a></li>
+				<li><a @click="showContactModal = true">Contact Us</a></li>
 			</ul>
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
@@ -48,3 +47,6 @@
 		</div>
 	</div>
 </nav>
+
+<contact-modal v-show="showContactModal" @close="showContactModal =
+false"></contact-modal>

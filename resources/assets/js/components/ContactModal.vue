@@ -13,7 +13,7 @@
             <div v-show="! validation.subject" class="error">{{ errors.subject ? errors.subject[0] : '' }}</div>
             <input v-model="contact.body" class="form-control" placeholder="Body">
             <div v-show="! validation.body" class="error">{{ errors.body ? errors.body[0] : '' }}</div>
-            <button class="Modal__button" @click="sendContactEmail()"></button>
+            <button class="Modal__button" @click="sendContactEmail()">Send</button>
         </div>
 
     </modal>

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('home/home');
 })->name('home');
 
 Route::post('/contact', [
@@ -22,9 +22,6 @@ Route::post('/contact', [
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->name('dashboard')->middleware('auth');;
-
-//Product Resource Route (REST) Si se quieren agregar mas rutas que las 7 de REST se deben agregar antes
-Route::resource('products', 'ProductController');
+})->name('dashboard')->middleware('auth');
 
 Auth::routes();

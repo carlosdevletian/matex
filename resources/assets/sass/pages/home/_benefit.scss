@@ -1,0 +1,17 @@
+.Benefit {
+    padding: 3em;
+
+    &__title {
+        font-size: 16pt;
+    }
+
+    &__body {
+        font-size: 14pt;
+        line-height: 1.4;
+    }
+
+    &__image {
+        margin-top: 2em;
+        padding: 2em;
+    }
+}

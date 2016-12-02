@@ -1,0 +1,21 @@
+.Quote {
+    padding: 3em;
+
+    &__title {
+        font-size: 24pt;
+    }
+
+    &__body {
+        font-size: 16pt;
+        line-height: 1.4;
+    }
+    
+    &__image {
+        height: 70vh;
+        background: url(/images/home/wave.png) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+}

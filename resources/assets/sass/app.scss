@@ -9,10 +9,12 @@
 // Sweet Alert 2
 @import "node_modules/sweetalert2/src/sweetalert2";
 
-// Dropify
-@import "node_modules/dropify/dist/css/dropify.min";
-
-@import "components/map";
-@import "components/section";
 @import "layout/footer";
 @import "layout/navbar";
+
+@import "components/button";
+@import "components/modal";
+
+@import "pages/home/landing";
+@import "pages/home/quote";
+@import "pages/home/benefit";

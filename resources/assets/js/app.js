@@ -12,9 +12,13 @@ require('./bootstrap');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.component('modal', require('./components/Modal.vue'));
+Vue.component('contact-modal', require('./components/ContactModal.vue'));
 
-// Vue.component('example', require('./components/Example.vue'));
-//
-// const app = new Vue({
-//     el: '#app'
-// });
+const app = new Vue({
+    el: '#app',
+
+    data: {
+        showContactModal: false,
+    }
+});

@@ -16,7 +16,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::post('/contact', [
-    'uses' => 'AppController@contact',
+    'uses' => 'ContactController@store',
     'as' => 'contact'
 ]);
 

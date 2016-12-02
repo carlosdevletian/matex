@@ -32,29 +32,32 @@
 
         <!-- Scripts -->
         <script>
-            window.Laravel = <?php echo json_encode([
-                'csrfToken' => csrf_token(),
-            ]); ?>
+            var Matex = {
+                csrfToken: "{{ csrf_token() }}",
+                // stripeKey: "{{ config('services.stripe.key') }}",
+            }
         </script>
 
         @stack('styles')
     </head>
     <body>
-        <header>
-            @include('layouts.header')
-        </header>
+        <div id="app">
+            <header>
+                @include('layouts.header')
+            </header>
 
-        @yield('content')
+            @yield('content')
 
-        <footer>
-            @include('layouts.footer')
-        </footer>
+            <footer>
+                @include('layouts.footer')
+            </footer>
 
-        <!-- Scripts -->
-        <script src="{{ URL::to('js/app.js') }}"></script>
+            <!-- Scripts -->
+            <script src="{{ URL::to('js/app.js') }}"></script>
 
-        @include('layouts.flash')
+            @include('layouts.flash')
 
-        @stack('scripts')
+            @stack('scripts')
+        </div>
     </body>
 </html>

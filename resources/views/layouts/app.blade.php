@@ -42,15 +42,19 @@
     </head>
     <body>
         <div id="app">
-            <header>
-                @include('layouts.header')
-            </header>
+            <div v-bind:class="{ Blur: modalActive }">
+                <header>
+                    @include('layouts.header')
+                </header>
 
-            @yield('content')
+                @yield('content')
 
-            <footer>
-                @include('layouts.footer')
-            </footer>
+                <footer>
+                    @include('layouts.footer')
+                </footer>
+            </div>
+
+            @include('components.modals')
 
             <!-- Scripts -->
             <script src="{{ URL::to('js/app.js') }}"></script>

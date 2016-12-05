@@ -1,11 +1,13 @@
 .Modal {
-    max-width: 300px;
+    max-width: 400px;
     margin: 60px auto;
-    padding: 20px 30px;
-    background: white;
+    background: rgba(255,255,255,1);
+    width: 70%;
     border-radius: $border-radius-base;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
+    position: relative;
+    animation: fadeIn 0.4s;
 
     &__background {
         position: fixed;
@@ -14,7 +16,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, .4);
+        background-color: rgba(0, 0, 0, 0);
         transition: opacity .3s ease;
         overflow-y: scroll;
     }
@@ -24,30 +26,61 @@
         font-size: 13pt;
         color: $brand-primary;
         text-align: center;
+        padding-top: 20px;
+        padding-left: 30px;
+        padding-right: 30px;
     }
 
     &__description {
         margin-top: 15px;
         margin-bottom: 10px;
         font-size: 11pt;
-        color: grey;
+        color: black;
         text-align: justify;
+        padding-left: 30px;
+        padding-right: 30px;
     }
 
     &__body {
         margin: 20px 0;
+        padding-left: 30px;
+        padding-right: 30px;
     }
 
     &__footer {
         text-align: center;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-bottom: 20px;
     }
 
     &__button{
         @include button($brand-secondary, true, 12pt);
+        &:hover {
+            transform: translateY(-1px);
+        }
     }
     &__checkbox {
         text-align: left;
     }
+    &__close {
+        float: right;
+        color: lightgrey;
+        padding: 20px 30px;
+        position: absolute;
+        right: 0;
+        &:hover {
+            color: grey;
+            cursor: pointer;
+        }
+    }
+}
+
+.Blur {
+     -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
 }
 
 /*
@@ -56,11 +89,21 @@
 * by Vue.js.
 */
 
-.modal-enter, .modal-leave-active {
+.modal-enter {
     opacity: 0;
 }
 
-.modal-enter .modal-container, .modal-leave .modal-container {
+.modal-leave-active {
+    opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }

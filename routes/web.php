@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('home/home');
 })->name('home');
 
+Route::get('/about-us', function () {
+    return view('about');
+})->name('about');
+
 Route::post('/contact', [
     'uses' => 'ContactController@store',
     'as' => 'contact'

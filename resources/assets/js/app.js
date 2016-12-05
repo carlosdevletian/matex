@@ -20,5 +20,17 @@ const app = new Vue({
 
     data: {
         showContactModal: false,
+        modalActive: false,
+    },
+
+    methods: {
+        openContactModal: function() {
+            this.showContactModal = true;
+            this.modalActive = true;
+        },
+        closeContactModal: function() {
+            this.showContactModal = false;
+            this.modalActive = false;
+        }
     }
 });

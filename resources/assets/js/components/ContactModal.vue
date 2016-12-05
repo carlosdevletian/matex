@@ -7,13 +7,23 @@
         </div>
 
         <div slot="body">
-            <input v-model="contact.email" class="form-control" placeholder="Email address" autofocus>
-            <div v-show="! validation.email" class="error">{{ errors.email ? errors.email[0] : '' }}</div>
-            <input v-model="contact.subject" class="form-control" placeholder="Subject">
-            <div v-show="! validation.subject" class="error">{{ errors.subject ? errors.subject[0] : '' }}</div>
-            <input v-model="contact.body" class="form-control" placeholder="Body">
-            <div v-show="! validation.body" class="error">{{ errors.body ? errors.body[0] : '' }}</div>
-            <button class="Modal__button" @click="sendContactEmail()">Send</button>
+            <div>
+                <div class="Input__icon">
+                    <input v-model="contact.email" class="form-control" placeholder="Email address" autofocus>
+                    <div v-show="! validation.email" class="error">{{ errors.email ? errors.email[0] : '' }}</div>
+                </div>
+                <div class="Input__icon">
+                    <input v-model="contact.subject" class="form-control" placeholder="Subject">
+                    <div v-show="! validation.subject" class="error">{{ errors.subject ? errors.subject[0] : '' }}</div>
+                </div>
+                <div class="Input__icon">
+                    <textarea v-model="contact.body" class="form-control" placeholder="Your message here..." rows=5></textarea>
+                    <div v-show="! validation.body" class="error">{{ errors.body ? errors.body[0] : '' }}</div>
+                </div>
+                <div>
+                    <button class="Modal__button" @click="sendContactEmail()">Send</button>
+                </div>
+            </div>
         </div>
 
     </modal>

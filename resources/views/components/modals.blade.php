@@ -1,0 +1,1 @@
+<contact-modal v-if="showContactModal" @close="closeContactModal()"></contact-modal>

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default navbar-static-top" style="background-color: rgba(255,255,255,0.9)">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -14,7 +14,7 @@
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="{{ route('home') }}">About</a></li>
-				<li><a @click="showContactModal = true">Contact Us</a></li>
+				<li><a @click=" { openContactModal() } " role="button">Contact Us</a></li>
 			</ul>
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
@@ -47,6 +47,3 @@
 		</div>
 	</div>
 </nav>
-
-<contact-modal v-show="showContactModal" @close="showContactModal =
-false"></contact-modal>

@@ -2,6 +2,7 @@
     <transition name="modal"> 
         <div class="Modal__background" @click="$emit('close')">
             <div class="Modal" @click.stop>
+                <span class="Modal__close" @click="$emit('close')">&#10005;</span>
                 <div class="Modal__header">
                     <slot name="header"></slot>
                 </div>

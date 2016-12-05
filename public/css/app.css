@@ -6525,6 +6525,47 @@ body.swal2-iosfix {
   margin-right: 5px;
   margin-left: 10px; }
 
+.form-label {
+  display: block;
+  margin-bottom: 1em; }
+
+.form-control {
+  display: block;
+  width: 100%;
+  line-height: 1.5;
+  border: 2px solid;
+  border-color: #1659CF;
+  color: black;
+  box-shadow: none;
+  font-weight: normal; }
+  .form-control:focus {
+    border: 2px solid #0000AA;
+    outline: none;
+    box-shadow: none; }
+
+.error {
+  color: red; }
+
+textarea {
+  resize: vertical; }
+
+.Input__icon {
+  display: block;
+  margin-bottom: 1em;
+  position: relative; }
+  .Input__icon .fa {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none; }
+  .Input__icon--left .fa {
+    left: 10px; }
+  .Input__icon--right .fa {
+    right: 10px; }
+  .Input__icon--left input {
+    padding-left: 30px; }
+  .Input__icon--right input {
+    padding-right: 50px; }
+
 .Button--design {
   border: 2px solid #F16A01;
   background-color: transparent;
@@ -6545,16 +6586,22 @@ body.swal2-iosfix {
   .Button--design:hover {
     background-color: #F16A01;
     color: white; }
+  .Button--design:hover {
+    -webkit-transform: translateY(-1px);
+    transform: translateY(-1px); }
 
 .Modal {
-  max-width: 300px;
+  max-width: 400px;
   margin: 60px auto;
-  padding: 20px 30px;
   background: white;
+  width: 70%;
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   -webkit-transition: all .3s ease;
-  transition: all .3s ease; }
+  transition: all .3s ease;
+  position: relative;
+  -webkit-animation: fadeIn 0.4s;
+  animation: fadeIn 0.4s; }
   .Modal__background {
     position: fixed;
     z-index: 9998;
@@ -6562,7 +6609,7 @@ body.swal2-iosfix {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: transparent;
     -webkit-transition: opacity .3s ease;
     transition: opacity .3s ease;
     overflow-y: scroll; }
@@ -6570,17 +6617,27 @@ body.swal2-iosfix {
     margin-top: 0;
     font-size: 13pt;
     color: #0000AA;
-    text-align: center; }
+    text-align: center;
+    padding-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px; }
   .Modal__description {
     margin-top: 15px;
     margin-bottom: 10px;
     font-size: 11pt;
-    color: grey;
-    text-align: justify; }
+    color: black;
+    text-align: justify;
+    padding-left: 30px;
+    padding-right: 30px; }
   .Modal__body {
-    margin: 20px 0; }
+    margin: 20px 0;
+    padding-left: 30px;
+    padding-right: 30px; }
   .Modal__footer {
-    text-align: center; }
+    text-align: center;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px; }
   .Modal__button {
     border: 2px solid #F16A01;
     background-color: transparent;
@@ -6596,20 +6653,54 @@ body.swal2-iosfix {
     .Modal__button:hover {
       background-color: #F16A01;
       color: white; }
+    .Modal__button:hover {
+      -webkit-transform: translateY(-1px);
+      transform: translateY(-1px); }
   .Modal__checkbox {
     text-align: left; }
+  .Modal__close {
+    float: right;
+    color: lightgrey;
+    padding: 20px 30px;
+    position: absolute;
+    right: 0; }
+    .Modal__close:hover {
+      color: grey;
+      cursor: pointer; }
+
+.Blur {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px); }
 
 /*
 * The following styles are auto-applied to elements with
 * v-transition="modal" when their visiblity is toggled
 * by Vue.js.
 */
-.modal-enter, .modal-leave-active {
+.modal-enter {
   opacity: 0; }
 
-.modal-enter .modal-container, .modal-leave .modal-container {
+.modal-leave-active {
+  opacity: 0; }
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1); }
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
 
 .Landing {
   padding-top: 8vh;

@@ -1,7 +1,7 @@
 .Landing {
     padding-top: 8vh;
     height: 94vh;
-    background-image: radial-gradient(circle, #1659CF, $brand-primary 60%);
+    background-image: radial-gradient(circle, $gradient-blue, $brand-primary 60%);
 
     &__title {
         font-size: 24pt;

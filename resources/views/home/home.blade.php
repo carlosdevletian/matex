@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    <div style="margin-top: -50px;"></div>
 
     @include('home/landing')
 

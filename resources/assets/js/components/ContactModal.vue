@@ -1,6 +1,8 @@
 <template>
     <modal @close="close()">
-        <div slot="header">Contact Us</div>
+        <div slot="header">
+        Contact Us
+        </div>
 
         <div slot="description">
             Send us an email and we'll get back to you right away.
@@ -16,7 +18,7 @@
                     <input v-model="contact.subject" class="form-control" placeholder="Subject">
                     <div v-show="! validation.subject" class="error">{{ errors.subject ? errors.subject[0] : '' }}</div>
                 </div>
-                <div class="Input__icon">
+                <div class="Input__icon" style="padding-bottom: 10px">
                     <textarea v-model="contact.body" class="form-control" placeholder="Your message here..." rows=5></textarea>
                     <div v-show="! validation.body" class="error">{{ errors.body ? errors.body[0] : '' }}</div>
                 </div>

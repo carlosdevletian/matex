@@ -42,7 +42,7 @@
     </head>
     <body>
         <div id="app">
-            <div v-bind:class="{ Blur: modalActive }">
+            <!-- <div v-bind:class="{ Blur: modalActive }"> -->
                 <header>
                     @include('layouts.header')
                 </header>
@@ -52,7 +52,7 @@
                 <footer>
                     @include('layouts.footer')
                 </footer>
-            </div>
+            <!-- </div> -->
 
             @include('components.modals')
 

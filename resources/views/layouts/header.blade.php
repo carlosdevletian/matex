@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top" style="background-color: rgba(255,255,255,0.9)">
+<nav class="navbar navbar-default navbar-fixed-top {{ Route::currentRouteName() == 'home' ? 'navbar-home' : '' }}">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -8,15 +8,15 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a  href="{{ route('home') }}">
-				<img class="navbar-logo" src="{{ URL::to("images/matex.png") }}" alt="logo" height="28" onmousedown="return false"/>
+				<img class="navbar-logo" src="{{ URL::to('images/matex.png') }}" alt="logo" height="28" onmousedown="return false"/>
 			</a>
 		</div>
-		<div id="navbar" class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
-				<li><a href="{{ route('home') }}">About</a></li>
+		<div id="navbar" class="collapse navbar-collapse navbar-home">
+			<ul class="nav navbar-nav {{ Route::currentRouteName() == 'home' ? 'navbar-home' : '' }}">
+				<li><a href="{{ route('about') }}">About</a></li>
 				<li><a @click=" { openContactModal() } " role="button">Contact Us</a></li>
 			</ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right {{ Route::currentRouteName() == 'home' ? 'navbar-home' : '' }}">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li><a href="{{ url('/login') }}">Login</a></li>

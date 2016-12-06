@@ -1,8 +1,23 @@
 .navbar-default {
     border-width: 0 0 2px;
 }
+
+.navbar{
+    position: absolute;
+}
+
 .navbar-logo {
     margin-top: 11px;
     margin-right: 5px;
     margin-left: 10px;
+}
+
+.navbar-home {
+    color: white;
+    background-color: rgba(255,255,255,0);
+    border-width: 0;
+}
+
+.navbar-default .navbar-home > li > a  {
+    color: white;
 }

@@ -1,12 +1,14 @@
 <div class="container-fluid Landing">
     <div class="row">
+        <div class="col-sm-1 text-center"></div>
         <div class="col-sm-4 text-center">
-            <h1 class="Landing__title">Matex</h1>
-            <h3 class="Landing__body">We are Matex</h3>
+            <img src="/images/matex_name.png" alt="" class="Landing__logo">
+            <h3 class="Landing__body">Lorem ipsum dolor sit amet, consectetur adipisicing elit</h3>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-6">
             <img src="{{ URL::to("images/home/puls.png") }}" alt="pulsera" class="img-responsive center-block Landing__image" onmousedown="return false">
         </div>
+        <div class="col-sm-1 text-center"></div>
     </div>
     <div class="row">
         <div class="col-xs-12 text-center Landing__design">

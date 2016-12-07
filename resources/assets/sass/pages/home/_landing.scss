@@ -1,7 +1,8 @@
 .Landing {
     padding-top: 8vh;
-    height: 101vh;
+    height: 100vh;
     background-image: radial-gradient(circle, $gradient-blue, $brand-primary 60%);
+    color: white;
 
     &__title {
         font-size: 24pt;
@@ -10,15 +11,32 @@
     &__body {
         font-size: 16pt;
         line-height: 1.4;
+        text-align: center;
     }
 
     &__image {
+        width: 200px;
+        padding-top: 50px;
+        filter: drop-shadow(3px 3px 2px #222);
         -webkit-filter: drop-shadow(3px 3px 2px #222);
-        filter:         drop-shadow(3px 3px 2px #222);
-        width: 600px;
+        @include md(){
+            width: 425px;
+            padding-top: 100px;
+        }
+    }
+
+    &__logo {
+        // -webkit-filter: drop-shadow(3px 3px 2px #222);
+        // filter:         drop-shadow(3px 3px 2px #222);
+        width: 200px;
+       @include md(){
+            width: 300px;
+            padding-top: 50px;
+        }
     }
 
     &__design {
         padding-top: 12vh;
+        // padding-bottom: 12vh;
     }
 }

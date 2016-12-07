@@ -1,8 +1,13 @@
 .Benefit {
-    padding: 3em;
+    padding: 10px;
+    @include md(){
+        padding: 120px;
+    }
 
     &__title {
-        font-size: 16pt;
+        font-size: 24pt;
+        font-family: baloo; 
+        color: $brand-secondary;
     }
 
     &__body {
@@ -13,5 +18,33 @@
     &__image {
         margin-top: 2em;
         padding: 2em;
+
+        &--right {
+            width: 200px;
+            margin-right: 0;
+            @include md(){
+                padding: 0;
+                width: 400px;
+            }
+            &--neg-marg {
+                    @include md(){
+                    margin-top: -200px
+                }
+            }
+        }
+
+        &--left {
+            width: 200px;
+            margin-left: 0;
+            @include md(){
+                padding: 0;
+                width: 400px;
+            }
+            &--neg-marg {
+                    @include md(){
+                    margin-top: -200px
+                }
+            }
+        }
     }
 }

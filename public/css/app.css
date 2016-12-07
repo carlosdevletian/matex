@@ -5770,6 +5770,7 @@ html {
   min-height: 100%; }
 
 body {
+  font-family: 'Amiko', sans-serif;
   margin: 0 0 30px;
   padding-top: 50px; }
 
@@ -6580,8 +6581,8 @@ textarea {
 
 .Button--design {
   border: 2px solid #F16A01;
-  background-color: transparent;
-  color: #F16A01;
+  background-color: #F16A01;
+  color: white;
   font-size: 12pt;
   border-radius: 5px;
   outline: 0;
@@ -6591,16 +6592,18 @@ textarea {
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   margin-bottom: 30px;
-  width: 30%;
-  display: block;
+  padding: 1em;
   margin: 0 auto;
   margin-top: 10px; }
   .Button--design:hover {
-    background-color: #F16A01;
-    color: white; }
+    background-color: transparent;
+    color: #F16A01; }
   .Button--design:hover {
     -webkit-transform: translateY(-1px);
-    transform: translateY(-1px); }
+    transform: translateY(-1px);
+    background-color: red;
+    color: white;
+    border-color: red; }
 
 .Modal {
   max-width: 400px;
@@ -6720,42 +6723,109 @@ textarea {
 
 .Landing {
   padding-top: 8vh;
-  height: 101vh;
+  height: 100vh;
   background-image: -webkit-radial-gradient(circle, #1659CF, #0000AA 60%);
-  background-image: radial-gradient(circle, #1659CF, #0000AA 60%); }
+  background-image: radial-gradient(circle, #1659CF, #0000AA 60%);
+  color: white; }
   .Landing__title {
     font-size: 24pt; }
   .Landing__body {
     font-size: 16pt;
-    line-height: 1.4; }
+    line-height: 1.4;
+    text-align: center; }
   .Landing__image {
-    -webkit-filter: drop-shadow(3px 3px 2px #222);
+    width: 200px;
+    padding-top: 50px;
     filter: drop-shadow(3px 3px 2px #222);
-    width: 600px; }
+    -webkit-filter: drop-shadow(3px 3px 2px #222); }
+    @media (min-width: 768px) {
+      .Landing__image {
+        width: 425px;
+        padding-top: 100px; } }
+  .Landing__logo {
+    width: 200px; }
+    @media (min-width: 768px) {
+      .Landing__logo {
+        width: 300px;
+        padding-top: 50px; } }
   .Landing__design {
     padding-top: 12vh; }
 
-.Quote {
-  padding: 3em; }
-  .Quote__title {
-    font-size: 24pt; }
-  .Quote__body {
+.Services {
+  padding: 70px;
+  background: url(/images/matex_custom_bracelet_background.png);
+  -webkit-background-size: cover; }
+  .Services--background {
+    background-color: #f2f1f1; }
+  .Services__title {
+    font-size: 24pt;
+    color: #0000AA;
+    font-weight: bolder;
+    font-family: baloo; }
+  .Services__body {
     font-size: 16pt;
     line-height: 1.4; }
-  .Quote__image {
-    height: 70vh;
-    background: url(/images/home/wave.png) no-repeat center center fixed;
+    .Services__body--last {
+      padding-bottom: 20px; }
+  .Services__image {
+    height: 90vh;
+    position: relative;
+    background: url(/images/matex_experience.jpg) no-repeat center center fixed;
     background-size: cover; }
+  .Services__bracelet {
+    margin-bottom: 50px; }
+  .Services__about {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    color: white; }
+    .Services__about--title {
+      font-size: 60px;
+      font-family: baloo; }
+  .Services__feature--description {
+    display: inline-block; }
+  .Services__feature--image {
+    width: 60px; }
+    @media (min-width: 768px) {
+      .Services__feature--image {
+        width: 100px; } }
 
 .Benefit {
-  padding: 3em; }
+  padding: 10px; }
+  @media (min-width: 768px) {
+    .Benefit {
+      padding: 120px; } }
   .Benefit__title {
-    font-size: 16pt; }
+    font-size: 24pt;
+    font-family: baloo;
+    color: #F16A01; }
   .Benefit__body {
     font-size: 14pt;
     line-height: 1.4; }
   .Benefit__image {
     margin-top: 2em;
     padding: 2em; }
+    .Benefit__image--right {
+      width: 200px;
+      margin-right: 0; }
+      @media (min-width: 768px) {
+        .Benefit__image--right {
+          padding: 0;
+          width: 400px; } }
+      @media (min-width: 768px) {
+        .Benefit__image--right--neg-marg {
+          margin-top: -200px; } }
+    .Benefit__image--left {
+      width: 200px;
+      margin-left: 0; }
+      @media (min-width: 768px) {
+        .Benefit__image--left {
+          padding: 0;
+          width: 400px; } }
+      @media (min-width: 768px) {
+        .Benefit__image--left--neg-marg {
+          margin-top: -200px; } }
 
 /*# sourceMappingURL=app.css.map */

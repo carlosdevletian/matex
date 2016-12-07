@@ -9,7 +9,7 @@
 
     @include('home/landing')
 
-    @include('home/quote')
+    @include('home/services')
 
     @include('home/benefits')
 

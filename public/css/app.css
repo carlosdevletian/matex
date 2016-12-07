@@ -6722,8 +6722,10 @@ textarea {
     opacity: 1; } }
 
 .Landing {
+  padding-top: 30px;
   padding-top: 8vh;
   height: 100vh;
+  max-height: 800px;
   background-image: -webkit-radial-gradient(circle, #1659CF, #0000AA 60%);
   background-image: radial-gradient(circle, #1659CF, #0000AA 60%);
   color: white; }
@@ -6735,38 +6737,63 @@ textarea {
     text-align: center; }
   .Landing__image {
     width: 200px;
-    padding-top: 50px;
+    padding-top: 20px;
     filter: drop-shadow(3px 3px 2px #222);
     -webkit-filter: drop-shadow(3px 3px 2px #222); }
+    @media (min-width: 340px) {
+      .Landing__image {
+        padding-top: 30px;
+        width: 300px; } }
     @media (min-width: 768px) {
       .Landing__image {
         width: 425px;
-        padding-top: 100px; } }
+        padding-top: 190px; } }
   .Landing__logo {
+    padding-top: 30px;
     width: 200px; }
+    @media (min-width: 340px) {
+      .Landing__logo {
+        padding-top: 50px; } }
     @media (min-width: 768px) {
       .Landing__logo {
-        width: 300px;
-        padding-top: 50px; } }
+        padding-top: 150px;
+        width: 300px; } }
   .Landing__design {
+    padding-top: 40px;
     padding-top: 12vh; }
+    @media (min-width: 340px) {
+      .Landing__design {
+        padding-top: 90px;
+        padding-top: 14vh; } }
+    @media (min-width: 544px) {
+      .Landing__design {
+        padding-top: 120px;
+        padding-top: 18vh; } }
 
 .Services {
-  padding: 70px;
+  padding: 50px 20px;
   background: url(/images/matex_custom_bracelet_background.png);
   -webkit-background-size: cover; }
   .Services--background {
-    background-color: #f2f1f1; }
+    background-color: #f2f1f1;
+    padding-bottom: 50px; }
   .Services__title {
     font-size: 24pt;
     color: #0000AA;
     font-weight: bolder;
     font-family: baloo; }
+  .Services__subtitle {
+    font-size: 14pt;
+    line-height: 1.4;
+    padding-bottom: 40px; }
+    @media (min-width: 768px) {
+      .Services__subtitle {
+        font-size: 16pt;
+        padding-bottom: 70px; } }
   .Services__body {
     font-size: 16pt;
-    line-height: 1.4; }
-    .Services__body--last {
-      padding-bottom: 20px; }
+    line-height: 1.4;
+    padding-bottom: 20px; }
   .Services__image {
     height: 90vh;
     position: relative;
@@ -6793,17 +6820,23 @@ textarea {
         width: 100px; } }
 
 .Benefit {
-  padding: 10px; }
+  padding: 25px 20px; }
   @media (min-width: 768px) {
     .Benefit {
       padding: 120px; } }
   .Benefit__title {
-    font-size: 24pt;
+    font-size: 15pt;
     font-family: baloo;
     color: #F16A01; }
+    @media (min-width: 768px) {
+      .Benefit__title {
+        font-size: 24pt; } }
   .Benefit__body {
-    font-size: 14pt;
+    font-size: 11pt;
     line-height: 1.4; }
+    @media (min-width: 768px) {
+      .Benefit__body {
+        font-size: 14pt; } }
   .Benefit__image {
     margin-top: 2em;
     padding: 2em; }
@@ -6814,8 +6847,11 @@ textarea {
         .Benefit__image--right {
           padding: 0;
           width: 400px; } }
+      .Benefit__image--right--first {
+        padding-top: 60px; }
       @media (min-width: 768px) {
         .Benefit__image--right--neg-marg {
+          padding-top: 60px;
           margin-top: -200px; } }
     .Benefit__image--left {
       width: 200px;

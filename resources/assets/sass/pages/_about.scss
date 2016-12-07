@@ -1,0 +1,30 @@
+.About {
+    padding-top: 100px;
+    height: 90vh;
+    background-image: radial-gradient(circle, #f98927, $brand-secondary 60%);
+
+    &__title {
+        font-family: baloo; 
+        color: white; 
+        margin: 0;
+        text-align: center;
+    }
+
+    &__body {
+        color: black; 
+        // background-color: rgba(255,255,255,0.85); 
+        border-radius: 5px; 
+        padding: 20px; 
+        text-align: center; 
+        font-size: 24px;
+    }
+    &__image {
+      height: 100vh;
+        position: relative;
+        background: url(/images/about/matex_yarn.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+}

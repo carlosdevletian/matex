@@ -6530,13 +6530,18 @@ body.swal2-iosfix {
   margin-right: 5px;
   margin-left: 10px; }
 
-.navbar-home {
+.navbar-home,
+.navbar-about {
   color: white;
   background-color: rgba(255, 255, 255, 0);
   border-width: 0; }
 
-.navbar-default .navbar-home > li > a {
+.navbar-default .navbar-home > li > a,
+.navbar-default .navbar-about > li > a {
   color: white; }
+
+.navbar-default .navbar-about > li > a:hover {
+  color: #0000AA; }
 
 .form-label {
   display: block;
@@ -6863,5 +6868,27 @@ textarea {
       @media (min-width: 768px) {
         .Benefit__image--left--neg-marg {
           margin-top: -200px; } }
+
+.About {
+  padding-top: 100px;
+  height: 90vh;
+  background-image: -webkit-radial-gradient(circle, #f98927, #F16A01 60%);
+  background-image: radial-gradient(circle, #f98927, #F16A01 60%); }
+  .About__title {
+    font-family: baloo;
+    color: white;
+    margin: 0;
+    text-align: center; }
+  .About__body {
+    color: black;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px; }
+  .About__image {
+    height: 100vh;
+    position: relative;
+    background: url(/images/about/matex_yarn.jpg) no-repeat center center fixed;
+    background-size: cover; }
 
 /*# sourceMappingURL=app.css.map */

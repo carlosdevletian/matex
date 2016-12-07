@@ -12,12 +12,18 @@
     margin-left: 10px;
 }
 
-.navbar-home {
+.navbar-home,
+.navbar-about {
     color: white;
     background-color: rgba(255,255,255,0);
     border-width: 0;
 }
 
-.navbar-default .navbar-home > li > a  {
+.navbar-default .navbar-home > li > a,
+.navbar-default .navbar-about > li > a  {
     color: white;
+}
+
+.navbar-default .navbar-about > li > a:hover  {
+    color: $brand-primary;
 }

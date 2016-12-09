@@ -6734,6 +6734,12 @@ textarea {
   background-image: -webkit-radial-gradient(circle, #1659CF, #0000AA 60%);
   background-image: radial-gradient(circle, #1659CF, #0000AA 60%);
   color: white; }
+  @media (min-width: 340px) {
+    .Landing {
+      min-height: 568px; } }
+  @media (min-width: 544px) {
+    .Landing {
+      min-height: 667px; } }
   .Landing__title {
     font-size: 24pt; }
   .Landing__body {
@@ -6871,14 +6877,21 @@ textarea {
 
 .About {
   padding-top: 100px;
-  height: 90vh;
+  height: 80vh;
   background-image: -webkit-radial-gradient(circle, #f98927, #F16A01 60%);
   background-image: radial-gradient(circle, #f98927, #F16A01 60%); }
   .About__title {
     font-family: baloo;
     color: white;
-    margin: 0;
-    text-align: center; }
+    margin: auto;
+    text-align: left;
+    font-size: 2em; }
+    @media (min-width: 544px) {
+      .About__title {
+        font-size: 5em; } }
+    @media (min-width: 768px) {
+      .About__title {
+        font-size: 6em; } }
   .About__body {
     color: black;
     border-radius: 5px;
@@ -6890,5 +6903,59 @@ textarea {
     position: relative;
     background: url(/images/about/matex_yarn.jpg) no-repeat center center fixed;
     background-size: cover; }
+  .About__quote {
+    padding: 15px;
+    font-size: 1.5em;
+    text-align: center;
+    border-style: solid;
+    border-radius: 30px;
+    background-color: white;
+    color: #F16A01;
+    border-color: #F16A01; }
+  .About__time {
+    padding: 0; }
+    @media (min-width: 544px) {
+      .About__time {
+        padding-right: 20px;
+        padding-left: 20px; } }
+    @media (min-width: 992px) {
+      .About__time {
+        padding-top: 60px;
+        padding-right: 60px;
+        padding-left: 60px; } }
+    .About__time__image {
+      max-width: 200px;
+      margin: 0 auto;
+      width: 100px; }
+      @media (min-width: 768px) {
+        .About__time__image {
+          width: 200px; } }
+    .About__time__line {
+      max-height: 500px;
+      margin: 0 auto; }
+      @media (min-width: 768px) {
+        .About__time__line {
+          max-height: 1000px; } }
+      @media (min-width: 992px) {
+        .About__time__line {
+          max-height: 1100px; } }
+    .About__time__box {
+      font-size: 1em;
+      margin: 15px;
+      padding: 0px;
+      text-align: center; }
+      @media (min-width: 768px) {
+        .About__time__box {
+          font-size: 1.5em;
+          margin: 30px;
+          padding: 10px; } }
+      @media (min-width: 992px) {
+        .About__time__box {
+          font-size: 1.5em;
+          margin: 40px;
+          padding: 10px; } }
+
+.neg-marg-top {
+  margin-top: -35px; }
 
 /*# sourceMappingURL=app.css.map */

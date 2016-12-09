@@ -1,13 +1,21 @@
 .About {
     padding-top: 100px;
-    height: 90vh;
+    height: 80vh;
     background-image: radial-gradient(circle, #f98927, $brand-secondary 60%);
 
     &__title {
         font-family: baloo; 
         color: white; 
-        margin: 0;
-        text-align: center;
+        margin: auto;
+        text-align: left;
+        font-size: 2em;
+        @include sm(){
+            font-size: 5em;
+        }
+        @include md(){
+            font-size: 6em;
+        }
+
     }
 
     &__body {
@@ -19,7 +27,7 @@
         font-size: 24px;
     }
     &__image {
-      height: 100vh;
+        height: 100vh;
         position: relative;
         background: url(/images/about/matex_yarn.jpg) no-repeat center center fixed;
         -webkit-background-size: cover;
@@ -27,4 +35,65 @@
         -o-background-size: cover;
         background-size: cover;
     }
+    &__quote {
+      padding: 15px; 
+      font-size: 1.5em;
+      text-align: center;
+      border-style: solid; 
+      border-radius: 30px; 
+      background-color: white; 
+      color: $brand-secondary; 
+      border-color: $brand-secondary; 
+    }
+    &__time {
+        padding: 0;
+
+        @include sm(){
+            padding-right: 20px; 
+            padding-left: 20px; 
+        }
+
+         @include lg(){
+            padding-top: 60px;
+            padding-right: 60px; 
+            padding-left: 60px; 
+        }
+        &__image {
+            max-width: 200px;
+            margin: 0 auto;
+            width: 100px;
+             @include md(){
+                width: 200px;
+            }
+        }
+        &__line {
+            max-height: 500px;
+            margin: 0 auto;
+            @include md() {
+                max-height: 1000px;
+            }
+            @include lg() {
+                max-height: 1100px;
+            }
+        }
+        &__box {
+            font-size: 1em;
+            margin: 15px;
+            padding: 0px;
+            text-align: center;
+             @include md(){
+                font-size: 1.5em;
+                margin: 30px;
+                padding: 10px;
+            }
+             @include lg(){
+                font-size: 1.5em;
+                margin: 40px;
+                padding: 10px;
+            }
+        }
+    }
+}
+.neg-marg-top {
+    margin-top: -35px;
 }

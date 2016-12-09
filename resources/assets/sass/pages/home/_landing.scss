@@ -5,6 +5,12 @@
     max-height: 800px;
     background-image: radial-gradient(circle, $gradient-blue, $brand-primary 60%);
     color: white;
+    @include xs(){
+        min-height: 568px;
+    }
+    @include sm(){
+        min-height: 667px;
+    }
 
     &__title {
         font-size: 24pt;

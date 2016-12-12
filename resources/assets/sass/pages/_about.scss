@@ -4,8 +4,8 @@
     background-image: radial-gradient(circle, #f98927, $brand-secondary 60%);
 
     &__title {
-        font-family: baloo; 
-        color: white; 
+        font-family: baloo;
+        color: white;
         margin: auto;
         text-align: left;
         font-size: 2em;
@@ -19,11 +19,11 @@
     }
 
     &__body {
-        color: black; 
-        // background-color: rgba(255,255,255,0.85); 
-        border-radius: 5px; 
-        padding: 20px; 
-        text-align: center; 
+        color: black;
+        // background-color: rgba(255,255,255,0.85);
+        border-radius: 5px;
+        padding: 20px;
+        text-align: center;
         font-size: 24px;
     }
     &__image {
@@ -36,28 +36,19 @@
         background-size: cover;
     }
     &__quote {
-      padding: 15px; 
+      padding: 15px;
       font-size: 1.5em;
       text-align: center;
-      border-style: solid; 
-      border-radius: 30px; 
-      background-color: white; 
-      color: $brand-secondary; 
-      border-color: $brand-secondary; 
+      border-style: solid;
+      border-radius: 30px;
+      background-color: white;
+      color: $brand-secondary;
+      border-color: $brand-secondary;
     }
     &__time {
-        padding: 0;
+        width: 100%;
+        margin: 50px 0px;
 
-        @include sm(){
-            padding-right: 20px; 
-            padding-left: 20px; 
-        }
-
-         @include lg(){
-            padding-top: 60px;
-            padding-right: 60px; 
-            padding-left: 60px; 
-        }
         &__image {
             max-width: 200px;
             margin: 0 auto;
@@ -65,31 +56,17 @@
              @include md(){
                 width: 200px;
             }
-        }
-        &__line {
-            max-height: 500px;
-            margin: 0 auto;
-            @include md() {
-                max-height: 1000px;
-            }
-            @include lg() {
-                max-height: 1100px;
+            &--circle {
+                margin: 0px auto;
+                max-width: 40px;
             }
         }
-        &__box {
-            font-size: 1em;
-            margin: 15px;
-            padding: 0px;
-            text-align: center;
-             @include md(){
-                font-size: 1.5em;
-                margin: 30px;
-                padding: 10px;
-            }
-             @include lg(){
-                font-size: 1.5em;
-                margin: 40px;
-                padding: 10px;
+        &__cell {
+            padding: 10px;
+            &--line {
+                background-image:url('/images/about/about_line.png');
+                background-repeat:no-repeat;
+                background-position:center;
             }
         }
     }

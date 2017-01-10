@@ -24,6 +24,11 @@ Route::post('/contact', [
     'as' => 'contact'
 ]);
 
+Route::get('/orders/{order}', [
+    'uses' => 'OrderController@show',
+    'as' => 'orders-show'
+]);
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard')->middleware('auth');

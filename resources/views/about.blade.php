@@ -51,13 +51,13 @@
         <div class="col-xs-8 col-xs-offset-2 About__quote" style="border-color: #0000AA; color: #0000AA;">our background...</div>
     </div>
 </div>
-<div class="Landing neg-marg-top">
+<div class="About--background neg-marg-top">
     <div class="container" style="">
         <div class="row">
-            <h1 class="col-sm-12 About__title">
+            <h1 class="col-sm-12 About__title" style="color: #0000AA">
                 Lorem ipsum dolor sit amet, consectetur adipisicing
-            </h1><!--
-            <img src="/images/about/about_world.png" class="img-responsive" style="max-width: 400px; margin: 0 auto; background-color: white; border-radius: 100%"> -->
+            </h1>
+            <img src="/images/about/about_world.png" class="img-responsive" style="max-width: 400px; margin: 0 auto; background-color: white; border-radius: 100%"> 
         </div>
     </div>
 </div>

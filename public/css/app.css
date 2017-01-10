@@ -6880,6 +6880,10 @@ textarea {
   height: 80vh;
   background-image: -webkit-radial-gradient(circle, #f98927, #F16A01 60%);
   background-image: radial-gradient(circle, #f98927, #F16A01 60%); }
+  .About--background {
+    color: #0000AA;
+    border-top-style: solid;
+    border-top-color: #0000AA; }
   .About__title {
     font-family: baloo;
     color: white;
@@ -6913,16 +6917,8 @@ textarea {
     color: #F16A01;
     border-color: #F16A01; }
   .About__time {
-    padding: 0; }
-    @media (min-width: 544px) {
-      .About__time {
-        padding-right: 20px;
-        padding-left: 20px; } }
-    @media (min-width: 992px) {
-      .About__time {
-        padding-top: 60px;
-        padding-right: 60px;
-        padding-left: 60px; } }
+    width: 100%;
+    margin: 50px 0px; }
     .About__time__image {
       max-width: 200px;
       margin: 0 auto;
@@ -6930,30 +6926,15 @@ textarea {
       @media (min-width: 768px) {
         .About__time__image {
           width: 200px; } }
-    .About__time__line {
-      max-height: 500px;
-      margin: 0 auto; }
-      @media (min-width: 768px) {
-        .About__time__line {
-          max-height: 1000px; } }
-      @media (min-width: 992px) {
-        .About__time__line {
-          max-height: 1100px; } }
-    .About__time__box {
-      font-size: 1em;
-      margin: 15px;
-      padding: 0px;
-      text-align: center; }
-      @media (min-width: 768px) {
-        .About__time__box {
-          font-size: 1.5em;
-          margin: 30px;
-          padding: 10px; } }
-      @media (min-width: 992px) {
-        .About__time__box {
-          font-size: 1.5em;
-          margin: 40px;
-          padding: 10px; } }
+      .About__time__image--circle {
+        margin: 0px auto;
+        max-width: 40px; }
+    .About__time__cell {
+      padding: 10px; }
+      .About__time__cell--line {
+        background-image: url("/images/about/about_line.png");
+        background-repeat: no-repeat;
+        background-position: center; }
 
 .neg-marg-top {
   margin-top: -35px; }

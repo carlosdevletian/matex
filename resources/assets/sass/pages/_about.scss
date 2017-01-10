@@ -3,6 +3,12 @@
     height: 80vh;
     background-image: radial-gradient(circle, #f98927, $brand-secondary 60%);
 
+    &--background {
+        color: $brand-primary;
+        border-top-style: solid;
+        border-top-color: $brand-primary;
+    }
+
     &__title {
         font-family: baloo;
         color: white;
@@ -15,7 +21,6 @@
         @include md(){
             font-size: 6em;
         }
-
     }
 
     &__body {

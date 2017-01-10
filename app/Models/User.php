@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Notifications\Notifiable;
@@ -38,5 +38,20 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         Mail::to($this->email)->send(new PasswordResetMail($token));
+    }
+
+    public function address()
+    {
+        return $this->hasMany(Adress::class);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function hasOrder($order)
+    {
+        return $this->id == $order->user_id;
     }
 }

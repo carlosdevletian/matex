@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Design extends Model
 {
-    public function design()
+    public function items()
     {
-        return $this->belongsTo(Design::class);
+        return $this->hasMany(Item::class);
     }
 }

@@ -24,9 +24,24 @@ Route::post('/contact', [
     'as' => 'contact'
 ]);
 
+Route::get('/categories', [
+    'uses' => 'CategoryController@index',
+    'as' => 'categories.index'
+]);
+
+Route::get('/categories/{category}/designs/create', [
+    'uses' => 'DesignController@create',
+    'as' => 'designs.create'
+]);
+
+Route::get('/categories/{category}/designs/{design}/products/select', [
+    'uses' => 'ProductController@select',
+    'as' => 'products.select'
+]);
+
 Route::get('/orders/{order}', [
     'uses' => 'OrderController@show',
-    'as' => 'orders-show'
+    'as' => 'orders.show'
 ]);
 
 Route::get('/dashboard', function () {

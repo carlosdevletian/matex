@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Design;
+use App\Models\User;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\Design;
 use App\Models\Product;
-use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -38,7 +38,7 @@ class ViewOrderTest extends TestCase
 
         $this->actingAs($user)
              ->json('GET','/orders/'.$order->id);
-        
+
         $this->assertResponseStatus(200);
         $this->assertTrue($user->hasOrder($order));
     }
@@ -53,7 +53,7 @@ class ViewOrderTest extends TestCase
 
         $this->actingAs($user2)
              ->json('GET','/orders/'.$order->id);
-        
+
         $this->assertResponseStatus(403);
     }
 
@@ -67,7 +67,7 @@ class ViewOrderTest extends TestCase
 
         $this->actingAs($admin)
              ->json('GET','/orders/'.$order->id);
-        
+
         $this->assertResponseStatus(200);
     }
 
@@ -78,7 +78,7 @@ class ViewOrderTest extends TestCase
         $order = $this->createOrder($user->id);
 
         $this->json('GET','/orders/'.$order->id);
-        
+
         $this->assertResponseStatus(403);
     }
 }

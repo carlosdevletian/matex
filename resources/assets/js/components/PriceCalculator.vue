@@ -47,7 +47,7 @@
                 var selected = false;
 
                 this.selected.forEach(function(item) {
-                    if (item.id == vm.currentSelected[1]) {
+                    if (item.id == vm.currentSelected[0][1]) {
                         selected = true;
                     }
                 });

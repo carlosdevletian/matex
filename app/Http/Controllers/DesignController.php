@@ -60,7 +60,7 @@ class DesignController extends Controller
         } 
 
         $design = Design::create([
-            'image_name' => '/designs/' . $filename,
+            'image_name' => $filename,
             'price' => 0
             // Falta agregar el comentario introducido por el usuario
         ]);

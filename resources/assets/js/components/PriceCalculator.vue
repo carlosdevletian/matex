@@ -1,29 +1,16 @@
 <template>
     <div class="row">
         <div class="col-xs-6">
-                <form v-on:submit.prevent="onSubmit">
-                    {{ csrf_field() }}<!-- 
-                    <div class="col-xs-4">
-                        <textarea name="comments"></textarea>
-                    </div> -->
-                     <ul>
-                        <div class="col-xs-4">
-                            <div v-for="product in products">
+            <button @click="hidden=true">+</button>
+            <select multiple v-if="hidden" v-model="currentSelected" @change="updateSelectedProducts()">
+                <option :value="[product.name, product.id]" v-for="product in products">
+                    {{ product.name }}
+                </option>
+            </select>
 
-                                <div class="col-xs-6">
-                                    <li>{{ product.name }}</li>
-                                    <input type="checkbox" name="category[]">
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="row">
-                                        <p>Cantidad</p>
-                                        <input type="number" name="items[{{ product.id }}]">
-                                    </div>
-                                </div> 
-                        </div>
-                    </ul>
-                    <button type="submit">Submit</button>
-                </form>
+            <div v-for="item in selected">
+                <item :item="item"></item>
+            </div>
         </div>
     </div>
 </template>
@@ -34,6 +21,9 @@
         data: function() {
             return {
                 'products' : '',
+                'currentSelected': [],
+                'selected' : [],
+                'hidden' : false
             };
         },
         mounted: function () {
@@ -41,5 +31,28 @@
                 this.products = response.body;
            });
         },
+        methods: {
+            updateSelectedProducts: function() {
+                if(! this.alreadySelected()) {
+                    this.hidden = false;
+                    var item = {
+                        name : this.currentSelected[0][0],
+                        id : this.currentSelected[0][1]
+                    };
+                    this.selected.push(item);
+                }
+            },
+            alreadySelected: function() {
+                var vm = this;
+                var selected = false;
+
+                this.selected.forEach(function(item) {
+                    if (item.id == vm.currentSelected[1]) {
+                        selected = true;
+                    }
+                });
+                return selected;
+            }
+        }
     }
 </script>

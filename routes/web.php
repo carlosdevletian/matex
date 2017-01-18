@@ -69,7 +69,7 @@ Auth::routes();
 
 Route::get('images/{image}', function($image = null)
 {
-    $path = storage_path() . '/app/designs/' . $image . '.png';
+    $path = storage_path() . '/app/designs/' . $image;
     if(!File::exists($path)) abort(404);
     $file = File::get($path);
     $type = File::mimeType($path);

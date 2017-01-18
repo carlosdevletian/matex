@@ -4,9 +4,9 @@ use App\Models\User;
 use App\Models\Design;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class CreateOrderTest extends TestCase
 {

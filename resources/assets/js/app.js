@@ -12,6 +12,8 @@ require('./bootstrap');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
+Vue.component('item', require('./components/Item.vue'));
 Vue.component('modal', require('./components/Modal.vue'));
 Vue.component('contact-modal', require('./components/ContactModal.vue'));
 Vue.component('price-calculator', require('./components/PriceCalculator.vue'));

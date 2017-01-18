@@ -14,6 +14,7 @@ require('./bootstrap');
  */
 Vue.component('modal', require('./components/Modal.vue'));
 Vue.component('contact-modal', require('./components/ContactModal.vue'));
+Vue.component('price-calculator', require('./components/PriceCalculator.vue'));
 
 const app = new Vue({
     el: '#app',

@@ -14,3 +14,9 @@
     @include('home/benefits')
 
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        console.log('epa')
+    </script>
+@endpush

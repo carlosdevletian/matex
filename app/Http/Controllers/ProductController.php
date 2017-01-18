@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Design;
 use App\Models\Category;
+use App\Models\Design;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -24,9 +25,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($categoryId)
     {
-        //
+        return Product::where('category_id', $categoryId)->get();
     }
 
     /**

@@ -24,6 +24,11 @@ Route::post('/contact', [
     'as' => 'contact'
 ]);
 
+Route::post('/designs', [
+    'uses' => 'DesignController@store',
+    'as' => 'designs.store'
+]);
+
 Route::get('/categories', [
     'uses' => 'CategoryController@index',
     'as' => 'categories.index'
@@ -34,14 +39,26 @@ Route::get('/categories/{category}/designs/create', [
     'as' => 'designs.create'
 ]);
 
-Route::get('/categories/{category}/designs/{design}/products/select', [
-    'uses' => 'ProductController@select',
-    'as' => 'products.select'
+Route::get('categories/{category}/designs/{design}/orders/create', [
+    'uses' => 'OrderController@create',
+    'as' => 'order.create'
 ]);
+
+Route::get('/category/{category}/products', 'ProductController@index');
+
+// Route::get('/categories/{category}/designs/{design}/products/select', [
+//     'uses' => 'ProductController@select',
+//     'as' => 'products.select'
+// ]);
 
 Route::get('/orders/{order}', [
     'uses' => 'OrderController@show',
     'as' => 'orders.show'
+]);
+
+Route::post('/orders', [
+    'uses' => 'OrderController@store',
+    'as' => 'orders.store'
 ]);
 
 Route::get('/dashboard', function () {
@@ -49,3 +66,14 @@ Route::get('/dashboard', function () {
 })->name('dashboard')->middleware('auth');
 
 Auth::routes();
+
+Route::get('images/{image}', function($image = null)
+{
+    $path = storage_path() . '/app/designs/' . $image . '.png';
+    if(!File::exists($path)) abort(404);
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->name('image_path');

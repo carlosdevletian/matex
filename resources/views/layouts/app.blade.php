@@ -55,15 +55,14 @@
                     @include('layouts.footer')
                 </footer>
             <!-- </div> -->
-
             @include('components.modals')
 
-            <!-- Scripts -->
-            <script src="{{ URL::to('js/app.js') }}"></script>
-
-            @include('layouts.flash')
-
-            @stack('scripts')
         </div>
+        <!-- Scripts -->
+        <script src="{{ URL::to('js/app.js') }}"></script>
+
+        @include('layouts.flash')
+
+        @stack('scripts')
     </body>
 </html>

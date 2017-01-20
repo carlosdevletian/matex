@@ -77,3 +77,32 @@ Route::get('images/{image}', function($image = null)
     $response->header("Content-Type", $type);
     return $response;
 })->name('image_path');
+
+Route::post('/calculatePrice', function() {
+    switch (request()->product_id) {
+        case 1:
+            $price = request()->quantity * 10;
+            return response()->json(['price' => $price], 200);
+            break;
+
+        case 2:
+        $price = request()->quantity * 20;
+        return response()->json(['price' => $price], 200);
+        break;
+
+        case 3:
+            $price = request()->quantity * 30;
+            return response()->json(['price' => $price], 200);
+            break;
+
+        case 4:
+        $price = request()->quantity * 40;
+        return response()->json(['price' => $price], 200);
+        break;
+        
+        default:
+            $price = request()->quantity * 50;
+            return response()->json(['price' => $price], 200);
+            break;
+    }
+});

@@ -24,6 +24,7 @@ const app = new Vue({
     data: {
         showContactModal: false,
         modalActive: false,
+        orderItems: [],
     },
 
     methods: {
@@ -34,6 +35,29 @@ const app = new Vue({
         closeContactModal: function() {
             this.showContactModal = false;
             this.modalActive = false;
+        },
+        updateOrderItems: function(newItem) {  
+            var foundDuplicateItem = false; 
+
+            this.orderItems.forEach(function(oldItem) {
+                if (oldItem.product_id == newItem.product_id) {
+                    oldItem.quantity = newItem.quantity;
+                    foundDuplicateItem = true;
+                }
+            });
+
+            if(! foundDuplicateItem) {
+                this.orderItems.push(newItem);
+            }
+        },
+        deleteItem: function(productId) {
+            var vm = this;
+
+            this.orderItems.forEach(function(item, index){ 
+                if(item.product_id == productId){ 
+                    vm.orderItems.splice(index, 1);
+                } 
+            });
         }
     }
 });

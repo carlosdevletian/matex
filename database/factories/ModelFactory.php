@@ -116,3 +116,27 @@ $factory->define(App\Models\Role::class, function (Faker\Generator $faker) {
         'name' => 'user',
     ];
 });
+
+$factory->define(App\Models\Item::class, function (Faker\Generator $faker) {
+    return [
+        'cart_id' => null,
+        'order_id' => null,
+        'product_id' => function () {
+            return factory(App\Models\Product::class)->create()->id;
+        },
+        'design_id' => function () {
+            return factory(App\Models\Design::class)->create()->id;
+        },
+        'quantity' => $faker->numberBetween($min = 5, $max = 1000),
+        'unit_price' => $faker->numberBetween($min = 10, $max = 100),
+        'total_price' => $faker->numberBetween($min = 1000, $max = 9000),
+    ];
+});
+
+$factory->define(App\Models\Cart::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => function () {
+            return factory(App\Models\User::class)->create()->id;
+        }
+    ];
+});

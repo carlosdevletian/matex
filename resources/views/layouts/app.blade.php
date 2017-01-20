@@ -40,6 +40,10 @@
             }
         </script>
 
+        <!-- Font Awesome -->
+        <script src="https://use.fontawesome.com/1ab38b75fc.js"></script>
+
+
         @stack('styles')
     </head>
     <body>
@@ -60,6 +64,11 @@
         </div>
         <!-- Scripts -->
         <script src="{{ URL::to('js/app.js') }}"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('[data-toggle="tooltip"]').tooltip();   
+            });
+        </script>
 
         @include('layouts.flash')
 

@@ -35,20 +35,4 @@ class CreateOrderTest extends TestCase
 
         $this->see('Bracelets');
     }
-
-    /** @test */
-    function view_products_for_design()
-    {
-        $category = factory(Category::class)->create(['name' => 'Bracelets']);
-        $design = factory(Design::class)->create(['image_name' => 'test_filename.jpg']);
-        $product = factory(Product::class)->create(['name' => 'small bracelet', 'category_id' => $category->id]);
-        $product2 = factory(Product::class)->create(['name' => 'medium bracelet', 'category_id' => $category->id]);
-
-        $this->json('GET', "categories/{$category->id}/designs/{$design->id}/products/select");
-
-        $this->see('Bracelets');
-        $this->see('test_filename.jpg');
-        $this->see('small bracelet');
-        $this->see('medium bracelet');
-    }
 }

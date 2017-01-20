@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cart;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Notifications\Notifiable;
 use App\Mail\ResetPassword as PasswordResetMail;
@@ -48,6 +49,11 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
     }
 
     public function hasOrder($order)

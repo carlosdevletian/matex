@@ -15,7 +15,8 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('order_id')->unsigned();
+            $table->integer('order_id')->unsigned()->nullable();
+            $table->integer('cart_id')->unsigned()->nullable();
             $table->integer('product_id')->unsigned();
             $table->integer('design_id')->unsigned();
             $table->integer('quantity')->unsigned();
@@ -23,6 +24,7 @@ class CreateItemsTable extends Migration
             $table->integer('unit_price')->nullable()->unsigned();
             $table->timestamps();
 
+            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('set null');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('design_id')->references('id')->on('designs')->onDelete('set null');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');

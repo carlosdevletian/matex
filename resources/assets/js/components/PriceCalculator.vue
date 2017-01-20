@@ -23,12 +23,16 @@
                 </div>
             </div>
         </div>
+        <div class="col-xs-3" v-if="selected.length > 0">
+            <button class="btn btn-primary" :disabled="totalPrice <= 0" @click="addToCart">Add to cart</button>
+            <button class="btn btn-primary" :disabled="totalPrice <= 0">Proceed to checkout</button>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['categoryId'],
+        props: ['categoryId', 'designId'],
         data: function() {
             return {
                 'products' : '',
@@ -50,7 +54,9 @@
                         product_id : this.currentSelected[0][0],
                         name : this.currentSelected[0][1],
                         quantity: 0,
-                        price: 0,
+                        unit_price: 0,
+                        total_price: 0,
+                        design_id: this.designId
                     };
                     this.selected.push(item);
                 }
@@ -77,13 +83,16 @@
                     } 
                 });
                 this.$emit('item-deleted', productId);
+            },
+            addToCart: function() {
+                this.$emit('add-to-cart');
             }
         },
         computed: {
             totalPrice: function() {
                 var total = 0;
                 this.selected.forEach(function(item) {
-                    total = (total + item.price);
+                    total = (total + item.total_price);
                 });
                 return total;
             }

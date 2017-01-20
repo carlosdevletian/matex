@@ -42,6 +42,8 @@ const app = new Vue({
             this.orderItems.forEach(function(oldItem) {
                 if (oldItem.product_id == newItem.product_id) {
                     oldItem.quantity = newItem.quantity;
+                    oldItem.unit_price = newItem.unit_price;
+                    oldItem.total_price = newItem.total_price;
                     foundDuplicateItem = true;
                 }
             });
@@ -58,6 +60,9 @@ const app = new Vue({
                     vm.orderItems.splice(index, 1);
                 } 
             });
+        },
+        addToCart: function(){
+            this.$http.post('/addToCart', this.orderItems).then((response) => { window.location = '/' });
         }
     }
 });

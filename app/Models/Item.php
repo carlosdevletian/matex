@@ -8,10 +8,12 @@ class Item extends Model
 {
     protected $fillable = [
         'order_id',
+        'cart_id',
         'design_id',
         'product_id',
         'quantity',
-        'price'
+        'unit_price',
+        'total_price'
     ];
 
     public function product()

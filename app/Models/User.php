@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Cart;
+use App\Models\Address;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Notifications\Notifiable;
 use App\Mail\ResetPassword as PasswordResetMail;
@@ -41,9 +42,9 @@ class User extends Authenticatable
         Mail::to($this->email)->send(new PasswordResetMail($token));
     }
 
-    public function address()
+    public function addresses()
     {
-        return $this->hasMany(Adress::class);
+        return $this->hasMany(Address::class);
     }
 
     public function role()

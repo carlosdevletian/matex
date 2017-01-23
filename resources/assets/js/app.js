@@ -16,6 +16,7 @@ require('./bootstrap');
 Vue.component('item', require('./components/Item.vue'));
 Vue.component('modal', require('./components/Modal.vue'));
 Vue.component('contact-modal', require('./components/ContactModal.vue'));
+Vue.component('address-selector', require('./components/AddressSelector.vue'));
 Vue.component('price-calculator', require('./components/PriceCalculator.vue'));
 
 const app = new Vue({
@@ -25,6 +26,8 @@ const app = new Vue({
         showContactModal: false,
         modalActive: false,
         orderItems: [],
+        showAddress: false,
+        addressId: ''
     },
 
     methods: {
@@ -63,6 +66,9 @@ const app = new Vue({
         },
         addToCart: function(){
             this.$http.post('/addToCart', this.orderItems).then((response) => { window.location = '/' });
+        },
+        storeAddress: function(addressId) {
+            this.addressId = addressId;
         }
     }
 });

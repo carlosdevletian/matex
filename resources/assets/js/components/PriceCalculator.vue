@@ -25,7 +25,7 @@
         </div>
         <div class="col-xs-3" v-if="selected.length > 0">
             <button class="btn btn-primary" :disabled="totalPrice <= 0" @click="addToCart">Add to cart</button>
-            <button class="btn btn-primary" :disabled="totalPrice <= 0">Proceed to checkout</button>
+            <button class="btn btn-primary" :disabled="totalPrice <= 0" @click="showAddresses">Proceed to checkout</button>
         </div>
     </div>
 </template>
@@ -86,6 +86,9 @@
             },
             addToCart: function() {
                 this.$emit('add-to-cart');
+            },
+            showAddresses: function() {
+                this.$emit('display-addresses');
             }
         },
         computed: {

@@ -24,7 +24,7 @@ class CreateAddressesTable extends Migration
             $table->string('zip');
             $table->string('country');
             $table->string('phone_number');
-            $table->text('comment');
+            $table->text('comment')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

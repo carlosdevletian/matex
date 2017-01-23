@@ -82,3 +82,11 @@ Route::post('/calculatePrice', [
 Route::post('/addToCart', [
     'uses' => 'VueController@addToCart'
 ]);
+
+Route::post('/addresses', [
+    'uses' => 'AddressController@store'
+]);
+
+Route::get('/addresses', [
+    'uses' => 'AddressController@index'
+]);

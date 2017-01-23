@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\Design;
+use App\Models\Address;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
@@ -16,6 +17,8 @@ class InitialSeeder extends Seeder
     public function run()
     {
         $user = User::create(['name' => 'Alejandro', 'email' => 'alkv93@gmail.com', 'password' => bcrypt('123123')]);
+
+        $address = factory(Address::class)->states('with-user')->create(['user_id' => $user->id, 'email' => $user->email ]);
 
         $category = factory(Category::class)->create(['name' => 'Bracelets']);
         

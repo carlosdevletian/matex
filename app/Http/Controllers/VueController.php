@@ -9,10 +9,12 @@ class VueController extends Controller
 {
     public function addToCart()
     {
-        foreach (request()->toArray() as $item) {
-            $item['cart_id'] = auth()->user()->cart->id;
-            $newItem = Item::create($item);
-        }
+        $items = collect(request()->toArray());
+        $cartId = auth()->user()->cart->id;
+        $items->map(function($item) use($cartId){
+            $item['cart_id'] = $cartId;
+            return Item::create($item);
+        });
     }
 
     public function calculatePrice()

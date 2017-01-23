@@ -46,11 +46,6 @@ Route::get('categories/{category}/designs/{design}/orders/create', [
 
 Route::get('/category/{category}/products', 'ProductController@index');
 
-// Route::get('/categories/{category}/designs/{design}/products/select', [
-//     'uses' => 'ProductController@select',
-//     'as' => 'products.select'
-// ]);
-
 Route::get('/orders/{order}', [
     'uses' => 'OrderController@show',
     'as' => 'orders.show'
@@ -64,6 +59,8 @@ Route::post('/orders', [
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard')->middleware('auth');
+
+Route::get('/cart', 'CartController@show')->name('carts.show');
 
 Auth::routes();
 

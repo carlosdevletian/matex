@@ -49,7 +49,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Total: {{ auth()->user()->cart->orderTotal() }} ">
+                        <a href="{{ route('carts.show') }}" data-toggle="tooltip" data-placement="bottom" title="Total: {{ auth()->user()->cart->orderTotal() }} ">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         </a>
                     </li>

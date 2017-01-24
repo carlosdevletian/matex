@@ -2,14 +2,17 @@
     <div>
         <div class="row">
             <div class="col-xs-3">
-                <button @click="hidden=true" class="btn btn-default">+</button>
-                <select multiple v-if="hidden" v-model="currentSelected" @change="updateSelectedProducts()" class="form-control">
-                    <option :value="[product.id, product.name]" v-for="product in products">
-                        {{ product.name }}
-                    </option>
-                </select>
-                <div v-else>
-                    Click here to add items to your order!
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Add items to your order
+                    </div>
+                    <div class="panel-body">
+                        <select multiple v-model="currentSelected" @change="updateSelectedProducts()" class="form-control">
+                            <option :value="[product.id, product.name]" v-for="product in products">
+                                {{ product.name }}
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-6" v-if="selected.length > 0">

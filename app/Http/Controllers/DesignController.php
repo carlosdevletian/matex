@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use Image;
 use App\Models\Design;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -39,10 +40,9 @@ class DesignController extends Controller
     {
         $directory = storage_path('app/designs');
         if (! is_dir($directory) ) {
-            $directory = mkdir($directory, 0777, true);
+            mkdir($directory, 0777, true);
         }
         $encoded = substr($request->base64_image, strpos($request->base64_image, ",")+1);
-        $image = base64_decode($encoded);
 
         $user = 0;
         if (auth()->check()) {
@@ -51,7 +51,8 @@ class DesignController extends Controller
 
         $filename = $user . '-' . date("YmdHis") . '-' . $request->category_id . '.png';
         $filepath = $directory . '/' . $filename;
-        file_put_contents($filepath, $image);
+
+        Image::make($encoded)->crop(1077, 43, 61, 279)->save($filepath);
 
         if(! File::exists($filepath)) {
             return response()->json([
@@ -64,8 +65,6 @@ class DesignController extends Controller
             'price' => 0
             // Falta agregar el comentario introducido por el usuario
         ]);
-
-        // pasar diseño y categoria a view de crear orden
     
         return response()->json([
             'message' => 'Image successfully generated',

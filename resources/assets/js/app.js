@@ -15,6 +15,7 @@ require('./bootstrap');
 
 Vue.component('item', require('./components/Item.vue'));
 Vue.component('modal', require('./components/Modal.vue'));
+Vue.component('order', require('./components/Order.vue'));
 Vue.component('contact-modal', require('./components/ContactModal.vue'));
 Vue.component('address-selector', require('./components/AddressSelector.vue'));
 Vue.component('price-calculator', require('./components/PriceCalculator.vue'));
@@ -25,6 +26,7 @@ const app = new Vue({
     data: {
         stepOne: true,
         stepTwo: false,
+        stepThree: false,
         showContactModal: false,
         modalActive: false,
         orderItems: [],
@@ -66,16 +68,33 @@ const app = new Vue({
             });
         },
         addToCart: function(){
-            this.$http.post('/addToCart', this.orderItems).then((response) => { window.location = '/' });
+            this.$http.post('/addToCart', this.orderItems).then((response) => { window.location = '/cart' });
         },
         storeAddress: function(addressId) {
             this.addressId = addressId;
+            this.enableStepThree();
         },
         disableStepTwo: function() {
             this.stepTwo = false;
+            this.stepThree = false;
         },
         enableStepTwo: function() {
-            this.stepTwo = true;
+            if(this.stepOne) {
+                this.stepTwo = true;
+            }
+        },
+        enableStepThree: function() {
+            if(this.stepTwo) {
+                this.stepThree = true;
+            }
+        },
+        createOrder: function () {
+            var order = {
+                address_id : this.addressId,
+                items: this.orderItems
+                // agregar tax, shipping, etc
+            };
+            this.$http.post('/orders', order).then((response) => { alert('Pagado') });
         }
     }
 });

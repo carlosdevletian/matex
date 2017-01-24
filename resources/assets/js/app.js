@@ -23,10 +23,11 @@ const app = new Vue({
     el: '#app',
 
     data: {
+        stepOne: true,
+        stepTwo: false,
         showContactModal: false,
         modalActive: false,
         orderItems: [],
-        showAddress: false,
         addressId: ''
     },
 
@@ -69,6 +70,12 @@ const app = new Vue({
         },
         storeAddress: function(addressId) {
             this.addressId = addressId;
+        },
+        disableStepTwo: function() {
+            this.stepTwo = false;
+        },
+        enableStepTwo: function() {
+            this.stepTwo = true;
         }
     }
 });

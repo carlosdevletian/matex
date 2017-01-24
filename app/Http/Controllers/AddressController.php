@@ -14,9 +14,11 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $addresses = Address::all();
-
-        return response()->json(['addresses' => $addresses], 200);
+        if(auth()->check()) {
+            $addresses = Address::where('user_id', auth()->user()->id)->get();
+            return response()->json(['addresses' => $addresses], 200);
+        }
+        return response()->json(['message' => 'User not signed in'], 404);
     }
 
     /**

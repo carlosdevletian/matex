@@ -1,17 +1,19 @@
 <template>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="col-xs-6" style="text-align: right">
-                {{ item.name }} [{{ item.product_id }}] :
-            </div>
-            <button @click="onDelete" class="btn btn-danger pull-right">x</button>
-            <div class="col-xs-4">
-                <input type="number" v-model="item.quantity" @change="validateQuantity" class="form-control" autofocus>
-                <div style="color: red">{{ error }}</div>
-            </div>
-            ${{ item.unit_price }}
-            ${{ item.total_price }}
-        </div>
+    <div class="col-xs-12">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>{{ item.name }} [{{ item.product_id }}] :</td>
+                    <td><input type="number" v-model="item.quantity" @change="validateQuantity" class="form-control" autofocus></td>
+                    <td>${{ item.unit_price }}</td>
+                    <td>${{ item.total_price }}</td>
+                    <td><button @click="onDelete" class="btn btn-danger pull-right">x</button></td>
+                </tr>
+                <tr v-if="error" class="text-center" style="color: red">
+                    {{ error }}
+                </tr>
+            </tbody>
+        </table>
     </div>
 </template>
 

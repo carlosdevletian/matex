@@ -10,16 +10,18 @@
             <div>
                 <img height="300px" width="500px" src="{{ route('image_path', ['image' => $design->image_name]) }}" alt="">
             </div>
-            <price-calculator 
+            <price-calculator
+                v-if="stepOne" 
                 category-id="{{ $categoryId }}" 
                 design-id="{{ $design->id }}"
+                @step-one-incomplete="disableStepTwo"
+                @enable-step-two="enableStepTwo"
                 @item-updated="updateOrderItems" 
                 @item-deleted="deleteItem" 
                 @add-to-cart="addToCart"
-                @display-addresses="showAddress = true" 
             ></price-calculator>
             <address-selector 
-                v-show="showAddress"
+                v-if="stepTwo"
                 @address-selected="storeAddress"
             ></address-selector>
         </div>

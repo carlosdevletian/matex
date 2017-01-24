@@ -1,16 +1,11 @@
 <template>
     <div class="row">
-        <div class="col-xs-6">
-            <h1>Select a shipping address</h1>
-            <div v-for="address in addresses" v-bind:class="{ selected : isSelected(address.id) }">
-                <h1>ID: {{ address.id }}</h1>
-                <h2>{{ address.name }}</h2>
-                <h3>{{ address.street }}</h3>
-                <h3>{{ address.city }}</h3>
-                <h3>{{ address.country }}</h3>
-                <button @click="select(address.id)" class="btn btn-primary">Select</button>
-            </div>
-            <button @click="showAddressForm=true" class="btn btn-primary">Add a new address</button>
+        <h2 class="text-center">
+            <a @click="showAddressForm=false">Select a shipping address</a> 
+            or 
+            <a @click="showAddressForm=true" style="hover:click">add a new one</a>
+        </h2>
+        <div class="col-xs-6 col-xs-offset-3">
             <div v-show="showAddressForm" class="panel panel-default">
                 <div class="panel-heading">
                     Create a new address
@@ -34,7 +29,30 @@
                         <label class="control-label">Comment</label>
                         <input class="form-control" type="text" v-model="newAddress.comment">
                     </div>
-                    <button class="btn btn-default" @click="createNewAddress">Add new address</button>
+                    <button class="btn btn-default pull-right" @click="createNewAddress">Submit</button>
+                </div>
+            </div>
+        </div>
+        <div v-for="address in addresses" v-show="!showAddressForm">
+            <div class="col-xs-4">
+                <div class="panel panel-default" v-bind:class="{ selected : isSelected(address.id) }">
+                    <div class="panel-heading">
+                        {{ address.name }}
+                    </div>
+                    <div class="panel-body">
+                        <div class="container">
+                            <div class="row">ID: {{ address.id }}</div>
+                            <div class="row">{{ address.street }}</div>
+                            <div class="row">{{ address.city }}</div>
+                            <div class="row">{{ address.state }}</div>
+                            <div class="row">{{ address.zip }}</div>
+                            <div class="row">{{ address.country }}</div>
+                            <div class="row">{{ address.comment }}</div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button @click="select(address.id)" class="btn btn-primary">Select</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,31 +1,38 @@
 <template>
-    <div class="row">
-        <div class="col-xs-3">
-            <button @click="hidden=true" class="btn btn-default">+</button>
-            <select multiple v-if="hidden" v-model="currentSelected" @change="updateSelectedProducts()" class="form-control">
-                <option :value="[product.id, product.name]" v-for="product in products">
-                    {{ product.name }}
-                </option>
-            </select>
-        </div>
-        <div class="col-xs-6" v-if="selected.length > 0">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">
-                    Selected Items
+    <div>
+        <div class="row">
+            <div class="col-xs-3">
+                <button @click="hidden=true" class="btn btn-default">+</button>
+                <select multiple v-if="hidden" v-model="currentSelected" @change="updateSelectedProducts()" class="form-control">
+                    <option :value="[product.id, product.name]" v-for="product in products">
+                        {{ product.name }}
+                    </option>
+                </select>
+                <div v-else>
+                    Click here to add items to your order!
                 </div>
-                <div class="panel-body">
-                    <div v-for="item in selected">
-                        <item :item="item" @quantity-updated="updateItem" @delete-item="deleteItem"></item>
+            </div>
+            <div class="col-xs-6" v-if="selected.length > 0">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">
+                        Selected Items
                     </div>
-                </div>
-                <div class="panel-footer" style="text-align:right">
-                    Total: {{ totalPrice }}
+                    <div class="panel-body">
+                        <div v-for="item in selected">
+                            <item :item="item" @quantity-updated="updateItem" @delete-item="deleteItem"></item>
+                        </div>
+                    </div>
+                    <div class="panel-footer" style="text-align:right">
+                        Total: {{ totalPrice }}
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-xs-3" v-if="selected.length > 0">
-            <button class="btn btn-primary" :disabled="totalPrice <= 0" @click="addToCart">Add to cart</button>
-            <button class="btn btn-primary" :disabled="totalPrice <= 0" @click="showAddresses">Proceed to checkout</button>
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4 text-center" v-if="selected.length > 0">
+                <button class="btn btn-primary" :disabled="!canContinue" @click="addToCart">Add to cart</button>
+                <button class="btn btn-primary" :disabled="!canContinue" @click="showAddresses">Continue with checkout</button>
+            </div>
         </div>
     </div>
 </template>
@@ -78,17 +85,23 @@
             deleteItem: function(productId) {
                 var vm = this;
                 this.selected.forEach( function(item, index){ 
-                    if(item.product_id == productId){ 
+                    if(item.product_id == productId){
                         vm.selected.splice(index, 1); 
                     } 
                 });
+                if(this.selected.length == 0) {
+                    this.stepOneIncomplete();
+                };
                 this.$emit('item-deleted', productId);
             },
             addToCart: function() {
                 this.$emit('add-to-cart');
             },
             showAddresses: function() {
-                this.$emit('display-addresses');
+                this.$emit('enable-step-two');
+            },
+            stepOneIncomplete: function() {
+                this.$emit('step-one-incomplete');
             }
         },
         computed: {
@@ -98,6 +111,14 @@
                     total = (total + item.total_price);
                 });
                 return total;
+            },
+            canContinue: function() {
+                if(this.totalPrice <= 0){
+                    this.stepOneIncomplete();
+                    return false;
+                }
+                // emitir evento para habilitar?
+                return true;
             }
         }
     }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Calculator;
 use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
@@ -24,5 +25,12 @@ class Item extends Model
     public function design()
     {
         return $this->belongsTo(Design::class);
+    }
+
+    public function calculatePricing()
+    {
+        $calculator = new Calculator();
+        $this->unit_price = $calculator->unitPrice($this->product_id, $this->design_id, $this->quantity);
+        $this->total_price = $calculator->totalPrice($this->quantity, $this->unit_price);
     }
 }

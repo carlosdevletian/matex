@@ -23,37 +23,34 @@ class OrderController extends Controller
 
     public function store()
     {
-        // dd(request()->toArray());
-
         // comments del usuario en alguna parte
     
+        // asociar la orden a un usuario o guest
         $order = Order::create([
+           'user_id' => auth()->user()->id,
            'address_id' => request()->address_id
         ]);
 
         foreach(request()->items as $itemData){
             if($itemData['quantity'] > 0) {
-                $item = Item::create([
-                     'order_id' => $order->id,
-                     'product_id' => $itemData['product_id'],
-                     'design_id' => $itemData['design_id'],
-                     'quantity' => $itemData['quantity'],
-                     'unit_price' => $itemData['unit_price'],
-                     'total_price' => $itemData['total_price']
-                ]);
+                $item = new Item;
+                $item->order_id = $order->id;
+                $item->product_id = $itemData['product_id'];
+                $item->design_id = $itemData['design_id'];
+                $item->quantity = $itemData['quantity'];
+
+                $item->calculatePricing();
+                $item->save();
                 // $item->removeFromCart();
-                // calcular el precio del item: tanto unitario como precio total
-                // ¿Colocar el precio que viene desde el front-end o calcularlo de nuevo? -> $item->assignPrice();
             }
         }
 
-        // asociar la orden a un usuario o guest
-        // crear un reference_number
-        // calcular subtotal, shipping, etc o traerlo del front-end
+        $order->assignReferenceNumber();
+        $order->calculatePricing();
+        $order->save();
 
         // PAGAR
 
         return response()->json(['order' => $order], 200);
-
     }
 }

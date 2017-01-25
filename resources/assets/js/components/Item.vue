@@ -4,7 +4,7 @@
             <tbody>
                 <tr>
                     <td>{{ item.name }} [{{ item.product_id }}] :</td>
-                    <td><input type="number" v-model="item.quantity" @change="validateQuantity" class="form-control" autofocus></td>
+                    <td><input onfocus="if(this.value == '0') { this.value = ''; }" type="number" v-model="item.quantity" @change="validateQuantity" class="form-control" autofocus></td>
                     <td>${{ item.unit_price }}</td>
                     <td>${{ item.total_price }}</td>
                     <td><button @click="onDelete" class="btn btn-danger pull-right">x</button></td>

@@ -20,6 +20,7 @@
 		<div id="navbar" class="collapse navbar-collapse navbar-home">
 			<ul class="nav navbar-nav {{ Route::currentRouteName() == 'home' ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' ? 'navbar-about' : ''}}">
 				<li><a href="{{ route('about') }}">About</a></li>
+                <li><a href="{{ route('designs.create', ['1'] ) }}">Design</a></li>
 				<li><a @click=" { openContactModal() } " role="button">Contact Us</a></li>
 			</ul>
             <ul class="nav navbar-nav navbar-right {{ Route::currentRouteName() == 'home' ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' ? 'navbar-about' : '' }}">

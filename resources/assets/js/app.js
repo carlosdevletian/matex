@@ -94,7 +94,7 @@ const app = new Vue({
                 items: this.orderItems
                 // agregar tax, shipping, etc
             };
-            this.$http.post('/orders', order).then((response) => { alert('Pagado') });
+            this.$http.post('/orders', order).then((response) => { window.location = '/orders/' + response.body.order.id });
         }
     }
 });

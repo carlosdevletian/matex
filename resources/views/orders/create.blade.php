@@ -11,7 +11,8 @@
                 <img height="43px" width="1077px" src="{{ route('image_path', ['image' => $design->image_name]) }}" alt="">
             </div>
             <price-calculator
-                v-if="stepOne" 
+                v-if="stepOne"
+                :step-two="stepTwo"
                 category-id="{{ $categoryId }}" 
                 design-id="{{ $design->id }}"
                 @step-one-incomplete="disableStepTwo"

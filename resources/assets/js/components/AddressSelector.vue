@@ -1,10 +1,38 @@
 <template>
     <div class="row">
         <h2 class="text-center">
-            <a @click="showAddressForm=false">Select a shipping address</a> 
-            or 
-            <a @click="showAddressForm=true" style="hover:click">add a new one</a>
+            <div v-if="addresses.length > 0">
+                <a @click="showAddressForm=false">Select a shipping address</a> 
+                or 
+                <a @click="showAddressForm=true" style="hover:click">add a new one</a>
+            </div>
+            <div v-else>
+                <a @click="showAddressForm=true" style="hover:click">Add an Address</a>
+            </div>
         </h2>
+        <div v-for="address in addresses" v-show="!showAddressForm" v-if="addresses.length > 0">
+            <div class="col-xs-4">
+                <div class="panel panel-default" v-bind:class="{ selected : isSelected(address.id) }">
+                    <div class="panel-heading">
+                        {{ address.name }}
+                    </div>
+                    <div class="panel-body">
+                        <div class="container">
+                            <div class="row">ID: {{ address.id }}</div>
+                            <div class="row">{{ address.street }}</div>
+                            <div class="row">{{ address.city }}</div>
+                            <div class="row">{{ address.state }}</div>
+                            <div class="row">{{ address.zip }}</div>
+                            <div class="row">{{ address.country }}</div>
+                            <div class="row">{{ address.comment }}</div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button @click="select(address.id)" class="btn btn-primary">Select</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-xs-6 col-xs-offset-3">
             <div v-show="showAddressForm" class="panel panel-default">
                 <div class="panel-heading">
@@ -30,29 +58,6 @@
                         <input class="form-control" type="text" v-model="newAddress.comment">
                     </div>
                     <button class="btn btn-default pull-right" @click="createNewAddress">Submit</button>
-                </div>
-            </div>
-        </div>
-        <div v-for="address in addresses" v-show="!showAddressForm">
-            <div class="col-xs-4">
-                <div class="panel panel-default" v-bind:class="{ selected : isSelected(address.id) }">
-                    <div class="panel-heading">
-                        {{ address.name }}
-                    </div>
-                    <div class="panel-body">
-                        <div class="container">
-                            <div class="row">ID: {{ address.id }}</div>
-                            <div class="row">{{ address.street }}</div>
-                            <div class="row">{{ address.city }}</div>
-                            <div class="row">{{ address.state }}</div>
-                            <div class="row">{{ address.zip }}</div>
-                            <div class="row">{{ address.country }}</div>
-                            <div class="row">{{ address.comment }}</div>
-                        </div>
-                    </div>
-                    <div class="panel-footer">
-                        <button @click="select(address.id)" class="btn btn-primary">Select</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -93,9 +98,14 @@
                 this.$emit('address-selected', this.selectedAddressId);
             },
             getAddresses: function() {
-                this.$http.get('/addresses').then((response) => { 
-                    this.addresses = response.body.addresses; 
+                this.$http.get('/addresses').then((response) => {
+                    this.addresses = response.body.addresses;
+                    
+                    if(this.addresses.length == 0){
+                        this.showAddressForm = true;
+                    };
                 });
+
             },
             createNewAddress: function() {
                 this.$http.post('/addresses', this.newAddress).then((response) => { 

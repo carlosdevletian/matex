@@ -33,7 +33,7 @@
         </div>
         <div class="row">
             <div class="col-xs-4 col-xs-offset-4 text-center" v-if="selected.length > 0">
-                <button class="btn btn-primary" :disabled="!canContinue" @click="addToCart">Add to cart</button>
+                <button class="btn btn-primary" :disabled="!canContinue" @click="addToCart" v-if="signedIn">Add to cart</button>
                 <button class="btn btn-primary" :disabled="!canContinue" @click="showAddresses" v-if="stepTwo == false">Continue with checkout</button>
             </div>
         </div>
@@ -45,10 +45,11 @@
         props: ['categoryId', 'designId', 'stepTwo'],
         data: function() {
             return {
-                'products' : '',
-                'currentSelected': [],
-                'selected' : [],
-                'hidden' : false,
+                products : '',
+                currentSelected: [],
+                selected : [],
+                hidden : false,
+                signedIn: Matex.signedIn,
             };
         },
         mounted: function () {

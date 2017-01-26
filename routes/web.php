@@ -11,56 +11,27 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home/home');
-})->name('home');
+Route::get('/', function () { return view('home/home'); })->name('home');
 
-Route::get('/about-us', function () {
-    return view('about');
-})->name('about');
+Route::get('/about-us', function () { return view('about'); })->name('about');
 
-Route::post('/contact', [
-    'uses' => 'ContactController@store',
-    'as' => 'contact'
-]);
+Route::post('/contact', ['uses' => 'ContactController@store', 'as' => 'contacts.store']);
 
-Route::post('/designs', [
-    'uses' => 'DesignController@store',
-    'as' => 'designs.store'
-]);
+Route::post('/designs', ['uses' => 'DesignController@store', 'as' => 'designs.store']);
 
-Route::get('/categories', [
-    'uses' => 'CategoryController@index',
-    'as' => 'categories.index'
-]);
+Route::get('/categories/{category}/designs/create', ['uses' => 'DesignController@create', 'as' => 'designs.create']);
 
-Route::get('/categories/{category}/designs/create', [
-    'uses' => 'DesignController@create',
-    'as' => 'designs.create'
-]);
+Route::get('/categories', ['uses' => 'CategoryController@index', 'as' => 'categories.index']);
 
-Route::get('categories/{category}/designs/{design}/orders/create', [
-    'uses' => 'OrderController@create',
-    'as' => 'order.create'
-]);
+Route::get('/category/{category}/products', 'ProductController@index')->name('products.index');
 
-Route::get('/category/{category}/products', 'ProductController@index');
+Route::get('categories/{category}/designs/{design}/orders/create', ['uses' => 'OrderController@create', 'as' => 'order.create']);
 
-Route::get('/orders/{order}', [
-    'uses' => 'OrderController@show',
-    'as' => 'orders.show'
-]);
+Route::get('/orders/{order}', ['uses' => 'OrderController@show', 'as' => 'orders.show']);
 
-Route::post('/orders', [
-    'uses' => 'OrderController@store',
-    'as' => 'orders.store'
-]);
+Route::post('/orders', ['uses' => 'OrderController@store', 'as' => 'orders.store']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
-
-Route::get('/cart', 'CartController@show')->name('carts.show');
+Route::get('/dashboard', function () {return view('dashboard'); })->name('dashboard')->middleware('auth');
 
 Auth::routes();
 
@@ -75,18 +46,10 @@ Route::get('images/{image}', function($image = null)
     return $response;
 })->name('image_path');
 
-Route::post('/calculatePrice', [
-    'uses' => 'VueController@calculatePrice'
-]);
+Route::get('/cart', 'CartController@show')->name('carts.show');
+Route::post('/addToCart', 'VueController@addToCart')->name('cart.add');
+Route::post('/calculatePrice', 'VueController@calculatePrice')->name('calculate-price');
 
-Route::post('/addToCart', [
-    'uses' => 'VueController@addToCart'
-]);
-
-Route::post('/addresses', [
-    'uses' => 'AddressController@store'
-]);
-
-Route::get('/addresses', [
-    'uses' => 'AddressController@index'
-]);
+Route::get('/addresses', 'AddressController@index')->name('addresses.index');
+Route::post('/addresses', 'AddressController@store')->name('addresses.store');
+Route::put('/addresses/{id}', 'AddressController@update')->name('addresses.update');

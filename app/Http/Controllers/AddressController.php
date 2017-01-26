@@ -41,11 +41,15 @@ class AddressController extends Controller
      */
     public function store()
     {
-        $newAddress = request()->toArray();
-        $newAddress['user_id'] = auth()->user()->id;
-        $newAddress['email'] = auth()->user()->email;
+        $newAddress = request()->address;
+        if(auth()->check()) {
+            $newAddress['user_id'] = auth()->user()->id;
+            $address = Address::create($newAddress);
+            return response()->json(['address_id' => $address->id], 200);
+        }
+        $newAddress['email'] = request()->email;
         $address = Address::create($newAddress);
-        return response()->json(['address_id' => $address->id], 200);
+        return response()->json(['address' => $address], 200);
     }
 
     /**
@@ -73,13 +77,15 @@ class AddressController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+        $address = Address::findOrFail($id);
+        $address->update(request()->toArray());
+
+        return response()->json([], 200);
     }
 
     /**

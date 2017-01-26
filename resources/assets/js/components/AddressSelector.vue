@@ -1,16 +1,18 @@
 <template>
     <div class="row">
         <h2 class="text-center">
-            <div v-if="addresses.length > 0">
-                <a @click="showAddressForm=false">Select a shipping address</a> 
-                or 
-                <a @click="showAddressForm=true" style="hover:click">add a new one</a>
+            <div v-if="signedIn">
+                <a v-if="addresses.length > 0" @click="showAddressForm=false">Select a shipping address or </a> 
+                <a @click="showAddressForm=true" style="hover:click">Add a new shipping address</a>
             </div>
             <div v-else>
-                <a @click="showAddressForm=true" style="hover:click">Add an Address</a>
+                <div class="row">
+                    Your email here
+                    <input type="text" v-model="email" class="text-center">
+                </div>
             </div>
         </h2>
-        <div v-for="address in addresses" v-show="!showAddressForm" v-if="addresses.length > 0">
+        <div v-for="address in addresses" v-show="!showAddressForm">
             <div class="col-xs-4">
                 <div class="panel panel-default" v-bind:class="{ selected : isSelected(address.id) }">
                     <div class="panel-heading">
@@ -34,9 +36,9 @@
             </div>
         </div>
         <div class="col-xs-6 col-xs-offset-3">
-            <div v-show="showAddressForm" class="panel panel-default">
+            <div v-show="shouldShowAddressForm" class="panel panel-default">
                 <div class="panel-heading">
-                    Create a new address
+                    Add your shipping address
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
@@ -57,7 +59,7 @@
                         <label class="control-label">Comment</label>
                         <input class="form-control" type="text" v-model="newAddress.comment">
                     </div>
-                    <button class="btn btn-default pull-right" @click="createNewAddress">Submit</button>
+                    <button class="btn btn-default pull-right" @click="submitNewAddress">{{ buttonMessage }}</button>
                 </div>
             </div>
         </div>
@@ -65,6 +67,8 @@
 </template>
 
 <script>
+    var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    
     export default {
         data: function() {
             return {
@@ -80,16 +84,14 @@
                 },
                 addresses: {},
                 showAddressForm: false,
-                selectedAddressId: ''
+                selectedAddressId: '',
+                signedIn: Matex.signedIn,
+                email: '',
             }
         },
+
         mounted: function() {
             this.getAddresses();
-        },
-        computed: {
-            AddressesObject: function() {
-                return JSON.parse(this.addresses);
-            }
         },
 
         methods: {
@@ -100,22 +102,65 @@
             getAddresses: function() {
                 this.$http.get('/addresses').then((response) => {
                     this.addresses = response.body.addresses;
-                    
-                    if(this.addresses.length == 0){
-                        this.showAddressForm = true;
-                    };
                 });
 
             },
+            submitNewAddress: function() {
+                if(!this.signedIn && this.selectedAddressId != ''){
+                    this.updateNewAddress();
+                }else {
+                    this.createNewAddress();
+                }
+            },
             createNewAddress: function() {
-                this.$http.post('/addresses', this.newAddress).then((response) => { 
-                    this.getAddresses();
-                    this.select(response.body.address_id);
-                    this.showAddressForm = false;
-                });
+                var data = {
+                    address: this.newAddress,
+                    email: this.email
+                };
+
+                this.$http.post('/addresses', data).then((response) => {
+                    if(response.body.address_id) {
+                        this.getAddresses();
+                        this.select(response.body.address_id);
+                        this.showAddressForm = false;
+                        this.clearNewAddress();
+                        return
+                    }
+                    // this.addresses.push(response.body.address);
+                    this.select(response.body.address.id);
+                }); 
+            },
+            updateNewAddress: function(data) {
+                this.$http.put('/addresses/' + this.selectedAddressId, this.newAddress).then((response) => {});
             },
             isSelected: function(addressId) {
                 return this.selectedAddressId == addressId;
+            },
+            clearNewAddress: function() {
+                this.newAddress.name = '';
+                this.newAddress.street = '';
+                this.newAddress.city = '';
+                this.newAddress.state = '';
+                this.newAddress.zip = '';
+                this.newAddress.country = '';
+                this.newAddress.phone_number = '';
+                this.newAddress.comment = '';
+            }
+        },
+        computed: {
+            validation: function() {
+                return {
+                    email: !! emailRegex.test(this.email),
+                }
+            },
+            shouldShowAddressForm: function() {
+                return this.showAddressForm || ( !this.signedIn && this.validation.email ) || ( this.signedIn && this.addresses.length == 0 );
+            },
+            buttonMessage: function() {
+                if(!this.signedIn && this.selectedAddressId != '') {
+                    return 'Update';
+                }
+                return 'Submit';
             }
         }
     }

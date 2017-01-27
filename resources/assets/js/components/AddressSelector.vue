@@ -8,7 +8,7 @@
             <div v-else>
                 <div class="row">
                     Your email here
-                    <input type="text" v-model="email" class="text-center">
+                    <input type="text" v-model="email" class="text-center" @change="updateNewAddress">
                 </div>
             </div>
         </h2>
@@ -126,12 +126,17 @@
                         this.clearNewAddress();
                         return
                     }
-                    // this.addresses.push(response.body.address);
                     this.select(response.body.address.id);
                 }); 
             },
             updateNewAddress: function(data) {
-                this.$http.put('/addresses/' + this.selectedAddressId, this.newAddress).then((response) => {});
+                if(this.selectedAddressId != ''){
+                    var data = {
+                        address: this.newAddress,
+                        email: this.email,
+                    }
+                    this.$http.put('/addresses/' + this.selectedAddressId, data).then((response) => {});
+                }
             },
             isSelected: function(addressId) {
                 return this.selectedAddressId == addressId;

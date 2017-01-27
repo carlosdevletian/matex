@@ -15,23 +15,20 @@ Route::get('/', function () { return view('home/home'); })->name('home');
 
 Route::get('/about-us', function () { return view('about'); })->name('about');
 
-Route::post('/contact', ['uses' => 'ContactController@store', 'as' => 'contacts.store']);
-
-Route::post('/designs', ['uses' => 'DesignController@store', 'as' => 'designs.store']);
-
-Route::get('/categories/{category}/designs/create', ['uses' => 'DesignController@create', 'as' => 'designs.create']);
-
-Route::get('/categories', ['uses' => 'CategoryController@index', 'as' => 'categories.index']);
-
-Route::get('/category/{category}/products', 'ProductController@index')->name('products.index');
-
-Route::get('categories/{category}/designs/{design}/orders/create', ['uses' => 'OrderController@create', 'as' => 'order.create']);
-
-Route::get('/orders/{order}', ['uses' => 'OrderController@show', 'as' => 'orders.show']);
-
-Route::post('/orders', ['uses' => 'OrderController@store', 'as' => 'orders.store']);
+Route::post('/contact','ContactController@store')->name('contacts.store');
 
 Route::get('/dashboard', function () {return view('dashboard'); })->name('dashboard')->middleware('auth');
+
+Route::post('/designs','DesignController@store')->name('designs.store');
+
+Route::get('/categories/{category}/designs/create', 'DesignController@create')->name('designs.create');
+Route::get('/categories', 'CategoryController@index')->name('categories.index');
+Route::get('/categories/{category}/products', 'ProductController@index')->name('products.index');
+Route::get('categories/{category}/designs/{design}/orders/create', 'OrderController@create')->name('order.create');
+
+Route::get('/orders/{order}', 'OrderController@show')->name('orders.show');
+Route::post('/orders', 'OrderController@store')->name('orders.store');
+
 
 Auth::routes();
 

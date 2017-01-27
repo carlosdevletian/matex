@@ -53,7 +53,7 @@
             };
         },
         mounted: function () {
-           this.$http.get('/category/' + this.categoryId + '/products').then((response) => {
+           this.$http.get('/categories/' + this.categoryId + '/products').then((response) => {
                 this.products = response.body;
            });
         },

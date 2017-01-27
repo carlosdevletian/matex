@@ -23,6 +23,7 @@
             ></price-calculator>
             <address-selector 
                 v-if="stepTwo"
+                :email="guestEmail"
                 @address-selected="storeAddress"
             ></address-selector>
             <div v-if="stepThree">

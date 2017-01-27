@@ -83,7 +83,9 @@ class AddressController extends Controller
     public function update($id)
     {
         $address = Address::findOrFail($id);
-        $address->update(request()->toArray());
+        $data = request()->address;
+        $data['email'] = request()->email ?: null;
+        $address->update($data);
 
         return response()->json([], 200);
     }

@@ -30,7 +30,8 @@ const app = new Vue({
         showContactModal: false,
         modalActive: false,
         orderItems: [],
-        addressId: ''
+        addressId: '',
+        guestEmail: ''
     },
 
     methods: {
@@ -91,8 +92,8 @@ const app = new Vue({
         createOrder: function () {
             var order = {
                 address_id : this.addressId,
-                items: this.orderItems
-                // agregar tax, shipping, etc
+                items: this.orderItems,
+                email: this.guestEmail,
             };
             this.$http.post('/orders', order).then((response) => { window.location = '/orders/' + response.body.order.id });
         }

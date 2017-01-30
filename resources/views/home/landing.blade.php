@@ -12,7 +12,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12 text-center Landing__design">
-            <a href="{{ route('designs.create', ['1'] ) }}" class="Button--design">Design your own</a>
+            <a href="{{ route('categories.index' ) }}" class="Button--design">Design your own</a>
         </div>
     </div>
 </div>

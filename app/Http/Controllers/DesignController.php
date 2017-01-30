@@ -38,16 +38,18 @@ class DesignController extends Controller
      */
     public function store(Request $request)
     {
-        $directory = storage_path('app/designs');
+        $user = 0;
+        $directory = storage_path('app/public/designs');
+
+        if (auth()->check()) {
+            $user = auth()->user()->id;
+            $directory = storage_path('app/designs');
+        }
+
         if (! is_dir($directory) ) {
             mkdir($directory, 0777, true);
         }
         $encoded = substr($request->base64_image, strpos($request->base64_image, ",")+1);
-
-        $user = 0;
-        if (auth()->check()) {
-            $user = auth()->user()->id;
-        }
 
         $filename = $user . '-' . date("YmdHis") . '-' . $request->category_id . '.png';
         $filepath = $directory . '/' . $filename;
@@ -58,14 +60,15 @@ class DesignController extends Controller
             return response()->json([
                 'message' => 'Error'
             ],500);
-        } 
+        }
 
         $design = Design::create([
             'image_name' => $filename,
-            'price' => 0
+            'price' => 0,
+            'user_id' => ($user != 0) ? $user : null
             // Falta agregar el comentario introducido por el usuario
         ]);
-    
+
         return response()->json([
             'message' => 'Image successfully generated',
             'design_id' => $design->id,

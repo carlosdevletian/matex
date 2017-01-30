@@ -1,27 +1,27 @@
 @extends('layouts.app')
 
 @section('title')
-    
+
 @endsection
 
 @section('content')
     <div class="container">
         <div class="row">
             <div>
-                <img height="43px" width="1077px" src="{{ route('image_path', ['image' => $design->image_name]) }}" alt="">
+                <img height="43px" width="1077px" src="{{ auth()->check() ? route('image_path', ['image' => $design->image_name]) : URL::to('designs/' . $design->image_name) }}" alt="">
             </div>
             <price-calculator
                 v-if="stepOne"
                 :step-two="stepTwo"
-                category-id="{{ $categoryId }}" 
+                category-id="{{ $categoryId }}"
                 design-id="{{ $design->id }}"
                 @step-one-incomplete="disableStepTwo"
                 @enable-step-two="enableStepTwo"
-                @item-updated="updateOrderItems" 
-                @item-deleted="deleteItem" 
+                @item-updated="updateOrderItems"
+                @item-deleted="deleteItem"
                 @add-to-cart="addToCart"
             ></price-calculator>
-            <address-selector 
+            <address-selector
                 v-if="stepTwo"
                 :email="guestEmail"
                 @address-selected="storeAddress"
@@ -29,7 +29,7 @@
             <div v-if="stepThree">
                 <button class="btn btn-primary" @click="createOrder">Pay</button>
             </div>
-            {{-- <order 
+            {{-- <order
                 v-if="stepThree"
                 :items=orderItems
             ></order> --}}

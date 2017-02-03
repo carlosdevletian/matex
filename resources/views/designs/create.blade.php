@@ -50,8 +50,13 @@
                     ></span>
                 </div>
             </div>
-
-            <button id="submit" class="btn btn-default pull-right">Submit</button>
+            @if(auth()->check())
+                <button id="guest-checkout" class="btn btn-default pull-right">Continue</button>
+            @else
+                <button id="user-checkout" class="btn btn-default pull-right">Login</button>
+                or
+                <button id="guest-checkout" class="btn btn-default pull-right">Continue as guest</button>
+            @endif
 
         </div>
     </div>
@@ -113,14 +118,18 @@
 
             var yourDesigner = new FancyProductDesigner($fpd, pluginOpts);
 
-            $('#submit').click(function(){
+            $('#guest-checkout, #user-checkout').click(function(e){
                 yourDesigner.getProductDataURL(function(dataURL) {
                     $.post("/designs", { base64_image:  dataURL, category_id: {{ $category->id }} }, function(data) {
                         if(data) {
-                            window.location = "/categories/" + data.category_id + "/designs/" + data.design_id + "/orders/create";
+                            if(e.target.id == 'user-checkout'){
+                                window.location = "/login";
+                            }else{
+                                window.location = "/categories/" + data.category_id + "/designs/" + data.design_id + "/orders/create";
+                            }
                         }
                         else {
-                            // console.log('super peo');
+                            // console.log('ERROR');
                         }
                     });    
                 });

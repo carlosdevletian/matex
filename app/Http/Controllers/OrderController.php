@@ -61,13 +61,7 @@ class OrderController extends Controller
             if(!auth()->check()){
                 $item->design->email = $order->email;
                 $item->design->save();
-                if(File::exists(storage_path('app/public/designs/' . $item->design->image_name))) {
-                    $directory = storage_path('app/designs');
-                    if (! is_dir($directory) ) {
-                        mkdir($directory, 0777, true);
-                    }
-                    File::move(storage_path('app/public/designs/' . $item->design->image_name), $directory . '/' . $item->design->image_name);
-                }
+                $item->design->move();
             }
         }
 

@@ -69,6 +69,11 @@ class DesignController extends Controller
             // Falta agregar el comentario introducido por el usuario
         ]);
 
+        session([
+            'design_id' => $design->id,
+            'category_id' => $request->category_id
+        ]);
+
         return response()->json([
             'message' => 'Image successfully generated',
             'design_id' => $design->id,

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Design;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -35,5 +36,17 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    protected function redirectTo()
+    {
+        if(session()->has('design_id') && session()->has('category_id')) {
+            $categoryId = session('category_id');
+            $design = Design::findOrFail(session('design_id'));
+            $design->move(auth()->user()->id);
+            session()->forget(['design_id', 'category_id']);
+            return route('order.create', ['category' => $categoryId, 'design' => $design->id]);
+        }
+        return route('dashboard');
     }
 }

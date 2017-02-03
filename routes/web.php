@@ -29,7 +29,6 @@ Route::get('categories/{category}/designs/{design}/orders/create', 'OrderControl
 Route::get('/orders/{order}', 'OrderController@show')->name('orders.show');
 Route::post('/orders', 'OrderController@store')->name('orders.store');
 
-
 Auth::routes();
 
 Route::get('images/{image}', function($image = null)

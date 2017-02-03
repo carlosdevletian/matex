@@ -1,19 +1,16 @@
 <template>
     <div class="col-xs-12">
-        <table class="table">
-            <tbody>
-                <tr>
-                    <td>{{ item.name }} [{{ item.product_id }}] :</td>
-                    <td><input onfocus="if(this.value == '0') { this.value = ''; }" type="number" v-model="item.quantity" @change="validateQuantity" class="form-control" autofocus></td>
-                    <td>${{ item.unit_price }}</td>
-                    <td>${{ item.total_price }}</td>
-                    <td><button @click="onDelete" class="btn btn-danger pull-right">x</button></td>
-                </tr>
-                <tr v-if="error" class="text-center" style="color: red">
-                    {{ error }}
-                </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-xs-1">
+                <a @click="onDelete" class="pull-right" role="button" style="color: red">x</a>
+            </div>
+            <div class="col-xs-3">{{ item.name }}</div>
+            <div class="col-xs-3">
+                <input onfocus="if(this.value == '0') { this.value = ''; }" type="number" v-model="item.quantity" @change="validateQuantity" class="form-control" autofocus>
+            </div>
+            <div class="col-xs-2">${{ item.unit_price }}</div>
+            <div class="col-xs-3">${{ item.total_price }}</div>
+        </div>
     </div>
 </template>
 

@@ -8,7 +8,7 @@
             <div v-else>
                 <div class="row">
                     Your email here
-                    <input type="text" v-model="email" class="text-center" @change="updateNewAddress">
+                    <input type="text" v-model="email" class="text-center" @change="updateNewAddress" autofocus>
                 </div>
             </div>
         </h2>

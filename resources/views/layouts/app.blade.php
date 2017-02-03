@@ -5,9 +5,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
 
-        <!-- CSRF Token -->
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
         <!-- SEO -->
         {{-- <meta name="description" content="Guava - Diseño y desarrollo de páginas y aplicaciones web. Creamos experiencias inolvidables que se adaptan a tus necesidades.">
         <meta name="keywords" content="Guava, Desarrollo, Pagina, Paginas, Aplicacion, Web, Internet, Diseno, Grafico, Contratar, Servicio, Caracas, Venezuela">

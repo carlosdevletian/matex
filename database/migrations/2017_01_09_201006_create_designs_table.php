@@ -18,7 +18,7 @@ class CreateDesignsTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->string('email')->nullable();
             $table->string('image_name');
-            $table->integer('price')->unsigned();
+            $table->integer('price')->unsigned()->default(0);
             $table->integer('color_quantity')->unsigned()->nullable();
             $table->text('comment')->nullable();
             $table->timestamps();

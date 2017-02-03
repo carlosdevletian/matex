@@ -15,7 +15,6 @@ require('./bootstrap');
 
 Vue.component('item', require('./components/Item.vue'));
 Vue.component('modal', require('./components/Modal.vue'));
-Vue.component('order', require('./components/Order.vue'));
 Vue.component('contact-modal', require('./components/ContactModal.vue'));
 Vue.component('address-selector', require('./components/AddressSelector.vue'));
 Vue.component('price-calculator', require('./components/PriceCalculator.vue'));

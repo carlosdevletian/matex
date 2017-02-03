@@ -53,7 +53,7 @@
             @if(auth()->check())
                 <button id="guest-checkout" class="btn btn-default pull-right">Continue</button>
             @else
-                <button id="user-checkout" class="btn btn-default pull-right">Login</button>
+                <button id="user-checkout" class="btn btn-default pull-right">Continue as User</button>
                 or
                 <button id="guest-checkout" class="btn btn-default pull-right">Continue as guest</button>
             @endif
@@ -76,7 +76,7 @@
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': Matex.csrfToken
             }
         });
         $(document).ready(function(){
@@ -121,17 +121,20 @@
             $('#guest-checkout, #user-checkout').click(function(e){
                 yourDesigner.getProductDataURL(function(dataURL) {
                     $.post("/designs", { base64_image:  dataURL, category_id: {{ $category->id }} }, function(data) {
-                        if(data) {
-                            if(e.target.id == 'user-checkout'){
-                                window.location = "/login";
-                            }else{
-                                window.location = "/categories/" + data.category_id + "/designs/" + data.design_id + "/orders/create";
-                            }
-                        }
-                        else {
-                            // console.log('ERROR');
-                        }
-                    });    
+                        if(e.target.id == 'user-checkout'){
+                            window.location = "/login";
+                        }else{
+                            window.location = "/categories/" + data.category_id + "/designs/" + data.design_id + "/orders/create";
+                        }                      
+                    }).fail(function() {
+                        swal({
+                            title: "Ooops",
+                            text: "There seems to have been an error",
+                            type: "error",
+                            timer: 1900,
+                            showConfirmButton: false
+                        }).catch(swal.noop);
+                    });   
                 });
             });
         });

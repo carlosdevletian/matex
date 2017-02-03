@@ -21,8 +21,8 @@ Route::get('/dashboard', function () {return view('dashboard'); })->name('dashbo
 
 Route::post('/designs','DesignController@store')->name('designs.store');
 
-Route::get('/categories/{category}/designs/create', 'DesignController@create')->name('designs.create');
 Route::get('/categories', 'CategoryController@index')->name('categories.index');
+Route::get('/categories/{category}/designs/create', 'DesignController@create')->name('designs.create');
 Route::get('/categories/{category}/products', 'ProductController@index')->name('products.index');
 Route::get('categories/{category}/designs/{design}/orders/create', 'OrderController@create')->name('order.create');
 
@@ -31,16 +31,7 @@ Route::post('/orders', 'OrderController@store')->name('orders.store');
 
 Auth::routes();
 
-Route::get('images/{image}', function($image = null)
-{
-    auth()->check() ? $path = storage_path() . '/app/designs/' . $image : $path = storage_path() . '/app/public/designs/' . $image;
-    if(!File::exists($path)) abort(404);
-    $file = File::get($path);
-    $type = File::mimeType($path);
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    return $response;
-})->name('image_path');
+Route::get('images/{image}', 'ImageController@show')->name('image_path');
 
 Route::get('/cart', 'CartController@show')->name('carts.show');
 Route::post('/addToCart', 'VueController@addToCart')->name('cart.add');

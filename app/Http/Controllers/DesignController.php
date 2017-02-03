@@ -36,48 +36,21 @@ class DesignController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $user = 0;
-        $directory = storage_path('app/public/designs');
-
-        if (auth()->check()) {
-            $user = auth()->user()->id;
-            $directory = storage_path('app/designs');
-        }
-
-        if (! is_dir($directory) ) {
-            mkdir($directory, 0777, true);
-        }
-        $encoded = substr($request->base64_image, strpos($request->base64_image, ",")+1);
-
-        $filename = $user . '-' . date("YmdHis") . '-' . $request->category_id . '.png';
-        $filepath = $directory . '/' . $filename;
-
-        Image::make($encoded)->crop(1077, 43, 61, 279)->save($filepath);
-
-        if(! File::exists($filepath)) {
-            return response()->json([
-                'message' => 'Error'
-            ],500);
-        }
-
-        $design = Design::create([
-            'image_name' => $filename,
-            'price' => 0,
-            'user_id' => ($user != 0) ? $user : null
-            // Falta agregar el comentario introducido por el usuario
-        ]);
+        $design = new Design();
+        $design->makeImage();
+        $design->save();
 
         session([
             'design_id' => $design->id,
-            'category_id' => $request->category_id
+            'category_id' => request()->category_id
         ]);
 
         return response()->json([
             'message' => 'Image successfully generated',
             'design_id' => $design->id,
-            'category_id' => $request->category_id
+            'category_id' => request()->category_id
         ],200);
     }
 

@@ -36,10 +36,6 @@
                 </div>
                 
             </div>
-            {{-- <order
-                v-if="stepThree"
-                :items=orderItems
-            ></order> --}}
             {{-- asignar a usuario(user_id) o a guest(email) --}}
             {{-- mostrar total de la orden(subtotal, shipping, tax, total) --}}
             {{-- tiempo estimado de produccion --}}

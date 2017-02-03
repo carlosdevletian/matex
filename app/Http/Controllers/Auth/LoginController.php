@@ -43,7 +43,7 @@ class LoginController extends Controller
         if(session()->has('design_id') && session()->has('category_id')) {
             $categoryId = session('category_id');
             $design = Design::findOrFail(session('design_id'));
-            $design->move(auth()->user()->id);
+            $design->move();
             session()->forget(['design_id', 'category_id']);
             return route('order.create', ['category' => $categoryId, 'design' => $design->id]);
         }

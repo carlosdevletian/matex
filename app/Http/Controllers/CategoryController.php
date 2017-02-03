@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
         if($categories->count() == 1){
             $category = $categories->first();
-            return view('designs.create', compact('category'));
+            return redirect()->route('designs.create', compact('category'));
         }
 
         return view('categories.index', compact('categories'));

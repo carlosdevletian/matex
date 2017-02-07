@@ -27,7 +27,7 @@
                                 @foreach($order->items as $item)
                                     <tr>
                                         <td>
-                                            <img height="43px" width="1077px" class="img-responsive" src="{{ route('image_path', ['image' => $item->design->image_name]) }}" alt="">
+                                            <img height="43px" width="1077px" class="img-responsive" src="{{ route('image_path', ['image' => $item->design->image_name, 'forOrder' => true]) }}" alt="">
                                         </td>
                                         <td>
                                             <div class="text-center">

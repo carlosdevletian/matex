@@ -31,7 +31,7 @@ Route::post('/orders', 'OrderController@store')->name('orders.store');
 
 Auth::routes();
 
-Route::get('images/{image}', 'ImageController@show')->name('image_path');
+Route::get('images/{image}/{forOrder?}', 'ImageController@show')->name('image_path');
 
 Route::get('/cart', 'CartController@show')->name('carts.show');
 Route::post('/addToCart', 'VueController@addToCart')->name('cart.add');

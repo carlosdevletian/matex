@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\Response;
 
 class ImageController extends Controller
 {
-    public function show($image = null)
+    public function show($image = null, $forOrder = false)
     {
-        auth()->check() ? $path = storage_path() . '/app/designs/' . $image : $path = storage_path() . '/app/public/designs/' . $image;
+        $path = storage_path() . '/app/designs/' . $image;
+        if(! $forOrder) {
+            auth()->check() ?: $path = storage_path() . '/app/public/designs/' . $image;
+        }
         if(!File::exists($path)) abort(404);
         $file = File::get($path);
         $type = File::mimeType($path);

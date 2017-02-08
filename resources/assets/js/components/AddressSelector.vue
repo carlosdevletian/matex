@@ -51,7 +51,7 @@
                         <label class="control-label">State</label>
                         <input class="form-control" type="text" v-model="newAddress.state">
                         <label class="control-label">Zip Code</label>
-                        <input class="form-control" type="text" v-model="newAddress.zip">
+                        <input class="form-control" type="number" v-model="newAddress.zip">
                         <label class="control-label">Country</label>
                         <input class="form-control" type="text" v-model="newAddress.country">
                         <label class="control-label">Phone Number</label>

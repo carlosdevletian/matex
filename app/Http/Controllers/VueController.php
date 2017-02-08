@@ -21,8 +21,20 @@ class VueController extends Controller
     public function calculatePrice()
     {
         $calculator = new Calculator();
-        $unitPrice = $calculator->unitPrice(request()->product_id, request()->design_id, request()->quantity);
+        $unitPrice = $calculator->unitPrice(request()->product['id'], request()->design_id, request()->quantity);
         $totalPrice = $calculator->totalPrice(request()->quantity, $unitPrice);
         return response()->json(['unit_price' => $unitPrice, 'total_price' => $totalPrice], 200);
+    }
+
+    public function calculateShipping()
+    {
+        $zip = request()->zip;
+        return response()->json(['shipping' => $zip*4], 200);
+    }
+
+    public function calculateTax()
+    {
+        $zip = request()->zip;
+        return response()->json(['tax' => $zip*3], 200);
     }
 }

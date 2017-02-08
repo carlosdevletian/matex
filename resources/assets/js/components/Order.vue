@@ -1,17 +1,55 @@
 <template>
     <div class="row">
-        <div class="col-xs-6">
+        <div class="col-sm-6">
             <h3>Choose your sizes</h3>
-            <div v-for="product in products">
-                <button @click="createItem(product)">{{ product.name }}</button>
+            <hr>
+            <div v-for="product in products" style="display: inline">
+                <button @click="createItem(product)" class="btn btn-default" >{{ product.name }}</button>
             </div>
+            <hr>
             <div v-for="item in items">
                 <item2 :item="item" @delete-item="deleteItem">
                 </item2>
             </div>
+            <hr v-if="items.length > 0">
+            <div class="row">
+                <div class="col-xs-3">
+                    Subtotal:
+                </div>
+                <div class="col-xs-3 col-xs-offset-6">
+                    $ {{ calculatedSubtotal }}
+                </div>    
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    Shipping:
+                </div>
+                <div class="col-xs-3 col-xs-offset-6">
+                    $ {{ calculatedShipping }}
+                </div>    
+            </div>
+            <div class="row">
+                <div class="col-xs-3">
+                    Tax:
+                </div>
+                <div class="col-xs-3 col-xs-offset-6">
+                    $ {{ calculatedTax }}
+                </div>    
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-xs-3">
+                    Total:
+                </div>
+                <div class="col-xs-3 col-xs-offset-6">
+                    $ {{ totalPrice }}
+                </div>    
+            </div>
         </div>
-        <div class="col-xs-6">
-            <address-picker>
+        <div class="col-sm-6">
+            <h3>Address</h3>
+            <hr>
+            <address-picker :address="address">
             </address-picker>
         </div>
     </div>
@@ -23,6 +61,20 @@
         data: function() {
             return {
                 items: [],
+                subtotal: 0,
+                shipping: 0,
+                tax: 0,
+                address: {
+                    email: '',
+                    name: '',
+                    street: '',
+                    city: '',
+                    state: '',
+                    zip: '',
+                    country: '',
+                    phone_number: '',
+                    comment: '',
+                }
             }
         },
         methods: {
@@ -56,6 +108,37 @@
                         vm.items.splice(index, 1); 
                     } 
                 });                
+            }
+        },
+        computed:  {
+            calculatedSubtotal: function() {
+                this.subtotal = 0;
+                var vm = this;
+                this.items.forEach(function(item) {
+                    vm.subtotal = (vm.subtotal + item.total_price);
+                });
+                return this.subtotal;
+            },
+            calculatedShipping: function() {
+                var data = {
+                    zip: this.address.zip
+                }
+                this.$http.post('/calculateShipping', data).then((response) => {
+                    this.shipping = response.body.shipping;
+                });
+                return this.shipping;
+            },
+            calculatedTax: function() {
+                var data = {
+                    zip: this.address.zip
+                }
+                this.$http.post('/calculateTax', data).then((response) => {
+                    this.tax = response.body.tax;
+                });
+                return this.tax;
+            },
+            totalPrice: function() {
+                return (this.subtotal + this.shipping + this.tax);
             }
         }
     }

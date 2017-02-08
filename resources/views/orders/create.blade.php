@@ -6,14 +6,16 @@
 
 @section('content')
 
-<div class="row">
-    <div class="col-xs-12">
-        <div style="margin-bottom: 20px;">
-            <img src="{{ route('image_path', ['image' => $design->image_name]) }}" class="img img-responsive">
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div style="margin-bottom: 20px;">
+                <img src="{{ route('image_path', ['image' => $design->image_name]) }}" class="img img-responsive">
+            </div>
+            
+            <order :products="{{ $products }}" :design-id="{{ $design->id }}">
+            </order>
         </div>
-        
-        <order :products="{{ $products }}" :design-id="{{ $design->id }}">
-        </order>
     </div>
 </div>
 

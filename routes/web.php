@@ -36,6 +36,8 @@ Route::get('images/{image}/{forOrder?}', 'ImageController@show')->name('image_pa
 Route::get('/cart', 'CartController@show')->name('carts.show');
 Route::post('/addToCart', 'VueController@addToCart')->name('cart.add');
 Route::post('/calculatePrice', 'VueController@calculatePrice')->name('calculate-price');
+Route::post('/calculateShipping', 'VueController@calculateShipping')->name('calculate-shipping');
+Route::post('/calculateTax', 'VueController@calculateTax')->name('calculate-tax');
 
 Route::get('/addresses', 'AddressController@index')->name('addresses.index');
 Route::post('/addresses', 'AddressController@store')->name('addresses.store');

@@ -11,7 +11,7 @@
                 v-model="item.quantity"
                 @change="updatePrice" 
                 class="form-control" 
-                onfocus="if(this.value == '0') { this.value = ''; }" 
+                onfocus="if(this.value == '0') { this.value = ''; }"
                 autofocus>
             <div v-show="error">{{ error }}</div>
         </div>

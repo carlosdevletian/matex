@@ -15,4 +15,14 @@ class Calculator
     {
         return $quantity * $unitPrice; 
     }
+
+    public function shipping($zipCode)
+    {
+        return 11;
+    }
+
+    public function tax($zipCode)
+    {
+        return 0.10;
+    }
 }

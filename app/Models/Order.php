@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Calculator;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -40,15 +41,18 @@ class Order extends Model
 
     public function shipping()
     {
-        $this->shipping = 11;
+        $calculator = new Calculator;
+        $this->shipping = $calculator->shipping($this->address->zip);
 
         return $this;
     }
 
     public function tax()
     {
-        $this->tax = ($this->subtotal + $this->shipping) * 0.12;
-
+        $calculator = new Calculator;
+        $percentage = $calculator->tax($this->address->zip);
+        $this->tax = ($this->subtotal + $this->shipping) * $percentage;
+        
         return $this;
     }
 

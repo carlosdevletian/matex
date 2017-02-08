@@ -24,7 +24,9 @@ class OrderController extends Controller
 
     public function create($categoryId, Design $design)
     {
-        return view('orders.create', compact('categoryId','design'));
+        $products = Product::where('category_id', $categoryId)->get();
+
+        return view('orders.create', compact('products','design'));
     }
 
     public function store()

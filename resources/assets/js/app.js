@@ -14,7 +14,10 @@ require('./bootstrap');
  */
 
 Vue.component('item', require('./components/Item.vue'));
+Vue.component('item2', require('./components/Item2.vue'));
 Vue.component('modal', require('./components/Modal.vue'));
+Vue.component('order', require('./components/Order.vue'));
+Vue.component('address-picker', require('./components/AddressPicker.vue'));
 Vue.component('contact-modal', require('./components/ContactModal.vue'));
 Vue.component('address-selector', require('./components/AddressSelector.vue'));
 Vue.component('price-calculator', require('./components/PriceCalculator.vue'));

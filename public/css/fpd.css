@@ -1,0 +1,68 @@
+/* COLOR SCHEME - here you can define your own color scheme */
+/* Primary Color */
+.fpd-container .fpd-primary-bg-color,
+.fpd-actions-wrapper > .fpd-action-btn:hover,
+.fpd-actions-wrapper > .fpd-action-btn.fpd-active,
+.fpd-thumbnail-preview > .fpd-preview-price {
+  background-color: #0000AA;
+}
+.fpd-container .fpd-primary-text-color,
+.fpd-navigation > div.fpd-active,
+.fpd-bottom-nav > div.fpd-active {
+  color: #0000AA;
+}
+/* Secondary Color */
+.fpd-container .fpd-secondary-bg-color,
+.fpd-container .fpd-btn,
+.fpd-modal-wrapper .fpd-btn,
+.fpd-switch-container.fpd-enabled .fpd-switch-toggle,
+.fpd-switch-container.fpd-enabled .fpd-switch-bar,
+.fpd-modal-product-designer.fpd-modal-overlay .fpd-done {
+  background-color: #F16A01;
+}
+.fpd-container .fpd-btn.fpd-secondary,
+.fpd-modal-wrapper .fpd-btn.fpd-secondary {
+  background: #E0E1E2;
+}
+.fpd-container .fpd-btn:hover,
+.fpd-modal-wrapper .fpd-btn:hover {
+  background: #fe7103;
+}
+.fpd-container .fpd-btn.fpd-secondary:hover,
+.fpd-modal-wrapper .fpd-btn:hover {
+  background: #e8e9e9;
+}
+.fpd-toggle.fpd-enabled {
+  color: #F16A01 !important;
+}
+/* Main Text Color */
+.fpd-container,
+.fpd-container textarea,
+.fpd-sub-tooltip-theme .tooltipster-content,
+.fpd-modal-wrapper > .fpd-modal-close {
+  color: rgba(0, 0, 0, 0.8);
+}
+/* Main Border Color */
+.fpd-actions-wrapper > .fpd-action-btn,
+.fpd-list > .fpd-list-row,
+.fpd-container.fpd-sidebar > .fpd-mainbar,
+.fpd-container textarea,
+.fpd-container.fpd-sidebar.fpd-sidebar-right > .fpd-mainbar,
+.fpd-container.fpd-main-bar-container .fpd-mainbar,
+.fpd-container .fpd-module input,
+.fpd-thumbnail-preview,
+.fpd-container .fpd-stage-off-canvas,
+.fpd-manage-layers-panel .fpd-sortable-placeholder,
+.fpd-container .fpd-close-off-canvas,
+.fpd-topbar[class*="fpd-off-canvas-"] .fpd-mainbar .fpd-content {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+.fpd-container textarea:focus,
+.fpd-element-toolbar textarea:focus {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.fpd-container > .fpd-main-wrapper {
+  background-color: lightgrey;
+}
+
+/*# sourceMappingURL=fpd.css.map */

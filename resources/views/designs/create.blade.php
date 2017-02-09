@@ -7,12 +7,8 @@
 @push('styles')
     <!-- Main CSS for the product designer -->
     <link rel="stylesheet" href="{{ URL::to('css/FancyProductDesigner-all.min.css') }}" />
-
-    <style>
-        .fpd-container>.fpd-main-wrapper {
-            background-color: lightblue;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ URL::to('css/fpd.css') }}" />
+    
 @endpush
 
 @section('content')
@@ -92,6 +88,7 @@
                         'bottom': ['undo','redo'],
                         'left': ['manage-layers','save']
                     },
+                    selectedColor: "#f5f5f5", 
                     customTextParameters: {
                         colors: "#000000,#ffffff",
                         removable: true,

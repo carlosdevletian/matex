@@ -26,7 +26,13 @@ class OrderController extends Controller
     {
         $products = Product::where('category_id', $categoryId)->get();
 
-        return view('orders.create', compact('products','design'));
+        $addresses = collect();
+
+        if(auth()->check()) {
+            $addresses = Address::where('user_id', auth()->user()->id)->get();
+        }
+
+        return view('orders.create', compact('products','design', 'addresses'));
     }
 
     public function store()

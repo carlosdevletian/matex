@@ -13,7 +13,7 @@
                 <img src="{{ route('image_path', ['image' => $design->image_name]) }}" class="img img-responsive">
             </div>
             
-            <order :products="{{ $products }}" :design-id="{{ $design->id }}">
+            <order :products="{{ $products }}" :addresses="{{ $addresses }}" :design-id="{{ $design->id }}">
             </order>
         </div>
     </div>

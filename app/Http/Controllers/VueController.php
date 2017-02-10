@@ -45,19 +45,38 @@ class VueController extends Controller
     public function prepareOrder()
     {
         if(auth()->check()) {
-            // logica para el usuario
+            if(request()->selectedAddress != 0){
+                $address = Address::findOrFail($request()->selectedAddress);
+            }else {
+                $this->validate(request(), [
+                'newAddress.email' => 'required|email',
+                'newAddress.name' => 'required',
+                'newAddress.street' => 'required',
+                'newAddress.city' => 'required',
+                'newAddress.zip' => 'required',
+                'newAddress.country' => 'required',
+                'newAddress.phone_number' => 'required',
+                ]);
+                $addressData = request()->except(['newAddress.is_valid', 'newAddress.show_errors'])['newAddress'];
+                $addressData['user_id'] = auth()->user()->id;
+                $address = Address::create($addressData);
+            }
+            $order = Order::create([
+               'address_id' => $address->id,
+               'user_id' => auth()->user()->id
+            ]);
         } else {
             // crear el address
             $this->validate(request(), [
-                'address.email' => 'required|email',
-                'address.name' => 'required',
-                'address.street' => 'required',
-                'address.city' => 'required',
-                'address.zip' => 'required',
-                'address.country' => 'required',
-                'address.phone_number' => 'required',
+                'newAddress.email' => 'required|email',
+                'newAddress.name' => 'required',
+                'newAddress.street' => 'required',
+                'newAddress.city' => 'required',
+                'newAddress.zip' => 'required',
+                'newAddress.country' => 'required',
+                'newAddress.phone_number' => 'required',
             ]);
-            $addressData = request()->except(['address.is_valid', 'address.show_errors'])['address'];
+            $addressData = request()->except(['newAddress.is_valid', 'newAddress.show_errors'])['newAddress'];
             $address = Address::create($addressData);
             $order = Order::create([
                'address_id' => $address->id,

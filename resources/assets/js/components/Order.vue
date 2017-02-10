@@ -50,7 +50,7 @@
             <div class="col-sm-6">
                 <h3>Address</h3>
                 <hr>
-                <address-picker :address="address">
+                <address-picker :existing-addresses="addresses" :address="address" @update-selected-address="updateSelectedAddress">
                 </address-picker>
             </div>
         </div>
@@ -62,13 +62,14 @@
 
 <script>
     export default {
-        props: ['products', 'designId'],
+        props: ['products', 'designId', 'addresses'],
         data: function() {
             return {
                 items: [],
                 subtotal: 0,
                 shipping: 0,
                 tax: 0,
+                selectedAddress: 0,
                 address: {
                     email: '',
                     name: '',
@@ -81,7 +82,7 @@
                     comment: '',
                     is_valid: false,
                     show_errors: false
-                }
+                },
             }
         },
         methods: {
@@ -117,10 +118,11 @@
                 });                
             },
             pay: function() {
-                if(this.totalQuantity() > 0 && this.address.is_valid){
+                if(this.totalQuantity() > 0 && (this.address.is_valid || this.selectedAddress != 0)){
                     alert('pagando');
                     var data = {
-                        address: this.address,
+                        newAddress: this.address,
+                        selectedAddress: this.selectedAddress,
                         items: this.items,
                         design_id: this.designId,
                     }
@@ -140,6 +142,9 @@
                 });
 
                 return total;
+            },
+            updateSelectedAddress: function(id) {
+                this.selectedAddress = id;
             }
         },
         computed:  {

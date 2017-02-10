@@ -15,8 +15,8 @@
                 autofocus>
             <div v-show="error">{{ error }}</div>
         </div>
-        <div class="col-xs-2">${{ item.unit_price }}</div>
-        <div class="col-xs-3">${{ item.total_price }}</div>
+        <div class="col-xs-2">${{ item.unit_price | inDollars }}</div>
+        <div class="col-xs-3">${{ item.total_price | inDollars }}</div>
     </div>
 </template>
 

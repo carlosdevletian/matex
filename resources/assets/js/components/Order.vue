@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="background-color: white; padding: 20px 80px 20px 80px; ">
         <div class="row">
             <div class="col-sm-6">
                 <h3>Choose your sizes</h3>
@@ -18,7 +18,7 @@
                         Subtotal:
                     </div>
                     <div class="col-xs-3 col-xs-offset-6">
-                        $ {{ calculatedSubtotal }}
+                        $ {{ calculatedSubtotal | inDollars }}
                     </div>    
                 </div>
                 <div class="row">
@@ -26,7 +26,7 @@
                         Shipping:
                     </div>
                     <div class="col-xs-3 col-xs-offset-6">
-                        $ {{ calculatedShipping }}
+                        $ {{ calculatedShipping | inDollars }}
                     </div>    
                 </div>
                 <div class="row">
@@ -34,7 +34,7 @@
                         Tax:
                     </div>
                     <div class="col-xs-3 col-xs-offset-6">
-                        $ {{ calculatedTax }}
+                        $ {{ calculatedTax | inDollars }}
                     </div>    
                 </div>
                 <hr>
@@ -43,7 +43,7 @@
                         Total:
                     </div>
                     <div class="col-xs-3 col-xs-offset-6">
-                        $ {{ totalPrice }}
+                        $ {{ totalPrice | inDollars }}
                     </div>    
                 </div>
             </div>
@@ -119,7 +119,16 @@
             pay: function() {
                 if(this.totalQuantity() > 0 && this.address.is_valid){
                     alert('pagando');
+                    var data = {
+                        address: this.address,
+                        items: this.items,
+                        design_id: this.designId,
+                    }
+                    this.$http.post('/prepareOrder', data).then((response) => {
+                        alert('Hay que cobrar ' +  response.body);
+                    });
                 }else{
+                    alert('error');
                     this.address.show_errors = true;
                 }
             },
@@ -152,12 +161,13 @@
                 return this.shipping;
             },
             calculatedTax: function() {
+                var subtotal = this.subtotal;
+                var shipping = this.shipping;
                 var data = {
                     zip: this.address.zip
                 }
-                var percentage = 0;
                 this.$http.post('/calculateTax', data).then((response) => {
-                    this.tax = (this.subtotal + this.shipping) * response.body.tax_percentage;
+                    this.tax = (subtotal + shipping) * response.body.tax_percentage;
                 });
                 return this.tax;
             },

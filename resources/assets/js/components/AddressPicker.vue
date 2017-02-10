@@ -34,6 +34,7 @@
                 <label for="phone_number" class="control-label error" v-show="!validation.phone_number  && address.show_errors">Please enter a valid phone number</label>
                 <input class="form-control mb-8" type="text" v-model="address.phone_number" placeholder="Phone Number">
                 <textarea class="form-control mb-8" v-model="address.comment" placeholder="Comment"></textarea>
+                <div v-show="false">{{ validatedAddress }}</div>
             </div>
         </div>
     </div>

@@ -22,6 +22,10 @@ Vue.component('contact-modal', require('./components/ContactModal.vue'));
 Vue.component('address-selector', require('./components/AddressSelector.vue'));
 Vue.component('price-calculator', require('./components/PriceCalculator.vue'));
 
+Vue.filter('inDollars', function(cents) {
+    return (cents / 100);
+});
+
 const app = new Vue({
     el: '#app',
 

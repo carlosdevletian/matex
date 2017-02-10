@@ -38,6 +38,7 @@ Route::post('/addToCart', 'VueController@addToCart')->name('cart.add');
 Route::post('/calculatePrice', 'VueController@calculatePrice')->name('calculate-price');
 Route::post('/calculateShipping', 'VueController@calculateShipping')->name('calculate-shipping');
 Route::post('/calculateTax', 'VueController@calculateTax')->name('calculate-tax');
+Route::post('/prepareOrder', 'VueController@prepareOrder')->name('prepare-order');
 
 Route::get('/addresses', 'AddressController@index')->name('addresses.index');
 Route::post('/addresses', 'AddressController@store')->name('addresses.store');

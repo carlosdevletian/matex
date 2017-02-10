@@ -8,7 +8,7 @@ class Calculator
     {
         // $product = Product::findOrFail($productId);
         // $design = Design::findOrFail($designId);
-        return 7;   
+        return 700;   
     }
 
     public function totalPrice($quantity, $unitPrice)
@@ -18,7 +18,7 @@ class Calculator
 
     public function shipping($zipCode)
     {
-        return 11;
+        return 1100;
     }
 
     public function tax($zipCode)

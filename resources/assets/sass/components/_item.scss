@@ -1,0 +1,9 @@
+.Item {
+    &__delete {
+        color: lightgrey;
+        &:hover {
+            color: grey;
+            cursor: pointer;
+        }
+    }
+}

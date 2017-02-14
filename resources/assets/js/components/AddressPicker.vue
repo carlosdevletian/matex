@@ -2,54 +2,99 @@
     <div>
         <div v-show="existingAddresses.length > 0 && ! showAddressForm" class="row">
             <div class="col-xs-12">
-                <div v-for="existingAddress in existingAddresses" v-bind:class="{ selected : isSelected(existingAddress.id) }">
-                    <h4>{{ existingAddress.name }}</h4>
-                    <h4>{{ existingAddress.street }}</h4>
-                    <h4>{{ existingAddress.city }}</h4>
-                    <button class="btn btn-default" @click="updateSelectedAddress(existingAddress.id)">Select</button>
+                <div v-for="existingAddress in existingAddresses">
+                    <div class="col-md-12 Address">
+                        <a role="button" @click="showExtraInfo(existingAddress.id)" class="Address__expand">
+                            <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                        </a>
+                        <a role="button" @click="updateSelectedAddress(existingAddress.id)" class="inherit">
+                            <div>{{ existingAddress.name }}</div>
+                            <div>{{ existingAddress.street }}</div>
+                            <div>{{ existingAddress.city }}</div>
+                            <div v-show="showMoreId == existingAddress.id">
+                                <div>{{ existingAddress.country }}</div>
+                                <div>{{ existingAddress.zip }}</div>
+                                <div>{{ existingAddress.phone_number }}</div>
+                            </div>
+                        </a>
+                        <div v-show="isSelected(existingAddress.id)" class="text-center">
+                            <i class="fa fa-check-circle" aria-hidden="true" ></i>
+                        </div>
+                    </div>
                 </div>
-                <button class="btn btn-default" @click="toggleAddressForm">Create New Address</button>
+            </div> 
+            <div class="col-xs-12">
+                <a role="button" class="pull-right inherit" @click="toggleAddressForm">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </a>
             </div>
         </div>
         <div v-show="! signedIn || showAddressForm" class="row">
             <div class="col-xs-12">
-                <div class="form-group">
-                    <button class="btn btn-default" v-show="existingAddresses.length > 0 && signedIn" @click="showAddressForm = ! showAddressForm">Select an Address</button>
-                    
-                    <label for="email" class="control-label error" v-show="!validation.email && address.show_errors">Please enter a valid email</label>
-                    <input class="form-control mb-8" type="email" v-model="address.email" placeholder="Email">
-
-                    <label for="name" class="control-label error" v-show="!validation.name  && address.show_errors">Please enter a valid name</label>
-                    <input class="form-control mb-8" type="text" v-model="address.name" placeholder="Name">
-
-                    <label for="street" class="control-label error" v-show="!validation.street  && address.show_errors">Please enter a valid street</label>
-                    <input class="form-control mb-8" type="text" v-model="address.street" placeholder="Street">
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label for="city" class="control-label error" v-show="!validation.city  && address.show_errors">Please enter a valid city</label>
-                            <input class="form-control mb-8" type="text" v-model="address.city" placeholder="City">
-                        </div>
-                        <div class="col-sm-6">
-                            <label for="state" class="control-label error" v-show="!validation.state  && address.show_errors">Please enter a valid state</label>
-                            <input class="form-control mb-8" type="text" v-model="address.state" placeholder="State">
-                        </div>
+                <a role="button" 
+                    class="inherit pull-right" 
+                    v-show="existingAddresses.length > 0 && signedIn" 
+                    @click="showAddressForm = ! showAddressForm">
+                        Select from existing addresses 
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="col-xs-12">
+                <div v-show="address.show_errors && error" class="error">{{ error }}</div>
+                <input class="Form mb-8" 
+                    type="email" 
+                    v-model="address.email" 
+                    placeholder="Email *"
+                    v-bind:class="{ 'Form--error' : !validation.email && address.show_errors }">
+                <input class="Form mb-8" 
+                    type="text" 
+                    v-model="address.name" 
+                    placeholder="Name *"
+                    v-bind:class="{ 'Form--error' : !validation.name && address.show_errors }">
+                <input class="Form mb-8" 
+                    type="text" 
+                    v-model="address.street" 
+                    placeholder="Street *"
+                    v-bind:class="{ 'Form--error' : !validation.street && address.show_errors }">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input class="Form mb-8" 
+                        type="text" 
+                        v-model="address.city" 
+                        placeholder="City *"
+                        v-bind:class="{ 'Form--error' : !validation.city && address.show_errors }">
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label for="zip" class="control-label error" v-show="!validation.zip  && address.show_errors">Please enter a valid zip</label>
-                            <input class="form-control mb-8" type="text" v-model="address.zip" placeholder="Zip Code">
-                        </div>
-                        <div class="col-sm-6">
-                            <label for="country" class="control-label error" v-show="!validation.country  && address.show_errors">Please enter a valid country</label>
-                            <input class="form-control mb-8" type="text" v-model="address.country" placeholder="Country">
-                        </div>
+                    <div class="col-sm-6">
+                        <input class="Form mb-8" 
+                        type="text" 
+                        v-model="address.state" 
+                        placeholder="State *"
+                        v-bind:class="{ 'Form--error' : !validation.state && address.show_errors }">
                     </div>
-                    <label for="phone_number" class="control-label error" v-show="!validation.phone_number  && address.show_errors">Please enter a valid phone number</label>
-                    <input class="form-control mb-8" type="text" v-model="address.phone_number" placeholder="Phone Number">
-                    <textarea class="form-control mb-8" v-model="address.comment" placeholder="Comment"></textarea>
-                    <div v-show="false">{{ validatedAddress }}</div>
                 </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input class="Form mb-8" 
+                            type="text" 
+                            v-model="address.zip" 
+                            placeholder="Zip Code *"
+                            v-bind:class="{ 'Form--error' : !validation.zip && address.show_errors }">
+                        </div>
+                        <div class="col-sm-6">
+                            <input class="Form mb-8" 
+                            type="text" 
+                            v-model="address.country"
+                            placeholder="Country *"
+                            v-bind:class="{ 'Form--error' : !validation.country && address.show_errors }">
+                        </div>
+                    </div>
+                    <input class="Form mb-8" 
+                        type="text" 
+                        v-model="address.phone_number" 
+                        placeholder="Phone Number *"
+                        v-bind:class="{ 'Form--error' : !validation.phone_number && address.show_errors }">
+                    <textarea class="Form mb-8" v-model="address.comment" placeholder="Comment"></textarea>
+                    <div v-show="false">{{ validatedAddress }}</div>
             </div>
         </div>
     </div>
@@ -65,11 +110,17 @@
                 signedIn: Matex.signedIn,
                 showAddressForm: false,
                 selected: 0,
+                showMoreId: 0,
+                error: ''
             }
         },
         methods: {
             updateSelectedAddress: function(id) {
-                this.selected = id;
+                if(this.selected == id) {
+                    this.selected = 0;
+                } else {
+                    this.selected = id;
+                }
                 this.$emit('update-selected-address', this.selected);
             },
             isSelected: function(addressId) {
@@ -81,6 +132,13 @@
                 }else {
                     this.showAddressForm = true;
                     this.updateSelectedAddress(0);
+                }
+            },
+            showExtraInfo: function(id) {
+                if(this.showMoreId == id) {
+                    this.showMoreId = 0;
+                } else {
+                    this.showMoreId = id;
                 }
             }
         },
@@ -103,8 +161,12 @@
                 for (var field in this.validation) {      
                     if(! vm.validation[field]){
                         vm.address.is_valid = false;
+                        vm.error = 'Please enter a correct ' + field;
                         break;
                     }
+                }
+                if(this.address.is_valid) {
+                    this.error = '';
                 }
                 return this.address.is_valid;
             },
@@ -118,8 +180,10 @@
     }
     .error {
         color: red;
+        text-align: center;
+        padding: 10px;
     }
-    .selected {
-        background-color: yellow;
+    .inherit {
+        color: inherit;
     }
 </style>

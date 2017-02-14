@@ -1,22 +1,41 @@
 <template>
-    <div class="row">
-        <div class="col-xs-1">
-            <a @click="deleteItem" role="button">x</a>
+    <div>
+        <div class="row">
+            <div class="col-xs-1 ">
+                <h5>
+                    <a @click="deleteItem" role="button" class="Item__delete">&#10005;</a>
+                </h5>
+            </div>
+            <div class="col-xs-3">
+                <h5>{{ item.product.name }}</h5>
+            </div>
+            <div class="col-xs-3">
+                <input type="number"
+                    v-model="item.quantity"
+                    @change="updatePrice" 
+                    class="Form pd-0" 
+                    onfocus="if(this.value == '0') { this.value = ''; }"
+                    v-bind:class="{ 'Form--error' : this.error }"
+                    autofocus>
+            </div>
+            <div class="col-xs-2">
+                <h5>
+                    $ {{ item.unit_price | inDollars }}
+                </h5>
+            </div>
+            <div class="col-xs-3">
+                <h5>
+                    $ {{ item.total_price | inDollars }}
+                </h5>
+            </div>
         </div>
-        <div class="col-xs-3">
-            <h5>{{ item.product.name }}</h5>
+        <div class="row">
+            <div v-show="error" class="col-xs-12 text-center">
+                <h5>
+                    {{ error }}
+                </h5>
+            </div>
         </div>
-        <div class="col-xs-3">
-            <input type="number"
-                v-model="item.quantity"
-                @change="updatePrice" 
-                class="form-control" 
-                onfocus="if(this.value == '0') { this.value = ''; }"
-                autofocus>
-            <div v-show="error">{{ error }}</div>
-        </div>
-        <div class="col-xs-2">${{ item.unit_price | inDollars }}</div>
-        <div class="col-xs-3">${{ item.total_price | inDollars }}</div>
     </div>
 </template>
 
@@ -37,7 +56,7 @@
                });
             },
             validateQuantity: function() {
-                if(this.item.quantity < 1) {
+                if(this.item.quantity < 1 || this.item.quantity % 1 != 0) {
                     this.error = 'Input a valid quantity';
                     this.item.quantity = 0;
                     return;
@@ -50,3 +69,8 @@
         }
     }
 </script>
+<style>
+    .pd-0{
+        padding: 0px;
+    }
+</style>

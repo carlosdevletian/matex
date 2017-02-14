@@ -11,19 +11,30 @@
         <div slot="body">
             <div>
                 <div class="Input__icon">
-                    <input v-model="contact.email" class="form-control" placeholder="Email address" autofocus>
+                    <input v-model="contact.email" 
+                        class="Form" 
+                        placeholder="Email address" 
+                        v-bind:class="{ 'Form--error' : !validation.email}"
+                        autofocus>
                     <div v-show="! validation.email" class="error">{{ errors.email ? errors.email[0] : '' }}</div>
                 </div>
                 <div class="Input__icon">
-                    <input v-model="contact.subject" class="form-control" placeholder="Subject">
+                    <input v-model="contact.subject" 
+                        class="Form" 
+                        placeholder="Subject"
+                        v-bind:class="{ 'Form--error' : !validation.subject}">
                     <div v-show="! validation.subject" class="error">{{ errors.subject ? errors.subject[0] : '' }}</div>
                 </div>
-                <div class="Input__icon" style="padding-bottom: 10px">
-                    <textarea v-model="contact.body" class="form-control" placeholder="Your message here..." rows=5></textarea>
+                <div class="Input__icon" style="padding-bottom: 10px; margin-bottom: 20px">
+                    <textarea v-model="contact.body" 
+                        class="Form" 
+                        placeholder="Your message here..." 
+                        rows=5
+                        v-bind:class="{ 'Form--error' : !validation.body}"></textarea>
                     <div v-show="! validation.body" class="error">{{ errors.body ? errors.body[0] : '' }}</div>
                 </div>
                 <div>
-                    <button class="Modal__button" @click="sendContactEmail()">Send</button>
+                    <button class="Button--modal" @click="sendContactEmail()">Send</button>
                 </div>
             </div>
         </div>
@@ -72,7 +83,6 @@
                             type: 'error',
                         });
                     }
-                    console.log('The email could not be sent. Validation errors occurred');
                     this.errors = response.body;
                 });
             }

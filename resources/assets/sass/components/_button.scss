@@ -11,3 +11,49 @@
         border-color: red;
     }
 }
+
+.Button--product {
+    @include button($brand-secondary, true, 11pt);
+    outline: 0; 
+    padding: 0px; 
+    border: none;
+    border-radius: 0px; 
+}
+
+.Button--modal {
+    @include button($brand-secondary, false, 12pt, $transition: false);
+    &:hover {
+        transform: translateY(-1px);
+    }
+    /*Esto se aplica para fijarlo a la parte de abajo, el container debe tener: "position: relative"*/
+    position: absolute;
+    width: 100%;
+    right: 0;
+    bottom: 0;
+    border-radius: 0px 0px 5px 5px;
+    margin-bottom: -1px; 
+}
+
+.Button--checkout {
+    @include button($brand-primary, false, 12pt);
+    /*Esto se aplica para fijarlo a la parte de abajo, el container debe tener: "position: relative"*/
+    position: absolute;
+    width: 100%;
+    right: 0;
+    bottom: 0;
+    border-radius: 0px 0px 5px 5px;
+    margin-bottom: -1px; 
+    /*Esto es del boton y ya*/
+    padding: 10px 20px; 
+    &:hover {
+        transform: translateY(-1px);
+    }
+    &:disabled {
+        cursor: not-allowed;
+        text-decoration: line-through;
+    }
+}
+
+.Button--address {
+    @include button($brand-primary, true, 11pt);
+}

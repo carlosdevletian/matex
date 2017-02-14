@@ -1,62 +1,72 @@
 <template>
-    <div style="background-color: white; padding: 20px 80px 20px 80px; ">
-        <div class="row">
-            <div class="col-sm-6">
-                <h3>Choose your sizes</h3>
-                <hr>
-                <div v-for="product in products" style="display: inline">
-                    <button @click="createItem(product)" class="btn btn-default" >{{ product.name }}</button>
-                </div>
-                <hr v-if="products.length > 0">
-                <div v-for="item in items">
-                    <item2 :item="item" @delete-item="deleteItem">
-                    </item2>
-                </div>
-                <hr v-if="items.length > 0">
-                <div class="row">
-                    <div class="col-xs-3">
-                        Subtotal:
+    <div style="background-color: white; padding: 20px 80px 20px 80px; position: relative; border-radius: 0px 0px 5px 5px; margin-bottom: 20px">
+        <div style="padding-bottom: 40px">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="Order__title--orange">Choose your sizes</h3>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-6 col-xs-offset-3">
+                            <div v-for="product in products">
+                                <button @click="createItem(product)" class="Button--product">{{ product.name }}</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-xs-3 col-xs-offset-6">
-                        $ {{ calculatedSubtotal | inDollars }}
-                    </div>    
-                </div>
-                <div class="row">
-                    <div class="col-xs-3">
-                        Shipping:
+                    <hr v-if="products.length > 0">
+                    <div v-for="item in items">
+                        <item2 :item="item" @delete-item="deleteItem">
+                        </item2>
                     </div>
-                    <div class="col-xs-3 col-xs-offset-6">
-                        $ {{ calculatedShipping | inDollars }}
-                    </div>    
-                </div>
-                <div class="row">
-                    <div class="col-xs-3">
-                        Tax:
+                    <hr v-if="items.length > 0">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            Subtotal:
+                        </div>
+                        <div class="col-xs-3 col-xs-offset-6">
+                            $ {{ calculatedSubtotal | inDollars }}
+                        </div>    
                     </div>
-                    <div class="col-xs-3 col-xs-offset-6">
-                        $ {{ calculatedTax | inDollars }}
-                    </div>    
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-xs-3">
-                        Total:
+                    <div class="row">
+                        <div class="col-xs-3">
+                            Shipping:
+                        </div>
+                        <div class="col-xs-3 col-xs-offset-6">
+                            $ {{ calculatedShipping | inDollars }}
+                        </div>    
                     </div>
-                    <div class="col-xs-3 col-xs-offset-6">
-                        $ {{ totalPrice | inDollars }}
-                    </div>    
+                    <div class="row">
+                        <div class="col-xs-3">
+                            Tax:
+                        </div>
+                        <div class="col-xs-3 col-xs-offset-6">
+                            $ {{ calculatedTax | inDollars }}
+                        </div>    
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            Total:
+                        </div>
+                        <div class="col-xs-3 col-xs-offset-6">
+                            $ {{ totalPrice | inDollars }}
+                        </div>    
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h3 class="Order__title--blue">Add your details</h3>
+                    <hr>
+                    <address-picker 
+                        :existing-addresses="addresses" 
+                        :address="address" 
+                        @update-selected-address="updateSelectedAddress">
+                    </address-picker>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <h3>Address</h3>
-                <hr>
-                <address-picker :existing-addresses="addresses" :address="address" @update-selected-address="updateSelectedAddress">
-                </address-picker>
-            </div>
         </div>
-        <div class="row">
-                <button @click="pay" class="col-xs-12 text-center btn btn-default">Pay</button>
-        </div>
+        <button @click="pay" 
+            class="text-center Button--checkout" 
+            :disabled="!canPay()"
+            >Checkout</button>
     </div>
 </template>
 
@@ -118,7 +128,7 @@
                 });                
             },
             pay: function() {
-                if(this.totalQuantity() > 0 && (this.address.is_valid || this.selectedAddress != 0)){
+                if(this.canPay()){
                     alert('pagando');
                     var data = {
                         newAddress: this.address,
@@ -145,6 +155,9 @@
             },
             updateSelectedAddress: function(id) {
                 this.selectedAddress = id;
+            },
+            canPay: function() {
+                return this.totalQuantity() > 0 && (this.address.is_valid || this.selectedAddress != 0);
             }
         },
         computed:  {
@@ -182,3 +195,15 @@
         }
     }
 </script>
+
+
+<style type="text/css">
+    .Order__title--orange {
+        font-size: 20px;
+        color: #F16A01;
+    }
+    .Order__title--blue {
+        font-size: 20px;
+        color: #0000AA;
+    }
+</style>

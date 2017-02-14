@@ -41,7 +41,7 @@ class Design extends Model
 
         $encoded = substr(request()->base64_image, strpos(request()->base64_image, ",")+1);
 
-        Image::make($encoded)->crop(1077, 43, 61, 279)->save($this->filepath);
+        Image::make($encoded)->crop(1077, 42, 61, 279)->save($this->filepath);
     }
 
     protected function assignFilePath()

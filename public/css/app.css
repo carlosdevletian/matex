@@ -6610,6 +6610,121 @@ textarea {
     color: white;
     border-color: red; }
 
+.Button--product {
+  border: 2px solid #F16A01;
+  background-color: transparent;
+  color: #F16A01;
+  font-size: 11pt;
+  border-radius: 5px;
+  outline: 0;
+  padding: 10px 20px;
+  width: 100%;
+  padding: 1em 0em;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  outline: 0;
+  padding: 0px;
+  border: none;
+  border-radius: 0px; }
+  .Button--product:hover {
+    background-color: #F16A01;
+    color: white; }
+
+.Button--modal {
+  border: 2px solid #F16A01;
+  background-color: #F16A01;
+  color: white;
+  font-size: 12pt;
+  border-radius: 5px;
+  outline: 0;
+  padding: 10px 20px;
+  width: 100%;
+  padding: 1em 0em;
+  /*Esto se aplica para fijarlo a la parte de abajo, el container debe tener: "position: relative"*/
+  position: absolute;
+  width: 100%;
+  right: 0;
+  bottom: 0;
+  border-radius: 0px 0px 5px 5px;
+  margin-bottom: -1px; }
+  .Button--modal:hover {
+    -webkit-transform: translateY(-1px);
+    transform: translateY(-1px); }
+
+.Button--checkout {
+  border: 2px solid #0000AA;
+  background-color: #0000AA;
+  color: white;
+  font-size: 12pt;
+  border-radius: 5px;
+  outline: 0;
+  padding: 10px 20px;
+  width: 100%;
+  padding: 1em 0em;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  /*Esto se aplica para fijarlo a la parte de abajo, el container debe tener: "position: relative"*/
+  position: absolute;
+  width: 100%;
+  right: 0;
+  bottom: 0;
+  border-radius: 0px 0px 5px 5px;
+  margin-bottom: -1px;
+  /*Esto es del boton y ya*/
+  padding: 10px 20px; }
+  .Button--checkout:hover {
+    background-color: transparent;
+    color: #0000AA; }
+  .Button--checkout:hover {
+    -webkit-transform: translateY(-1px);
+    transform: translateY(-1px); }
+  .Button--checkout:disabled {
+    cursor: not-allowed;
+    text-decoration: line-through; }
+
+.Button--address {
+  border: 2px solid #0000AA;
+  background-color: transparent;
+  color: #0000AA;
+  font-size: 11pt;
+  border-radius: 5px;
+  outline: 0;
+  padding: 10px 20px;
+  width: 100%;
+  padding: 1em 0em;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease; }
+  .Button--address:hover {
+    background-color: #0000AA;
+    color: white; }
+
+.Form {
+  display: block;
+  width: 100%;
+  line-height: 1.5;
+  border: none;
+  border-bottom: solid 1px lightgrey;
+  color: black;
+  box-shadow: none;
+  font-weight: normal;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 0px; }
+  .Form:focus {
+    outline: none;
+    border-bottom: solid 2px #0000AA; }
+  .Form--error {
+    border-bottom: solid 2px red; }
+    .Form--error:focus {
+      outline: none;
+      border-bottom: solid 2px red; }
+
+.Item__delete {
+  color: lightgrey; }
+  .Item__delete:hover {
+    color: grey;
+    cursor: pointer; }
+
 .Modal {
   max-width: 400px;
   margin: 60px auto;
@@ -6650,7 +6765,7 @@ textarea {
     padding-left: 30px;
     padding-right: 30px; }
   .Modal__body {
-    margin: 20px 0;
+    margin: 20px 0 50px;
     padding-left: 30px;
     padding-right: 30px; }
   .Modal__footer {
@@ -6658,24 +6773,6 @@ textarea {
     padding-left: 30px;
     padding-right: 30px;
     padding-bottom: 20px; }
-  .Modal__button {
-    border: 2px solid #F16A01;
-    background-color: #F16A01;
-    color: white;
-    font-size: 12pt;
-    border-radius: 5px;
-    outline: 0;
-    padding: 10px 20px;
-    width: 100%;
-    padding: 1em 0em;
-    position: absolute;
-    width: 100%;
-    right: 0;
-    border-top-right-radius: 0px;
-    border-top-left-radius: 0px; }
-    .Modal__button:hover {
-      -webkit-transform: translateY(-1px);
-      transform: translateY(-1px); }
   .Modal__checkbox {
     text-align: left; }
   .Modal__close {
@@ -6938,5 +7035,20 @@ textarea {
 
 .neg-marg-top {
   margin-top: -35px; }
+
+.Address {
+  position: relative;
+  border: solid 2px;
+  border-radius: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-color: #0000AA;
+  margin: 0px 5px 5px 0px; }
+  .Address__expand {
+    float: right;
+    position: absolute;
+    right: 0;
+    padding-right: 10px;
+    color: #0000AA; }
 
 /*# sourceMappingURL=app.css.map */

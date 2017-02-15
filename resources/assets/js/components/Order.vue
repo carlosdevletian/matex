@@ -66,6 +66,9 @@
         <button @click="pay"
             class="text-center Button--checkout"
             >Checkout</button>
+        <button @click="addToCart"
+            class="text-center Button--checkout left"
+            >Add to cart</button>
     </div>
 </template>
 
@@ -143,6 +146,13 @@
                     this.address.show_errors = true;
                 }
             },
+            addToCart: function() {
+                if(this.totalQuantity() > 0) {
+                    this.$http.post('/addToCart', this.items).then((response) => { window.location = '/cart' });
+                }else{
+                    alert('error');
+                }
+            },
             totalQuantity: function() {
                 var total = 0;
 
@@ -197,6 +207,9 @@
 
 
 <style type="text/css">
+    .left {
+        left: 0;
+    }
     .Order__title--orange {
         font-size: 20px;
         color: #F16A01;

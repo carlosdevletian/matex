@@ -17,8 +17,17 @@ class VueController extends Controller
         $cartId = auth()->user()->cart->id;
         $items->map(function($item) use($cartId){
             $item['cart_id'] = $cartId;
+            $item['product_id'] = $item['product']['id'];
+            $item['design_id'] = $item['design'];
+            if($originalItem = Item::exists($item)) {
+                $originalItem->quantity += $item['quantity'];
+                $originalItem->save(); 
+                return;
+            }
             return Item::create($item);
+
         });
+        session()->forget(['design', 'category_id']);
     }
 
     public function calculatePrice()

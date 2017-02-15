@@ -14,6 +14,17 @@
 
     <div class="container">
         <div class="row">
+            @if(auth()->check())
+                @if(auth()->user()->designs)
+                    @foreach(auth()->user()->designs as $design)
+                    <ul>
+                        <li>
+                            <a href="{{ route('order.create', ['category_id' => $category->id, 'design' => $design->id]) }}">{{ $design->id }}</a>
+                        </li>
+                    </ul>
+                    @endforeach
+                @endif
+            @endif
             <h2>Design your {{ $category->name }}</h2>
 
             <div id="fpd" class="fpd-container fpd-topbar fpd-hidden-tablets">

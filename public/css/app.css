@@ -8865,7 +8865,7 @@ textarea {
   transition: all 0.5s ease;
   /*Esto se aplica para fijarlo a la parte de abajo, el container debe tener: "position: relative"*/
   position: absolute;
-  width: 100%;
+  width: 50%;
   right: 0;
   bottom: 0;
   border-radius: 0px 0px 5px 5px;

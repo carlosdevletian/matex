@@ -22,15 +22,14 @@ class OrderController extends Controller
         }
     }
 
-    public function create($categoryId)
+    public function create($categoryId, Design $design = null)
     {
         $products = Product::where('category_id', $categoryId)->get();
 
-
         if(auth()->check()) {
             $addresses = Address::where('user_id', auth()->user()->id)->get();
-            $design = Design::findOrFail(session('design'));
-            
+            $design = $design != null ? $design : Design::findOrFail(session('design'));
+
             return view('orders.create', ['products' => $products, 'addresses' => $addresses, 'design' => $design->id, 'design_image' => $design->image_name]);
         }
         $addresses = collect();

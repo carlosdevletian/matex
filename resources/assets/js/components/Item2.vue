@@ -10,13 +10,15 @@
                 <h5>{{ item.product.name }}</h5>
             </div>
             <div class="col-xs-3">
-                <input type="number"
-                    v-model="item.quantity"
-                    @change="updatePrice" 
-                    class="Form pd-0" 
-                    onfocus="if(this.value == '0') { this.value = ''; }"
-                    v-bind:class="{ 'Form--error' : this.error }"
-                    autofocus>
+                <h5>
+                    <input type="number"
+                        v-model="item.quantity"
+                        @change="updatePrice" 
+                        class="Form pd-0" 
+                        onfocus="if(this.value == '0') { this.value = ''; }"
+                        v-bind:class="{ 'Form--error' : this.error }"
+                        autofocus>
+                </h5>
             </div>
             <div class="col-xs-2">
                 <h5>

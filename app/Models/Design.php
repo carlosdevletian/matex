@@ -22,7 +22,7 @@ class Design extends Model
 
     public function __construct(array $attributes = [])  {
         parent::__construct($attributes); // Eloquent
-        
+
         $this->directory = storage_path('app/designs');
         is_dir($this->directory) ?: mkdir($this->directory, 0777, true);
 
@@ -42,6 +42,8 @@ class Design extends Model
         $encoded = substr(request()->base64_image, strpos(request()->base64_image, ",")+1);
 
         Image::make($encoded)->crop(1077, 42, 61, 279)->save($this->filepath);
+
+        return $this->image_name;
     }
 
     protected function assignFilePath()

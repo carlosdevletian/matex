@@ -11,13 +11,13 @@
         <div class="row">
             <div class="col-xs-12">
                 <div style="margin-bottom: 20px;">
-                    <img src="{{ route('image_path', ['image' => $design->image_name]) }}" class="img img-responsive">
+                    <img src="{{ route('image_path', ['image' => $design_image]) }}" class="img img-responsive">
                 </div>
                 <div>
-                    <order 
-                        :products="{{ $products }}" 
-                        :addresses="{{ $addresses }}" 
-                        :design-id="{{ $design->id }}">
+                    <order
+                        :products="{{ $products }}"
+                        :addresses="{{ $addresses }}"
+                        design="{{ $design }}">
                     </order>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                 @add-to-cart="addToCart"
             ></price-calculator>
             <address-selector
-                class="col-xs-6" 
+                class="col-xs-6"
                 style="background-color: white; height: 70vh; overflow-y: scroll; box-shadow: 5px 5px 5px #000000;"
                 v-if="stepTwo"
                 :email="guestEmail"
@@ -57,7 +57,7 @@
             <div v-if="stepThree">
                 <button class="btn btn-primary" @click="createOrder">Pay</button>
             </div>
-            
+
         </div>
             {{ asignar a usuario(user_id) o a guest(email) --}}
             {{-- mostrar total de la orden(subtotal, shipping, tax, total) --}}

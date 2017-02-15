@@ -8,7 +8,6 @@
     <!-- Main CSS for the product designer -->
     <link rel="stylesheet" href="{{ URL::to('css/FancyProductDesigner-all.min.css') }}" />
     <link rel="stylesheet" href="{{ URL::to('css/fpd.css') }}" />
-    
 @endpush
 
 @section('content')
@@ -22,23 +21,23 @@
                     <img src= "{{ URL::to('images/bracelet_template.png') }}"
                          title="Bracelet"
                          data-parameters=
-                            '{"left": 340, 
-                            "top": 329, 
+                            '{"left": 340,
+                            "top": 329,
                             "draggable": false,
                             "removable": false,
                             "autoCenter": true,
                             "zChangeable": false,
                             "colors": "#ffffff,#e3e3e3,#000000,#ffff80,#ff6666,#00ff80",
-                            "z": 2 
+                            "z": 2
                             }'
                     />
-                    <span title="Any Text" 
+                    <span title="Any Text"
                           data-parameters=
-                            '{"boundingBox": "Bracelet", 
-                            "removable": true, 
-                            "draggable": true, 
-                            "rotatable": true, 
-                            "resizable": true, 
+                            '{"boundingBox": "Bracelet",
+                            "removable": true,
+                            "draggable": true,
+                            "rotatable": true,
+                            "resizable": true,
                             "outOfBoundaryColor": "#FFFF00",
                             "autocenter": true,
                             "z": -1,
@@ -88,7 +87,7 @@
                         'bottom': ['undo','redo'],
                         'left': ['manage-layers','save']
                     },
-                    selectedColor: "#f5f5f5", 
+                    selectedColor: "#f5f5f5",
                     customTextParameters: {
                         colors: "#000000,#ffffff",
                         removable: true,
@@ -121,8 +120,8 @@
                         if(e.target.id == 'user-checkout'){
                             window.location = "/login";
                         }else{
-                            window.location = "/categories/" + data.category_id + "/designs/" + data.design_id + "/orders/create";
-                        }                      
+                            window.location = "/categories/" + data.category_id + "/designs/orders/create";
+                        }
                     }).fail(function() {
                         swal({
                             title: "Ooops",
@@ -131,7 +130,7 @@
                             timer: 1900,
                             showConfirmButton: false
                         }).catch(swal.noop);
-                    });   
+                    });
                 });
             });
         });

@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-xs-3 col-xs-offset-6">
                             $ {{ calculatedSubtotal | inDollars }}
-                        </div>    
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-3">
@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-xs-3 col-xs-offset-6">
                             $ {{ calculatedShipping | inDollars }}
-                        </div>    
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-3">
@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-xs-3 col-xs-offset-6">
                             $ {{ calculatedTax | inDollars }}
-                        </div>    
+                        </div>
                     </div>
                     <hr>
                     <div class="row">
@@ -49,30 +49,29 @@
                         </div>
                         <div class="col-xs-3 col-xs-offset-6">
                             $ {{ totalPrice | inDollars }}
-                        </div>    
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <h3 class="Order__title--blue">Add your details</h3>
                     <hr>
-                    <address-picker 
-                        :existing-addresses="addresses" 
-                        :address="address" 
+                    <address-picker
+                        :existing-addresses="addresses"
+                        :address="address"
                         @update-selected-address="updateSelectedAddress">
                     </address-picker>
                 </div>
             </div>
         </div>
-        <button @click="pay" 
-            class="text-center Button--checkout" 
-            :disabled="!canPay()"
+        <button @click="pay"
+            class="text-center Button--checkout"
             >Checkout</button>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['products', 'designId', 'addresses'],
+        props: ['products', 'design', 'addresses'],
         data: function() {
             return {
                 items: [],
@@ -99,7 +98,7 @@
             createItem: function(product) {
                 var item = {
                     product : product,
-                    design_id: this.designId,
+                    design: this.design,
                     quantity: 0,
                     unit_price: 0,
                     total_price: 0
@@ -112,20 +111,20 @@
             removeProduct: function(productId) {
                 var vm = this;
 
-                this.products.forEach( function(product, index){ 
+                this.products.forEach( function(product, index){
                     if(product.id == productId){
-                        vm.products.splice(index, 1); 
-                    } 
+                        vm.products.splice(index, 1);
+                    }
                 });
             },
             deleteItem: function(productId) {
                 var vm = this;
-                this.items.forEach( function(item, index){ 
+                this.items.forEach( function(item, index){
                     if(item.product.id == productId){
                         vm.products.push(item.product);
-                        vm.items.splice(index, 1); 
-                    } 
-                });                
+                        vm.items.splice(index, 1);
+                    }
+                });
             },
             pay: function() {
                 if(this.canPay()){
@@ -134,7 +133,7 @@
                         newAddress: this.address,
                         selectedAddress: this.selectedAddress,
                         items: this.items,
-                        design_id: this.designId,
+                        design: this.design,
                     }
                     this.$http.post('/prepareOrder', data).then((response) => {
                         alert('Hay que cobrar ' +  response.body);
@@ -147,7 +146,7 @@
             totalQuantity: function() {
                 var total = 0;
 
-                this.items.forEach( function(item){ 
+                this.items.forEach( function(item){
                     total = total + item.quantity;
                 });
 

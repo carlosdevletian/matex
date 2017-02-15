@@ -24,7 +24,7 @@ Route::post('/designs','DesignController@store')->name('designs.store');
 Route::get('/categories', 'CategoryController@index')->name('categories.index');
 Route::get('/categories/{category}/designs/create', 'DesignController@create')->name('designs.create');
 Route::get('/categories/{category}/products', 'ProductController@index')->name('products.index');
-Route::get('categories/{category}/designs/{design}/orders/create', 'OrderController@create')->name('order.create');
+Route::get('categories/{category}/designs/orders/create', 'OrderController@create')->name('order.create');
 
 Route::get('/orders/{order}', 'OrderController@show')->name('orders.show');
 Route::post('/orders', 'OrderController@store')->name('orders.store');

@@ -39,17 +39,19 @@ class DesignController extends Controller
     public function store()
     {
         $design = new Design();
-        $design->makeImage();
-        $design->save();
+        $filename = $design->makeImage();
 
-        session([
-            'design_id' => $design->id,
-            'category_id' => request()->category_id
-        ]);
+        if(auth()->check()){
+            $design->save();
+            session(['design' => $design->id,]);
+        }else{
+            session(['design' => $filename,]);
+        }
+        session(['category_id' => request()->category_id]);
+
 
         return response()->json([
             'message' => 'Image successfully generated',
-            'design_id' => $design->id,
             'category_id' => request()->category_id
         ],200);
     }

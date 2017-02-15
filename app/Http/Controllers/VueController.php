@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Calculator;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\Design;
 use App\Models\Address;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class VueController extends Controller
     public function calculatePrice()
     {
         $calculator = new Calculator();
-        $unitPrice = $calculator->unitPrice(request()->product['id'], request()->design_id, request()->quantity);
+        $unitPrice = $calculator->unitPrice(request()->product['id'], 1, request()->quantity);
         $totalPrice = $calculator->totalPrice(request()->quantity, $unitPrice);
         return response()->json(['unit_price' => $unitPrice, 'total_price' => $totalPrice], 200);
     }
@@ -46,16 +47,16 @@ class VueController extends Controller
     {
         if(auth()->check()) {
             if(request()->selectedAddress != 0){
-                $address = Address::findOrFail($request()->selectedAddress);
+                $address = Address::findOrFail(request()->selectedAddress);
             }else {
                 $this->validate(request(), [
-                'newAddress.email' => 'required|email',
-                'newAddress.name' => 'required',
-                'newAddress.street' => 'required',
-                'newAddress.city' => 'required',
-                'newAddress.zip' => 'required',
-                'newAddress.country' => 'required',
-                'newAddress.phone_number' => 'required',
+                    'newAddress.email' => 'required|email',
+                    'newAddress.name' => 'required',
+                    'newAddress.street' => 'required',
+                    'newAddress.city' => 'required',
+                    'newAddress.zip' => 'required',
+                    'newAddress.country' => 'required',
+                    'newAddress.phone_number' => 'required',
                 ]);
                 $addressData = request()->except(['newAddress.is_valid', 'newAddress.show_errors'])['newAddress'];
                 $addressData['user_id'] = auth()->user()->id;
@@ -65,6 +66,7 @@ class VueController extends Controller
                'address_id' => $address->id,
                'user_id' => auth()->user()->id
             ]);
+            // $design = Design::findOrFail(session('design'));
         } else {
             // crear el address
             $this->validate(request(), [
@@ -83,7 +85,11 @@ class VueController extends Controller
                'email' => $address->email
             ]);
             session(['email' => $order->email]);
+
+            $design = Design::create(['image_name' => session('design')]);
         }
+
+        session()->forget(['design']);
 
         // Se cumple para ambos casos, tanto usuario como guest
         foreach(request()->items as $itemData){
@@ -91,7 +97,11 @@ class VueController extends Controller
                 $item = new Item;
                 $item->order_id = $order->id;
                 $item->product_id = $itemData['product']['id'];
-                $item->design_id = $itemData['design_id'];
+                if(auth()->check()) {
+                    $item->design_id = $itemData['design'];
+                }else {
+                    $item->design_id = $design->id;
+                }
                 $item->quantity = $itemData['quantity'];
 
                 $item->calculatePricing();

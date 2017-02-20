@@ -20,6 +20,10 @@ Route::get('/dashboard', function () {return view('dashboard'); })->name('dashbo
 
 Route::post('/designs','DesignController@store')->name('designs.store');
 
+Route::get('/items', 'ItemController@index')->name('items.index');
+Route::put('/items/{item}', 'ItemController@update')->name('items.update');
+Route::delete('/items/{item}', 'ItemController@destroy')->name('items.destroy');
+
 Route::get('/categories', 'CategoryController@index')->name('categories.index');
 Route::get('/categories/{category}/designs/create', 'DesignController@create')->name('designs.create');
 Route::get('/categories/{category}/products', 'ProductController@index')->name('products.index');
@@ -38,6 +42,7 @@ Route::post('/calculatePrice', 'VueController@calculatePrice')->name('calculate-
 Route::post('/calculateShipping', 'VueController@calculateShipping')->name('calculate-shipping');
 Route::post('/calculateTax', 'VueController@calculateTax')->name('calculate-tax');
 Route::post('/prepareOrder', 'VueController@prepareOrder')->name('prepare-order');
+Route::post('/prepareCartOrder', 'VueController@prepareCartOrder')->name('prepare-cart-order');
 
 Route::get('/addresses', 'AddressController@index')->name('addresses.index');
 Route::post('/addresses', 'AddressController@store')->name('addresses.store');

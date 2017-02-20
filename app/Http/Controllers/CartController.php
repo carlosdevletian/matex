@@ -10,6 +10,7 @@ class CartController extends Controller
     public function show()
     {
         $cart = auth()->user()->cart;
-        return view('carts.show', compact('cart'));
+        $addresses = auth()->user()->addresses;
+        return view('carts.show', compact('cart', 'addresses'));
     }
 }

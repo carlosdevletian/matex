@@ -32,6 +32,7 @@ class Item extends Model
         $calculator = new Calculator();
         $this->unit_price = $calculator->unitPrice($this->product_id, $this->design_id, $this->quantity);
         $this->total_price = $calculator->totalPrice($this->quantity, $this->unit_price);
+        $this->save();
     }
 
     public static function exists($data)

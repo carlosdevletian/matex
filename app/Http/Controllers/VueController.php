@@ -24,8 +24,8 @@ class VueController extends Controller
                 $originalItem->save(); 
                 return;
             }
-            return Item::create($item);
-
+            $newItem = Item::create($item);
+            $newItem->calculatePricing();
         });
         session()->forget(['design', 'category_id']);
     }
@@ -122,6 +122,42 @@ class VueController extends Controller
                 $item->design->save();
                 $item->design->move();
             }
+        }
+
+        $order->assignReferenceNumber();
+        $order->calculatePricing();
+        $order->save();
+        return $order->total;
+    }
+
+    public function prepareCartOrder()
+    {
+        if(request()->selectedAddress != 0){
+            $address = Address::findOrFail(request()->selectedAddress);
+        }else {
+            $this->validate(request(), [
+                'newAddress.email' => 'required|email',
+                'newAddress.name' => 'required',
+                'newAddress.street' => 'required',
+                'newAddress.city' => 'required',
+                'newAddress.zip' => 'required',
+                'newAddress.country' => 'required',
+                'newAddress.phone_number' => 'required',
+            ]);
+            $addressData = request()->except(['newAddress.is_valid', 'newAddress.show_errors'])['newAddress'];
+            $addressData['user_id'] = auth()->user()->id;
+            $address = Address::create($addressData);
+        }
+        $order = Order::create([
+           'address_id' => $address->id,
+           'user_id' => auth()->user()->id
+        ]);
+
+        foreach(auth()->user()->cart->items as $item){
+            $item->order_id = $order->id;
+            $item->cart_id = null;
+            $item->calculatePricing();
+            $item->save();
         }
 
         $order->assignReferenceNumber();

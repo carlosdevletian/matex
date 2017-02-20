@@ -14,11 +14,11 @@ class VueController extends Controller
     public function addToCart()
     {
         $items = collect(request()->toArray());
-        $cartId = auth()->user()->cart->id;
-        $items->map(function($item) use($cartId){
-            $item['cart_id'] = $cartId;
+        $items->map(function($item) {
+            $item['cart_id'] = auth()->user()->cart->id;
             $item['product_id'] = $item['product']['id'];
             $item['design_id'] = $item['design'];
+            
             if($originalItem = Item::exists($item)) {
                 $originalItem->quantity += $item['quantity'];
                 $originalItem->save(); 

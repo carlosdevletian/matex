@@ -15,14 +15,27 @@
     <div class="container">
         <div class="row">
             @if(auth()->check())
-                @if(auth()->user()->designs)
-                    @foreach(auth()->user()->designs as $design)
-                    <ul>
-                        <li>
-                            <a href="{{ route('order.create', ['category_id' => $category->id, 'design' => $design->id]) }}">{{ $design->id }}</a>
-                        </li>
-                    </ul>
-                    @endforeach
+                @if(auth()->user()->designs->count() > 0)
+                    <div class="panel panel-default">
+                        <div class="panel panel-heading">Existing designs</div>
+                            @foreach(auth()->user()->designs as $design)
+                                <div class="panel-body" style="position: relative">
+                                    <a href="#" 
+                                    style="position: absolute; top: 0; right: 0; padding-right: 80px"
+                                    class="load-design"
+                                    data-target="{{ $design->views }}">
+                                        Edit
+                                        <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
+                                    </a>
+                                    <a href="{{ route('order.create', ['category_id' => $category->id, 'design' => $design->id]) }}" 
+                                        style="position: absolute; top: 0; right: 0; padding-right: 20px">
+                                        Choose
+                                        <!-- <i class="fa fa-sign-in" aria-hidden="true"></i> -->
+                                    </a>
+                                    <img src="{{ route('image_path', ['image' => $design->image_name]) }}" class="img img-responsive">
+                                </div>
+                            @endforeach
+                    </div>
                 @endif
             @endif
             <h2>Design your {{ $category->name }}</h2>
@@ -42,18 +55,6 @@
                             "z": 2
                             }'
                     />
-                    <span title="Any Text"
-                          data-parameters=
-                            '{"boundingBox": "Bracelet",
-                            "removable": true,
-                            "draggable": true,
-                            "rotatable": true,
-                            "resizable": true,
-                            "outOfBoundaryColor": "#FFFF00",
-                            "autocenter": true,
-                            "z": -1,
-                            "colors": "#000000"}'
-                    ></span>
                 </div>
             </div>
             @if(auth()->check())
@@ -106,7 +107,7 @@
                         draggable: true,
                         rotatable: true,
                         autoCenter: true,
-                        boundingBox: "Bracelet",
+                        // boundingBox: "Bracelet",
                         toolbarPlacement: "inside-top",
                         colors: "#e3e3e3,#000000,#ffff80,#ff6666,#00ff80",
                     },
@@ -116,7 +117,7 @@
                         resizable: true,
                         rotatable: true,
                         autoCenter: true,
-                        boundingBox: "Bracelet",
+                        // boundingBox: "Bracelet",
                         z: -1,
                     },
                     outOfBoundaryColor: "#FF0000",
@@ -127,7 +128,7 @@
 
             $('#guest-checkout, #user-checkout').click(function(e){
                 yourDesigner.getProductDataURL(function(dataURL) {
-                    $.post("/designs", { base64_image:  dataURL, category_id: {{ $category->id }} }, function(data) {
+                    $.post("/designs", { base64_image:  dataURL, category_id: {{ $category->id }}, views: JSON.stringify(yourDesigner.getProduct()) }, function(data) {
                         if(e.target.id == 'user-checkout'){
                             window.location = "/login";
                         }else{
@@ -143,6 +144,9 @@
                         }).catch(swal.noop);
                     });
                 });
+            });
+            $('.load-design').click( function() {
+                yourDesigner.loadProduct($(this).data('target'));
             });
         });
     </script>

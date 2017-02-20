@@ -42,6 +42,7 @@ class DesignController extends Controller
         $filename = $design->makeImage();
 
         if(auth()->check()){
+            $design->views = request()->views;
             $design->save();
             session(['design' => $design->id,]);
         }else{

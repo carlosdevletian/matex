@@ -42,7 +42,6 @@ Route::post('/calculatePrice', 'VueController@calculatePrice')->name('calculate-
 Route::post('/calculateShipping', 'VueController@calculateShipping')->name('calculate-shipping');
 Route::post('/calculateTax', 'VueController@calculateTax')->name('calculate-tax');
 Route::post('/prepareOrder', 'VueController@prepareOrder')->name('prepare-order');
-Route::post('/prepareCartOrder', 'VueController@prepareCartOrder')->name('prepare-cart-order');
 
 Route::get('/addresses', 'AddressController@index')->name('addresses.index');
 Route::post('/addresses', 'AddressController@store')->name('addresses.store');

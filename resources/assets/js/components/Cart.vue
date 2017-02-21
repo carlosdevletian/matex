@@ -93,7 +93,7 @@
         methods: {
             deleteItem: function(itemId) {
                 var vm = this;
-                
+
                 this.$http.delete('/items/' + itemId).then((response) => {
                     this.items.forEach(function(item, index){
                         if(item.id == itemId){
@@ -135,7 +135,7 @@
                         items: this.items,
                         design: this.design,
                     }
-                    this.$http.post('/prepareCartOrder', data).then((response) => {
+                    this.$http.post('/prepareOrder', data).then((response) => {
                         alert('Hay que cobrar ' +  response.body);
                     });
                 }else{

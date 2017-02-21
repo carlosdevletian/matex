@@ -17,11 +17,11 @@ class VueController extends Controller
         $items->map(function($item) {
             $item['cart_id'] = auth()->user()->cart->id;
             $item['product_id'] = $item['product']['id'];
-            $item['design_id'] = $item['design'];
-            
+            $item['design_id'] = $item['design_id'];
+
             if($originalItem = Item::exists($item)) {
                 $originalItem->quantity += $item['quantity'];
-                $originalItem->save(); 
+                $originalItem->save();
                 return;
             }
             $newItem = Item::create($item);
@@ -54,84 +54,25 @@ class VueController extends Controller
 
     public function prepareOrder()
     {
-        if(auth()->check()) {
-            if(request()->selectedAddress != 0){
-                $address = Address::findOrFail(request()->selectedAddress);
-            }else {
-                $this->validate(request(), [
-                    'newAddress.email' => 'required|email',
-                    'newAddress.name' => 'required',
-                    'newAddress.street' => 'required',
-                    'newAddress.city' => 'required',
-                    'newAddress.zip' => 'required',
-                    'newAddress.country' => 'required',
-                    'newAddress.phone_number' => 'required',
-                ]);
-                $addressData = request()->except(['newAddress.is_valid', 'newAddress.show_errors'])['newAddress'];
-                $addressData['user_id'] = auth()->user()->id;
-                $address = Address::create($addressData);
-            }
-            $order = Order::create([
-               'address_id' => $address->id,
-               'user_id' => auth()->user()->id
-            ]);
-            // $design = Design::findOrFail(session('design'));
-        } else {
-            // crear el address
-            $this->validate(request(), [
-                'newAddress.email' => 'required|email',
-                'newAddress.name' => 'required',
-                'newAddress.street' => 'required',
-                'newAddress.city' => 'required',
-                'newAddress.zip' => 'required',
-                'newAddress.country' => 'required',
-                'newAddress.phone_number' => 'required',
-            ]);
-            $addressData = request()->except(['newAddress.is_valid', 'newAddress.show_errors'])['newAddress'];
-            $address = Address::create($addressData);
-            $order = Order::create([
-               'address_id' => $address->id,
-               'email' => $address->email
-            ]);
-            session(['email' => $order->email]);
+        //determinar si es user o guest
+        //crear address
+        //crear diseño para guest
+        //crear orden
+        //crear items
+        //calcular precio orden
 
-            $design = Design::create(['image_name' => session('design')]);
+        if(auth()->check()) {
+            $identifier = 'user_id';
+            $identifier_value = auth()->user()->id;
+        }else {
+            $identifier = 'email';
+            $identifier_value = request()->newAddress['email'];
+            session(['email' => $identifier_value]);
+            $design = Design::create([$identifier => $identifier_value, 'image_name' => session('design')]);
         }
 
         session()->forget(['design']);
 
-        // Se cumple para ambos casos, tanto usuario como guest
-        foreach(request()->items as $itemData){
-            if($itemData['quantity'] > 0) {
-                $item = new Item;
-                $item->order_id = $order->id;
-                $item->product_id = $itemData['product']['id'];
-                if(auth()->check()) {
-                    $item->design_id = $itemData['design'];
-                }else {
-                    $item->design_id = $design->id;
-                }
-                $item->quantity = $itemData['quantity'];
-
-                $item->calculatePricing();
-                $item->save();
-                // $item->removeFromCart();
-            }
-            if(!auth()->check()){
-                $item->design->email = $order->email;
-                $item->design->save();
-                $item->design->move();
-            }
-        }
-
-        $order->assignReferenceNumber();
-        $order->calculatePricing();
-        $order->save();
-        return $order->total;
-    }
-
-    public function prepareCartOrder()
-    {
         if(request()->selectedAddress != 0){
             $address = Address::findOrFail(request()->selectedAddress);
         }else {
@@ -145,19 +86,38 @@ class VueController extends Controller
                 'newAddress.phone_number' => 'required',
             ]);
             $addressData = request()->except(['newAddress.is_valid', 'newAddress.show_errors'])['newAddress'];
-            $addressData['user_id'] = auth()->user()->id;
+            $addressData[$identifier] = $identifier_value;
             $address = Address::create($addressData);
         }
+
         $order = Order::create([
-           'address_id' => $address->id,
-           'user_id' => auth()->user()->id
+            'address_id' => $address->id,
+            $identifier => $identifier_value
         ]);
 
-        foreach(auth()->user()->cart->items as $item){
-            $item->order_id = $order->id;
-            $item->cart_id = null;
+        foreach(request()->items as $itemData){
+            if(!empty($itemData['cart_id'])){
+                $item = Item::findOrFail($itemData['id']);
+                $item->order_id = $order->id;
+                $item->cart_id = null;
+            }else{
+                $item = new Item;
+                $item->order_id = $order->id;
+                $item->product_id = $itemData['product']['id'];
+                if(auth()->check()) {
+                    $item->design_id = $itemData['design_id'];
+                }else {
+                    $item->design_id = $design->id;
+                }
+                $item->quantity = $itemData['quantity'];
+            }
+
             $item->calculatePricing();
             $item->save();
+        }
+
+        if(!auth()->check()){
+            $item->design->move();
         }
 
         $order->assignReferenceNumber();

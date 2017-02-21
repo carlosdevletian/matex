@@ -66,7 +66,8 @@
         <button @click="pay"
             class="text-center Button--checkout"
             >Checkout</button>
-        <button @click="addToCart"
+        <button v-if="signedIn"
+            @click="addToCart"
             class="text-center Button--checkout left"
             >Add to cart</button>
     </div>
@@ -95,13 +96,14 @@
                     is_valid: false,
                     show_errors: false
                 },
+                signedIn: Matex.signedIn,
             }
         },
         methods: {
             createItem: function(product) {
                 var item = {
                     product : product,
-                    design: this.design,
+                    design_id: this.design,
                     quantity: 0,
                     unit_price: 0,
                     total_price: 0

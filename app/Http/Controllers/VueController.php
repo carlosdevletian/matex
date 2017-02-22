@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Cashier;
 use App\Calculator;
 use App\Models\Item;
 use App\Models\Order;
@@ -54,75 +55,8 @@ class VueController extends Controller
 
     public function prepareOrder()
     {
-        //determinar si es user o guest
-        //crear address
-        //crear diseño para guest
-        //crear orden
-        //crear items
-        //calcular precio orden
+        $cashier = new Cashier();
 
-        if(auth()->check()) {
-            $identifier = 'user_id';
-            $identifier_value = auth()->user()->id;
-        }else {
-            $identifier = 'email';
-            $identifier_value = request()->newAddress['email'];
-            session(['email' => $identifier_value]);
-            $design = Design::create([$identifier => $identifier_value, 'image_name' => session('design')]);
-        }
-
-        session()->forget(['design']);
-
-        if(request()->selectedAddress != 0){
-            $address = Address::findOrFail(request()->selectedAddress);
-        }else {
-            $this->validate(request(), [
-                'newAddress.email' => 'required|email',
-                'newAddress.name' => 'required',
-                'newAddress.street' => 'required',
-                'newAddress.city' => 'required',
-                'newAddress.zip' => 'required',
-                'newAddress.country' => 'required',
-                'newAddress.phone_number' => 'required',
-            ]);
-            $addressData = request()->except(['newAddress.is_valid', 'newAddress.show_errors'])['newAddress'];
-            $addressData[$identifier] = $identifier_value;
-            $address = Address::create($addressData);
-        }
-
-        $order = Order::create([
-            'address_id' => $address->id,
-            $identifier => $identifier_value
-        ]);
-
-        foreach(request()->items as $itemData){
-            if(!empty($itemData['cart_id'])){
-                $item = Item::findOrFail($itemData['id']);
-                $item->order_id = $order->id;
-                $item->cart_id = null;
-            }else{
-                $item = new Item;
-                $item->order_id = $order->id;
-                $item->product_id = $itemData['product']['id'];
-                if(auth()->check()) {
-                    $item->design_id = $itemData['design_id'];
-                }else {
-                    $item->design_id = $design->id;
-                }
-                $item->quantity = $itemData['quantity'];
-            }
-
-            $item->calculatePricing();
-            $item->save();
-        }
-
-        if(!auth()->check()){
-            $item->design->move();
-        }
-
-        $order->assignReferenceNumber();
-        $order->calculatePricing();
-        $order->save();
-        return $order->total;
+        return $cashier->checkout();
     }
 }

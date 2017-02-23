@@ -14,8 +14,8 @@
                     </div>
                     <hr v-if="products.length > 0">
                     <div v-for="item in items">
-                        <item2 :item="item" @delete-item="deleteItem">
-                        </item2>
+                        <item :item="item" @delete-item="deleteItem">
+                        </item>
                     </div>
                     <hr v-if="items.length > 0">
                     <div class="row">
@@ -31,7 +31,7 @@
                             Shipping:
                         </div>
                         <div class="col-xs-3 col-xs-offset-6">
-                            $ {{ calculatedShipping | inDollars }}
+                            $ {{ shipping | inDollars }}
                         </div>
                     </div>
                     <div class="row">
@@ -39,7 +39,7 @@
                             Tax:
                         </div>
                         <div class="col-xs-3 col-xs-offset-6">
-                            $ {{ calculatedTax | inDollars }}
+                            $ {{ tax | inDollars }}
                         </div>
                     </div>
                     <hr>
@@ -164,41 +164,50 @@
 
                 return total;
             },
-            updateSelectedAddress: function(id) {
-                this.selectedAddress = id;
+            updateSelectedAddress: function(data) {
+                this.selectedAddress = data.id;
+                this.address.zip = data.zip;            
             },
             canPay: function() {
                 return this.totalQuantity() > 0 && (this.address.is_valid || this.selectedAddress != 0);
+            },
+            calculateShipping: function() {
+                if(this.address.zip.length == 5) {
+                    var data = {
+                        zip: this.address.zip
+                    }
+                    this.$http.post('/calculateShipping', data).then((response) => {
+                        this.shipping = response.body.shipping;
+                    });
+                }
+            },
+            calculateTax: function() {
+                var data = {
+                    zip: this.address.zip
+                }
+                this.$http.post('/calculateTax', data).then((response) => {
+                    this.tax = (this.subtotal + this.shipping) * response.body.tax_percentage;
+                });
+            },
+        },
+        watch: {
+            'address.zip': function (getShippingAndTax) {
+                this.calculateShipping();
+                this.calculateTax();
+            },
+            subtotal: function (getTax) {
+                this.calculateTax();
             }
         },
         computed:  {
             calculatedSubtotal: function() {
+                console.log('SUBTOTAL');
                 this.subtotal = 0;
                 var vm = this;
                 this.items.forEach(function(item) {
                     vm.subtotal = (vm.subtotal + item.total_price);
                 });
                 return this.subtotal;
-            },
-            calculatedShipping: function() {
-                var data = {
-                    zip: this.address.zip
-                }
-                this.$http.post('/calculateShipping', data).then((response) => {
-                    this.shipping = response.body.shipping;
-                });
-                return this.shipping;
-            },
-            calculatedTax: function() {
-                var subtotal = this.subtotal;
-                var shipping = this.shipping;
-                var data = {
-                    zip: this.address.zip
-                }
-                this.$http.post('/calculateTax', data).then((response) => {
-                    this.tax = (subtotal + shipping) * response.body.tax_percentage;
-                });
-                return this.tax;
             },
             totalPrice: function() {
                 return (this.subtotal + this.shipping + this.tax);

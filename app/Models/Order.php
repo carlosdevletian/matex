@@ -60,4 +60,10 @@ class Order extends Model
     {
         $this->total = $this->subtotal + $this->shipping + $this->tax;
     }
+
+    public function addItem(Item $item)
+    {
+        $item->cart_id = null;
+        $this->items()->save($item);
+    }
 }

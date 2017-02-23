@@ -2,14 +2,16 @@
 
 namespace App;
 
-use Validator;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Design;
 use App\Models\Address;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class Cashier
 {
+    use ValidatesRequests;
+
     protected $identifier;
 
     protected $identifier_value;
@@ -59,7 +61,7 @@ class Cashier
         if(request()->selectedAddress != 0){
             $this->address = Address::findOrFail(request()->selectedAddress);
         }else {
-            Validator::make(request()->all(), [
+            $this->validate(request(), [
                 'newAddress.email' => 'required|email',
                 'newAddress.name' => 'required',
                 'newAddress.street' => 'required',
@@ -67,7 +69,7 @@ class Cashier
                 'newAddress.zip' => 'required',
                 'newAddress.country' => 'required',
                 'newAddress.phone_number' => 'required',
-            ])->validate();
+            ]);
             $addressData = request()->except(['newAddress.is_valid', 'newAddress.show_errors'])['newAddress'];
             $addressData[$this->identifier] = $this->identifier_value;
             $this->address = Address::create($addressData);
@@ -89,24 +91,21 @@ class Cashier
     protected function addItems()
     {
         foreach(request()->items as $itemData){
-            if(!empty($itemData['cart_id'])){
+            if(! empty($itemData['id'])){
                 $item = Item::findOrFail($itemData['id']);
-                $item->order_id = $this->order->id;
-                $item->cart_id = null;
             }else{
                 $item = new Item;
-                $item->order_id = $this->order->id;
-                $item->product_id = $itemData['product']['id'];
+                $item->assignProduct($itemData['product']['id']);
+                $item->quantity = $itemData['quantity'];
                 if(auth()->check()) {
                     $item->design_id = $itemData['design_id'];
                 }else {
                     $item->design_id = $this->design->id;
                 }
-                $item->quantity = $itemData['quantity'];
             }
 
             $item->calculatePricing();
-            $item->save();
+            $this->order->addItem($item);
         }
 
         return $this;

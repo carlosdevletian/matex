@@ -1,15 +1,42 @@
 <template>
-    <div class="col-xs-12">
+    <div>
         <div class="row">
-            <div class="col-xs-1">
-                <a @click="onDelete" class="pull-right" role="button" style="color: red">x</a>
+            <div class="col-xs-1 ">
+                <h5>
+                    <a @click="deleteItem" role="button" class="Item__delete">&#10005;</a>
+                </h5>
             </div>
-            <div class="col-xs-3">{{ item.name }}</div>
             <div class="col-xs-3">
-                <input onfocus="if(this.value == '0') { this.value = ''; }" type="number" v-model="item.quantity" @change="validateQuantity" class="form-control" autofocus>
+                <h5>{{ item.product.name }}</h5>
             </div>
-            <div class="col-xs-2">${{ item.unit_price }}</div>
-            <div class="col-xs-3">${{ item.total_price }}</div>
+            <div class="col-xs-3">
+                <h5>
+                    <input type="number"
+                        v-model="item.quantity"
+                        @change="updatePrice" 
+                        class="Form pd-0" 
+                        onfocus="if(this.value == '0') { this.value = ''; }"
+                        v-bind:class="{ 'Form--error' : this.error }"
+                        autofocus>
+                </h5>
+            </div>
+            <div class="col-xs-2">
+                <h5>
+                    $ {{ item.unit_price | inDollars }}
+                </h5>
+            </div>
+            <div class="col-xs-3">
+                <h5>
+                    $ {{ item.total_price | inDollars }}
+                </h5>
+            </div>
+        </div>
+        <div class="row">
+            <div v-show="error" class="col-xs-12 text-center">
+                <h5>
+                    {{ error }}
+                </h5>
+            </div>
         </div>
     </div>
 </template>
@@ -17,33 +44,35 @@
 <script>
     export default {
         props: ['item'],
-        data: function() {
+        data: function () {
             return {
-                error: ''
+                error: '',
             }
         },
         methods: {
-            onQuantityUpdated: function() {
+            updatePrice: function () {
+                this.validateQuantity();
                 this.$http.post('/calculatePrice', this.item).then((response) => {
                     this.item.unit_price = response.body.unit_price;
                     this.item.total_price = response.body.total_price;
                });
-                this.$emit('quantity-updated', this.item);
             },
             validateQuantity: function() {
-                if(this.item.quantity <= 0) {
-                    this.error = 'Quantity must be greater than 0';
+                if(this.item.quantity < 1 || this.item.quantity % 1 != 0) {
+                    this.error = 'Input a valid quantity';
                     this.item.quantity = 0;
-                    this.item.unit_price = 0;
-                    this.item.total_price = 0;
-                }else {
-                    this.error = '';
-                    this.onQuantityUpdated();
+                    return;
                 }
+                this.error = '';
             },
-            onDelete: function() {
-                this.$emit('delete-item', this.item.product_id);
+            deleteItem: function() {
+                this.$emit('delete-item', this.item.product.id);
             }
-        }    
+        }
     }
 </script>
+<style>
+    .pd-0{
+        padding: 0px;
+    }
+</style>

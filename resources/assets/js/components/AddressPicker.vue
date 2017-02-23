@@ -7,7 +7,7 @@
                         <a role="button" @click="showExtraInfo(existingAddress.id)" class="Address__expand">
                             <i class="fa fa-angle-double-down" aria-hidden="true"></i>
                         </a>
-                        <a role="button" @click="updateSelectedAddress(existingAddress.id)" class="inherit">
+                        <a role="button" @click="updateSelectedAddress(existingAddress)" class="inherit">
                             <div>{{ existingAddress.name }}</div>
                             <div>{{ existingAddress.street }}</div>
                             <div>{{ existingAddress.city }}</div>
@@ -115,13 +115,19 @@
             }
         },
         methods: {
-            updateSelectedAddress: function(id) {
-                if(this.selected == id) {
+            updateSelectedAddress: function(address) {
+                if(this.selected == address.id || address == 0) {
                     this.selected = 0;
-                } else {
-                    this.selected = id;
+                    var zip = '';
+                }else {
+                    this.selected = address.id;
+                    var zip = address.zip;
                 }
-                this.$emit('update-selected-address', this.selected);
+                var data = {
+                    id : this.selected,
+                    zip : zip
+                }
+                this.$emit('update-selected-address', data);
             },
             isSelected: function(addressId) {
                 return this.selected == addressId;

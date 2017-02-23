@@ -27,6 +27,11 @@ class Item extends Model
         return $this->belongsTo(Design::class);
     }
 
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
     public function calculatePricing()
     {
         $calculator = new Calculator();
@@ -41,5 +46,13 @@ class Item extends Model
             ->where('design_id', $data['design_id'])
             ->where('product_id', $data['product_id'])
             ->first();
+    }
+
+    public function assignProduct($product)
+    {
+        if(is_int($product)) {
+            return $this->product_id = $product;
+        }
+        return $this->product_id = $product->id;       
     }
 }

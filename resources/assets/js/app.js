@@ -15,14 +15,11 @@ require('./bootstrap');
 
 Vue.component('cart', require('./components/Cart.vue'));
 Vue.component('item', require('./components/Item.vue'));
-Vue.component('item2', require('./components/Item2.vue'));
 Vue.component('modal', require('./components/Modal.vue'));
 Vue.component('order', require('./components/Order.vue'));
 Vue.component('cart-item', require('./components/CartItem.vue'));
 Vue.component('contact-modal', require('./components/ContactModal.vue'));
 Vue.component('address-picker', require('./components/AddressPicker.vue'));
-Vue.component('address-selector', require('./components/AddressSelector.vue'));
-Vue.component('price-calculator', require('./components/PriceCalculator.vue'));
 
 Vue.filter('inDollars', function(cents) {
     return (cents / 100);
@@ -32,14 +29,8 @@ const app = new Vue({
     el: '#app',
 
     data: {
-        stepOne: true,
-        stepTwo: false,
-        stepThree: false,
         showContactModal: false,
         modalActive: false,
-        orderItems: [],
-        addressId: '',
-        guestEmail: ''
     },
 
     methods: {
@@ -50,60 +41,6 @@ const app = new Vue({
         closeContactModal: function() {
             this.showContactModal = false;
             this.modalActive = false;
-        },
-        updateOrderItems: function(newItem) {  
-            var foundDuplicateItem = false; 
-
-            this.orderItems.forEach(function(oldItem) {
-                if (oldItem.product_id == newItem.product_id) {
-                    oldItem.quantity = newItem.quantity;
-                    oldItem.unit_price = newItem.unit_price;
-                    oldItem.total_price = newItem.total_price;
-                    foundDuplicateItem = true;
-                }
-            });
-
-            if(! foundDuplicateItem) {
-                this.orderItems.push(newItem);
-            }
-        },
-        deleteItem: function(productId) {
-            var vm = this;
-
-            this.orderItems.forEach(function(item, index){ 
-                if(item.product_id == productId){ 
-                    vm.orderItems.splice(index, 1);
-                } 
-            });
-        },
-        addToCart: function(){
-            this.$http.post('/addToCart', this.orderItems).then((response) => { window.location = '/cart' });
-        },
-        storeAddress: function(addressId) {
-            this.addressId = addressId;
-            this.enableStepThree();
-        },
-        disableStepTwo: function() {
-            this.stepTwo = false;
-            this.stepThree = false;
-        },
-        enableStepTwo: function() {
-            if(this.stepOne) {
-                this.stepTwo = true;
-            }
-        },
-        enableStepThree: function() {
-            if(this.stepTwo) {
-                this.stepThree = true;
-            }
-        },
-        createOrder: function () {
-            var order = {
-                address_id : this.addressId,
-                items: this.orderItems,
-                email: this.guestEmail,
-            };
-            this.$http.post('/orders', order).then((response) => { window.location = '/orders/' + response.body.order.id });
         }
     }
 });

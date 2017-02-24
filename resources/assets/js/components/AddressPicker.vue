@@ -156,7 +156,7 @@
                     street: !! this.address.street != '',
                     city: !! this.address.city != '',
                     state: !! this.address.state != '',
-                    zip: !! this.address.zip != '',
+                    zip: !! this.address.zip != '' && this.address.zip.length === 5,
                     country: !! this.address.country != '',
                     phone_number: !! this.address.phone_number != '',
                 }

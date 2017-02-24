@@ -13,6 +13,7 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.component('fpd', require('./components/Fpd.vue'));
 Vue.component('cart', require('./components/Cart.vue'));
 Vue.component('item', require('./components/Item.vue'));
 Vue.component('modal', require('./components/Modal.vue'));

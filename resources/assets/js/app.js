@@ -20,20 +20,28 @@ Vue.component('modal', require('./components/Modal.vue'));
 Vue.component('order', require('./components/Order.vue'));
 Vue.component('cart-item', require('./components/CartItem.vue'));
 Vue.component('contact-modal', require('./components/ContactModal.vue'));
+Vue.component('design-picker', require('./components/DesignPicker.vue'));
 Vue.component('address-picker', require('./components/AddressPicker.vue'));
 
 Vue.filter('inDollars', function(cents) {
     return (cents / 100);
 });
 
+window.Event = new Vue();
+
 const app = new Vue({
     el: '#app',
-
     data: {
         showContactModal: false,
         modalActive: false,
+        showDesignPicker: false,
     },
-
+    created: function() {
+        var vm = this;
+        Event.$on('close-design-picker', function() {
+            vm.showDesignPicker = false;
+        })
+    },
     methods: {
         openContactModal: function() {
             this.showContactModal = true;

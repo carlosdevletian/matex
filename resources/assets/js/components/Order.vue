@@ -193,6 +193,8 @@
         watch: {
             'address.zip': function (getShippingAndTax) {
                 this.calculateShipping();
+            },
+            shipping: function() {
                 this.calculateTax();
             },
             subtotal: function (getTax) {
@@ -201,7 +203,6 @@
         },
         computed:  {
             calculatedSubtotal: function() {
-                console.log('SUBTOTAL');
                 this.subtotal = 0;
                 var vm = this;
                 this.items.forEach(function(item) {

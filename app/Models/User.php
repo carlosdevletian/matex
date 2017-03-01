@@ -66,4 +66,9 @@ class User extends Authenticatable
     {
         return $this->id == $order->user_id;
     }
+
+    public function hasAnyDesigns()
+    {
+        return $this->designs->count() > 0;
+    }
 }

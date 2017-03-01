@@ -166,6 +166,8 @@
         watch: {
             'address.zip': function (getShippingAndTax) {
                 this.calculateShipping();
+            },
+            shipping: function() {
                 this.calculateTax();
             },
             subtotal: function (getTax) {

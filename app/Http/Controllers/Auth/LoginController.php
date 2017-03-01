@@ -42,12 +42,12 @@ class LoginController extends Controller
     {
         if(session()->has('design') && session()->has('category_id')) {
             $categoryId = session('category_id');
-            $design = Design::create(['image_name' => session('design')]);
+            $design = Design::create(['image_name' => session('design'), 'views' => session('fpd-views')]);
             $design->move();
             session([
                 'design' => $design->id
             ]);
-            session()->forget(['category_id']);
+            session()->forget(['category_id', 'fpd-views']);
             return route('order.create', ['category' => $categoryId]);
         }
         return route('dashboard');

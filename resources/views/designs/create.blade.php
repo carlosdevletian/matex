@@ -14,29 +14,9 @@
 
     <div class="container">
         <div class="row">
-            @if(auth()->check())
-                @if(auth()->user()->designs->count() > 0)
-                    <div class="panel panel-default">
-                        <div class="panel panel-heading">Existing designs</div>
-                            @foreach(auth()->user()->designs as $design)
-                                <div class="panel-body" style="position: relative">
-                                    <a href="#" 
-                                    style="position: absolute; top: 0; right: 0; padding-right: 80px"
-                                    class="load-design"
-                                    data-target="{{ $design->views }}">
-                                        Edit
-                                        <!-- <i class="fa fa-pencil-square-o" aria-hidden="true"></i> -->
-                                    </a>
-                                    <a href="{{ route('order.create', ['category_id' => $category->id, 'design' => $design->id]) }}" 
-                                        style="position: absolute; top: 0; right: 0; padding-right: 20px">
-                                        Choose
-                                        <!-- <i class="fa fa-sign-in" aria-hidden="true"></i> -->
-                                    </a>
-                                    <img src="{{ route('image_path', ['image' => $design->image_name]) }}" class="img img-responsive">
-                                </div>
-                            @endforeach
-                    </div>
-                @endif
+            @if(auth()->check() && auth()->user()->hasAnyDesigns())
+                <a role="button" v-if="!showDesignPicker" @click="showDesignPicker = true">Select from previous designs</a>
+                <design-picker :designs="{{ auth()->user()->designs }}" v-if="showDesignPicker"></design-picker>
             @endif
             <h2>Design your {{ $category->name }}</h2>
             <fpd 

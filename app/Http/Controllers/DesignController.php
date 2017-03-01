@@ -46,7 +46,7 @@ class DesignController extends Controller
             $design->save();
             session(['design' => $design->id,]);
         }else{
-            session(['design' => $filename,]);
+            session(['design' => $filename, 'fpd-views' => request()->views]);
         }
         session(['category_id' => request()->category_id]);
 

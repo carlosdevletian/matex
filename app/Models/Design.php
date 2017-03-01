@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Design extends Model
 {
     protected $fillable = [
-        'image_name', 'price', 'user_id', 'email'
+        'image_name', 'price', 'user_id', 'email', 'views'
     ];
 
     protected $directory;

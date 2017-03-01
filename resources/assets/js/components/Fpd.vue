@@ -2,7 +2,7 @@
     <div>
        <div id="fpd" class="fpd-container fpd-topbar fpd-hidden-tablets">
             <div class="fpd-product" title="Titulo">
-                <img :src= "productTemplate"
+                <img :src="productTemplate"
                      title="Bracelet"
                      data-parameters=
                         '{"left": 340,
@@ -62,6 +62,12 @@
                     });
                 });
             },
+        },
+        created: function() {
+            var vm = this;
+            Event.$on('design-selected', function(design) {
+                vm.designer.loadProduct(JSON.parse(design.views));
+            })
         },
         mounted: function() {
             var vm = this;

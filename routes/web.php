@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,10 +20,14 @@ Route::get('/dashboard', function () {return view('dashboard'); })->name('dashbo
 
 Route::post('/designs','DesignController@store')->name('designs.store');
 
+Route::get('/items', 'ItemController@index')->name('items.index');
+Route::put('/items/{item}', 'ItemController@update')->name('items.update');
+Route::delete('/items/{item}', 'ItemController@destroy')->name('items.destroy');
+
 Route::get('/categories', 'CategoryController@index')->name('categories.index');
 Route::get('/categories/{category}/designs/create', 'DesignController@create')->name('designs.create');
 Route::get('/categories/{category}/products', 'ProductController@index')->name('products.index');
-Route::get('categories/{category}/designs/{design}/orders/create', 'OrderController@create')->name('order.create');
+Route::get('categories/{category}/designs/orders/create/{design?}', 'OrderController@create')->name('order.create');
 
 Route::get('/orders/{order}', 'OrderController@show')->name('orders.show');
 Route::post('/orders', 'OrderController@store')->name('orders.store');
@@ -36,6 +39,9 @@ Route::get('images/{image}/{forOrder?}', 'ImageController@show')->name('image_pa
 Route::get('/cart', 'CartController@show')->name('carts.show');
 Route::post('/addToCart', 'VueController@addToCart')->name('cart.add');
 Route::post('/calculatePrice', 'VueController@calculatePrice')->name('calculate-price');
+Route::post('/calculateShipping', 'VueController@calculateShipping')->name('calculate-shipping');
+Route::post('/calculateTax', 'VueController@calculateTax')->name('calculate-tax');
+Route::post('/prepareOrder', 'VueController@prepareOrder')->name('prepare-order');
 
 Route::get('/addresses', 'AddressController@index')->name('addresses.index');
 Route::post('/addresses', 'AddressController@store')->name('addresses.store');

@@ -39,18 +39,22 @@ class DesignController extends Controller
     public function store()
     {
         $design = new Design();
-        $design->makeImage();
-        $design->save();
+        $category = Category::findOrFail(request()->category_id);
+        $filename = $design->makeImage($category);
 
-        session([
-            'design_id' => $design->id,
-            'category_id' => request()->category_id
-        ]);
+        if(auth()->check()){
+            $design->views = request()->views;
+            $design->save();
+            session(['design' => $design->id,]);
+        }else{
+            session(['design' => $filename, 'fpd-views' => request()->views]);
+        }
+        session(['category_id' => request()->category_id]);
+
 
         return response()->json([
             'message' => 'Image successfully generated',
-            'design_id' => $design->id,
-            'category_id' => request()->category_id
+            'category_id' => $category->id
         ],200);
     }
 

@@ -24,10 +24,10 @@ class CreateItemsTable extends Migration
             $table->integer('unit_price')->nullable()->unsigned();
             $table->timestamps();
 
-            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('set null');
+            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('design_id')->references('id')->on('designs')->onDelete('set null');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
+            $table->foreign('design_id')->references('id')->on('designs')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

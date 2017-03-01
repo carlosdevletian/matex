@@ -47,6 +47,11 @@ class User extends Authenticatable
         return $this->hasMany(Address::class);
     }
 
+    public function designs()
+    {
+        return $this->hasMany(Design::class);
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -60,5 +65,10 @@ class User extends Authenticatable
     public function hasOrder($order)
     {
         return $this->id == $order->user_id;
+    }
+
+    public function hasAnyDesigns()
+    {
+        return $this->designs->count() > 0;
     }
 }

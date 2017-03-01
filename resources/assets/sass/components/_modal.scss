@@ -42,7 +42,7 @@
     }
 
     &__body {
-        margin: 20px 0;
+        margin: 20px 0 50px;
         padding-left: 30px;
         padding-right: 30px;
     }
@@ -52,18 +52,6 @@
         padding-left: 30px;
         padding-right: 30px;
         padding-bottom: 20px;
-    }
-
-    &__button{
-        @include button($brand-secondary, false, 12pt, $transition: false);
-        &:hover {
-            transform: translateY(-1px);
-        }
-        position: absolute;
-        width: 100%;
-        right: 0;
-        border-top-right-radius: 0px;
-        border-top-left-radius: 0px;
     }
     &__checkbox {
         text-align: left;

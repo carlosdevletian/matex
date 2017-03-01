@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Design extends Model
 {
     protected $fillable = [
-        'image_name', 'price', 'user_id', 'email'
+        'image_name', 'price', 'user_id', 'email', 'views', 'crop_width', 'crop_height', 'crop_x_position', 'crop_y_position'
     ];
 
     protected $directory;
@@ -22,7 +22,7 @@ class Design extends Model
 
     public function __construct(array $attributes = [])  {
         parent::__construct($attributes); // Eloquent
-        
+
         $this->directory = storage_path('app/designs');
         is_dir($this->directory) ?: mkdir($this->directory, 0777, true);
 
@@ -35,13 +35,15 @@ class Design extends Model
         return $this->hasMany(Item::class);
     }
 
-    public function makeImage()
+    public function makeImage($category)
     {
         $this->assignFilePath();
 
         $encoded = substr(request()->base64_image, strpos(request()->base64_image, ",")+1);
 
-        Image::make($encoded)->crop(1077, 43, 61, 279)->save($this->filepath);
+        Image::make($encoded)->crop($category->crop_width, $category->crop_height, $category->crop_x_position, $category->crop_y_position)->save($this->filepath);
+
+        return $this->image_name;
     }
 
     protected function assignFilePath()

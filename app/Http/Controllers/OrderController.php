@@ -22,9 +22,18 @@ class OrderController extends Controller
         }
     }
 
-    public function create($categoryId, Design $design)
+    public function create($categoryId, Design $design = null)
     {
-        return view('orders.create', compact('categoryId','design'));
+        $products = Product::where('category_id', $categoryId)->get();
+        if(auth()->check()) {
+            $addresses = Address::where('user_id', auth()->user()->id)->get();
+            $design = $design->id != null ? $design : Design::findOrFail(session('design'));
+
+            return view('orders.create', ['products' => $products, 'addresses' => $addresses, 'design' => $design->id, 'design_image' => $design->image_name]);
+        }
+        $addresses = collect();
+
+        return view('orders.create', ['products' => $products, 'addresses' => $addresses, 'design' => session('design'), 'design_image' => session('design')]);
     }
 
     public function store()

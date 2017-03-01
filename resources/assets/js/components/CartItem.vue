@@ -7,13 +7,15 @@
                 </h5>
             </div>
             <div class="col-xs-3">
-                <h5>{{ item.product.name }}</h5>
+                <h5>
+                    <img class="img-responsive" :src="'images/' + item.image_name" alt="">
+                </h5>
             </div>
             <div class="col-xs-3">
                 <h5>
                     <input type="number"
                         v-model="item.quantity"
-                        @change="updatePrice" 
+                        @change="updateItem" 
                         class="Form pd-0" 
                         onfocus="if(this.value == '0') { this.value = ''; }"
                         v-bind:class="{ 'Form--error' : this.error }"
@@ -50,23 +52,22 @@
             }
         },
         methods: {
-            updatePrice: function () {
+            updateItem: function () {
                 this.validateQuantity();
-                this.$http.post('/calculatePrice', this.item).then((response) => {
-                    this.item.unit_price = response.body.unit_price;
-                    this.item.total_price = response.body.total_price;
-               });
+                this.$http.put('/items/' + this.item.id, this.item).then((response) => {
+                    this.$emit('item-updated', response.body);
+                });
             },
             validateQuantity: function() {
                 if(this.item.quantity < 1 || this.item.quantity % 1 != 0) {
-                    this.error = 'Input a valid quantity';
-                    this.item.quantity = 0;
+                    this.error = 'To delete, press the X button';
+                    this.item.quantity = 1;
                     return;
                 }
                 this.error = '';
             },
             deleteItem: function() {
-                this.$emit('delete-item', this.item.product.id);
+                this.$emit('delete-item', this.item.id);
             }
         }
     }

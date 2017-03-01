@@ -7,7 +7,9 @@
                 </h5>
             </div>
             <div class="col-xs-3">
-                <img height="43px" width="1077px" class="img-responsive" :src="'images/' + item.image_name" alt="">
+                <h5>
+                    <img class="img-responsive" :src="'images/' + item.image_name" alt="">
+                </h5>
             </div>
             <div class="col-xs-3">
                 <h5>

@@ -63,7 +63,7 @@ class Cashier
             $this->address = Address::findOrFail(request()->selectedAddress);
         }else {
             $this->validate(request(), [
-                'newAddress.email' => 'required|email',
+                'newAddress.email' => 'sometimes|required|email',
                 'newAddress.name' => 'required',
                 'newAddress.street' => 'required',
                 'newAddress.city' => 'required',

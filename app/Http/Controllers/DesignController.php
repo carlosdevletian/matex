@@ -39,7 +39,8 @@ class DesignController extends Controller
     public function store()
     {
         $design = new Design();
-        $filename = $design->makeImage();
+        $category = Category::findOrFail(request()->category_id);
+        $filename = $design->makeImage($category);
 
         if(auth()->check()){
             $design->views = request()->views;
@@ -53,7 +54,7 @@ class DesignController extends Controller
 
         return response()->json([
             'message' => 'Image successfully generated',
-            'category_id' => request()->category_id
+            'category_id' => $category->id
         ],200);
     }
 

@@ -45,6 +45,7 @@
                     type="email" 
                     v-model="address.email" 
                     placeholder="Email *"
+                    v-if="!signedIn"
                     v-bind:class="{ 'Form--error' : !validation.email && address.show_errors }">
                 <input class="Form mb-8" 
                     type="text" 
@@ -151,7 +152,7 @@
         computed: {
             validation: function() {
                 return {
-                    email: !! emailRegex.test(this.address.email) && this.address.email != '',
+                    email: !! emailRegex.test(this.address.email) && this.address.email != '' || this.signedIn,
                     name: !! this.address.name != '',
                     street: !! this.address.street != '',
                     city: !! this.address.city != '',

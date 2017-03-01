@@ -1,7 +1,7 @@
 <template>
     <div class="row" style="margin-top: 10px">
         <div class="col-xs-10 col-xs-offset-1">
-            <img height="43px" width="1077px" class="img-responsive" 
+            <img class="img-responsive" 
                 :src="'/images/' + getDesign.image_name" 
                 @click="select(getDesign)"
                 role="button">

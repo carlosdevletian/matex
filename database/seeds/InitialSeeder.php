@@ -20,12 +20,24 @@ class InitialSeeder extends Seeder
 
         $address = factory(Address::class)->states('with-user')->create(['user_id' => $user->id, 'email' => $user->email ]);
 
-        $category = factory(Category::class)->create(['name' => 'Bracelets']);
+        $category = factory(Category::class)->create([
+            'name' => 'Bracelets', 
+            'crop_width' => 1077, 
+            'crop_height' => 42, 
+            'crop_x_position' => 61, 
+            'crop_y_position' => 279,
+            'image_name' => 'bracelet_image.png']);
+
+        // $category = factory(Category::class)->create([
+        //     'name' => 'Calendars',
+        //     'image_name' => 'calendar_image.png']);
         
         $design = factory(Design::class)->create(['image_name' => 'test_filename.jpg']);
         
-        $product = factory(Product::class)->create(['name' => 'Small', 'category_id' => $category->id]);
-        $product2 = factory(Product::class)->create(['name' => 'Medium', 'category_id' => $category->id]);
-        $product3 = factory(Product::class)->create(['name' => 'Large', 'category_id' => $category->id]);
+        $product = factory(Product::class)->create(['name' => 'Small', 'category_id' => $category->id, 'display_position' => 1]);
+        $product2 = factory(Product::class)->create(['name' => 'Medium', 'category_id' => $category->id, 'display_position' => 2]);
+        $product3 = factory(Product::class)->create(['name' => 'Large', 'category_id' => $category->id, 'display_position' => 3]);
+        $product4 = factory(Product::class)->create(['name' => 'X-Large', 'category_id' => $category->id, 'display_position' => 4]);
+        $product5 = factory(Product::class)->create(['name' => 'XX-Large', 'category_id' => $category->id, 'display_position' => 5]);
     }
 }

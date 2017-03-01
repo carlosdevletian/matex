@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->integer('width')->unsigned()->nullable();
             $table->integer('height')->unsigned()->nullable();
             $table->integer('price');
+            $table->integer('display_position');
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');

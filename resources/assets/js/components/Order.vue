@@ -7,13 +7,13 @@
                     <hr>
                     <div class="row">
                         <div class="col-xs-6 col-xs-offset-3">
-                            <div v-for="product in products">
+                            <div v-for="product in sortedProducts()">
                                 <button @click="createItem(product)" class="Button--product">{{ product.name }}</button>
                             </div>
                         </div>
                     </div>
                     <hr v-if="products.length > 0">
-                    <div v-for="item in items">
+                    <div v-for="item in sortedItems">
                         <item :item="item" @delete-item="deleteItem">
                         </item>
                     </div>
@@ -106,7 +106,7 @@
                     design_id: this.design,
                     quantity: 0,
                     unit_price: 0,
-                    total_price: 0
+                    total_price: 0,
                 };
 
                 this.items.push(item);
@@ -133,6 +133,9 @@
             },
             pay: function() {
                 if(this.canPay()){
+                    if(this.signedIn){
+                        delete this.address.email;
+                    };
                     alert('pagando');
                     var data = {
                         newAddress: this.address,
@@ -189,6 +192,11 @@
                     this.tax = (this.subtotal + this.shipping) * response.body.tax_percentage;
                 });
             },
+            sortedProducts: function() {
+                return this.products.sort(function(a,b){
+                    return a.display_position - b.display_position;
+                })
+            },
         },
         watch: {
             'address.zip': function (getShippingAndTax) {
@@ -212,6 +220,11 @@
             },
             totalPrice: function() {
                 return (this.subtotal + this.shipping + this.tax);
+            },
+            sortedItems: function() {
+                return this.items.sort(function(a,b){
+                    return a.product.display_position - b.product.display_position;
+                })
             }
         }
     }

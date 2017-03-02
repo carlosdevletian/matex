@@ -14,6 +14,7 @@
                 @if($cart->items->count() > 0)
                     <div class="panel-body">
                         <cart :addresses="{{ $addresses }}"></cart>
+                        <checkout></checkout>
                     </div>
                 @else
                     <div class="panel-body">
@@ -24,3 +25,7 @@
         </div>
     </div>
 @endsection
+
+@push('head_scripts')
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+@endpush

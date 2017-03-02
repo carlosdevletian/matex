@@ -18,6 +18,7 @@ Vue.component('cart', require('./components/Cart.vue'));
 Vue.component('item', require('./components/Item.vue'));
 Vue.component('modal', require('./components/Modal.vue'));
 Vue.component('order', require('./components/Order.vue'));
+Vue.component('checkout', require('./components/Checkout.vue'));
 Vue.component('cart-item', require('./components/CartItem.vue'));
 Vue.component('contact-modal', require('./components/ContactModal.vue'));
 Vue.component('design-picker', require('./components/DesignPicker.vue'));

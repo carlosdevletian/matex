@@ -43,6 +43,9 @@ $factory->define(App\Models\Design::class, function (Faker\Generator $faker) {
         'price' => 100,
         'image_name' => 'fakeimage.png',
         'comment' => 'This is a test comment',
+        'user_id' => function () {
+            return factory(App\Models\User::class)->create()->id;
+        },
     ];
 });
 

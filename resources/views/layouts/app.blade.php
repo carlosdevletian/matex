@@ -34,13 +34,14 @@
             var Matex = {
                 csrfToken: "{{ csrf_token() }}",
                 signedIn: {{ auth()->check() ? '1' : '0' }},
-                // stripeKey: "{{ config('services.stripe.key') }}",
+                stripeKey: "{{ config('services.stripe.key') }}"
             }
         </script>
 
         <!-- Font Awesome -->
         <script src="https://use.fontawesome.com/1ab38b75fc.js"></script>
 
+        @stack('head_scripts')
 
         @stack('styles')
     </head>

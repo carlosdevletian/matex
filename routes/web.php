@@ -43,6 +43,8 @@ Route::post('/calculateShipping', 'VueController@calculateShipping')->name('calc
 Route::post('/calculateTax', 'VueController@calculateTax')->name('calculate-tax');
 Route::post('/prepareOrder', 'VueController@prepareOrder')->name('prepare-order');
 
+Route::post('/pay', 'VueController@pay')->name('pay');
+
 Route::get('/addresses', 'AddressController@index')->name('addresses.index');
 Route::post('/addresses', 'AddressController@store')->name('addresses.store');
 Route::put('/addresses/{id}', 'AddressController@update')->name('addresses.update');

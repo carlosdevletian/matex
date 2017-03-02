@@ -9,9 +9,18 @@ use App\Models\Order;
 use App\Models\Design;
 use App\Models\Address;
 use Illuminate\Http\Request;
+use App\Billing\PaymentGateway;
+use App\Billing\PaymentFailedException;
 
 class VueController extends Controller
 {
+    private $paymentGateway;
+
+    function __construct(PaymentGateway $paymentGateway)
+    {
+        $this->paymentGateway = $paymentGateway;
+    }
+
     public function addToCart()
     {
         $items = collect(request()->toArray());
@@ -58,5 +67,28 @@ class VueController extends Controller
         $cashier = new Cashier();
 
         return $cashier->checkout();
+    }
+
+    public function pay()
+    {
+        $order = Order::findOrFail(request('order_id'));
+        // revisar estatus de la orden
+
+        $this->validate(request(), [
+            'payment_token' => 'required',
+            'order_id' => 'required'
+        ]);
+
+        try {
+            $this->paymentGateway->charge($order->total, request('payment_token'));
+
+            // cambiar el estatus a la orden
+
+            return response()->json([
+                'email' => $order->email,
+            ], 200);
+        } catch (PaymentFailedException $e) {
+            return response()->json([], 422);
+        }
     }
 }

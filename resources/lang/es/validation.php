@@ -16,11 +16,13 @@ return [
     'accepted'             => 'El campo :attribute debe ser aceptado.',
     'active_url'           => 'El campo :attribute no es un URL válido.',
     'after'                => 'El campo :attribute debe ser una fecha posterior a :date.',
+    'after_or_equal'       => 'El campo :attribute debe ser una fecha posterior o igual a :date.',
     'alpha'                => 'El campo :attribute solo puede contener letras.',
     'alpha_dash'           => 'El campo :attribute solo puede contener letras, numeros y guiones.',
     'alpha_num'            => 'El campo :attribute solo puede contener letras y numeros.',
     'array'                => 'El campo :attribute debe ser un arreglo.',
     'before'               => 'El campo :attribute debe ser una fecha anterior a :date.',
+    'before_or_equal'      => 'El campo :attribute debe ser una fecha anterior o igual a :date.',
     'between'              => [
         'numeric' => 'El campo :attribute debe ser un valor entre :min y :max.',
         'file'    => 'El archivo :attribute debe pesar entre :min y :max kilobytes.',

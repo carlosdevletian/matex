@@ -1,5 +1,8 @@
 <?php
 
+namespace Tests\Unit;
+
+use Tests\TestCase;
 use App\Models\Cart;
 use App\Models\Item;
 use App\Models\User;

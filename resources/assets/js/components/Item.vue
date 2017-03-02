@@ -13,8 +13,8 @@
                 <h5>
                     <input type="number"
                         v-model="item.quantity"
-                        @change="updatePrice" 
-                        class="Form pd-0" 
+                        @change="updatePrice"
+                        class="Form pd-0"
                         onfocus="if(this.value == '0') { this.value = ''; }"
                         v-bind:class="{ 'Form--error' : this.error }"
                         autofocus>
@@ -52,9 +52,9 @@
         methods: {
             updatePrice: function () {
                 this.validateQuantity();
-                this.$http.post('/calculatePrice', this.item).then((response) => {
-                    this.item.unit_price = response.body.unit_price;
-                    this.item.total_price = response.body.total_price;
+                axios.post('/calculatePrice', this.item).then((response) => {
+                    this.item.unit_price = response.data.unit_price;
+                    this.item.total_price = response.data.total_price;
                });
             },
             validateQuantity: function() {

@@ -1,14 +1,19 @@
 <?php
 
+namespace Tests\Feature;
+
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ContactEmailTest extends TestCase
 {
+    private $response;
+
     private function sendContactEmail($attributes)
     {
-        $this->json('POST', "/contact", $attributes);
+        $this->response = $this->json('POST', "/contact", $attributes);
     }
     /** @test */
     public function email_address_is_required_to_send_contact_email()
@@ -19,8 +24,8 @@ class ContactEmailTest extends TestCase
             'body' => 'An example body'
         ]);
 
-        $this->assertResponseStatus(422);
-        $this->assertArrayHasKey('email', $this->decodeResponseJson());
+        $this->response->assertStatus(422);
+        $this->response->assertJson(['email' => true]);
     }
     /** @test */
     public function email_address_must_be_valid_to_send_contact_email()
@@ -31,9 +36,9 @@ class ContactEmailTest extends TestCase
             'body' => 'An example body'
         ]);
 
-        $this->assertResponseStatus(201);
+        $this->response->assertStatus(201);
     }
-    
+
     /** @test */
     public function subject_is_required_to_send_contact_email()
     {
@@ -42,8 +47,8 @@ class ContactEmailTest extends TestCase
             'body' => 'An example body'
         ]);
 
-        $this->assertResponseStatus(422);
-        $this->assertArrayHasKey('subject', $this->decodeResponseJson());
+        $this->response->assertStatus(422);
+        $this->response->assertJson(['subject' => true]);
     }
 
     /** @test */
@@ -54,7 +59,7 @@ class ContactEmailTest extends TestCase
             'subject' => 'An example subject'
         ]);
 
-        $this->assertResponseStatus(422);
-        $this->assertArrayHasKey('body', $this->decodeResponseJson());
+        $this->response->assertStatus(422);
+        $this->response->assertJson(['body' => true]);
     }
 }

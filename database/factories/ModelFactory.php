@@ -55,12 +55,14 @@ $factory->define(App\Models\Product::class, function (Faker\Generator $faker) {
         'width' => 200,
         'height' => 80,
         'price' => 1000,
+        'display_position' => $faker->numberBetween($min = 1, $max = 20),
     ];
 });
 
 $factory->define(App\Models\Category::class, function (Faker\Generator $faker) {
     return [
         'name' => 'Bracelets',
+        'image_name' => 'bracelets.png'
     ];
 });
 

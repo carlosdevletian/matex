@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ config('app.locale') }}">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -64,7 +64,7 @@
         <script src="{{ URL::to('js/app.js') }}"></script>
         <script type="text/javascript">
             $(document).ready(function(){
-                $('[data-toggle="tooltip"]').tooltip();   
+                $('[data-toggle="tooltip"]').tooltip();
             });
         </script>
 

@@ -11,24 +11,24 @@
         <div slot="body">
             <div>
                 <div class="Input__icon">
-                    <input v-model="contact.email" 
-                        class="Form" 
-                        placeholder="Email address" 
+                    <input v-model="contact.email"
+                        class="Form"
+                        placeholder="Email address"
                         v-bind:class="{ 'Form--error' : !validation.email}"
                         autofocus>
                     <div v-show="! validation.email" class="error">{{ errors.email ? errors.email[0] : '' }}</div>
                 </div>
                 <div class="Input__icon">
-                    <input v-model="contact.subject" 
-                        class="Form" 
+                    <input v-model="contact.subject"
+                        class="Form"
                         placeholder="Subject"
                         v-bind:class="{ 'Form--error' : !validation.subject}">
                     <div v-show="! validation.subject" class="error">{{ errors.subject ? errors.subject[0] : '' }}</div>
                 </div>
                 <div class="Input__icon" style="padding-bottom: 10px; margin-bottom: 20px">
-                    <textarea v-model="contact.body" 
-                        class="Form" 
-                        placeholder="Your message here..." 
+                    <textarea v-model="contact.body"
+                        class="Form"
+                        placeholder="Your message here..."
                         rows=5
                         v-bind:class="{ 'Form--error' : !validation.body}"></textarea>
                     <div v-show="! validation.body" class="error">{{ errors.body ? errors.body[0] : '' }}</div>
@@ -65,7 +65,8 @@
             },
             sendContactEmail: function () {
                 var data = this.contact;
-                this.$http.post('/contact', data).then((response) => {
+                var vm = this;
+                axios.post('/contact', data).then((response) => {
                     this.close();
                     swal({
                             title: 'Thanks for contacting us!',
@@ -73,17 +74,19 @@
                             type: 'success',
                             timer: 2000,
                             showConfirmButton: false,
-                    });
-                }, (response) => {
-                    if (response.status != 422) {
+                    }).catch(swal.noop);
+                }).catch(function(error) {
+                    if (error.response.status != 422) {
                         this.close();
                         swal({
                             title: 'An error occurred',
                             text: 'The email could not be sent. Try again later',
                             type: 'error',
-                        });
+                            timer: 1900,
+                            showConfirmButton: false
+                        }).catch(swal.noop);
                     }
-                    this.errors = response.body;
+                    vm.errors = error.response.data;
                 });
             }
         },

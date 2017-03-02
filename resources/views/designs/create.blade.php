@@ -19,7 +19,7 @@
                 <design-picker :designs="{{ auth()->user()->designs }}" v-if="showDesignPicker"></design-picker>
             @endif
             <h2>Design your {{ $category->name }}</h2>
-            <fpd 
+            <fpd
                 product-template="{{ URL::to('images/bracelet_template.png') }}"
                 template-directory="{{ URL::to('fpd') . '/'}}"
                 lang-json="{{ URL::to('default.json') }}"

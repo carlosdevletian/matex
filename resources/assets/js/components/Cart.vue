@@ -86,15 +86,15 @@
             }
         },
         mounted: function() {
-            this.$http.get('/items').then((response) => {
-                this.items = response.body;
+            axios.get('/items').then((response) => {
+                this.items = response.data;
            });
         },
         methods: {
             deleteItem: function(itemId) {
                 var vm = this;
 
-                this.$http.delete('/items/' + itemId).then((response) => {
+                axios.delete('/items/' + itemId).then((response) => {
                     this.items.forEach(function(item, index){
                         if(item.id == itemId){
                             vm.items.splice(index, 1);
@@ -129,6 +129,7 @@
             },
             pay: function() {
                 if(this.canPay()){
+                    delete this.address.email;
                     alert('pagando');
                     var data = {
                         newAddress: this.address,
@@ -136,8 +137,8 @@
                         items: this.items,
                         design: this.design,
                     }
-                    this.$http.post('/prepareOrder', data).then((response) => {
-                        alert('Hay que cobrar ' +  response.body);
+                    axios.post('/prepareOrder', data).then((response) => {
+                        alert('Hay que cobrar ' +  response.data);
                     });
                 }else{
                     alert('error');
@@ -149,8 +150,8 @@
                     var data = {
                         zip: this.address.zip
                     }
-                    this.$http.post('/calculateShipping', data).then((response) => {
-                        this.shipping = response.body.shipping;
+                    axios.post('/calculateShipping', data).then((response) => {
+                        this.shipping = response.data.shipping;
                     });
                 }
             },
@@ -158,8 +159,8 @@
                 var data = {
                     zip: this.address.zip
                 }
-                this.$http.post('/calculateTax', data).then((response) => {
-                    this.tax = (this.subtotal + this.shipping) * response.body.tax_percentage;
+                axios.post('/calculateTax', data).then((response) => {
+                    this.tax = (this.subtotal + this.shipping) * response.data.tax_percentage;
                 });
             },
         },

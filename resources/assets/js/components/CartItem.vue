@@ -15,8 +15,8 @@
                 <h5>
                     <input type="number"
                         v-model="item.quantity"
-                        @change="updateItem" 
-                        class="Form pd-0" 
+                        @change="updateItem"
+                        class="Form pd-0"
                         onfocus="if(this.value == '0') { this.value = ''; }"
                         v-bind:class="{ 'Form--error' : this.error }"
                         autofocus>
@@ -54,8 +54,8 @@
         methods: {
             updateItem: function () {
                 this.validateQuantity();
-                this.$http.put('/items/' + this.item.id, this.item).then((response) => {
-                    this.$emit('item-updated', response.body);
+                axios.put('/items/' + this.item.id, this.item).then((response) => {
+                    this.$emit('item-updated', response.data);
                 });
             },
             validateQuantity: function() {

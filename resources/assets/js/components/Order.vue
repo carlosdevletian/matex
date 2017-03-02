@@ -143,8 +143,8 @@
                         items: this.items,
                         design: this.design,
                     }
-                    this.$http.post('/prepareOrder', data).then((response) => {
-                        alert('Hay que cobrar ' +  response.body);
+                    axios.post('/prepareOrder', data).then((response) => {
+                        alert('Hay que cobrar ' +  response.data);
                     });
                 }else{
                     alert('error');
@@ -153,7 +153,7 @@
             },
             addToCart: function() {
                 if(this.totalQuantity() > 0) {
-                    this.$http.post('/addToCart', this.items).then((response) => { window.location = '/cart' });
+                    axios.post('/addToCart', this.items).then((response) => { window.location = '/cart' });
                 }else{
                     alert('error');
                 }
@@ -169,7 +169,7 @@
             },
             updateSelectedAddress: function(data) {
                 this.selectedAddress = data.id;
-                this.address.zip = data.zip;            
+                this.address.zip = data.zip;
             },
             canPay: function() {
                 return this.totalQuantity() > 0 && (this.address.is_valid || this.selectedAddress != 0);
@@ -179,8 +179,8 @@
                     var data = {
                         zip: this.address.zip
                     }
-                    this.$http.post('/calculateShipping', data).then((response) => {
-                        this.shipping = response.body.shipping;
+                    axios.post('/calculateShipping', data).then((response) => {
+                        this.shipping = response.data.shipping;
                     });
                 }
             },
@@ -188,8 +188,8 @@
                 var data = {
                     zip: this.address.zip
                 }
-                this.$http.post('/calculateTax', data).then((response) => {
-                    this.tax = (this.subtotal + this.shipping) * response.body.tax_percentage;
+                axios.post('/calculateTax', data).then((response) => {
+                    this.tax = (this.subtotal + this.shipping) * response.data.tax_percentage;
                 });
             },
             sortedProducts: function() {

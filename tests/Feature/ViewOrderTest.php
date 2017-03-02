@@ -1,5 +1,8 @@
 <?php
 
+namespace Tests\Feature;
+
+use Tests\TestCase;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Order;
@@ -36,10 +39,9 @@ class ViewOrderTest extends TestCase
         $user = factory(User::class)->create();
         $order = $this->createOrder($user->id);
 
-        $this->actingAs($user)
-             ->json('GET','/orders/'.$order->id);
+        $response = $this->actingAs($user)->json('GET','/orders/'.$order->id);
 
-        $this->assertResponseStatus(200);
+        $response->assertStatus(200);
         $this->assertTrue($user->hasOrder($order));
     }
 
@@ -51,10 +53,9 @@ class ViewOrderTest extends TestCase
 
         $user2 = factory(User::class)->create();
 
-        $this->actingAs($user2)
-             ->json('GET','/orders/'.$order->id);
+        $response = $this->actingAs($user2)->json('GET','/orders/'.$order->id);
 
-        $this->assertResponseStatus(403);
+        $response->assertStatus(403);
     }
 
     /** @test */
@@ -65,10 +66,9 @@ class ViewOrderTest extends TestCase
 
         $admin = factory(User::class)->states('admin')->create();
 
-        $this->actingAs($admin)
-             ->json('GET','/orders/'.$order->id);
+        $response = $this->actingAs($admin)->json('GET','/orders/'.$order->id);
 
-        $this->assertResponseStatus(200);
+        $response->assertStatus(200);
     }
 
     /** @test */
@@ -77,8 +77,8 @@ class ViewOrderTest extends TestCase
         $user = factory(User::class)->states('user')->create();
         $order = $this->createOrder($user->id);
 
-        $this->json('GET','/orders/'.$order->id);
+        $response = $this->json('GET','/orders/'.$order->id);
 
-        $this->assertResponseStatus(403);
+        $response->assertStatus(403);
     }
 }

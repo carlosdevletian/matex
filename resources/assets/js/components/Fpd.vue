@@ -1,10 +1,10 @@
 <template>
     <div>
        <div id="fpd" class="fpd-container fpd-topbar fpd-hidden-tablets">
-            <div class="fpd-product" title="Titulo">
+            <div class="fpd-product" title="Titulo" data-thumbnail="#">
                 <img :src="productTemplate"
-                     title="Bracelet"
-                     data-parameters=
+                    title="Bracelet"
+                    data-parameters=
                         '{"left": 340,
                         "top": 329,
                         "draggable": false,
@@ -39,17 +39,17 @@
         methods: {
             continueToCheckout: function(throughLogin = false) {
                 var vm = this;
-                this.designer.getProductDataURL( function(base64) { 
+                this.designer.getProductDataURL( function(base64) {
                     var request = {
                         base64_image: base64,
                         category_id: vm.categoryId,
                         views: JSON.stringify(vm.designer.getProduct()),
                     }
-                    vm.$http.post('/designs', request).then((response) => {
+                    axios.post('/designs', request).then((response) => {
                         if(throughLogin) {
                             window.location = "/login";
                         } else {
-                            window.location = "/categories/" + response.body.category_id + "/designs/orders/create";
+                            window.location = "/categories/" + response.data.category_id + "/designs/orders/create";
                         }
                     }, (response) => {
                         swal({

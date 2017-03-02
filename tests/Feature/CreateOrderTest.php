@@ -1,5 +1,8 @@
 <?php
 
+namespace Tests\Feature;
+
+use Tests\TestCase;
 use App\Models\User;
 use App\Models\Design;
 use App\Models\Product;
@@ -19,11 +22,10 @@ class CreateOrderTest extends TestCase
         $category = factory(Category::class)->create(['name' => 'Bracelets']);
         $category2 = factory(Category::class)->create(['name' => 'Calendars']);
 
-        $this->actingAs($user)
-             ->json('GET','/categories');
+        $response = $this->actingAs($user)->json('GET','/categories');
 
-        $this->see('Bracelets');
-        $this->see('Calendars');
+        $response->assertSee('Bracelets');
+        $response->assertSee('Calendars');
     }
 
     /** @test */
@@ -31,8 +33,8 @@ class CreateOrderTest extends TestCase
     {
         $category = factory(Category::class)->create(['name' => 'Bracelets']);
 
-        $this->json('GET',"/categories/{$category->id}/designs/create");
+        $response = $this->json('GET',"/categories/{$category->id}/designs/create");
 
-        $this->see('Bracelets');
+        $response->assertSee('Bracelets');
     }
 }

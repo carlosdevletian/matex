@@ -74,12 +74,16 @@
 </template>
 
 <script>
+    import { stripeMixin } from '../mixins/stripeMixin';
+
     export default {
+        mixins: [stripeMixin],
         props: ['products', 'design', 'addresses'],
         data: function() {
             return {
                 items: [],
                 subtotal: 0,
+                order_id: null,
                 shipping: 0,
                 tax: 0,
                 selectedAddress: 0,
@@ -130,26 +134,6 @@
                         vm.items.splice(index, 1);
                     }
                 });
-            },
-            pay: function() {
-                if(this.canPay()){
-                    if(this.signedIn){
-                        delete this.address.email;
-                    };
-                    alert('pagando');
-                    var data = {
-                        newAddress: this.address,
-                        selectedAddress: this.selectedAddress,
-                        items: this.items,
-                        design: this.design,
-                    }
-                    axios.post('/prepareOrder', data).then((response) => {
-                        alert('Hay que cobrar ' +  response.data);
-                    });
-                }else{
-                    alert('error');
-                    this.address.show_errors = true;
-                }
             },
             addToCart: function() {
                 if(this.totalQuantity() > 0) {

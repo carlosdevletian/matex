@@ -35,10 +35,7 @@
         },
         methods: {
             buy() {
-                this.stripe.open({
-                    name: 'Epa',
-                    amount: 25000000
-                })
+                this.$emit('pay', this.stripe)
             }
         }
     }

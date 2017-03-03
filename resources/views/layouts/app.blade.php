@@ -34,7 +34,8 @@
             var Matex = {
                 csrfToken: "{{ csrf_token() }}",
                 signedIn: {{ auth()->check() ? '1' : '0' }},
-                stripeKey: "{{ config('services.stripe.key') }}"
+                stripeKey: "{{ config('services.stripe.key') }}",
+                email: "{{ auth()->check() ? auth()->user()->email : '' }}"
             }
         </script>
 

@@ -30,7 +30,7 @@ class Cashier
             ->addItems()
             ->determineAmount();
 
-        return $this->order->total;
+        return $this->order;
     }
 
     protected function determineClient()

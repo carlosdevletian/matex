@@ -14,7 +14,6 @@
                 @if($cart->items->count() > 0)
                     <div class="panel-body">
                         <cart :addresses="{{ $addresses }}"></cart>
-                        <checkout></checkout>
                     </div>
                 @else
                     <div class="panel-body">

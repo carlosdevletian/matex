@@ -25,3 +25,7 @@
         </div>
     </div>
 @endsection
+
+@push('head_scripts')
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+@endpush

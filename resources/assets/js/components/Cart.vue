@@ -54,14 +54,15 @@
                 </div>
             </div>
         </div>
-        <button @click="pay"
-            class="text-center Button--checkout"
-            >Checkout</button>
+        <checkout @pay="pay"></checkout>
     </div>
 </template>
 
 <script>
+    import { stripeMixin } from '../mixins/stripeMixin';
+
     export default {
+        mixins: [stripeMixin],
         props: ['addresses'],
         data: function() {
             return {
@@ -69,6 +70,7 @@
                 subtotal: 0,
                 shipping: 0,
                 tax: 0,
+                order_id: null,
                 selectedAddress: 0,
                 address: {
                     email: '',
@@ -126,24 +128,6 @@
                         item.total_price = updatedItem.total_price;
                     }
                 });
-            },
-            pay: function() {
-                if(this.canPay()){
-                    delete this.address.email;
-                    alert('pagando');
-                    var data = {
-                        newAddress: this.address,
-                        selectedAddress: this.selectedAddress,
-                        items: this.items,
-                        design: this.design,
-                    }
-                    axios.post('/prepareOrder', data).then((response) => {
-                        alert('Hay que cobrar ' +  response.data);
-                    });
-                }else{
-                    alert('error');
-                    this.address.show_errors = true;
-                }
             },
             calculateShipping: function() {
                 if(this.address.zip.length == 5) {

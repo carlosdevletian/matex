@@ -65,25 +65,21 @@ class VueController extends Controller
     public function prepareOrder()
     {
         $cashier = new Cashier();
-
-        return $cashier->checkout();
+        $order = $cashier->checkout();
+        return response()->json(['order_id' => $order->id], 200);
     }
 
     public function pay()
     {
         $order = Order::findOrFail(request('order_id'));
         // revisar estatus de la orden
-
         $this->validate(request(), [
             'payment_token' => 'required',
             'order_id' => 'required'
         ]);
-
         try {
             $this->paymentGateway->charge($order->total, request('payment_token'));
-
             // cambiar el estatus a la orden
-
             return response()->json([
                 'email' => $order->email,
             ], 200);

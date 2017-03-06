@@ -71,12 +71,17 @@ class VueController extends Controller
 
     public function pay()
     {
-        $order = Order::findOrFail(request('order_id'));
-        // revisar estatus de la orden
         $this->validate(request(), [
             'payment_token' => 'required',
-            'order_id' => 'required'
+            'email' => 'required'
         ]);
+        $cashier = new Cashier();
+        $order = $cashier->checkout();
+        // revisar estatus de la orden
+        
+        if($order->total != request('total_price')) {
+            dd('The amounts do not match');
+        }
         try {
             $this->paymentGateway->charge($order->total, request('payment_token'));
             // cambiar el estatus a la orden

@@ -27,8 +27,12 @@ export const stripeMixin = {
         purchaseOrder(token) {
             axios.post(`/pay`, {
                 email: token.email,
-                order_id: this.order_id,
                 payment_token: token.id,
+                newAddress: this.address,
+                selectedAddress: this.selectedAddress,
+                items: this.items,
+                design: this.design,
+                total_price: this.totalPrice, 
             }).then(response => {
                 console.log("Charge succeeded")
             }).catch(response => {
@@ -40,16 +44,7 @@ export const stripeMixin = {
                 if(Matex.signedIn){
                     delete this.address.email;
                 };
-                var data = {
-                    newAddress: this.address,
-                    selectedAddress: this.selectedAddress,
-                    items: this.items,
-                    design: this.design,
-                }
-                axios.post('/prepareOrder', data).then((response) => {
-                    this.order_id =  response.data.order_id;
-                    this.openStripe();
-                });
+                this.openStripe();
             }else{
                 this.address.show_errors = true;
             }

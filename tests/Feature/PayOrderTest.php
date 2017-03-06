@@ -3,7 +3,12 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Models\Item;
+use App\Models\User;
 use App\Models\Order;
+use App\Models\Design;
+use App\Models\Status;
+use App\Models\Address;
 use App\Billing\PaymentGateway;
 use App\Billing\FakePaymentGateway;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -21,34 +26,70 @@ class PayOrderTest extends TestCase
         $this->app->instance(PaymentGateway::class, $this->paymentGateway);
     }
 
+    private function makeOrderThings()
+    {
+        factory(Status::class)->create(['name' => 'Payment Pending']);
+        factory(Status::class)->create(['name' => 'Payment Approved']);
+        $user = factory(User::class)->create();
+        $address = factory(Address::class)->states('with-user')->create(['user_id' => $user->id]);
+        $design = factory(Design::class)->create();
+        $items = factory(Item::class, 2)->create();
+        foreach ($items as $item) {
+            $item->calculatePricing();
+        }
+
+        $order = factory(Order::class)->create(['address_id' => $address->id]);
+        $order->items()->saveMany($items);
+        $order->calculatePricing();
+        $order->save();
+
+        return [
+            'user' => $user,
+            'address' => $address,
+            'design' => $design,
+            'design' => $design,
+            'items' => $items,
+            'items' => $items,
+            'order' => $order,
+        ];
+    }
+
     /** @test */
-    public function customer_can_pay_an_order()
+    public function registered_user_can_pay_an_order()
     {
 
-        $order = factory(Order::class)->create(['total' => 20000]);
+        $orderInformation = $this->makeOrderThings();
 
-        $response = $this->json('POST', "/pay", [
-            'order_id' => $order->id,
+        $response = $this->actingAs($orderInformation['user'])->json('POST', "/pay", [
+            'email' => $orderInformation['user']->email,
             'payment_token' => $this->paymentGateway->getValidTestToken(),
+            'selectedAddress' => $orderInformation['address']->id,
+            'items' => $orderInformation['items'],
+            'design' => $orderInformation['design']->id,
+            'total_price' => $orderInformation['order']->total,
         ]);
 
         $response->assertStatus(200);
-        $this->assertEquals(20000, $this->paymentGateway->totalCharges());
-        // Queremos revisar tambien que el estatus de la orden sea pagada
+        $this->assertEquals($orderInformation['order']->total, $this->paymentGateway->totalCharges());
+        $response->assertJson(['status' => 'Payment Approved']);
     }
 
     /** @test */
     public function an_exception_is_thrown_if_payment_fails()
     {
-        // Queremos revisar tambien que el estatus de la orden sea no pagada
-        $order = factory(Order::class)->create(['total' => 20000]);
+        $orderInformation = $this->makeOrderThings();
 
-        $response = $this->json('POST', "/pay", [
-            'order_id' => $order->id,
+        $response = $this->actingAs($orderInformation['user'])->json('POST', "/pay", [
+            'email' => $orderInformation['user']->email,
             'payment_token' => 'invalid-payment-token',
+            'selectedAddress' => $orderInformation['address']->id,
+            'items' => $orderInformation['items'],
+            'design' => $orderInformation['design']->id,
+            'total_price' => $orderInformation['order']->total,
         ]);
 
         $response->assertStatus(422);
         $this->assertEquals(0, $this->paymentGateway->totalCharges());
+        $response->assertJson(['status' => 'Payment Pending']);
     }
 }

@@ -19,6 +19,18 @@ class Order extends Model
         return $this->belongsTo(Address::class);
     }
 
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+
+    public function setStatus($status)
+    {
+        $this->status_id = Status::findByName($status)->id;
+
+        $this->save();
+    }
+
     public function assignReferenceNumber()
     {
         return $this->reference_number = uniqid();
@@ -51,14 +63,16 @@ class Order extends Model
     {
         $calculator = new Calculator;
         $percentage = $calculator->tax($this->address->zip);
-        $this->tax = ($this->subtotal + $this->shipping) * $percentage;
-        
+        $this->tax = intval(($this->subtotal + $this->shipping) * $percentage);
+
         return $this;
     }
 
     public function total()
     {
         $this->total = $this->subtotal + $this->shipping + $this->tax;
+
+        return $this;
     }
 
     public function addItem(Item $item)

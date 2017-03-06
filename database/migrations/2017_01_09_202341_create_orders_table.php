@@ -18,7 +18,8 @@ class CreateOrdersTable extends Migration
             $table->string('email')->nullable();
             $table->string('reference_number')->nullable();
             $table->integer('user_id')->nullable()->unsigned();
-            $table->integer('address_id')->unsigned();
+            $table->integer('address_id')->nullable()->unsigned();
+            $table->integer('status_id')->nullable()->unsigned();
             $table->integer('subtotal')->nullable();
             $table->integer('shipping')->nullable();
             $table->integer('tax')->nullable();
@@ -27,6 +28,8 @@ class CreateOrdersTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('address_id')->references('id')->on('addresses')->onDelete('set null');
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('set null');
+
         });
     }
 

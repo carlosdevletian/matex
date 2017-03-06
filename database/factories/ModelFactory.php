@@ -145,3 +145,11 @@ $factory->define(App\Models\Cart::class, function (Faker\Generator $faker) {
         }
     ];
 });
+
+$factory->define(App\Models\Status::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'description' => $faker->sentence($nbWords = 5, $variableNbWords = true),
+        'color' => $faker->hexcolor
+    ];
+});

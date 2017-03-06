@@ -16,9 +16,12 @@ class VueController extends Controller
 {
     private $paymentGateway;
 
-    function __construct(PaymentGateway $paymentGateway)
+    private $calculator;
+
+    function __construct(PaymentGateway $paymentGateway, Calculator $calculator)
     {
         $this->paymentGateway = $paymentGateway;
+        $this->calculator = $calculator;
     }
 
     public function addToCart()
@@ -42,31 +45,21 @@ class VueController extends Controller
 
     public function calculatePrice()
     {
-        $calculator = new Calculator();
-        $unitPrice = $calculator->unitPrice(request()->product['id'], 1, request()->quantity);
-        $totalPrice = $calculator->totalPrice(request()->quantity, $unitPrice);
+        $unitPrice = $this->calculator->unitPrice(request()->product['id'], 1, request()->quantity);
+        $totalPrice = $this->calculator->totalPrice(request()->quantity, $unitPrice);
         return response()->json(['unit_price' => $unitPrice, 'total_price' => $totalPrice], 200);
     }
 
     public function calculateShipping()
     {
-        $calculator = new Calculator();
-        $shipping = $calculator->shipping(request()->zip);
+        $shipping = $this->calculator->shipping(request()->zip);
         return response()->json(['shipping' => $shipping], 200);
     }
 
     public function calculateTax()
     {
-        $calculator = new Calculator();
-        $taxPercentage = $calculator->tax(request()->zip);
+        $taxPercentage = $this->calculator->tax(request()->zip);
         return response()->json(['tax_percentage' => $taxPercentage], 200);
-    }
-
-    public function prepareOrder()
-    {
-        $cashier = new Cashier();
-        $order = $cashier->checkout();
-        return response()->json(['order_id' => $order->id], 200);
     }
 
     public function pay()
@@ -75,21 +68,23 @@ class VueController extends Controller
             'payment_token' => 'required',
             'email' => 'required'
         ]);
-        $cashier = new Cashier();
-        $order = $cashier->checkout();
-        // revisar estatus de la orden
+
+        $order = (new Cashier())->checkout();
         
         if($order->total != request('total_price')) {
             dd('The amounts do not match');
         }
         try {
             $this->paymentGateway->charge($order->total, request('payment_token'));
-            // cambiar el estatus a la orden
+            $order->setStatus('Payment Approved');
             return response()->json([
                 'email' => $order->email,
+                'status' => $order->status->name
             ], 200);
         } catch (PaymentFailedException $e) {
-            return response()->json([], 422);
+            return response()->json([
+                'status' => $order->status->name
+            ], 422);
         }
     }
 }

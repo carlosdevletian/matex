@@ -5,6 +5,7 @@ namespace App;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Design;
+use App\Models\Status;
 use App\Models\Address;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -83,8 +84,10 @@ class Cashier
     {
         $this->order = Order::create([
             'address_id' => $this->address->id,
-            $this->identifier => $this->identifier_value
+            $this->identifier => $this->identifier_value,
         ]);
+
+        $this->order->setStatus('Payment Pending');
 
         return $this;
     }

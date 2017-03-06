@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\Design;
+use App\Models\Status;
 use App\Models\Address;
 use App\Models\Product;
 use App\Models\Category;
@@ -31,7 +32,14 @@ class InitialSeeder extends Seeder
         // $category = factory(Category::class)->create([
         //     'name' => 'Calendars',
         //     'image_name' => 'calendar_image.png']);
-        
+
+        factory(Status::class)->create(['name' => 'Payment Pending', 'color' => 'red']);
+        factory(Status::class)->create(['name' => 'Payment Approved', 'color' => 'blue']);
+        factory(Status::class)->create(['name' => 'Shipping', 'color' => 'yellow']);
+        factory(Status::class)->create(['name' => 'Shipped', 'color' => 'orange']);
+        factory(Status::class)->create(['name' => 'Delivered', 'color' => 'green']);
+        factory(Status::class)->create(['name' => 'Canceled', 'color' => 'black']);
+
         $design = factory(Design::class)->create(['image_name' => 'test_filename.jpg']);
         
         $product = factory(Product::class)->create(['name' => 'Small', 'category_id' => $category->id, 'display_position' => 1]);

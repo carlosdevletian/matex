@@ -33,7 +33,7 @@ class CreateOrderTest extends TestCase
     {
         $category = factory(Category::class)->create(['name' => 'Bracelets']);
 
-        $response = $this->json('GET',"/categories/{$category->id}/designs/create");
+        $response = $this->json('GET',"/design/{$category->slug_name}");
 
         $response->assertSee('Bracelets');
     }

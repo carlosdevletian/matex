@@ -39,7 +39,7 @@ class ViewOrderTest extends TestCase
         $user = factory(User::class)->create();
         $order = $this->createOrder($user->id);
 
-        $response = $this->actingAs($user)->json('GET','/orders/'.$order->id);
+        $response = $this->actingAs($user)->json('GET','/orders/'.$order->reference_number);
 
         $response->assertStatus(200);
         $this->assertTrue($user->hasOrder($order));
@@ -53,7 +53,7 @@ class ViewOrderTest extends TestCase
 
         $user2 = factory(User::class)->create();
 
-        $response = $this->actingAs($user2)->json('GET','/orders/'.$order->id);
+        $response = $this->actingAs($user2)->json('GET','/orders/'.$order->reference_number);
 
         $response->assertStatus(403);
     }
@@ -66,7 +66,7 @@ class ViewOrderTest extends TestCase
 
         $admin = factory(User::class)->states('admin')->create();
 
-        $response = $this->actingAs($admin)->json('GET','/orders/'.$order->id);
+        $response = $this->actingAs($admin)->json('GET','/orders/'.$order->reference_number);
 
         $response->assertStatus(200);
     }
@@ -77,7 +77,7 @@ class ViewOrderTest extends TestCase
         $user = factory(User::class)->states('user')->create();
         $order = $this->createOrder($user->id);
 
-        $response = $this->json('GET','/orders/'.$order->id);
+        $response = $this->json('GET','/orders/'.$order->reference_number);
 
         $response->assertStatus(403);
     }

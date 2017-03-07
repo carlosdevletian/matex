@@ -7,23 +7,26 @@ use App\Models\Order;
 use App\Models\Design;
 use App\Models\Address;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 class OrderController extends Controller
 {
-    public function show(Order $order)
+    public function show($referenceNumber)
     {
-        if($order->email == session('email')){
-            return view('orders.show', compact('order'));
-        }else{
+        $order = Order::where('reference_number', $referenceNumber)->firstOrFail();
+
+        if($order->belongsToUser()){
             $this->authorize('show', $order);
-            return view('orders.show', compact('order'));
         }
+
+        return view('orders.show', compact('order'));
     }
 
-    public function create($categoryId, Design $design = null)
+    public function create($categorySlug, Design $design = null)
     {
+        $categoryId = Category::where('slug_name', $categorySlug)->firstOrFail()->id;
         $products = Product::where('category_id', $categoryId)->get();
         if(auth()->check()) {
             $addresses = Address::where('user_id', auth()->user()->id)->get();
@@ -52,7 +55,6 @@ class OrderController extends Controller
                'email' => $address->email,
                'address_id' => $address->id,
             ]);
-            session(['email' => $order->email]);
         }
 
         foreach(request()->items as $itemData){

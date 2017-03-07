@@ -42,7 +42,6 @@ class Cashier
         }else {
             $this->identifier = 'email';
             $this->identifier_value = request()->newAddress['email'];
-            session(['email' => $this->identifier_value]);
             $this->createGuestDesign();
             session()->forget(['fpd-views']);
         }

@@ -70,7 +70,7 @@ class VueController extends Controller
         ]);
 
         $order = (new Cashier())->checkout();
-        
+
         if($order->total != request('total_price')) {
             dd('The amounts do not match');
         }
@@ -79,7 +79,8 @@ class VueController extends Controller
             $order->setStatus('Payment Approved');
             return response()->json([
                 'email' => $order->email,
-                'status' => $order->status->name
+                'status' => $order->status->name,
+                'order_reference_number' => $order->reference_number
             ], 200);
         } catch (PaymentFailedException $e) {
             return response()->json([

@@ -71,16 +71,16 @@ $factory->define(App\Models\Category::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\Order::class, function (Faker\Generator $faker) {
     return [
-        'email' => $faker->unique()->safeEmail,
-        'address_id' => function (array $order) {
-            return factory(App\Models\Address::class)->create(['email' => $order['email']])->id;
-        },
+        'reference_number' => $faker->ean13
     ];
 });
 
 $factory->state(App\Models\Order::class, 'for-guest', function (Faker\Generator $faker) {
     return [
-        'user_id' => null
+        'email' => $faker->unique()->safeEmail,
+        'address_id' => function (array $order) {
+            return factory(App\Models\Address::class)->create(['email' => $order['email']])->id;
+        }
     ];
 });
 
@@ -88,11 +88,12 @@ $factory->state(App\Models\Order::class, 'for-user', function (Faker\Generator $
     return [
         'user_id' => function () {
             return factory(App\Models\User::class)->create()->id;
+        },
+        'address_id' => function (array $order) {
+            return factory(App\Models\Address::class)->create(['user_id' => $order['user_id']])->id;
         }
     ];
 });
-
-
 
 $factory->define(App\Models\Address::class, function (Faker\Generator $faker) {
     return [

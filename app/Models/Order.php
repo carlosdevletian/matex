@@ -80,4 +80,9 @@ class Order extends Model
         $item->cart_id = null;
         $this->items()->save($item);
     }
+
+    public function belongsToUser()
+    {
+        return (! empty($this->user_id));
+    }
 }

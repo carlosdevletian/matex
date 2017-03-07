@@ -10,17 +10,6 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource filtered by category.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function select(Category $category, Design $design)
-    {
-        $products = $category->products;
-        return view('products.select', compact('products', 'category', 'design'));
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

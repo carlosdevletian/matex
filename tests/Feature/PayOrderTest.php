@@ -38,7 +38,7 @@ class PayOrderTest extends TestCase
             $item->calculatePricing();
         }
 
-        $order = factory(Order::class)->create(['address_id' => $address->id]);
+        $order = factory(Order::class)->states('for-user')->create(['address_id' => $address->id]);
         $order->items()->saveMany($items);
         $order->calculatePricing();
         $order->save();

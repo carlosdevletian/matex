@@ -17,7 +17,7 @@ class CategoryController extends Controller
         $categories = Category::all();
 
         if($categories->count() == 1){
-            $category = $categories->first();
+            $category = $categories->first()->slug_name;
             return redirect()->route('designs.create', compact('category'));
         }
 

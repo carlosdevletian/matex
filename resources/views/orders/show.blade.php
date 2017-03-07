@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Order # {{ $order->id }}
+    Order # {{ $order->reference_number }}
 @endsection
 
 @section('content')

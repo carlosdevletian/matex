@@ -32,9 +32,9 @@ export const stripeMixin = {
                 selectedAddress: this.selectedAddress,
                 items: this.items,
                 design: this.design,
-                total_price: this.totalPrice, 
+                total_price: this.totalPrice,
             }).then(response => {
-                console.log("Charge succeeded")
+                window.location = "/orders/" + response.data.order_reference_number;
             }).catch(response => {
                 // this.processing = false
             })

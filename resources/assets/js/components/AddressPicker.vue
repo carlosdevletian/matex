@@ -22,76 +22,76 @@
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div class="col-xs-12">
                 <a role="button" class="pull-right inherit" @click="toggleAddressForm">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
-        <div v-show="! signedIn || showAddressForm" class="row">
+        <div v-show="! signedIn || showAddressForm || (signedIn && existingAddresses.length == 0)" class="row">
             <div class="col-xs-12">
-                <a role="button" 
-                    class="inherit pull-right" 
-                    v-show="existingAddresses.length > 0 && signedIn" 
+                <a role="button"
+                    class="inherit pull-right"
+                    v-show="existingAddresses.length > 0 && signedIn"
                     @click="showAddressForm = ! showAddressForm">
-                        Select from existing addresses 
+                        Select from existing addresses
                         <i class="fa fa-arrow-right" aria-hidden="true"></i>
                 </a>
             </div>
             <div class="col-xs-12">
                 <div v-show="address.show_errors && error" class="error">{{ error }}</div>
-                <input class="Form mb-8" 
-                    type="email" 
-                    v-model="address.email" 
+                <input class="Form mb-8"
+                    type="email"
+                    v-model="address.email"
                     placeholder="Email *"
                     v-if="!signedIn"
                     v-bind:class="{ 'Form--error' : !validation.email && address.show_errors }">
-                <input class="Form mb-8" 
-                    type="text" 
-                    v-model="address.name" 
+                <input class="Form mb-8"
+                    type="text"
+                    v-model="address.name"
                     placeholder="Name *"
                     v-bind:class="{ 'Form--error' : !validation.name && address.show_errors }">
-                <input class="Form mb-8" 
-                    type="text" 
-                    v-model="address.street" 
+                <input class="Form mb-8"
+                    type="text"
+                    v-model="address.street"
                     placeholder="Street *"
                     v-bind:class="{ 'Form--error' : !validation.street && address.show_errors }">
                 <div class="row">
                     <div class="col-sm-6">
-                        <input class="Form mb-8" 
-                        type="text" 
-                        v-model="address.city" 
+                        <input class="Form mb-8"
+                        type="text"
+                        v-model="address.city"
                         placeholder="City *"
                         v-bind:class="{ 'Form--error' : !validation.city && address.show_errors }">
                     </div>
                     <div class="col-sm-6">
-                        <input class="Form mb-8" 
-                        type="text" 
-                        v-model="address.state" 
+                        <input class="Form mb-8"
+                        type="text"
+                        v-model="address.state"
                         placeholder="State *"
                         v-bind:class="{ 'Form--error' : !validation.state && address.show_errors }">
                     </div>
                 </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <input class="Form mb-8" 
-                            type="text" 
-                            v-model="address.zip" 
+                            <input class="Form mb-8"
+                            type="text"
+                            v-model="address.zip"
                             placeholder="Zip Code *"
                             v-bind:class="{ 'Form--error' : !validation.zip && address.show_errors }">
                         </div>
                         <div class="col-sm-6">
-                            <input class="Form mb-8" 
-                            type="text" 
+                            <input class="Form mb-8"
+                            type="text"
                             v-model="address.country"
                             placeholder="Country *"
                             v-bind:class="{ 'Form--error' : !validation.country && address.show_errors }">
                         </div>
                     </div>
-                    <input class="Form mb-8" 
-                        type="text" 
-                        v-model="address.phone_number" 
+                    <input class="Form mb-8"
+                        type="text"
+                        v-model="address.phone_number"
                         placeholder="Phone Number *"
                         v-bind:class="{ 'Form--error' : !validation.phone_number && address.show_errors }">
                     <textarea class="Form mb-8" v-model="address.comment" placeholder="Comment"></textarea>
@@ -165,7 +165,7 @@
             validatedAddress: function() {
                 var vm = this;
                 this.address.is_valid = true;
-                for (var field in this.validation) {      
+                for (var field in this.validation) {
                     if(! vm.validation[field]){
                         vm.address.is_valid = false;
                         vm.error = 'Please enter a correct ' + field;

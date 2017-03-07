@@ -25,8 +25,10 @@ class DesignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Category $category)
+    public function create($categorySlug)
     {
+        $category = Category::where('slug_name', $categorySlug)->firstOrFail();
+
         return view('designs.create', compact('category'));
     }
 
@@ -54,7 +56,7 @@ class DesignController extends Controller
 
         return response()->json([
             'message' => 'Image successfully generated',
-            'category_id' => $category->id
+            'category_slug_name' => $category->slug_name
         ],200);
     }
 

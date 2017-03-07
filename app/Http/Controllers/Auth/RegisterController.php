@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -36,8 +36,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        // Se deshabilita el middleware guest y se pone auth para que el usuario solo pueda crear cuentas al estar loggeado
-        $this->middleware('auth');
+        $this->middleware('guest');
     }
 
     /**

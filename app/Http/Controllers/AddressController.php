@@ -14,13 +14,13 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $addresses = collect();
+        $addresses = auth()->user()->addresses->sortByDesc('created_at');
 
-        if(auth()->check()) {
-            $addresses = Address::where('user_id', auth()->user()->id)->get();
+        if (request()->wantsJson()){
+            return response()->json(['addresses' => $addresses], 200);
         }
 
-        return response()->json(['addresses' => $addresses], 200);
+        return view('addresses.index', compact('addresses'));
     }
 
     /**
@@ -96,8 +96,10 @@ class AddressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Address $address)
     {
-        //
+        $address->delete();
+
+        return redirect()->back();
     }
 }

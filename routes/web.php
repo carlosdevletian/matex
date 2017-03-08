@@ -18,6 +18,7 @@ Route::post('/contact','ContactController@store')->name('contacts.store');
 
 Route::get('/dashboard', function () {return view('dashboard'); })->name('dashboard')->middleware('auth');
 
+Route::get('/designs','DesignController@index')->name('designs.index')->middleware('auth');
 Route::post('/designs','DesignController@store')->name('designs.store');
 
 Route::get('/items', 'ItemController@index')->name('items.index');
@@ -29,6 +30,7 @@ Route::get('/design/{category}', 'DesignController@create')->name('designs.creat
 Route::get('/categories/{category}/products', 'ProductController@index')->name('products.index');
 Route::get('design/{category}/order/{design?}', 'OrderController@create')->name('order.create');
 
+Route::get('/orders', 'OrderController@index')->name('orders.index')->middleware('auth');
 Route::get('/orders/{order}', 'OrderController@show')->name('orders.show');
 Route::post('/orders', 'OrderController@store')->name('orders.store');
 
@@ -36,7 +38,7 @@ Auth::routes();
 
 Route::get('images/{image}/{forOrder?}', 'ImageController@show')->name('image_path');
 
-Route::get('/cart', 'CartController@show')->name('carts.show');
+Route::get('/cart', 'CartController@show')->name('carts.show')->middleware('auth');
 Route::post('/addToCart', 'VueController@addToCart')->name('cart.add');
 Route::post('/calculatePrice', 'VueController@calculatePrice')->name('calculate-price');
 Route::post('/calculateShipping', 'VueController@calculateShipping')->name('calculate-shipping');
@@ -45,6 +47,8 @@ Route::post('/prepareOrder', 'VueController@prepareOrder')->name('prepare-order'
 
 Route::post('/pay', 'VueController@pay')->name('pay');
 
-Route::get('/addresses', 'AddressController@index')->name('addresses.index');
+Route::get('/addresses', 'AddressController@index')->name('addresses.index')->middleware('auth');
 Route::post('/addresses', 'AddressController@store')->name('addresses.store');
 Route::put('/addresses/{id}', 'AddressController@update')->name('addresses.update');
+Route::delete('/addresses/{address}', 'AddressController@destroy')->name('addresses.destroy')->middleware('auth');
+

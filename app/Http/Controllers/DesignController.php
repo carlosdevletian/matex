@@ -17,7 +17,9 @@ class DesignController extends Controller
      */
     public function index()
     {
-        //
+        $designs = auth()->user()->designs->sortByDesc('created_at');
+
+        return view('designs.index', compact('designs'));
     }
 
     /**

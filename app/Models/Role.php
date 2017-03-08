@@ -10,4 +10,9 @@ class Role extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public static function findByName($role)
+    {
+        return self::whereName($role)->first();
+    }
 }

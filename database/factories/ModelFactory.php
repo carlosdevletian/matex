@@ -113,7 +113,8 @@ $factory->state(App\Models\Address::class, 'with-user', function (Faker\Generato
     return [
         'user_id' => function () {
             return factory(App\Models\User::class)->create()->id;
-        }
+        },
+        'email' => null
     ];
 });
 

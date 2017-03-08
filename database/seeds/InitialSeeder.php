@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Design;
 use App\Models\Status;
@@ -17,9 +18,11 @@ class InitialSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::create(['name' => 'Alejandro', 'email' => 'alkv93@gmail.com', 'password' => bcrypt('123123')]);
+        $adminRole = Role::create(['name' => 'admin']);
 
-        $address = factory(Address::class)->states('with-user')->create(['user_id' => $user->id, 'email' => $user->email ]);
+        $admin = User::create(['name' => 'Alejandro', 'email' => 'alkv93@gmail.com', 'password' => bcrypt('123123'), 'role_id' => $adminRole->id]);
+
+        $address = factory(Address::class)->states('with-user')->create(['user_id' => $admin->id]);
 
         $category = factory(Category::class)->create([
             'name' => 'Bracelets', 

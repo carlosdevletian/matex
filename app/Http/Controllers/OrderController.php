@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\File;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        $orders = auth()->user()->orders->sortByDesc('created_at');
+
+        return view('orders.index', compact('orders'));
+    }
+
     public function show($referenceNumber)
     {
         $order = Order::where('reference_number', $referenceNumber)->firstOrFail();

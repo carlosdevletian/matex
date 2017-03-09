@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top {{ Route::currentRouteName() == 'home' ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' ? 'navbar-about' : ''}}">
+<nav class="navbar navbar-default navbar-fixed-top {{ Route::currentRouteName() == 'home' ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' ? 'navbar-about' : ''}} {{ $backgroundColor or '' }}">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

@@ -1,0 +1,20 @@
+.Scroller {
+    position: absolute;
+    top: 30px;
+    &--left {
+        left: -20px;
+    }
+    &--right {
+        right: -20px;
+    }
+}
+
+.Scroll__container {
+    overflow-x: auto; 
+    white-space: nowrap;
+}
+.Scroll__element {
+    display: inline-block; 
+    float: none; 
+    margin-right: 15px;
+}

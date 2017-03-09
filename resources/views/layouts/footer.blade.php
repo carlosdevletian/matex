@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid {{ $backgroundColor or '' }}">
 	<div class="row Footer">
 		<div class="col-xs-12">
 			<a href="https://www.instagram.com/">

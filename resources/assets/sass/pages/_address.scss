@@ -1,10 +1,8 @@
 .Address {
     position: relative;
-    border: solid 2px;
-    border-radius: 5px;
+    border-radius: 0px 0px 5px 5px; 
     padding-top: 5px;
     padding-bottom: 5px;
-    border-color: $brand-primary;
     margin: 0px 5px 5px 0px;
 
     &__expand {

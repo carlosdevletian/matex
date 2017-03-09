@@ -3,9 +3,7 @@
         <input type="hidden" name="stripeToken" v-model="stripeToken">
         <input type="hidden" name="stripeEmail" v-model="stripeEmail">
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary" @click.prevent="buy">Pay</button>
-        </div>
+        <button type="submit" class="Button--checkout box-shadow mg-btm-20" @click.prevent="buy">Checkout</button>
     </form>
 </template>
 

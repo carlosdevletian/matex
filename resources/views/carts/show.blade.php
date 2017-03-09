@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['backgroundColor' => 'blue-background'])
 
 @section('title')
     Your shopping cart
@@ -7,18 +7,12 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    Your shopping cart.
-                </div>
+            <div class="col-xs-12">
                 @if($cart->items->count() > 0)
-                    <div class="panel-body">
-                        <cart :addresses="{{ $addresses }}"></cart>
-                    </div>
+                    <h2 class="mg-btm-20">Shopping cart</h2>
+                    <cart :addresses="{{ $addresses }}"></cart>
                 @else
-                    <div class="panel-body">
-                        <div>There are no items in your cart.</div>
-                    </div>
+                    <div>There are no items in your cart.</div>
                 @endif
             </div>
         </div>

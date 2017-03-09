@@ -46,7 +46,7 @@
 
         @stack('styles')
     </head>
-    <body>
+    <body class="{{ $backgroundColor or '' }}">
         <div id="app">
             <!-- <div v-bind:class="{ Blur: modalActive }"> -->
                 <header>

@@ -1,0 +1,51 @@
+.box-shadow {
+    box-shadow: 0 3px 6px 1px rgba(0,0,0,.08), 0 7px 14px 1px rgba(50,50,93,.1);
+}
+.pd-top-50 {
+    padding-top: 50px;
+}
+.stick-to-bottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-radius: 0px 0px 5px 5px;
+    margin-bottom: -1px; 
+}
+.position-relative {
+    position: relative;
+}
+.orange-background {
+    background-color: #fff1e6;
+}
+.blue-background {
+    background-color: #e6f2ff;
+}
+.margin-auto {
+    margin: auto;
+}
+.mg-top-10 {
+    margin-top: 10px;
+}
+.mg-btm-20 {
+    margin-bottom: 20px;
+}
+.mg-0 {
+    margin: 0;
+}
+.pd-0{
+    padding: 0px;
+}
+.color-secondary {
+    color: $brand-secondary;
+}
+.borderless tbody tr td,
+.borderless tbody tr th,
+.borderless thead tr th,
+.borderless thead tr td,
+.borderless tfoot tr th,
+.borderless tfoot tr td {
+    border: none;
+}
+
+
+

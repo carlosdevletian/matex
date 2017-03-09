@@ -20,12 +20,13 @@ Vue.component('modal', require('./components/Modal.vue'));
 Vue.component('order', require('./components/Order.vue'));
 Vue.component('checkout', require('./components/Checkout.vue'));
 Vue.component('cart-item', require('./components/CartItem.vue'));
+Vue.component('create-order', require('./components/CreateOrder.vue'));
 Vue.component('contact-modal', require('./components/ContactModal.vue'));
 Vue.component('design-picker', require('./components/DesignPicker.vue'));
 Vue.component('address-picker', require('./components/AddressPicker.vue'));
 
 Vue.filter('inDollars', function(cents) {
-    return (cents / 100);
+    return (cents / 100).toLocaleString('en-US');
 });
 
 window.Event = new Vue();

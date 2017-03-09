@@ -1,24 +1,23 @@
-@extends('layouts.app')
+@extends('layouts.app', ['backgroundColor' => 'orange-background'])
 
 @section('title')
 
 @endsection
 
 @section('content')
-    <div style=" padding-top: 50px;
-        background-image: radial-gradient(circle, #f98927, #F16A01 60%);">
+    <div class="pd-top-50">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
                     <div style="margin-bottom: 20px;">
-                        <img src="{{ route('image_path', ['image' => $design_image]) }}" class="img img-responsive">
+                        <img src="{{ route('image_path', ['image' => $design_image]) }}" class="img img-responsive box-shadow margin-auto">
                     </div>
                     <div>
-                        <order
+                        <create-order
                             :products="{{ $products }}"
                             :addresses="{{ $addresses }}"
                             design="{{ $design }}">
-                        </order>
+                        </create-order>
                     </div>
                 </div>
             </div>

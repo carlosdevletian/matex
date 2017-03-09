@@ -35,14 +35,7 @@
 }
 
 .Button--checkout {
-    @include button($brand-primary, false, 12pt);
-    /*Esto se aplica para fijarlo a la parte de abajo, el container debe tener: "position: relative"*/
-    position: absolute;
-    width: 50%;
-    right: 0;
-    bottom: 0;
-    border-radius: 0px 0px 5px 5px;
-    margin-bottom: -1px; 
+    @include button($brand-primary, false, 12pt, $transition: false);
     /*Esto es del boton y ya*/
     padding: 10px 20px; 
     &:hover {

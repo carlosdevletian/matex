@@ -1,24 +1,36 @@
 <template>
-    <div>
+    <div class="col-xs-12">
         <div v-show="existingAddresses.length > 0 && ! showAddressForm" class="row">
-            <div class="col-xs-12">
-                <div v-for="existingAddress in existingAddresses">
-                    <div class="col-md-12 Address">
-                        <a role="button" @click="showExtraInfo(existingAddress.id)" class="Address__expand">
-                            <i class="fa fa-angle-double-down" aria-hidden="true"></i>
-                        </a>
-                        <a role="button" @click="updateSelectedAddress(existingAddress)" class="inherit">
-                            <div>{{ existingAddress.name }}</div>
-                            <div>{{ existingAddress.street }}</div>
-                            <div>{{ existingAddress.city }}</div>
-                            <div v-show="showMoreId == existingAddress.id">
-                                <div>{{ existingAddress.country }}</div>
-                                <div>{{ existingAddress.zip }}</div>
-                                <div>{{ existingAddress.phone_number }}</div>
+            <div style="position:relative">
+                <a @mouseover="scrollLeft()" 
+                    @mouseleave="stopScroll()" 
+                    @click="scrollToBeginning()" 
+                    class="Scroller Scroller--left" 
+                    role="button"><</a>
+                <a @mouseover="scrollRight()" 
+                    @mouseleave="stopScroll()" 
+                    @click="scrollToEnd()" 
+                    class="Scroller Scroller--right" 
+                    role="button">></a>
+                <div id="carousel" class="Scroll__container col-xs-12">
+                    <div v-for="existingAddress in existingAddresses" class="Scroll__element">
+                        <div class="Card Card--half-pd col-md-12" :class="{ 'border-primary' : isSelected(existingAddress.id)}">
+                            <a role="button" @click="showExtraInfo(existingAddress.id)" class="Address__expand">
+                                <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                            </a>
+                            <a role="button" @click="updateSelectedAddress(existingAddress)" class="inherit">
+                                <div>{{ existingAddress.name }}</div>
+                                <div>{{ existingAddress.street }}</div>
+                                <div>{{ existingAddress.city }}</div>
+                                <div v-show="showMoreId == existingAddress.id">
+                                    <div>{{ existingAddress.country }}</div>
+                                    <div>{{ existingAddress.zip }}</div>
+                                    <div>{{ existingAddress.phone_number }}</div>
+                                </div>
+                            </a>
+                            <div v-show="isSelected(existingAddress.id)" class="text-center">
+                                <i class="fa fa-check-circle" aria-hidden="true" ></i>
                             </div>
-                        </a>
-                        <div v-show="isSelected(existingAddress.id)" class="text-center">
-                            <i class="fa fa-check-circle" aria-hidden="true" ></i>
                         </div>
                     </div>
                 </div>
@@ -41,32 +53,32 @@
             </div>
             <div class="col-xs-12">
                 <div v-show="address.show_errors && error" class="error">{{ error }}</div>
-                <input class="Form mb-8"
+                <input class="Form mg-btm-20"
                     type="email"
                     v-model="address.email"
                     placeholder="Email *"
                     v-if="!signedIn"
                     v-bind:class="{ 'Form--error' : !validation.email && address.show_errors }">
-                <input class="Form mb-8"
+                <input class="Form mg-btm-20"
                     type="text"
                     v-model="address.name"
                     placeholder="Name *"
                     v-bind:class="{ 'Form--error' : !validation.name && address.show_errors }">
-                <input class="Form mb-8"
+                <input class="Form mg-btm-20"
                     type="text"
                     v-model="address.street"
                     placeholder="Street *"
                     v-bind:class="{ 'Form--error' : !validation.street && address.show_errors }">
                 <div class="row">
                     <div class="col-sm-6">
-                        <input class="Form mb-8"
+                        <input class="Form mg-btm-20"
                         type="text"
                         v-model="address.city"
                         placeholder="City *"
                         v-bind:class="{ 'Form--error' : !validation.city && address.show_errors }">
                     </div>
                     <div class="col-sm-6">
-                        <input class="Form mb-8"
+                        <input class="Form mg-btm-20"
                         type="text"
                         v-model="address.state"
                         placeholder="State *"
@@ -75,26 +87,26 @@
                 </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <input class="Form mb-8"
+                            <input class="Form mg-btm-20"
                             type="text"
                             v-model="address.zip"
                             placeholder="Zip Code *"
                             v-bind:class="{ 'Form--error' : !validation.zip && address.show_errors }">
                         </div>
                         <div class="col-sm-6">
-                            <input class="Form mb-8"
+                            <input class="Form mg-btm-20"
                             type="text"
                             v-model="address.country"
                             placeholder="Country *"
                             v-bind:class="{ 'Form--error' : !validation.country && address.show_errors }">
                         </div>
                     </div>
-                    <input class="Form mb-8"
+                    <input class="Form mg-btm-20"
                         type="text"
                         v-model="address.phone_number"
                         placeholder="Phone Number *"
                         v-bind:class="{ 'Form--error' : !validation.phone_number && address.show_errors }">
-                    <textarea class="Form mb-8" v-model="address.comment" placeholder="Comment"></textarea>
+                    <textarea class="Form mg-btm-20" v-model="address.comment" placeholder="Comment"></textarea>
                     <div v-show="false">{{ validatedAddress }}</div>
             </div>
         </div>
@@ -104,7 +116,10 @@
 <script>
     var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
+    import { carouselMixin } from '../mixins/carouselMixin';
+
     export default {
+        mixins: [carouselMixin],
         props: ['address', 'existingAddresses'],
         data: function() {
             return {
@@ -112,7 +127,7 @@
                 showAddressForm: false,
                 selected: 0,
                 showMoreId: 0,
-                error: ''
+                error: '',
             }
         },
         methods: {
@@ -147,7 +162,7 @@
                 } else {
                     this.showMoreId = id;
                 }
-            }
+            },
         },
         computed: {
             validation: function() {
@@ -168,7 +183,7 @@
                 for (var field in this.validation) {
                     if(! vm.validation[field]){
                         vm.address.is_valid = false;
-                        vm.error = 'Please enter a correct ' + field;
+                        vm.error = field == 'phone_number' ? 'Please enter a phone number' : 'Please enter a ' + field;
                         break;
                     }
                 }
@@ -182,8 +197,8 @@
 </script>
 
 <style>
-    .mb-8 {
-        margin-bottom: 8px
+    .border-primary{
+        border: solid 2px #0000AA;
     }
     .error {
         color: red;

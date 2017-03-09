@@ -18,6 +18,9 @@ Route::post('/contact','ContactController@store')->name('contacts.store');
 
 Route::get('/dashboard', function () {return view('dashboard'); })->name('dashboard')->middleware('auth');
 
+Route::get('/users/{user}','UserController@edit')->name('users.edit')->middleware('auth');
+Route::put('/users/{user}','UserController@update')->name('users.update')->middleware('auth');
+
 Route::get('/designs','DesignController@index')->name('designs.index')->middleware('auth');
 Route::post('/designs','DesignController@store')->name('designs.store');
 
@@ -48,7 +51,7 @@ Route::post('/prepareOrder', 'VueController@prepareOrder')->name('prepare-order'
 Route::post('/pay', 'VueController@pay')->name('pay');
 
 Route::get('/addresses', 'AddressController@index')->name('addresses.index')->middleware('auth');
+Route::get('/addresses/{address}', 'AddressController@edit')->name('addresses.edit')->middleware('auth');
 Route::post('/addresses', 'AddressController@store')->name('addresses.store');
-Route::put('/addresses/{id}', 'AddressController@update')->name('addresses.update');
+Route::put('/addresses/{address}', 'AddressController@update')->name('addresses.update')->middleware('auth');
 Route::delete('/addresses/{address}', 'AddressController@destroy')->name('addresses.destroy')->middleware('auth');
-

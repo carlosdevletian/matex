@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Design;
@@ -25,7 +26,11 @@ class OrderController extends Controller
         $order = Order::where('reference_number', $referenceNumber)->firstOrFail();
 
         if($order->belongsToUser()){
-            $this->authorize('show', $order);
+            if (Gate::allows('owner', $order)) {
+                return view('orders.show', compact('order'));
+            }else {
+                abort(403, 'Unauthorized action.');
+            }
         }
 
         return view('orders.show', compact('order'));
@@ -74,7 +79,6 @@ class OrderController extends Controller
 
                 $item->calculatePricing();
                 $item->save();
-                // $item->removeFromCart();
             }
             if(!auth()->check()){
                 $item->design->email = $order->email;

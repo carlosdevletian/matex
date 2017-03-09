@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
 use App\Models\Address;
 use Illuminate\Http\Request;
 
@@ -69,9 +70,13 @@ class AddressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Address $address)
     {
-        //
+        if (Gate::allows('owner', $address)) {
+            return view('addresses.edit', compact('address'));
+        }
+
+        abort(403, 'Unauthorized action.');
     }
 
     /**
@@ -80,14 +85,26 @@ class AddressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update(Address $address)
     {
-        $address = Address::findOrFail($id);
-        $data = request()->address;
-        $data['email'] = request()->email ?: null;
-        $address->update($data);
+        if (Gate::allows('owner', $address)) {
+            $this->validate(request(), [
+                'name' => 'required',
+                'street' => 'required',
+                'city' => 'required',
+                'state' => 'required',
+                'zip' => 'required|digits:5',
+                'country' => 'required',
+                'phone_number' => 'required',
+                'comment' => 'nullable'
+            ]);
 
-        return response()->json([], 200);
+            $address->update(request()->all());
+
+            return redirect()->route('addresses.index');
+        }
+
+        abort(403, 'Unauthorized action.');
     }
 
     /**
@@ -98,8 +115,12 @@ class AddressController extends Controller
      */
     public function destroy(Address $address)
     {
-        $address->delete();
+        if (Gate::allows('owner', $address)) {
+            $address->delete();
 
-        return redirect()->back();
+            return redirect()->back();
+        }
+
+        abort(403, 'Unauthorized action.');
     }
 }

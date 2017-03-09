@@ -37,6 +37,9 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li>
+                                <a href="{{ route('users.edit', ['user' => auth()->user()->id]) }}">Edit Profile</a>
+                            </li>
+                            <li>
                                 <a href="{{ url('/logout') }}"
                                     onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">

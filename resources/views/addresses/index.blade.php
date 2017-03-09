@@ -23,7 +23,7 @@
                                     <h5>Zip: {{ $address->zip }}</h5>
                                     <h5>Country: {{ $address->country }}</h5>
                                 </li>
-                                <a href="">Edit</a>
+                                <a href="{{ route('addresses.edit', ['address' => $address]) }}">Edit</a>
                                 <form method="POST" action="{{ route('addresses.destroy', ['address' => $address]) }}">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="_method" value="DELETE">

@@ -67,9 +67,11 @@ class Cashier
                 'newAddress.name' => 'required',
                 'newAddress.street' => 'required',
                 'newAddress.city' => 'required',
-                'newAddress.zip' => 'required',
+                'newAddress.state' => 'required',
+                'newAddress.zip' => 'required|digits:5',
                 'newAddress.country' => 'required',
                 'newAddress.phone_number' => 'required',
+                'newAddress.comment' => 'nullable'
             ]);
             $addressData = request()->except(['newAddress.is_valid', 'newAddress.show_errors'])['newAddress'];
             $addressData[$this->identifier] = $this->identifier_value;

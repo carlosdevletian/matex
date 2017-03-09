@@ -18,6 +18,7 @@
                                 <li>
                                     <img src="{{ route('image_path', ['image' => $design->image_name]) }}" class="img img-responsive">
                                     <a href="">Delete</a>
+                                    <a href="{{ route('categories.index', ['design' => $design->id]) }}">Order Again</a>
                                 </li>
                             @endforeach
                         @else

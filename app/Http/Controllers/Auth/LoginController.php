@@ -48,7 +48,7 @@ class LoginController extends Controller
                 'design' => $design->id
             ]);
             session()->forget(['category_id', 'fpd-views']);
-            return route('order.create', ['category' => $categoryId]);
+            return route('orders.create', ['category' => $categoryId]);
         }
         return route('dashboard');
     }

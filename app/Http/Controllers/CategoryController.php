@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Design;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -12,16 +13,21 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Design $design = null)
     {
         $categories = Category::all();
 
         if($categories->count() == 1){
             $category = $categories->first()->slug_name;
-            return redirect()->route('designs.create', compact('category'));
+
+            if(empty($design->id)){
+                return redirect()->route('designs.create', compact('category'));
+            }
+
+            return redirect()->route('orders.create', compact('category', 'design'));
         }
 
-        return view('categories.index', compact('categories'));
+        return view('categories.index', ['categories' => $categories, 'design' => $design->id]);
     }
 
     /**

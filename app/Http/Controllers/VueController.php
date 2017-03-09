@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\Order;
 use App\Models\Design;
 use App\Models\Address;
+use App\Events\OrderPlaced;
 use Illuminate\Http\Request;
 use App\Billing\PaymentGateway;
 use App\Billing\PaymentFailedException;
@@ -77,12 +78,14 @@ class VueController extends Controller
         try {
             $this->paymentGateway->charge($order->total, request('payment_token'));
             $order->setStatus('Payment Approved');
+            event(new OrderPlaced($order));
             return response()->json([
                 'email' => $order->email,
                 'status' => $order->status->name,
                 'order_reference_number' => $order->reference_number
             ], 200);
         } catch (PaymentFailedException $e) {
+            event(new OrderPlaced($order));
             return response()->json([
                 'status' => $order->status->name
             ], 422);

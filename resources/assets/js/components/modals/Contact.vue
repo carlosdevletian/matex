@@ -1,5 +1,5 @@
 <template>
-    <modal @close="close()">
+    <modal-template @close="close()">
         <div slot="header">
         Contact Us
         </div>
@@ -10,20 +10,19 @@
 
         <div slot="body">
             <div>
+                <div v-show="firstError" class="error text-center">{{ firstError }}</div>
                 <div class="Input__icon">
                     <input v-model="contact.email"
                         class="Form"
                         placeholder="Email address"
                         v-bind:class="{ 'Form--error' : !validation.email}"
                         autofocus>
-                    <div v-show="! validation.email" class="error">{{ errors.email ? errors.email[0] : '' }}</div>
                 </div>
                 <div class="Input__icon">
                     <input v-model="contact.subject"
                         class="Form"
                         placeholder="Subject"
                         v-bind:class="{ 'Form--error' : !validation.subject}">
-                    <div v-show="! validation.subject" class="error">{{ errors.subject ? errors.subject[0] : '' }}</div>
                 </div>
                 <div class="Input__icon" style="padding-bottom: 10px; margin-bottom: 20px">
                     <textarea v-model="contact.body"
@@ -31,7 +30,6 @@
                         placeholder="Your message here..."
                         rows=5
                         v-bind:class="{ 'Form--error' : !validation.body}"></textarea>
-                    <div v-show="! validation.body" class="error">{{ errors.body ? errors.body[0] : '' }}</div>
                 </div>
                 <div>
                     <button class="Button--modal" @click="sendContactEmail()">Send</button>
@@ -39,7 +37,7 @@
             </div>
         </div>
 
-    </modal>
+    </modal-template>
 </template>
 
 <script>
@@ -93,9 +91,17 @@
         computed: {
             validation: function() {
                 return {
-                    subject: this.errors.hasOwnProperty('subject') ? !! this.contact.subject.trim() : true,
                     email: this.errors.hasOwnProperty('email') ? !! emailRegex.test(this.contact.email) : true,
+                    subject: this.errors.hasOwnProperty('subject') ? !! this.contact.subject.trim() : true,
                     body: this.errors.hasOwnProperty('body') ? !! this.contact.body.trim() : true,
+                }
+            },
+            firstError: function() {
+                var vm = this;
+                for (var field in this.validation) {
+                    if(! vm.validation[field]){
+                        return field == 'email' ? 'Please enter a correct email ' : 'Please enter a ' + field;
+                    }
                 }
             }
         }

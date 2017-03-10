@@ -46,6 +46,12 @@ export const stripeMixin = {
                 };
                 this.openStripe();
             }else{
+                swal({
+                    title: 'An error occurred',
+                    text: 'Please make sure you have some items in your order and an address is selected',
+                    type: 'error',
+                    showConfirmButton: true
+                }).catch(swal.noop);
                 this.address.show_errors = true;
             }
         }

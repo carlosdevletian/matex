@@ -9,12 +9,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::where('cart_id', auth()->user()->cart->id)
-            ->leftJoin('designs', 'designs.id', '=', 'items.design_id')
-            ->select('items.*', 'designs.image_name as image_name')
-            ->get();
-
-        return $items;
+        return Item::inCart();
     }
 
     public function update($item)

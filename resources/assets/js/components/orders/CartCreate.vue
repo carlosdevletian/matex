@@ -1,20 +1,10 @@
 <template>
-    <order>
-        <div slot="items-title">Choose your sizes</div>
-        <div slot="products">
-             <div class="row">
-                <div class="col-xs-6 col-xs-offset-3">
-                    <div v-for="product in sortedProducts()">
-                        <button @click="createItem(product)" class="Button--product">{{ product.name }}</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <order-template>
+        <div slot="items-title">Your items</div>
         <div slot="items">
-            <hr v-if="items.length > 0">
-            <div v-for="item in sortedItems">
-                <item :item="item" @delete-item="deleteItem">
-                </item>
+            <div v-for="item in items">
+                <item-cart-create :item="item" @delete-item="deleteItem" @item-updated="updateItem">
+                </item-cart-create>
             </div>
         </div>
         <div slot="subtotal">$ {{ calculatedSubtotal | inDollars }}</div>
@@ -39,33 +29,30 @@
             </address-picker>
         </div>
         <div slot="buttons">
-            <div class="col-xs-6" :class="{ 'col-xs-offset-3': !signedIn }">
-                <button @click="pay"
+            <div class="row">
+                <div class="col-xs-6 col-xs-offset-3">
+                    <button @click="pay"
                     class="Button--checkout box-shadow mg-btm-20"
                     >Checkout</button>
-            </div>
-            <div class="col-xs-6">
-                <button v-if="signedIn"
-                    @click="addToCart"
-                    class="Button--checkout box-shadow mg-btm-20"
-                    >Add to cart</button>
+                </div>
             </div>
         </div>
-    </order>
+    </order-template>
 </template>
 
 <script>
-    import { stripeMixin } from '../mixins/stripeMixin';
+    import { stripeMixin } from '../../mixins/stripeMixin';
 
     export default {
         mixins: [stripeMixin],
-        props: ['products', 'design', 'addresses'],
+        props: ['addresses'],
         data: function() {
             return {
                 items: [],
                 subtotal: 0,
                 shipping: 0,
                 tax: 0,
+                order_id: null,
                 selectedAddress: 0,
                 address: {
                     email: '',
@@ -80,47 +67,24 @@
                     is_valid: false,
                     show_errors: false
                 },
-                signedIn: Matex.signedIn,
             }
         },
+        mounted: function() {
+            axios.get('/items').then((response) => {
+                this.items = response.data;
+           });
+        },
         methods: {
-            createItem: function(product) {
-                var item = {
-                    product : product,
-                    design_id: this.design,
-                    quantity: 0,
-                    unit_price: 0,
-                    total_price: 0,
-                };
-
-                this.items.push(item);
-
-                this.removeProduct(product.id);
-            },
-            removeProduct: function(productId) {
+            deleteItem: function(itemId) {
                 var vm = this;
 
-                this.products.forEach( function(product, index){
-                    if(product.id == productId){
-                        vm.products.splice(index, 1);
-                    }
+                axios.delete('/items/' + itemId).then((response) => {
+                    this.items.forEach(function(item, index){
+                        if(item.id == itemId){
+                            vm.items.splice(index, 1);
+                        }
+                    });
                 });
-            },
-            deleteItem: function(productId) {
-                var vm = this;
-                this.items.forEach( function(item, index){
-                    if(item.product.id == productId){
-                        vm.products.push(item.product);
-                        vm.items.splice(index, 1);
-                    }
-                });
-            },
-            addToCart: function() {
-                if(this.totalQuantity() > 0) {
-                    axios.post('/addToCart', this.items).then((response) => { window.location = '/cart' });
-                }else{
-                    alert('error');
-                }
             },
             totalQuantity: function() {
                 var total = 0;
@@ -138,8 +102,17 @@
             canPay: function() {
                 return this.totalQuantity() > 0 && (this.address.is_valid || this.selectedAddress != 0);
             },
+            updateItem: function(updatedItem) {
+                this.items.forEach(function(item) {
+                    if(updatedItem.id == item.id) {
+                        item.quantity = updatedItem.quantity;
+                        item.unit_price = updatedItem.unit_price;
+                        item.total_price = updatedItem.total_price;
+                    }
+                });
+            },
             calculateShipping: function() {
-                if(this.zipIsValid) {
+                if(this.address.zip.length == 5) {
                     var data = {
                         zip: this.address.zip
                     }
@@ -155,11 +128,6 @@
                 axios.post('/calculateTax', data).then((response) => {
                     this.tax = (this.subtotal + this.shipping) * response.data.tax_percentage;
                 });
-            },
-            sortedProducts: function() {
-                return this.products.sort(function(productA,productB){
-                    return productA.display_position - productB.display_position;
-                })
             },
         },
         watch: {
@@ -178,20 +146,17 @@
                 return this.address.zip.length == 5;
             },
             calculatedSubtotal: function() {
-                this.subtotal = 0;
-                var vm = this;
-                this.items.forEach(function(item) {
-                    vm.subtotal = (vm.subtotal + item.total_price);
-                });
-                return this.subtotal;
+                if(this.items.length > 0) {
+                    this.subtotal = 0;
+                    var vm = this;
+                    this.items.forEach(function(item) {
+                        vm.subtotal = (vm.subtotal + +item.total_price);
+                    });
+                    return this.subtotal;
+                }
             },
             totalPrice: function() {
                 return (this.subtotal + this.shipping + this.tax);
-            },
-            sortedItems: function() {
-                return this.items.sort(function(a,b){
-                    return a.product.display_position - b.product.display_position;
-                })
             },
             filteredShipping: function() {
                 if(this.zipIsValid) {
@@ -215,7 +180,11 @@
     }
 </script>
 
+
 <style type="text/css">
+    .left {
+        left: 0;
+    }
     .Order__title--orange {
         font-size: 20px;
         color: #F16A01;

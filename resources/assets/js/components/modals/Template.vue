@@ -1,7 +1,7 @@
 <template>
     <transition name="modal"> 
         <div class="Modal__background" @click="$emit('close')">
-            <div class="Modal" @click.stop>
+            <div class="Modal" :class="childClassObject" @click.stop>
                 <span class="Modal__close" @click="$emit('close')">&#10005;</span>
                 <div class="Modal__header">
                     <slot name="header"></slot>
@@ -22,12 +22,20 @@
 
 <script>
     export default {
+        props: {
+            childClassObject: {
+                type: Object,
+                default: function () {
+                    return {}
+                }
+            },
+        },
         mounted: function () {
             document.addEventListener("keydown", (e) => {
               if (e.keyCode == 27) {
                     this.$emit('close');
                 }
             });
-        }
+        },
     }
 </script>

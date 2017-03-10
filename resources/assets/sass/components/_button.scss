@@ -35,7 +35,7 @@
 }
 
 .Button--checkout {
-    @include button($brand-primary, false, 12pt, $transition: false);
+    @include button($brand-secondary, false, 12pt, $transition: false);
     /*Esto es del boton y ya*/
     padding: 10px 20px; 
     &:hover {
@@ -49,4 +49,21 @@
 
 .Button--address {
     @include button($brand-primary, true, 11pt);
+}
+
+.Button--loading {
+    position: relative;
+    color: transparent !important;
+    &:after {
+        position: absolute !important;
+        display: block;
+        height: 1rem;
+        width: 1rem;
+        top: 50%;
+        left: 50%;
+        margin-left: -0.5rem;
+        margin-top: -0.5rem;
+        animation: spin-around 500ms infinite linear;
+        content: "";
+    }
 }

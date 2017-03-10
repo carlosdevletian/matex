@@ -1,65 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.app', ['backgroundColor' => 'blue-background'])
 
 @section('title')
     Order # {{ $order->reference_number }}
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4>Order for {{ $order->address->name }}</h4>
-                    </div>
-                    <div class="panel-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th class="text-center">Product</th>
-                                    <th class="text-center">Unit Price</th>
-                                    <th class="text-center">Quantity</th>
-                                    <th class="text-center">Total price</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($order->items as $item)
-                                    <tr>
-                                        <td>
-                                            <img class="img-responsive" src="{{ route('image_path', ['image' => $item->design->image_name, 'forOrder' => true]) }}" alt="">
-                                        </td>
-                                        <td>
-                                            <div class="text-center">
-                                                {{ $item->product->name }} {{ $item->product->category->name }}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="text-center">
-                                                ${{ $item->unit_price }}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="text-center">
-                                                {{ $item->quantity }}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="text-center">
-                                                {{ $item->total_price }}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <ul>
-                            <li>Subtotal {{ $order->subtotal }}</li>
-                            <li>Shipping {{ $order->shipping }}</li>
-                            <li>Tax {{ $order->tax }}</li>
-                            <li>Total {{ $order->total }}</li>
-                        </ul>
-                    </div>
+    <div class="pd-top-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="mg-btm-20 text-center">Order # {{ $order->reference_number }}</h2>
+                    <completed-order :order="{{ $order }}" :items="{{ $order->items }}" :address="{{ $order->address }}"></completed-order>
                 </div>
             </div>
         </div>

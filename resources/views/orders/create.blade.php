@@ -13,11 +13,11 @@
                         <img src="{{ route('image_path', ['image' => $design_image]) }}" class="img img-responsive box-shadow margin-auto">
                     </div>
                     <div>
-                        <create-order
+                        <order-create
                             :products="{{ $products }}"
                             :addresses="{{ $addresses }}"
                             design="{{ $design }}">
-                        </create-order>
+                        </order-create>
                     </div>
                 </div>
             </div>

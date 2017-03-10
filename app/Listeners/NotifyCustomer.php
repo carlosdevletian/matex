@@ -28,9 +28,7 @@ class NotifyCustomer implements ShouldQueue
     public function handle(OrderPlaced $event)
     {
         if($event->order->belongsToUser()){
-            var_dump('epa');
             $email = $event->order->user->email;
-            var_dump($email);
         }else{
             $email = $event->order->email;
         }

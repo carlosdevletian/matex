@@ -48,6 +48,16 @@ class Item extends Model
             ->first();
     }
 
+    public static function inCart()
+    {
+        return self::with(['design' => function($query){
+                $query->addSelect(['id', 'image_name', 'created_at']);
+            }])->where('cart_id', auth()->user()->cart->id)
+            ->leftJoin('designs', 'designs.id', '=', 'items.design_id')
+            ->select('items.*', 'designs.image_name as image_name')
+            ->get();
+    }
+
     public function assignProduct($product)
     {
         if(is_int($product)) {

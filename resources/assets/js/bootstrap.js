@@ -36,3 +36,5 @@ window.axios.defaults.headers.common = {
  */
 
 window.swal = require('sweetalert2');
+
+window.moment = require('moment');

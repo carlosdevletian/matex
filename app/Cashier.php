@@ -99,13 +99,15 @@ class Cashier
             if(! empty($itemData['id'])){
                 $item = Item::findOrFail($itemData['id']);
             }else{
-                $item = new Item;
-                $item->assignProduct($itemData['product']['id']);
-                $item->quantity = $itemData['quantity'];
-                if(auth()->check()) {
-                    $item->design_id = $itemData['design_id'];
-                }else {
-                    $item->design_id = $this->design->id;
+                if($itemData['quantity'] > 0) {
+                    $item = new Item;
+                    $item->assignProduct($itemData['product']['id']);
+                    $item->quantity = $itemData['quantity'];
+                    if(auth()->check()) {
+                        $item->design_id = $itemData['design_id'];
+                    }else {
+                        $item->design_id = $this->design->id;
+                    }
                 }
             }
 

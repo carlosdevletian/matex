@@ -67,6 +67,11 @@
             cursor: pointer;
         }
     }
+
+    &--wide {
+        max-width: none;
+        width: 90%;
+    }
 }
 
 .Blur {

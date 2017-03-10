@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +13,12 @@ use Illuminate\Foundation\Inspiring;
 |
 */
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->describe('Display an inspiring quote');
+Artisan::command('clear-designs', function () {
+    if ($this->confirm('Are you sure you wish to delete all designs?')) {
+        Storage::deleteDirectory('designs');
+        Storage::deleteDirectory('public/designs');
+        $this->info("Designs deleted successfully");
+    }else {
+        $this->info("Deletion cancelled");
+    }
+})->describe('Clear all designs');

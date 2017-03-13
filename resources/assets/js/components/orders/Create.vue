@@ -10,8 +10,26 @@
                 </div>
             </div>
         </div>
+        <div v-if="items.length > 0" slot="table-header" class="table-responsive borderless">
+            <hr>
+            <table class="table borderless mg-0">
+                <tbody>
+                    <tr>
+                        <td class="pd-0 col-xs-7">
+                                <p class="text-center mg-0">Items</p>
+                        </td>
+                        <td class="pd-0 col-xs-3">
+                                <p class="text-center mg-0 visible-xs-block">Qty</p>
+                                <p class="text-center mg-0 hidden-xs">Quantity</p>
+                        </td>
+                        <td class="pd-0 col-xs-2">
+                                <p class="text-center mg-0">Price</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div slot="items">
-            <hr v-if="items.length > 0">
             <div v-for="item in sortedItems">
                 <item-create :item="item" @delete-item="deleteItem">
                 </item-create>
@@ -125,6 +143,7 @@
                 }else{
                     swal({
                         title: 'An error occurred',
+                        customClass: 'Modal',
                         text: 'Select some items to add to the cart',
                         type: 'error',
                         timer: 1900,

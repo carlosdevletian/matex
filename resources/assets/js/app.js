@@ -67,7 +67,10 @@ const app = new Vue({
             this.showContactModal = false;
             this.modalActive = false;
         },
-        openImageModal: function() {
+        openImageModal: function(design = null) {
+            if (design) {
+                this.design = design;
+            }
             this.showImageModal = true;
             this.modalActive = true;
         },

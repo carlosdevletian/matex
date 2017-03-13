@@ -1,22 +1,28 @@
 <template>
     <div>
-        <div class="table-responsive borderless">
+        <div class="borderless">
             <table class="table borderless mg-0">
                 <tbody>
                     <tr>
-                        <td class="col-xs-4">
-                            <a role="button" @click="openImage">
-                                <img class="img-responsive" :src="'/images/' + item.design.image_name" style="margin-top: 8px">
-                            </a>
+                        <td class="col-xs-7">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <a role="button" @click="openImage">
+                                        <img class="img-responsive margin-auto" :src="'/images/' + item.design.image_name" style="height: 40px; width: 40px; border-radius: 5px 5px 5px 5px">
+                                    </a>
+                                </div>
+                                <div class="col-xs-8">
+                                    <p>
+                                        {{ item.product.name }} {{ item.product.category.name }}
+                                    </p>
+                                </div>
+                            </div>
                         </td>
                         <td class="col-xs-3">
-                            {{ item.quantity }}
+                            <p class="text-center">{{ item.quantity }}</p>
                         </td>
                         <td class="col-xs-2">
-                            $ {{ item.unit_price | inDollars }}
-                        </td>
-                        <td class="col-xs-3">
-                            $ {{ item.total_price | inDollars }}
+                            <p class="text-center">$ {{ item.unit_price | inDollars }}</p>
                         </td>
                     </tr>
                 </tbody>

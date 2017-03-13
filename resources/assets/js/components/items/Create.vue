@@ -1,19 +1,23 @@
 <template>
     <div>
-        <div class="table-responsive borderless">
+        <div class="borderless position-relative">
             <table class="table borderless mg-0">
                 <tbody>
                     <tr>
-                        <td class="col-xs-1">
-                            <a @click="deleteItem" role="button" class="Item__delete">&#10005;</a>
+                        <td class="col-xs-7">
+                            <div class="row position-relative">
+                                <div class="col-xs-12">
+                                    <a @click="deleteItem" role="button" class="Item__delete" style="position: absolute; top: 3%;left: 0;">&#10005;</a>
+                                    <p class="text-center color-secondary">{{ item.product.name }}</p>
+                                </div>
+                            </div>
                         </td>
-                        <td class="col-xs-3 color-secondary">{{ item.product.name }}</td>
                         <td class="col-xs-3">
                             <div class="position-relative">
                                 <input type="number"
                                 v-model="item.quantity"
                                 @change="updatePrice"
-                                class="Form pd-0"
+                                class="Form pd-0 text-center"
                                 onfocus="if(this.value == '0') { this.value = ''; }"
                                 v-bind:class="{ 'Form--error' : this.error }"
                                 :disabled="processing"
@@ -22,10 +26,7 @@
                             </div>
                         </td>
                         <td class="col-xs-2">
-                            $ {{ item.unit_price | inDollars }}
-                        </td>
-                        <td class="col-xs-3">
-                            $ {{ item.total_price | inDollars }}
+                            <p class="text-center">$ {{ item.unit_price | inDollars }}</p>
                         </td>
                     </tr>
                 </tbody>
@@ -41,7 +42,6 @@
             return {
                 error: '',
                 processing: false,
-                deleting: false,
             }
         },
         methods: {

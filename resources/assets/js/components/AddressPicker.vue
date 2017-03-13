@@ -1,22 +1,26 @@
 <template>
     <div class="col-xs-12">
         <div v-show="existingAddresses.length > 0 && ! showAddressForm" class="row">
-            <div style="position:relative">
+            <div class="position-relative">
                 <a @mouseover="scrollLeft()" 
                     @mouseleave="stopScroll()" 
                     @click="scrollToBeginning()" 
                     class="Scroller Scroller--left" 
-                    role="button"><</a>
+                    role="button">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    </a>
                 <a @mouseover="scrollRight()" 
                     @mouseleave="stopScroll()" 
                     @click="scrollToEnd()" 
                     class="Scroller Scroller--right" 
-                    role="button">></a>
+                    role="button">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </a>
                 <div id="carousel" class="Scroll__container col-xs-12">
                     <div v-for="existingAddress in existingAddresses" class="Scroll__element">
                         <div class="Card Card--half-pd col-md-12" :class="{ 'border-primary' : isSelected(existingAddress.id)}">
                             <a role="button" @click="showExtraInfo(existingAddress.id)" class="Address__expand">
-                                <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                                <i class="fa fa-angle-down" aria-hidden="true"></i>
                             </a>
                             <a role="button" @click="updateSelectedAddress(existingAddress)" class="inherit">
                                 <div>{{ existingAddress.name }}</div>

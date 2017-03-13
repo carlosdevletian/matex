@@ -1,11 +1,16 @@
 .Scroller {
     position: absolute;
     top: 30px;
+    color: lightgrey;
     &--left {
         left: -20px;
     }
     &--right {
         right: -20px;
+    }
+    &:hover {
+        color: grey;
+        cursor: pointer;
     }
 }
 

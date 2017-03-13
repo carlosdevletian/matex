@@ -1,30 +1,34 @@
 export const carouselMixin = {
     data: function() {
         return {
-            timer: null
+            carousel: null,
+            leftScroll: null,
+            rightScroll: null,
         }
     },
     methods: {
         scrollRight: function() {
-            this.timer = setInterval(function() {
-                document.getElementById('carousel').scrollLeft += 5;
+            this.rightScroll = setInterval(function() {
+                this.carousel.scrollLeft += 5;
             }, 50);
         },
         scrollLeft: function() {
-            this.timer = setInterval(function() {
-                document.getElementById('carousel').scrollLeft -= 5;
+            this.leftScroll = setInterval(function() {
+                this.carousel.scrollLeft -= 5;
             }, 50);
         },
         scrollToEnd: function() {
-            var carousel = document.getElementById('carousel');
-            var end = carousel.scrollWidth - carousel.clientWidth;
-            document.getElementById('carousel').scrollLeft = end;
+            this.carousel.scrollLeft = this.carousel.scrollWidth - this.carousel.clientWidth;
         },
         scrollToBeginning: function() {
-            document.getElementById('carousel').scrollLeft = 0;
+            this.carousel.scrollLeft = 0;
         },
         stopScroll: function() {
-            clearInterval(this.timer);
+            clearInterval(this.rightScroll);
+            clearInterval(this.leftScroll);
         }
     },
+    created: function() {
+        this.carousel = document.getElementById('carousel');
+    }
 }

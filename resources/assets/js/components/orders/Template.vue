@@ -3,49 +3,58 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="Card col-sm-12">
-                    <h3 class="Order__title--orange text-center">
-                        <slot name="items-title"></slot>
-                    </h3>
-                    <hr>
-                    <slot name="products"></slot>
-                    <slot name="items"></slot>
-                    <hr>
+                    <div class="row">
+                        <h3 class="Order__title--orange text-center">
+                            <slot name="items-title"></slot>
+                        </h3>
+                    </div>
+                    <div class="row"><hr></div>
+                    <div class="row"><slot name="products"></slot></div>
+                    <div class="row"><slot name="table-header"></slot></div>
+                    <div class="row"><slot name="items"></slot></div>
+                    <div class="row"><hr></div>
                     <div class="position-relative">
                         <div class="Spinner">
                             <slot name="spinner"></slot>
                         </div>
                         <div class="row">
-                            <div class="col-xs-3">
+                            <div class="col-xs-4">
                                 Subtotal:
                             </div>
-                            <div class="col-xs-3 col-xs-offset-6">
-                                <slot name="subtotal"></slot>
+                            <div class="col-xs-2 col-xs-offset-6">
+                                <p class="text-center"><slot name="subtotal"></slot></p>
                             </div>
                         </div>
                         <slot name="zip-error"></slot>
                         <div class="row">
-                            <div class="col-xs-3">
+                            <div class="col-xs-4">
                                 Shipping:
                             </div>
-                            <div class="col-xs-3 col-xs-offset-6">
-                                <slot name="shipping"></slot>
+                            <div class="col-xs-2 col-xs-offset-6">
+                                <p class="text-center">
+                                    <slot name="shipping"></slot>
+                                </p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-3">
+                            <div class="col-xs-4">
                                 Tax:
                             </div>
-                            <div class="col-xs-3 col-xs-offset-6">
-                                <slot name="tax"></slot>
+                            <div class="col-xs-2 col-xs-offset-6">
+                                <p class="text-center">
+                                    <slot name="tax"></slot>
+                                </p>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-xs-3">
+                            <div class="col-xs-4">
                                 Total:
                             </div>
-                            <div class="col-xs-3 col-xs-offset-6">
-                                <slot name="total"></slot>
+                            <div class="col-xs-2 col-xs-offset-6">
+                                <p class="text-center">
+                                    <slot name="total"></slot>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -58,7 +67,7 @@
                             <slot name="address-title"></slot>
                         </h3>
                     </div>
-                    <hr>
+                    <div class="row"><hr></div>
                     <div class="row">
                         <slot name="address-picker"></slot>
                     </div>

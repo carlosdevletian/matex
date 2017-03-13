@@ -50,12 +50,21 @@ class Item extends Model
 
     public static function inCart()
     {
-        return self::with(['design' => function($query){
-                $query->addSelect(['id', 'image_name', 'created_at']);
-            }])->where('cart_id', auth()->user()->cart->id)
+        return self::detailed()->where('cart_id', auth()->user()->cart->id)
             ->leftJoin('designs', 'designs.id', '=', 'items.design_id')
             ->select('items.*', 'designs.image_name as image_name')
             ->get();
+    }
+
+    public static function detailed()
+    {
+        return self::with(['design' => function($query){
+                $query->addSelect(['id', 'image_name', 'created_at']);
+            }, 'product' => function($query) {
+                $query->addSelect(['id', 'name', 'category_id']);
+            }, 'product.category' => function($query){
+                $query->addSelect(['id', 'name']);
+            }]);
     }
 
     public function assignProduct($product)

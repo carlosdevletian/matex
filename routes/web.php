@@ -16,7 +16,8 @@ Route::get('/about-us', function () { return view('about'); })->name('about');
 
 Route::post('/contact','ContactController@store')->name('contacts.store');
 
-Route::get('/dashboard', function () {return view('dashboard'); })->name('dashboard')->middleware('auth');
+
+Route::get('/dashboard','DashboardController@show')->name('dashboard')->middleware('auth');
 
 Route::get('/users/{user}','UserController@edit')->name('users.edit')->middleware('auth');
 Route::put('/users/{user}','UserController@update')->name('users.update')->middleware('auth');

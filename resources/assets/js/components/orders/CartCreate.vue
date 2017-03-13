@@ -1,6 +1,24 @@
 <template>
     <order-template>
         <div slot="items-title">Your items</div>
+        <div slot="table-header" class="table-responsive borderless">
+            <table class="table borderless mg-0">
+                <tbody>
+                    <tr>
+                        <td class="pd-0 col-xs-7">
+                                <p class="text-center mg-0">Items</p>
+                        </td>
+                        <td class="pd-0 col-xs-3">
+                                <p class="text-center mg-0 visible-xs-block">Qty</p>
+                                <p class="text-center mg-0 hidden-xs">Quantity</p>
+                        </td>
+                        <td class="pd-0 col-xs-2">
+                                <p class="text-center mg-0">Price</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div slot="items">
             <div v-for="item in items">
                 <item-cart-create :item="item" @delete-item="deleteItem" @item-updated="updateItem">
@@ -11,7 +29,7 @@
         <div slot="zip-error">
             <div class="row" v-show="! zipIsValid">
                 <hr>
-                <div class="col-xs-12 text-center color-secondary">
+                <div class="col-xs-12 text-center color-secondary pd-20">
                     An address must be entered to calculate shipping and tax
                 </div>
                 <hr>

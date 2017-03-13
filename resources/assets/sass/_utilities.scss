@@ -1,8 +1,20 @@
+.blue-background {
+    background-color: #e6e6ff;
+}
 .box-shadow {
     box-shadow: 0 3px 6px 1px rgba(0,0,0,.08), 0 7px 14px 1px rgba(50,50,93,.1);
 }
+.no-animation {
+    animation: none;
+}
+.orange-background {
+    background-color: #fff0e6;
+}
 .pd-top-50 {
     padding-top: 50px;
+}
+.position-relative {
+    position: relative;
 }
 .stick-to-bottom {
     position: absolute;
@@ -10,15 +22,6 @@
     bottom: 0;
     border-radius: 0px 0px 5px 5px;
     margin-bottom: -1px; 
-}
-.position-relative {
-    position: relative;
-}
-.orange-background {
-    background-color: #fff1e6;
-}
-.blue-background {
-    background-color: #e6f2ff;
 }
 .margin-auto {
     margin: auto;
@@ -35,8 +38,14 @@
 .pd-0{
     padding: 0px;
 }
+.pd-20{
+    padding: 20px;
+}
 .color-secondary {
     color: $brand-secondary;
+}
+.color-primary {
+    color: $brand-primary;
 }
 .borderless tbody tr td,
 .borderless tbody tr th,
@@ -46,6 +55,23 @@
 .borderless tfoot tr td,
 .borderless {
     border: none;
+}
+
+// Los override de sweet alert
+.swal2-icon.swal2-error {
+    border-color: $brand-secondary;
+}
+.swal2-icon.swal2-error .line {
+    background-color: $brand-secondary;
+}
+.swal2-icon.swal2-success {
+    border-color: $brand-primary;
+}
+.swal2-icon.swal2-success .line {
+    background-color: $brand-primary;
+}
+.swal2-icon.swal2-success .placeholder {
+    border: 4px solid $brand-primary;
 }
 
 

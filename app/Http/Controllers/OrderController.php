@@ -25,7 +25,11 @@ class OrderController extends Controller
     {
         $order = Order::with(['items.design' => function($query){
                 $query->addSelect(['id', 'image_name', 'created_at']);
-            }])
+            },'items.product' => function($query) {
+                $query->addSelect(['id', 'name', 'category_id']);
+            },'items.product.category' => function($query) {
+                $query->addSelect(['id', 'name']);
+            }, 'status'])
             ->where('reference_number', $referenceNumber)->firstOrFail();
 
         if($order->belongsToUser()){

@@ -76,4 +76,14 @@ class User extends Authenticatable
     {
         return $this->designs->count() > 0;
     }
+
+    public function recentDesigns()
+    {
+        return $this->designs->sortByDesc('created_at')->take(3);
+    }
+
+    public function activeOrders()
+    {
+        return $this->orders->whereIn('status.id', [1,2,3,4]);
+    }
 }

@@ -47,10 +47,14 @@ export const stripeMixin = {
                 this.openStripe();
             }else{
                 swal({
-                    title: 'An error occurred',
-                    text: 'Please make sure you have some items in your order and an address is selected',
+                    title: "<h3 class='Order__title--orange'>An error occurred</h3>",
+                    html: "<p style='font-size: 12pt'>Please make sure you have some items in your order and an address is selected</p>",
                     type: 'error',
-                    showConfirmButton: true
+                    showConfirmButton: true,
+                    confirmButtonClass: 'Button--modal box-shadow stick-to-bottom',
+                    confirmButtonText: '<p class="mg-0">Got it!</p>',
+                    buttonsStyling: false,
+                    customClass: 'Modal'
                 }).catch(swal.noop);
                 this.address.show_errors = true;
             }

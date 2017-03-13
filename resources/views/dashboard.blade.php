@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['backgroundColor' => 'blue-background'])
 
 @section('title')
     Dashboard
@@ -7,18 +7,25 @@
 @section('content')
 	<div class="container">
         <div class="row Section">
+            <h1>Dashboard</h1>
             <div class="col-xs-12">
-                <h1>Dashboard</h1>
-                <br>
-                <a href="{{ route('carts.show') }}" class="Button">My Cart</a>
-                <br>
-                <a href="{{ route('orders.index') }}" class="Button">My Orders</a>
-                <br>
-                <a href="{{ route('addresses.index') }}" class="Button">My Address Book</a>
-                <br>
-                <a href="{{ route('designs.index') }}" class="Button">My Designs</a>
-                <br>
-                <a href="{{ route('users.edit', ['user' => auth()->user()->id]) }}" class="Button">Edit Profile</a>
+                <div class="col-sm-6">
+                    <h3>Shopping Cart</h3>
+                    @include('widgets.cart')
+                </div>
+                @if($orders->count() > 0)
+                    <div class="col-sm-6">
+                        <h3>Active Orders</h3>
+                        @include('widgets.orders')
+                    </div>
+                @endif
+                @if(auth()->user()->hasAnyDesigns())
+                    <div class="col-sm-12">
+                        <h3>Recent designs</h3>
+                        @include('widgets.designs')
+                    </div>
+                @endif()
+                <!-- faltan addresss y editar perfil -->
             </div>
         </div>
     </div>

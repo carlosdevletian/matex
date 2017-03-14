@@ -29478,20 +29478,24 @@ window.moment = __webpack_require__(0);
 var carouselMixin = {
     data: function data() {
         return {
-            carousel: null,
-            leftScroll: null,
-            rightScroll: null
+            timer: null,
+            carousel: null
         };
     },
+
     methods: {
         scrollRight: function scrollRight() {
-            this.rightScroll = setInterval(function () {
-                this.carousel.scrollLeft += 5;
+            var _this = this;
+
+            this.timer = setInterval(function () {
+                _this.carousel.scrollLeft += 5;
             }, 50);
         },
         scrollLeft: function scrollLeft() {
-            this.leftScroll = setInterval(function () {
-                this.carousel.scrollLeft -= 5;
+            var _this2 = this;
+
+            this.timer = setInterval(function () {
+                _this2.carousel.scrollLeft -= 5;
             }, 50);
         },
         scrollToEnd: function scrollToEnd() {
@@ -29501,12 +29505,11 @@ var carouselMixin = {
             this.carousel.scrollLeft = 0;
         },
         stopScroll: function stopScroll() {
-            clearInterval(this.rightScroll);
-            clearInterval(this.leftScroll);
+            clearInterval(this.timer);
         }
     },
-    created: function created() {
-        this.carousel = document.getElementById('carousel');
+    mounted: function mounted() {
+        this.carousel = this.$refs.carousel;
     }
 };
 
@@ -51526,7 +51529,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       'col-xs-offset-3': !_vm.signedIn
     }
   }, [_c('button', {
-    staticClass: "Button--checkout box-shadow mg-btm-20",
+    staticClass: "Button--secondary box-shadow mg-btm-20",
     on: {
       "click": _vm.pay
     }
@@ -51751,7 +51754,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "mouseover": function($event) {
         _vm.scrollLeft()
       },
-      "mouseleave": function($event) {
+      "mouseout": function($event) {
         _vm.stopScroll()
       },
       "click": function($event) {
@@ -51772,7 +51775,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "mouseover": function($event) {
         _vm.scrollRight()
       },
-      "mouseleave": function($event) {
+      "mouseout": function($event) {
         _vm.stopScroll()
       },
       "click": function($event) {
@@ -51785,10 +51788,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "aria-hidden": "true"
     }
   })]), _vm._v(" "), _c('div', {
-    staticClass: "Scroll__container col-xs-12",
-    attrs: {
-      "id": "carousel"
-    }
+    ref: "carousel",
+    staticClass: "Scroll__container col-xs-12"
   }, _vm._l((_vm.existingAddresses), function(existingAddress) {
     return _c('div', {
       staticClass: "Scroll__element"
@@ -52488,7 +52489,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "col-xs-6 col-xs-offset-3"
   }, [_c('button', {
-    staticClass: "Button--checkout box-shadow mg-btm-20",
+    staticClass: "Button--secondary box-shadow mg-btm-20",
     on: {
       "click": _vm.pay
     }

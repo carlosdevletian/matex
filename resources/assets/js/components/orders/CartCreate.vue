@@ -50,7 +50,7 @@
             <div class="row">
                 <div class="col-xs-6 col-xs-offset-3">
                     <button @click="pay"
-                    class="Button--checkout box-shadow mg-btm-20"
+                    class="Button--secondary box-shadow mg-btm-20"
                     >Checkout</button>
                 </div>
             </div>

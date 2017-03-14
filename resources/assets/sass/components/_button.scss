@@ -34,8 +34,21 @@
     margin-bottom: -1px; 
 }
 
-.Button--checkout {
+.Button--secondary {
     @include button($brand-secondary, false, 12pt, $transition: false);
+    /*Esto es del boton y ya*/
+    padding: 10px 20px; 
+    &:hover {
+        transform: translateY(-1px);
+    }
+    &:disabled {
+        cursor: not-allowed;
+        text-decoration: line-through;
+    }
+}
+
+.Button--primary {
+    @include button($brand-primary, false, 12pt, $transition: false);
     /*Esto es del boton y ya*/
     padding: 10px 20px; 
     &:hover {

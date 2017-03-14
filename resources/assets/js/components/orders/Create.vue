@@ -62,7 +62,7 @@
         <div slot="buttons">
             <div class="col-xs-6" :class="{ 'col-xs-offset-3': !signedIn }">
                 <button @click="pay"
-                    class="Button--checkout box-shadow mg-btm-20"
+                    class="Button--secondary box-shadow mg-btm-20"
                     >Checkout</button>
             </div>
             <div class="col-xs-6">

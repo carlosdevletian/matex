@@ -1,6 +1,6 @@
 <template>
     <order-template>
-        <div slot="items-title">Ordered items</div>
+        <h3 slot="items-title">Ordered items</h3>
         <div slot="table-header" class="table-responsive borderless">
             <table class="table borderless mg-0">
                 <tbody>
@@ -28,14 +28,14 @@
         <div slot="shipping">$ {{ order.shipping | inDollars }}</div>
         <div slot="tax">$ {{ order.tax | inDollars }}</div>
         <div slot="total">$ {{ order.total | inDollars }}</div>
-        <div slot="address-title">Shipping address</div>
+        <h3 slot="address-title">Shipping address</h3>
         <div slot="address-picker">
-            <div class="col-xs-12"><h5>Name: {{ address.name }}</h5></div>
-            <div class="col-xs-12"><h5>Street: {{ address.street }}</h5></div>
-            <div class="col-xs-12"><h5>City: {{ address.city }}</h5></div>
-            <div class="col-xs-12"><h5>State: {{ address.state }}</h5></div>
-            <div class="col-xs-12"><h5>Zip: {{ address.zip }}</h5></div>
-            <div class="col-xs-12"><h5>Phone Number: {{ address.phone_number }}</h5></div>
+            <div class="col-xs-12"><p>Name: {{ address.name }}</p></div>
+            <div class="col-xs-12"><p>Street: {{ address.street }}</p></div>
+            <div class="col-xs-12"><p>City: {{ address.city }}</p></div>
+            <div class="col-xs-12"><p>State: {{ address.state }}</p></div>
+            <div class="col-xs-12"><p>Zip: {{ address.zip }}</p></div>
+            <div class="col-xs-12"><p>Phone Number: {{ address.phone_number }}</p></div>
             <div v-show="address.comment" class="col-xs-12">User comment: {{ address.comment }}</div>
         </div>
     </order-template>

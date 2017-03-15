@@ -32,7 +32,7 @@
                         v-bind:class="{ 'Form--error' : !validation.body}"></textarea>
                 </div>
                 <div>
-                    <button class="Button--modal" @click="sendContactEmail()">Send</button>
+                    <button class="Button--secondary stick-to-bottom" @click="sendContactEmail()">Send</button>
                 </div>
             </div>
         </div>

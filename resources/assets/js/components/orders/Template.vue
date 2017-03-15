@@ -4,9 +4,9 @@
             <div class="col-sm-6">
                 <div class="Card col-sm-12">
                     <div class="row">
-                        <h3 class="Order__title--orange text-center">
+                        <div class="Order__title--orange text-center">
                             <slot name="items-title"></slot>
-                        </h3>
+                        </div>
                     </div>
                     <div class="row"><hr></div>
                     <div class="row"><slot name="products"></slot></div>
@@ -63,9 +63,9 @@
             <div class="col-sm-6">
                 <div class="Card col-sm-12 text-center">
                     <div class="row">
-                        <h3 class="Order__title--blue">
+                        <div class="Order__title--blue">
                             <slot name="address-title"></slot>
-                        </h3>
+                        </div>
                     </div>
                     <div class="row"><hr></div>
                     <div class="row">

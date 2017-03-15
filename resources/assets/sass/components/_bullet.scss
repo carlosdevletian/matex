@@ -1,0 +1,11 @@
+.Bullet {
+    border-radius: 100%;
+    border: 1px solid $brand-secondary;
+    width: 10px; 
+    height: 10px; 
+    margin-right: 2px;
+    background-color: transparent;
+    &--filled {
+        background-color: $brand-secondary;
+    }
+}

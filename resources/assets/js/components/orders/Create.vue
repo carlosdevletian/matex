@@ -1,6 +1,6 @@
 <template>
     <order-template>
-        <div slot="items-title">Choose your sizes</div>
+        <h3 slot="items-title">Choose your sizes</h3>
         <div slot="products">
              <div class="row">
                 <div class="col-xs-6 col-xs-offset-3">
@@ -51,7 +51,7 @@
         <div slot="shipping">{{ filteredShipping }}</div>
         <div slot="tax">{{ filteredTax }}</div>
         <div slot="total">{{ filteredTotal }}</div>
-        <div slot="address-title">Select an address</div>
+        <h3 slot="address-title">Select an address</h3>
         <div slot="address-picker">
             <address-picker
                 :existing-addresses="addresses"
@@ -68,7 +68,7 @@
             <div class="col-xs-6">
                 <button v-if="signedIn"
                     @click="addToCart"
-                    class="Button--checkout box-shadow mg-btm-20"
+                    class="Button--secondary box-shadow mg-btm-20"
                     >Add to cart</button>
             </div>
         </div>

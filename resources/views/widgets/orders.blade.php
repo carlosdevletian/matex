@@ -1,17 +1,9 @@
-<div class="col-xs-12 Card" style="height: 40vh">
+<div class="col-xs-12 Card position-relative pd-btm-50">
     <h3 class="color-secondary">Active orders</h3>
-    @foreach($orders as $order)
-            <div class="row">
-                <div class="col-xs-12">
-                    <a href="{{ route('orders.show', ['order' => $order->reference_number]) }}" style="color: inherit">
-                        <div class="Card Card--half-pd">
-                            <p style="display: inline-block;">Order #{{ $order->reference_number }}</p>
-                            <div style="display: inline-block; width: 10px; height: 10px; border-radius: 100%; background-color: {{ $order->status->color }}"></div>
-                            <p class="mg-0" style="display:inline-block;">{{ $order->status->name }}</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-    @endforeach
-    <a href="{{ route('orders.index') }}" class="Button--secondary stick-to-bottom">See previous orders</a>
+    @if($orders->count() > 0)
+        <order-list :orders="{{ $orders }}"></order-list>
+        <a href="{{ route('orders.index') }}" class="Button--secondary stick-to-bottom color-white">See previous orders</a>
+    @else
+        <p>No active orders at the moment.</p>
+    @endif
 </div>

@@ -1,27 +1,48 @@
+.background-image {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+}
 .blue-background {
     background-color: #e6e6ff;
+}
+.borderless tbody tr td,
+.borderless tbody tr th,
+.borderless thead tr th,
+.borderless thead tr td,
+.borderless tfoot tr th,
+.borderless tfoot tr td,
+.borderless {
+    border: none;
 }
 .box-shadow {
     box-shadow: 0 3px 6px 1px rgba(0,0,0,.08), 0 7px 14px 1px rgba(50,50,93,.1);
 }
-.no-animation {
-    animation: none;
+.color-primary {
+    color: $brand-primary;
 }
-.orange-background {
-    background-color: #fff0e6;
+.color-purple {
+    color: $brand-purple;
 }
-.pd-top-50 {
-    padding-top: 50px;
+.color-red {
+    color: $brand-red;
 }
-.position-relative {
-    position: relative;
+.color-secondary {
+    color: $brand-secondary;
 }
-.stick-to-bottom {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    border-radius: 0px 0px 5px 5px;
-    margin-bottom: -1px; 
+.color-white {
+    color: white;
+    &:hover {
+        color: white;
+    }
+}
+.large {
+    font-size: 2em;
+}
+.left-5 {
+    left: 5%;
 }
 .margin-auto {
     margin: auto;
@@ -35,26 +56,39 @@
 .mg-0 {
     margin: 0;
 }
+.no-animation {
+    animation: none;
+}
+.orange-background {
+    background-color: #fff0e6;
+}
 .pd-0{
     padding: 0px;
 }
 .pd-20{
     padding: 20px;
 }
-.color-secondary {
-    color: $brand-secondary;
+.pd-top-50 {
+    padding-top: 50px;
 }
-.color-primary {
-    color: $brand-primary;
+.pd-btm-50 {
+    padding-bottom: 50px;
 }
-.borderless tbody tr td,
-.borderless tbody tr th,
-.borderless thead tr th,
-.borderless thead tr td,
-.borderless tfoot tr th,
-.borderless tfoot tr td,
-.borderless {
-    border: none;
+.position-relative {
+    position: relative;
+}
+.right-5 {
+    right: 5%;
+}
+.stick-to-bottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border-radius: 0px 0px 5px 5px;
+    margin-bottom: -1px; 
+}
+.top-40 {
+    top: 40%
 }
 
 // Sweet Alert 2 Overrides

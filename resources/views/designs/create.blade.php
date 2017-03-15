@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['backgroundColor' => 'blue-background'])
 
 @section('title')
     Design your {{ $category->name }}

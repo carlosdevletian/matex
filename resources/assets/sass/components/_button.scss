@@ -25,58 +25,53 @@
     &:hover {
         transform: translateY(-1px);
     }
-    /*Esto se aplica para fijarlo a la parte de abajo, el container debe tener: "position: relative"*/
-    position: absolute;
-    width: 100%;
-    right: 0;
-    bottom: 0;
-    border-radius: 0px 0px 5px 5px;
-    margin-bottom: -1px; 
 }
 
 .Button--secondary {
     @include button($brand-secondary, false, 12pt, $transition: false);
-    /*Esto es del boton y ya*/
     padding: 10px 20px; 
     &:hover {
         transform: translateY(-1px);
-    }
-    &:disabled {
-        cursor: not-allowed;
-        text-decoration: line-through;
+        background-color: rgba(241, 106, 1, 0.7);
+        border: 2px solid rgba(241, 106, 1, 0.7);
+        box-shadow: $box-shadow-hover;
     }
 }
 
 .Button--primary {
     @include button($brand-primary, false, 12pt, $transition: false);
+    padding: 10px 20px; 
+    &:hover {
+        transform: translateY(-1px);
+        background-color: rgba(0, 0, 170, 0.7);
+        border: 2px solid rgba(0, 0, 170, 0.7);
+        box-shadow: $box-shadow-hover;
+    }
+}
+
+.Button--red {
+    @include button($brand-red, false, 12pt, $transition: false);
+    padding: 10px 20px; 
+    &:hover {
+        transform: translateY(-1px);
+        background-color: rgba(208,67,40,0.7);
+        border: 2px solid rgba(208,67,40,0.7);
+        box-shadow: $box-shadow-hover;
+    }
+}
+
+.Button--purple {
+    @include button($brand-purple, false, 12pt, $transition: false);
     /*Esto es del boton y ya*/
     padding: 10px 20px; 
     &:hover {
         transform: translateY(-1px);
-    }
-    &:disabled {
-        cursor: not-allowed;
-        text-decoration: line-through;
+        background-color: rgba(116,72,157,0.7);
+        border: 2px solid rgba(116,72,157,0.7);
+        box-shadow: $box-shadow-hover;
     }
 }
 
 .Button--address {
     @include button($brand-primary, true, 11pt);
-}
-
-.Button--loading {
-    position: relative;
-    color: transparent !important;
-    &:after {
-        position: absolute !important;
-        display: block;
-        height: 1rem;
-        width: 1rem;
-        top: 50%;
-        left: 50%;
-        margin-left: -0.5rem;
-        margin-top: -0.5rem;
-        animation: spin-around 500ms infinite linear;
-        content: "";
-    }
 }

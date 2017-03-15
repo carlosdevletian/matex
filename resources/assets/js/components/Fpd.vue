@@ -1,20 +1,22 @@
 <template>
     <div>
-       <div id="fpd" class="fpd-container fpd-topbar fpd-hidden-tablets">
-            <div class="fpd-product" title="Titulo" data-thumbnail="#">
-                <img :src="productTemplate"
-                    title="Bracelet"
-                    data-parameters=
-                        '{"left": 340,
-                        "top": 329,
-                        "draggable": false,
-                        "removable": false,
-                        "autoCenter": true,
-                        "zChangeable": false,
-                        "colors": "#ffffff,#e3e3e3,#000000,#ffff80,#ff6666,#00ff80",
-                        "z": 2
-                        }'
-                />
+        <div class="Card col-xs-12 pd-0">
+           <div id="fpd" class="fpd-container fpd-topbar fpd-hidden-tablets">
+                <div class="fpd-product" title="Titulo" data-thumbnail="#">
+                    <img :src="productTemplate"
+                        title="Bracelet"
+                        data-parameters=
+                            '{"left": 340,
+                            "top": 329,
+                            "draggable": false,
+                            "removable": false,
+                            "autoCenter": true,
+                            "zChangeable": false,
+                            "colors": "#ffffff,#e3e3e3,#000000,#ffff80,#ff6666,#00ff80",
+                            "z": 2
+                            }'
+                    />
+                </div>
             </div>
         </div>
         <div v-if="signedIn">

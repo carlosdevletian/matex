@@ -12,6 +12,7 @@ require('./bootstrap');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.component('order-list', require('./components/orders/List.vue'));
 Vue.component('order-show', require('./components/orders/Show.vue'));
 Vue.component('order-create', require('./components/orders/Create.vue'));
 Vue.component('order-template', require('./components/orders/Template.vue'));
@@ -78,6 +79,12 @@ const app = new Vue({
             this.showImageModal = false;
             this.modalActive = false;
             this.design = '';
+        },
+        removeBackground(url, event) {
+            event.target.style.backgroundImage = 'url('+url+')';
+        },
+        setBackground(url, event) {
+            event.target.style.backgroundImage = 'linear-gradient(rgba(255, 240, 230, 0.8), rgba(255, 240, 230, 0.8)), url('+url+')';
         }
     }
 });

@@ -6,12 +6,17 @@ $break-large: 992px;
 $break-extra-large: 1200px;
 
 //Colors
-$brand-primary: #0000AA;
-$brand-secondary: #F16A01;
+$brand-primary: rgb(0, 0, 170);
+$brand-secondary: rgb(241, 106, 1);
+$brand-red: rgb(208,67,40);
+$brand-purple: rgb(116,72,157);
 $gradient-blue: #1659CF;
 
 //Border
 $border-radius-base: 5px;
+
+// Box shadow
+$box-shadow-hover : 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
 
 //Typography
 $font-family-sans-serif: sans-serif;

@@ -8,7 +8,7 @@
                             <div class="row">
                                 <div class="col-xs-4">
                                     <a role="button" @click="openImage">
-                                        <img class="img-responsive margin-auto" :src="'/images/' + item.design.image_name" style="height: 40px; width: 40px; border-radius: 5px 5px 5px 5px">
+                                        <img class="img-responsive margin-auto" :src="'/images/' + item.design.image_name" style="height: 40px; width: 40px">
                                     </a>
                                 </div>
                                 <div class="col-xs-8">

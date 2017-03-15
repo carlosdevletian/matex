@@ -19,8 +19,8 @@ Route::post('/contact','ContactController@store')->name('contacts.store');
 
 Route::get('/dashboard','DashboardController@show')->name('dashboard')->middleware('auth');
 
-Route::get('/users/{user}','UserController@edit')->name('users.edit')->middleware('auth');
-Route::put('/users/{user}','UserController@update')->name('users.update')->middleware('auth');
+Route::get('/profile','UserController@edit')->name('users.edit')->middleware('auth');
+Route::put('/profile','UserController@update')->name('users.update')->middleware('auth');
 
 Route::get('/designs','DesignController@index')->name('designs.index')->middleware('auth');
 Route::post('/designs','DesignController@store')->name('designs.store');
@@ -43,7 +43,7 @@ Auth::routes();
 Route::get('images/{image}/{forOrder?}', 'ImageController@show')->name('image_path');
 
 Route::get('/cart', 'CartController@show')->name('carts.show')->middleware('auth');
-Route::post('/addToCart', 'VueController@addToCart')->name('cart.add');
+Route::post('/addToCart', 'VueController@addToCart')->name('carts.add')->middleware('auth');
 Route::post('/calculatePrice', 'VueController@calculatePrice')->name('calculate-price');
 Route::post('/calculateShipping', 'VueController@calculateShipping')->name('calculate-shipping');
 Route::post('/calculateTax', 'VueController@calculateTax')->name('calculate-tax');

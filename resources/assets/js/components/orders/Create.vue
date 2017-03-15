@@ -60,16 +60,16 @@
             </address-picker>
         </div>
         <div slot="buttons">
-            <div class="col-xs-6" :class="{ 'col-xs-offset-3': !signedIn }">
-                <button @click="pay"
-                    class="Button--secondary box-shadow mg-btm-20"
-                    >Checkout</button>
-            </div>
             <div class="col-xs-6">
                 <button v-if="signedIn"
                     @click="addToCart"
                     class="Button--secondary box-shadow mg-btm-20"
                     >Add to cart</button>
+            </div>
+            <div class="col-xs-6" :class="{ 'col-xs-offset-3': !signedIn }">
+                <button @click="pay"
+                    class="Button--secondary box-shadow mg-btm-20"
+                    >Checkout</button>
             </div>
         </div>
     </order-template>
@@ -139,7 +139,18 @@
             },
             addToCart: function() {
                 if(this.totalQuantity() > 0) {
-                    axios.post('/addToCart', this.items).then((response) => { window.location = '/cart' });
+                    axios.post('/addToCart', this.items).then((response) => { 
+                        swal({
+                            title: 'Items added successfully',
+                            customClass: 'Modal',
+                            text: 'The items were added to your Cart',
+                            type: 'success',
+                            timer: 2500,
+                            showConfirmButton: false
+                        }).catch(swal.noop);
+
+                        setTimeout("window.location = '/dashboard'", 2500); 
+                    });
                 }else{
                     swal({
                         title: 'An error occurred',

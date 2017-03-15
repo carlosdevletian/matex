@@ -57,8 +57,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit()
     {
+        $user = auth()->user();
+
         if (Gate::allows('user', $user)) {
             return view('users.edit', compact('user'));
         }
@@ -75,10 +77,12 @@ class UserController extends Controller
      */
     public function update(User $user)
     {
+        $user = auth()->user();
+
         if (Gate::allows('user', $user)) {
             $this->validate(request(), [
                 'name' => 'required|max:255',
-                'email' => 'required|email|max:255|unique:users,email,' . $user->id(),
+                'email' => 'required|email|max:255|unique:users,email,' . $user->id,
                 'previous_password' => 'required_with:password',
                 'password' => 'nullable|min:6|confirmed',
             ]);

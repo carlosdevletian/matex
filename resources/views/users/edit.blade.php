@@ -13,7 +13,7 @@
                         <h4>Edit Profile</h4>
                     </div>
                     <div class="panel-body">
-                        <form method="POST" action="{{ route('users.update', ['user' => $user]) }}">
+                        <form method="POST" action="{{ route('users.update') }}">
                             {{ csrf_field() }}
                             <input type="hidden" name="_method" value="PUT">
 

@@ -16,11 +16,14 @@ Route::get('/about-us', function () { return view('about'); })->name('about');
 
 Route::post('/contact','ContactController@store')->name('contacts.store');
 
-
 Route::get('/dashboard','DashboardController@show')->name('dashboard')->middleware('auth');
+Route::post('/searchClient','DashboardController@searchClient')->name('search.client')->middleware('admin');
+Route::post('/searchOrder','DashboardController@searchOrder')->name('search.order')->middleware('admin');
 
 Route::get('/profile','UserController@edit')->name('users.edit')->middleware('auth');
 Route::put('/profile','UserController@update')->name('users.update')->middleware('auth');
+Route::get('/users','UserController@index')->name('users.index')->middleware('auth');
+Route::get('/users/{user}','UserController@show')->name('users.show')->middleware('admin');
 
 Route::get('/designs','DesignController@index')->name('designs.index')->middleware('auth');
 Route::post('/designs','DesignController@store')->name('designs.store');

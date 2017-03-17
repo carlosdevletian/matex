@@ -14,11 +14,17 @@ use Illuminate\Support\Facades\Storage;
 */
 
 Artisan::command('clear-designs', function () {
-    if ($this->confirm('Are you sure you wish to delete all designs?')) {
+    $name = $this->choice('Which designs do you wish to delete?', ['0 - User Designs', '1 - Guest Designs', '2 - All Designs', '3 - Cancel']);
+
+    if($name == 0 || $name == 2){
         Storage::deleteDirectory('designs');
+        $this->info("User designs deleted");
+    }
+    if($name == 1 || $name == 2){
         Storage::deleteDirectory('public/designs');
-        $this->info("Designs deleted successfully");
-    }else {
+        $this->info("Guest designs deleted");
+    }
+    if($name > 2 || $name < 0) {
         $this->info("Deletion cancelled");
     }
 })->describe('Clear all designs');

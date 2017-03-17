@@ -16,6 +16,12 @@ class OrderController extends Controller
 {
     public function index()
     {
+        if(auth()->user()->hasRole('admin')){
+            $orders = Order::all();
+
+            return view('orders.admin-index', compact('orders'));
+        }
+
         $orders = auth()->user()->orders->sortByDesc('created_at');
 
         return view('orders.index', compact('orders'));

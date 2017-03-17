@@ -1,0 +1,26 @@
+.Icon {
+    height: 100px !important; 
+    width: 20% !important;
+    position: absolute;
+    top: 0;
+    right: 5%;
+    &--design {
+        background-image: url('images/icons/design.png');
+    }
+    &--order {
+        background-image: url('images/icons/order.png');
+    }
+    &--address {
+        background-image: url('images/icons/address.png');
+    }
+    &--cart {
+        background-image: url('images/icons/cart.png');
+    }
+    &--add {
+        // width: 50%;
+        height: 100px !important;
+        margin: 0 auto;
+        background-color: white;
+        background-image: url('images/icons/add.png');
+    }
+}

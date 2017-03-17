@@ -1,9 +1,13 @@
 <template>
     <div>
-        <p># {{ getOrder.reference_number }}</p>
-        <p>{{ getOrder.status.name }}</p>
-        <p>Placed on {{ getOrder.created_at | ago }}</p>
-        <p>$ {{ getOrder.total | inDollars }}</p>
+        <transition name="fade" mode="out-in">
+            <div :key="getOrder.id">
+                <a :href="'orders/'+getOrder.reference_number" class="color-secondary"># {{ getOrder.reference_number }}</a>
+                <p>{{ getOrder.status.name }}</p>
+                <p>Placed on {{ getOrder.created_at | ago }}</p>
+                <p>$ {{ getOrder.total | inDollars }}</p>
+            </div>
+        </transition>
         <div v-if="orders.length > 0" class="row">
             <a v-if="currentOrder != orders.length -1" role="button" @click="currentOrder++">
                 <div class="Scroller Scroller--right top-40 right-5 large">
@@ -46,3 +50,12 @@
         }
     }
 </script>
+
+<style>
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .3s ease;
+    }
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
+    }
+</style>

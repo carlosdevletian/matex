@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-md-6">
                 <div class="Card col-sm-12">
                     <div class="row">
                         <div class="Order__title--orange text-center">
@@ -60,7 +60,7 @@
                     </div>
                 </div> 
             </div>
-            <div class="col-sm-6">
+            <div class="col-md-6">
                 <div class="Card col-sm-12 text-center">
                     <div class="row">
                         <div class="Order__title--blue">

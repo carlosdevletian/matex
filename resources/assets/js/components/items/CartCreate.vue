@@ -7,9 +7,11 @@
                         <td class="col-xs-7">
                             <div class="row position-relative">
                                 <div class="col-xs-4">
-                                    <a @click="deleteItem" role="button" class="Item__delete" style="position: absolute; top: 25%;left: 0;">&#10005;</a>
+                                    <a @click="deleteItem" role="button" class="Item__delete" style="position: absolute; top: 25%;left: -5%;">&#10005;</a>
                                     <a role="button" @click="openImage">
-                                        <img class="img-responsive margin-auto" :src="'images/' + item.design.image_name" style="height: 40px; width: 40px; border-radius: 5px 5px 5px 5px">
+                                        <div class="background-image Thumbnail--image" 
+                                            :style="imageUrl">
+                                        </div>
                                     </a>
                                 </div>
                                 <div class="col-xs-8">
@@ -48,6 +50,10 @@
             return {
                 error: '',
                 processing: false,
+                imageUrl: {
+                    backgroundImage : "url('/images/"+this.item.design.image_name+"/1')",
+                    height: '40px !important',
+                }
             }
         },
         methods: {

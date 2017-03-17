@@ -42,12 +42,11 @@
             continueToCheckout: function(throughLogin = false) {
                 var vm = this;
                 this.designer.getProductDataURL( function(base64) {
-                    var request = {
+                    axios.post('/designs', {
                         base64_image: base64,
                         category_id: vm.categoryId,
                         views: JSON.stringify(vm.designer.getProduct()),
-                    }
-                    axios.post('/designs', request).then((response) => {
+                    }).then((response) => {
                         if(throughLogin) {
                             window.location = "/login";
                         } else {

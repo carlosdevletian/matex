@@ -80,11 +80,5 @@ const app = new Vue({
             this.modalActive = false;
             this.design = '';
         },
-        removeBackground(url, event) {
-            event.target.style.backgroundImage = 'url('+url+')';
-        },
-        setBackground(url, event) {
-            event.target.style.backgroundImage = 'linear-gradient(rgba(255, 240, 230, 0.8), rgba(255, 240, 230, 0.8)), url('+url+')';
-        }
     }
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Design;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -41,7 +42,7 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         if(session()->has('design') && session()->has('category_id')) {
-            $categoryId = session('category_id');
+            $categoryId = Category::findOrFail(session('category_id'))->slug_name;
             $design = Design::create(['image_name' => session('design'), 'views' => session('fpd-views')]);
             $design->move();
             session([

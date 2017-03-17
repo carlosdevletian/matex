@@ -79,7 +79,7 @@ class User extends Authenticatable
 
     public function recentDesigns()
     {
-        return $this->designs->sortByDesc('created_at')->take(3);
+        return $this->designs->sortByDesc('created_at')->take(2);
     }
 
     public function activeOrders()

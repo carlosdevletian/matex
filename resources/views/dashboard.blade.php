@@ -1,4 +1,4 @@
-@extends('layouts.app', ['backgroundColor' => 'blue-background'])
+@extends('layouts.app', ['backgroundColor' => 'orange-background'])
 
 @section('title')
     Dashboard
@@ -9,10 +9,13 @@
         <div class="row Section">
             <h1>Dashboard</h1>
             <div class="col-xs-12">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     @include('widgets.orders')
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
+                    @include('widgets.designs')
+                </div>
+                <div class="col-md-4">
                     <div class="row">
                         <div class="col-xs-12">
                             @include('widgets.cart')
@@ -24,10 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12">
-                    @include('widgets.designs')
-                </div>
-                <!-- faltan addresss y editar perfil -->
+                <!-- falta editar perfil -->
             </div>
         </div>
     </div>

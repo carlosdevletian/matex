@@ -24,7 +24,7 @@
             See all designs
         </a>
     @else
-        <p>Seems like you don't have any designs... yet.</p>
+        <p style="margin-right: 40px; margin-left: 40px">Seems like you don't have any designs... yet.</p>
         <a href="{{ route('categories.index') }}" class="Button--red stick-to-bottom color-white">
             Create a new design
         </a>

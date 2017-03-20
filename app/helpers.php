@@ -10,3 +10,8 @@ function flash($title = null, $message = null)
 
 	return $flash->info($title, $message);
 }
+
+function admin()
+{
+    return (auth()->check() && auth()->user()->hasRole('admin'));
+}

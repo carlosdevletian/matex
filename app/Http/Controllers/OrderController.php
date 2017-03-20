@@ -16,7 +16,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        if(auth()->user()->hasRole('admin')){
+        if(admin()){
             $orders = Order::all();
 
             return view('orders.admin-index', compact('orders'));
@@ -51,6 +51,10 @@ class OrderController extends Controller
 
     public function create($categorySlug, Design $design = null)
     {
+        if(! empty($design->id) && ! $design->ownedByUser()){
+            return redirect()->route('dashboard');
+        }
+
         $categoryId = Category::where('slug_name', $categorySlug)->firstOrFail()->id;
         $products = Product::where('category_id', $categoryId)->get();
         if(auth()->check()) {

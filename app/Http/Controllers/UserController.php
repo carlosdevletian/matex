@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->hasRole('admin')){
+        if(admin()){
             $users = User::all();
 
             return view('users.index', compact('users'));

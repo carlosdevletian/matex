@@ -10,7 +10,7 @@ class DashboardController extends Controller
 {
     public function show()
     {
-        if(auth()->user()->hasRole('admin')){
+        if(admin()){
             return view('admin-dashboard');
         }
 

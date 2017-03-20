@@ -10,7 +10,7 @@
             <div class="col-xs-12">
                 <h1>Dashboard</h1>
                 <div class="row">
-                    <div class="col-xs-3 Card pd-btm-50">
+                    <div class="col-xs-4 Card pd-btm-50">
                         <h3 class="color-secondary">Orders</h3>
                         <a href="{{ route('orders.index') }}">Manage all orders</a>
                         <form class="form-horizontal" method="POST" action="{{ route('search.order') }}">
@@ -39,7 +39,7 @@
                             </button>
                         </form>
                     </div>
-                    <div class="col-xs-3 Card pd-btm-50">
+                    <div class="col-xs-4 Card pd-btm-50">
                         <h3 class="color-secondary">Clients</h3>
                         <a href="{{ route('users.index') }}">View all clients</a>
                         <form class="form-horizontal" method="POST" action="{{ route('search.client') }}">
@@ -69,15 +69,11 @@
                         </form>
                     </div>
 
-                    <div class="col-xs-3 Card pd-btm-50">
+                    <div class="col-xs-4 Card pd-btm-50">
                         <h3 class="color-secondary">Products</h3>
                         <a href="#">Create a new product</a>
-                        <a href="#">Manage all products</a>
-                    </div>
-                    <div class="col-xs-3 Card pd-btm-50">
-                        <h3 class="color-secondary">Categories</h3>
-                        <a href="#">Create a new category</a>
-                        <a href="#">Manage all categories</a>
+                        <br>
+                        <a href="{{ route('categories.index') }}">Manage all products</a>
                     </div>
                 </div>
             </div>

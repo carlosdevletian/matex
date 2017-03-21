@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Image;
+use Storage;
 use App\Models\Design;
+use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -88,9 +91,58 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Category $category)
     {
-        //
+        $this->validate(request(), [
+            'name' => 'required',
+            'cropw' => 'required|integer',
+            'croph' => 'required|integer',
+            'cropx' => 'required|integer',
+            'cropy' => 'required|integer',
+            'file' => 'sometimes|required|image|max:10000'
+        ]);
+
+        if(request()->hasFile('file')){
+            $file = request()->file;
+
+            $image = Image::make($file)->resize(null, 1080, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+
+            $directory = storage_path('app/public/categories/');
+            is_dir($directory) ?: mkdir($directory, 0777, true);
+
+            $file_name = md5(uniqid($image->basename)) . '.' . $file->extension();
+            $path = $directory . $file_name;
+
+            $image->save($path, 85);
+
+            Storage::delete('/public/categories/' . $category->image_name);
+
+            $category->image_name = $file_name;
+        }
+
+        $category->update(['name' => request()->name, 'crop_width' => request()->cropw, 'crop_height' => request()->croph, 'crop_x_position' => request()->cropx, 'crop_y_position' => request()->cropy]);
+
+        $modifier = 1;
+
+        foreach (request()->products as $key => $product) {
+            if(! empty($product)){
+                $originalProduct = Product::find(request()->ids[$key]);
+                
+                if(empty($originalProduct)){
+                    Product::create(['name' => $product, 'category_id' => $category->id, 'display_position' => ($key + $modifier)]);
+                }else{
+                    $originalProduct->update(['name' => $product, 'display_position' => $key + $modifier]);
+                }
+            }else {
+                $modifier--;
+            }
+        }
+
+        flash()->success('Success','Changes Made');
+        return redirect()->back();
     }
 
     /**

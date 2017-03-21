@@ -71,7 +71,10 @@ $factory->define(App\Models\Category::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\Order::class, function (Faker\Generator $faker) {
     return [
-        'reference_number' => $faker->ean13
+        'reference_number' => $faker->ean13,
+        'status_id' => function () {
+            return factory(App\Models\Status::class)->create()->id;
+        },
     ];
 });
 

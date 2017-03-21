@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <h4>Edit Category</h4>
-                <form method="POST" action="{{ route('categories.update', ['category' => $category->id]) }}">
+                <form method="POST" action="{{ route('categories.update', ['category' => $category->id]) }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="_method" value="PUT">
 
@@ -18,6 +18,9 @@
                             <strong>{{ $errors->first() }}</strong>
                         </span>
                     @endif
+
+                    <label for="file" class="control-label">Photo</label>
+                    <input type="file" name="file" id="file" class="dropify" data-height="115" data-default-file="/categories/{{ $category->image_name }}" data-max-file-size="10M" data-allowed-file-extensions="png jpg jpeg gif" data-show-remove="false"/>
 
                     <div class="Input__icon">
                         <label for="name" class="control-label">Category Name</label>
@@ -82,22 +85,7 @@
                         </div>
                     </div>
                     
-                    <ul>
-                        @foreach($category->products as $product)
-                            <li>
-                                <div class="Input__icon">
-                                    <label for="pname" class="control-label">Product</label>
-                                    <input id="pname"
-                                        type="text"
-                                        name="pname"
-                                        class="Form {{ $errors->has('pname') ? 'Form--error' : '' }}"
-                                        placeholder="Product Name"
-                                        value="{{ old('pname', $product->name) }}"
-                                        required>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
+                    <products :products="{{ $category->products }}"></products>
 
                 <button class="btn btn-default">Update</button>
                 </form>
@@ -105,3 +93,9 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        $('.dropify').dropify();
+    </script>
+@endpush

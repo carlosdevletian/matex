@@ -17,6 +17,9 @@ require('bootstrap-sass');
  */
 
 window.Vue = require('vue');
+window.VueDragula = require('vue-dragula');
+
+Vue.use(VueDragula);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -38,3 +41,5 @@ window.axios.defaults.headers.common = {
 window.swal = require('sweetalert2');
 
 window.moment = require('moment');
+
+require('dropify');

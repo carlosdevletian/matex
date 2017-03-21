@@ -29,6 +29,7 @@ Vue.component('modal-contact', require('./components/modals/Contact.vue'));
 Vue.component('modal-template', require('./components/modals/Template.vue'));
 
 Vue.component('fpd', require('./components/Fpd.vue'));
+Vue.component('products', require('./components/Products.vue'));
 Vue.component('design-picker', require('./components/DesignPicker.vue'));
 Vue.component('address-picker', require('./components/AddressPicker.vue'));
 

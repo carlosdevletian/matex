@@ -33,9 +33,9 @@ Route::get('/items', 'ItemController@index')->name('items.index');
 Route::put('/items/{item}', 'ItemController@update')->name('items.update');
 Route::delete('/items/{item}', 'ItemController@destroy')->name('items.destroy');
 
-Route::put('/categories/{category}', 'CategoryController@update')->name('categories.update');
+Route::put('/categories/{category}', 'CategoryController@update')->name('categories.update')->middleware('admin');
 Route::get('/categories/{design?}', 'CategoryController@index')->name('categories.index');
-Route::get('/categories/edit/{category}', 'CategoryController@edit')->name('categories.edit');
+Route::get('/categories/edit/{category}', 'CategoryController@edit')->name('categories.edit')->middleware('admin');
 Route::get('/categories/{category}/products', 'ProductController@index')->name('products.index');
 Route::get('/design/{category}/orders/{design?}', 'OrderController@create')->name('orders.create');
 

@@ -15,7 +15,15 @@ class CategoryController extends Controller
      */
     public function index(Design $design = null)
     {
+        if(! empty($design->id) && ! $design->ownedByUser()){
+            return redirect()->route('dashboard');
+        }
+
         $categories = Category::all();
+
+        if(admin()){
+            return view('categories.admin-index', compact('categories'));
+        }
 
         if($categories->count() == 1){
             $category = $categories->first()->slug_name;
@@ -68,9 +76,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view('categories.edit', compact('category'));
     }
 
     /**

@@ -87,4 +87,14 @@ class Design extends Model
         $this->save();
         return $this->image_name;
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function ownedByUser()
+    {
+        return (! empty($this->user) && auth()->check() && $this->user->id == auth()->id());
+    }
 }

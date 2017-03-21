@@ -1,16 +1,9 @@
 <div class="col-xs-12 Card pd-btm-50 position-relative" style="padding-left: 10px; padding-right: 10px">
-    <div class="background-image Icon Icon--design"></div>
+    <img class="Icon img img-responsive" src="{{ URL::to('images/design.png') }}" alt="design">
     <h3 class="color-red" style="margin-left: 50px">My designs</h3>
     @if($designs->count() > 0)
         @foreach($designs as $design)
-            <a role="button" @click="openImageModal({{ $design }})" class="Thumbnail col-xs-6 mg-btm-20">
-                <div class="Card Card--thumbnail position-relative mg-0">
-                    <div class="background-image Thumbnail--image" 
-                        style="background-image: url('{{  route('image_path', ['image' => $design->image_name]) }}');">
-                    </div>
-                    <div class="text-center">Bracelet</div>
-                </div>
-            </a>
+            <design-show :design="{{ $design }}" add-class="Thumbnail col-xs-6"></design-show>
         @endforeach
         <!-- <a href="{{ route('categories.index') }}" class="Thumbnail col-xs-6 mg-btm-20 position-relative" title="Create a new design">
             <div class="Card Card--thumbnail position-relative mg-0">

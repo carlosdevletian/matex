@@ -22,6 +22,8 @@ Vue.component('item-show', require('./components/items/Show.vue'));
 Vue.component('item-create', require('./components/items/Create.vue'));
 Vue.component('item-cart-create', require('./components/items/CartCreate.vue'));
 
+Vue.component('design-show', require('./components/designs/Show.vue'));
+
 Vue.component('modal-image', require('./components/modals/Image.vue'));
 Vue.component('modal-contact', require('./components/modals/Contact.vue'));
 Vue.component('modal-template', require('./components/modals/Template.vue'));

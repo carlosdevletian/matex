@@ -1,5 +1,5 @@
 <div class="col-xs-12 Card position-relative pd-btm-50">
-    <div class="background-image Icon Icon--order"></div>
+    <img class="Icon img img-responsive" src="{{ URL::to('images/order.png') }}" alt="orders">
     <h3 class="color-secondary">My orders</h3>
     @if($orders->count() > 0)
         <order-list :orders="{{ $orders }}"></order-list>

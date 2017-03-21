@@ -1,26 +1,24 @@
 .Icon {
-    height: 100px !important; 
-    width: 20% !important;
+    height: 80px !important; 
     position: absolute;
     top: 0;
-    right: 5%;
-    &--design {
-        background-image: url('images/design.png');
-    }
-    &--order {
-        background-image: url('images/order.png');
-    }
-    &--address {
-        background-image: url('images/address.png');
-    }
-    &--cart {
-        background-image: url('images/cart.png');
-    }
-    &--add {
-        // width: 50%;
-        height: 100px !important;
-        margin: 0 auto;
-        background-color: white;
-        background-image: url('images/add.png');
+    right: 0;
+    &__more {
+        position: absolute;
+        bottom: 0;
+        right: 5%;
+        background-color: transparent;
+        border: none;
+        &:focus {
+            outline: none;
+        }
+        &--element {
+            display: block;
+            color: inherit;
+            height: 33%;
+            &:hover {
+                color: $brand-red;
+            }
+        }
     }
 }

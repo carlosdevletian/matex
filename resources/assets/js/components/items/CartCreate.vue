@@ -9,7 +9,7 @@
                                 <div class="col-xs-4">
                                     <a @click="deleteItem" role="button" class="Item__delete" style="position: absolute; top: 25%;left: -5%;">&#10005;</a>
                                     <a role="button" @click="openImage">
-                                        <div class="background-image Thumbnail--image" 
+                                        <div class="background-image Thumbnail--image box-shadow" 
                                             :style="imageUrl">
                                         </div>
                                     </a>
@@ -78,6 +78,7 @@
             deleteItem: function() {
                 this.processing = true;
                 this.$emit('delete-item', this.item.id);
+                this.processing = false;
             },
             openImage: function() {
                 Event.$emit('open-image', this.item.design)

@@ -95,6 +95,6 @@ class Design extends Model
 
     public function ownedByUser()
     {
-        return (! empty($this->user) && auth()->check() && $this->user->id == auth()->id());
+        return (! empty($this->user) && auth()->check() && $this->user_id == auth()->id());
     }
 }

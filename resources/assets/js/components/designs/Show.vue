@@ -7,7 +7,7 @@
                     <div class="Thumbnail--image position-absolute text-center" style="width: 100%; bottom: 0">
                         <a role="button" @click="orderAgain" class="Icon__more--element">Order Again</a>
                         <a role="button" @click="deleteDesign" class="Icon__more--element">Delete</a>
-                        <a role="button" @click="useAsTemplate" class="Icon__more--element">Redesign</a>
+                        <a role="button" @click="redesign" class="Icon__more--element">Redesign</a>
                     </div>
                 </div>
                 <div class="text-center">Bracelet</div>
@@ -37,13 +37,13 @@
                 Event.$emit('open-image', this.design)
             },
             orderAgain: function() {
-                alert('ordering again');
+                window.location = '/order/bracelets/'+this.design.id;
             },
             deleteDesign: function() {
                 alert('deleting');
             },
-            useAsTemplate: function() {
-                alert('using as template');
+            redesign: function() {
+                window.location = '/design/bracelets/'+this.design.id;
             }
         }
     }

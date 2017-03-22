@@ -7,16 +7,16 @@
                     @click="scrollToBeginning()" 
                     class="Scroller Scroller--left" 
                     role="button">
-                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                        <i class="fa fa-chevron-left Scroller__icon" aria-hidden="true"></i>
                     </a>
                 <a @mouseover="scrollRight()" 
                     @mouseout="stopScroll()" 
                     @click="scrollToEnd()" 
                     class="Scroller Scroller--right" 
                     role="button">
-                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        <i class="fa fa-chevron-right Scroller__icon" aria-hidden="true"></i>
                     </a>
-                <div ref="carousel" class="Scroll__container col-xs-12">
+                <div ref="carousel" class="Scroll__container">
                     <div v-for="existingAddress in existingAddresses" class="Scroll__element">
                         <div class="Card Card--half-pd col-md-12" :class="{ 'border-primary' : isSelected(existingAddress.id)}">
                             <a role="button" @click="showExtraInfo(existingAddress.id)" class="Address__expand">

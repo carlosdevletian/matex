@@ -1,39 +1,31 @@
 <template>
-    <div class="row" style="margin-top: 10px">
-        <div class="col-xs-10 col-xs-offset-1">
-            <img class="img-responsive" 
-                :src="'/images/' + getDesign.image_name" 
-                @click="select(getDesign)"
-                role="button">
-            <div class="text-center">
-                <a role="button" @click="currentDesign--">Previous</a>
-                <a role="button" @click="currentDesign++">Next</a>
+    <div class="position-relative">
+        <a @mouseover="scrollLeft()" 
+            @mouseout="stopScroll()" 
+            @click="scrollToBeginning()" 
+            class="Scroller Scroller--left" 
+            role="button">
+                <i class="fa fa-chevron-left Scroller__icon" aria-hidden="true"></i>
+            </a>
+        <a @mouseover="scrollRight()" 
+            @mouseout="stopScroll()" 
+            @click="scrollToEnd()" 
+            class="Scroller Scroller--right" 
+            role="button">
+                <i class="fa fa-chevron-right Scroller__icon" aria-hidden="true"></i>
+            </a>
+        <div ref="carousel" class="Card Card--half-pd Scroll__container">
+            <div v-for="design in designs" class="Scroll__element col-xs-5 col-sm-4 col-md-2 mg-0">
+                <design-show :design="design" add-class="width-150-px"></design-show>
             </div>
         </div>
-        <a role="button" @click="close()">X</a>
     </div>
 </template>
 
 <script>
+    import { carouselMixin } from '../mixins/carouselMixin';
     export default {
+        mixins: [carouselMixin],
         props: ['designs'],
-        data: function() {
-            return {
-                currentDesign: 0
-            }
-        },
-        methods: {
-            select: function(design) {
-                Event.$emit('design-selected', design);
-            },
-            close: function() {
-                Event.$emit('close-design-picker');
-            }
-        },
-        computed: {
-            getDesign: function() {
-                return this.designs[this.currentDesign % this.designs.length];
-            }
-        }
     }
 </script>

@@ -27,11 +27,14 @@ class DesignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($categorySlug)
+    public function create($categorySlug, $designId = null)
     {
         $category = Category::where('slug_name', $categorySlug)->firstOrFail();
-
-        return view('designs.create', compact('category'));
+        $design = Design::find($designId);
+        if($designId !== null && !$design->ownedByUser()) {
+            abort(403, 'Unauthorized action.');
+        }
+        return view('designs.create', compact('category', 'design'));
     }
 
     /**

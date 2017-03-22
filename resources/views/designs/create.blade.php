@@ -14,17 +14,20 @@
 
     <div class="container">
         <div class="row">
-            @if(auth()->check() && auth()->user()->hasAnyDesigns())
-                <a role="button" v-if="!showDesignPicker" @click="showDesignPicker = true">Select from previous designs</a>
-                <design-picker :designs="{{ auth()->user()->designs }}" v-if="showDesignPicker"></design-picker>
-            @endif
+            <div class="col-xs-12">
             <h2>Design your {{ $category->name }}</h2>
-            <fpd
-                product-template="{{ URL::to('images/bracelet_template.png') }}"
-                template-directory="{{ URL::to('fpd') . '/'}}"
-                lang-json="{{ URL::to('default.json') }}"
-                :category-id="{{ $category->id }}"
-            ></fpd>
+                @if(auth()->check() && auth()->user()->hasAnyDesigns())
+                    <a role="button" v-if="!showDesignPicker" @click="showDesignPicker = true">Select from previous designs</a>
+                    <design-picker :designs="{{ auth()->user()->designs }}" v-if="showDesignPicker"></design-picker>
+                @endif
+                <fpd
+                    product-template="{{ URL::to('images/bracelet_template.png') }}"
+                    template-directory="{{ URL::to('fpd') . '/'}}"
+                    lang-json="{{ URL::to('default.json') }}"
+                    :category-id="{{ $category->id }}"
+                    :existing-design="{{ $design ? $design : '{}' }}"
+                ></fpd>
+            </div>
         </div>
     </div>
 @endsection

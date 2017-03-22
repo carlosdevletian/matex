@@ -27,7 +27,7 @@ Route::get('/users/{user}','UserController@show')->name('users.show')->middlewar
 
 Route::get('/designs','DesignController@index')->name('designs.index')->middleware('auth');
 Route::post('/designs','DesignController@store')->name('designs.store');
-Route::get('/design/{category}', 'DesignController@create')->name('designs.create');
+Route::get('/design/{category}/{design?}', 'DesignController@create')->name('designs.create');
 
 Route::get('/items', 'ItemController@index')->name('items.index');
 Route::put('/items/{item}', 'ItemController@update')->name('items.update');
@@ -37,11 +37,11 @@ Route::put('/categories/{category}', 'CategoryController@update')->name('categor
 Route::get('/categories/{design?}', 'CategoryController@index')->name('categories.index');
 Route::get('/categories/edit/{category}', 'CategoryController@edit')->name('categories.edit')->middleware('admin');
 Route::get('/categories/{category}/products', 'ProductController@index')->name('products.index');
-Route::get('/design/{category}/orders/{design?}', 'OrderController@create')->name('orders.create');
 
 Route::get('/orders', 'OrderController@index')->name('orders.index')->middleware('auth');
 Route::get('/orders/{order}', 'OrderController@show')->name('orders.show');
 Route::post('/orders', 'OrderController@store')->name('orders.store');
+Route::get('/order/{category}/{design?}', 'OrderController@create')->name('orders.create');
 
 Auth::routes();
 

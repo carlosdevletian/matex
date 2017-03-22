@@ -8,7 +8,7 @@
                             <div class="row">
                                 <div class="col-xs-4">
                                     <a role="button" @click="openImage">
-                                        <div class="background-image Thumbnail--image" 
+                                        <div class="background-image Thumbnail--image box-shadow" 
                                             :style="imageUrl">
                                         </div>
                                     </a>

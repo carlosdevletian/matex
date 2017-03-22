@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="Card col-xs-12 pd-0">
-           <div id="fpd" class="fpd-container fpd-topbar fpd-hidden-tablets">
+           <div ref="fpd" id="fpd" class="fpd-container fpd-topbar fpd-hidden-tablets">
                 <div class="fpd-product" title="Titulo" data-thumbnail="#">
                     <img :src="productTemplate"
                         title="Bracelet"
@@ -31,7 +31,18 @@
 
 <script>
     export default {
-        props: ['productTemplate', 'templateDirectory', 'langJson', 'categoryId'],
+        props: {
+            productTemplate: null, 
+            templateDirectory: null, 
+            langJson: null, 
+            categoryId: null, 
+            existingDesign: {
+                type: Object,
+                default: function () {
+                    return {}
+                }
+            },
+        },
         data: function() {
             return {
                 designer: '',
@@ -72,7 +83,7 @@
         },
         mounted: function() {
             var vm = this;
-            var fpd = document.getElementById('fpd');
+            var fpd = this.$refs.fpd;
             var pluginOptions = {
                 stageWidth: 1200,
                 stageHeight: 600,
@@ -108,6 +119,12 @@
             };
             $(document).ready(function(){
                 vm.designer = new FancyProductDesigner(fpd, pluginOptions);
+                
+                $('#fpd').on('ready', function() {
+                    if(Object.keys(vm.existingDesign).length !== 0) {
+                        Event.$emit('design-selected', vm.existingDesign)
+                    }
+                })
             });
         }
     }

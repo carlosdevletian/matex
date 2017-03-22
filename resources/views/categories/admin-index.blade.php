@@ -12,7 +12,7 @@
                 <h6><a href="#">Add a Category</a></h6>
                 <ul>
                     @foreach($categories as $category)
-                        <li><a href="">{{ $category->name }}</a>
+                        <li>{{ $category->name }}
                             <ul>
                                 @foreach($category->products as $product)
                                     <li>

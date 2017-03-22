@@ -71,7 +71,7 @@
 
                     <div class="col-xs-4 Card pd-btm-50">
                         <h3 class="color-secondary">Products</h3>
-                        <a href="#">Create a new product</a>
+                        <a href="{{ route('categories.create') }}">Create a new product category</a>
                         <br>
                         <a href="{{ route('categories.index') }}">Manage all products</a>
                     </div>

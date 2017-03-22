@@ -16,12 +16,8 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Design $design = null)
+    public function index()
     {
-        if(! empty($design->id) && ! $design->ownedByUser()){
-            return redirect()->route('dashboard');
-        }
-
         $categories = Category::all();
 
         if(admin()){
@@ -31,14 +27,10 @@ class CategoryController extends Controller
         if($categories->count() == 1){
             $category = $categories->first()->slug_name;
 
-            if(empty($design->id)){
-                return redirect()->route('designs.create', compact('category'));
-            }
-
-            return redirect()->route('orders.create', compact('category', 'design'));
+            return redirect()->route('designs.create', compact('category'));
         }
 
-        return view('categories.index', ['categories' => $categories, 'design' => $design->id]);
+        return view('categories.index', compact('categories'));
     }
 
     /**

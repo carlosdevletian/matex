@@ -17,7 +17,7 @@ class DesignController extends Controller
      */
     public function index()
     {
-        $designs = auth()->user()->designs->sortByDesc('created_at');
+        $designs = auth()->user()->designs->load('category')->sortByDesc('created_at');
 
         return view('designs.index', compact('designs'));
     }
@@ -29,10 +29,17 @@ class DesignController extends Controller
      */
     public function create($categorySlug, $designId = null)
     {
-        $category = Category::where('slug_name', $categorySlug)->firstOrFail();
         $design = Design::find($designId);
         if($designId !== null && !$design->ownedByUser()) {
             abort(403, 'Unauthorized action.');
+        }
+        
+        $category = Category::where('slug_name', $categorySlug)->firstOrFail();
+        if(auth()->check()) {
+            return view('designs.create', 
+                        ['category' => $category, 
+                        'design' => $design, 
+                        'existingDesigns'=> Design::fromCategory(auth()->id(), $category->id)]);
         }
         return view('designs.create', compact('category', 'design'));
     }
@@ -51,6 +58,7 @@ class DesignController extends Controller
 
         if(auth()->check()){
             $design->views = request()->views;
+            $design->category_id = $category->id;
             $design->save();
             session(['design' => $design->id,]);
         }else{

@@ -16,7 +16,8 @@
                         <order-create
                             :products="{{ $products }}"
                             :addresses="{{ $addresses }}"
-                            design="{{ $design }}">
+                            design="{{ $design }}"
+                            category-id="{{ $categoryId or '' }}">
                         </order-create>
                     </div>
                 </div>

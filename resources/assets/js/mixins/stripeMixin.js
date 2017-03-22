@@ -33,6 +33,7 @@ export const stripeMixin = {
                 items: this.items,
                 design: this.design,
                 total_price: this.totalPrice,
+                category_id: this.categoryId ? this.categoryId : '',
             }).then(response => {
                 window.location = "/orders/" + response.data.order_reference_number;
             }).catch(response => {

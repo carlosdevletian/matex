@@ -2,7 +2,6 @@
 
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Design;
 use App\Models\Status;
 use App\Models\Address;
 use App\Models\Product;
@@ -19,6 +18,7 @@ class InitialSeeder extends Seeder
     public function run()
     {
         $adminRole = Role::create(['name' => 'admin']);
+        $userRole = Role::create(['name' => 'user']);
 
         $admin = User::create(['name' => 'Alejandro', 'email' => 'alkv93@gmail.com', 'password' => bcrypt('123123'), 'role_id' => $adminRole->id]);
 
@@ -42,8 +42,6 @@ class InitialSeeder extends Seeder
         factory(Status::class)->create(['name' => 'Shipped', 'color' => 'orange']);
         factory(Status::class)->create(['name' => 'Delivered', 'color' => 'green']);
         factory(Status::class)->create(['name' => 'Canceled', 'color' => 'black']);
-
-        $design = factory(Design::class)->create(['image_name' => 'test_filename.jpg']);
         
         $product = factory(Product::class)->create(['name' => 'Small', 'category_id' => $category->id, 'display_position' => 1]);
         $product2 = factory(Product::class)->create(['name' => 'Medium', 'category_id' => $category->id, 'display_position' => 2]);

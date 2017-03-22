@@ -16850,7 +16850,8 @@ var stripeMixin = {
                 selectedAddress: this.selectedAddress,
                 items: this.items,
                 design: this.design,
-                total_price: this.totalPrice
+                total_price: this.totalPrice,
+                category_id: this.categoryId ? this.categoryId : ''
             }).then(function (response) {
                 window.location = "/orders/" + response.data.order_reference_number;
             }).catch(function (response) {
@@ -29258,7 +29259,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     if (throughLogin) {
                         window.location = "/login";
                     } else {
-                        window.location = "/design/" + response.data.category_slug_name + "/orders";
+                        window.location = "/order/" + response.data.category_slug_name;
                     }
                 }, function (response) {
                     swal({
@@ -29448,13 +29449,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             Event.$emit('open-image', this.design);
         },
         orderAgain: function orderAgain() {
-            window.location = '/order/bracelets/' + this.design.id;
+            window.location = '/order/' + this.design.category.slug_name + '/' + this.design.id;
         },
         deleteDesign: function deleteDesign() {
             alert('deleting');
         },
         redesign: function redesign() {
-            window.location = '/design/bracelets/' + this.design.id;
+            window.location = '/design/' + this.design.category.slug_name + '/' + this.design.id;
         }
     }
 });
@@ -30198,7 +30199,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_stripeMixin__["a" /* stripeMixin */]],
-    props: ['products', 'design', 'addresses'],
+    props: ['products', 'design', 'addresses', 'categoryId'],
     data: function data() {
         return {
             amountsLoading: false,
@@ -30390,8 +30391,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
 //
 //
 //
@@ -54317,7 +54316,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/AddressPicker.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/AddressPicker.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] AddressPicker.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54351,7 +54350,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/DesignPicker.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/DesignPicker.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DesignPicker.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54385,7 +54384,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/Fpd.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/Fpd.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Fpd.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54423,7 +54422,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/Products.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/Products.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Products.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54461,7 +54460,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/designs/Show.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/designs/Show.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Show.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54495,7 +54494,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/items/CartCreate.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/items/CartCreate.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CartCreate.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54529,7 +54528,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/items/Create.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/items/Create.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Create.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54563,7 +54562,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/items/Show.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/items/Show.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Show.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54597,7 +54596,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/modals/Contact.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/modals/Contact.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Contact.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54631,7 +54630,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/modals/Image.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/modals/Image.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Image.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54665,7 +54664,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/modals/Template.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/modals/Template.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Template.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54703,7 +54702,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/orders/CartCreate.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/orders/CartCreate.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CartCreate.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54741,7 +54740,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/orders/Create.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/orders/Create.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Create.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54779,7 +54778,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/orders/List.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/orders/List.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] List.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54813,7 +54812,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/orders/Show.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/orders/Show.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Show.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -54847,7 +54846,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/orders/Template.vue"
+Component.options.__file = "/Users/alejandrokoury/Laravel/matex/resources/assets/js/components/orders/Template.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Template.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -56258,7 +56257,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('img', {
     staticClass: "img-responsive margin-auto box-shadow",
     attrs: {
-      "src": '/images/' + _vm.design.image_name
+      "src": '/images/' + _vm.design.image_name + '/1'
     }
   })]), _vm._v(" "), _c('div', {
     slot: "footer"
@@ -56334,7 +56333,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Redesign")])])]), _vm._v(" "), _c('div', {
     staticClass: "text-center"
-  }, [_vm._v("Bracelet")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.design.category.name))])])]), _vm._v(" "), _c('div', {
     staticClass: "position-relative"
   }, [_c('button', {
     staticClass: "Icon__more",
@@ -56449,7 +56448,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('transition', {
+  return _c('div', {}, [_c('transition', {
     attrs: {
       "name": "fade",
       "mode": "out-in"
@@ -56463,17 +56462,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("# " + _vm._s(_vm.getOrder.reference_number))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.getOrder.status.name))]), _vm._v(" "), _c('p', [_vm._v("Placed on " + _vm._s(_vm._f("ago")(_vm.getOrder.created_at)))]), _vm._v(" "), _c('p', [_vm._v("$ " + _vm._s(_vm._f("inDollars")(_vm.getOrder.total)))])])]), _vm._v(" "), (_vm.orders.length > 0) ? _c('div', {
     staticClass: "row"
-  }, [(_vm.currentOrder != _vm.orders.length - 1) ? _c('a', {
-    attrs: {
-      "role": "button"
-    },
-    on: {
-      "click": function($event) {
-        _vm.currentOrder++
-      }
-    }
-  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), (_vm.currentOrder != 0) ? _c('a', {
-    staticClass: "Scroller Scroller--left top-40 left-5 large",
+  }, [_c('div', {
+    staticClass: "col-xs-12 text-center"
+  }, [(_vm.currentOrder != 0) ? _c('a', {
     attrs: {
       "role": "button"
     },
@@ -56487,9 +56478,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  })]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "col-xs-12 text-center"
-  }, _vm._l((_vm.orders), function(order, index) {
+  })]) : _vm._e(), _vm._v(" "), _vm._l((_vm.orders), function(order, index) {
     return _c('a', {
       staticStyle: {
         "display": "inline-block"
@@ -56508,17 +56497,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         'Bullet--filled': _vm.isCurrentOrder(index)
       }
     })])
-  }))]) : _vm._e()], 1)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "Scroller Scroller--right top-40 right-5 large"
+  }), _vm._v(" "), (_vm.currentOrder != _vm.orders.length - 1) ? _c('a', {
+    attrs: {
+      "role": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.currentOrder++
+      }
+    }
   }, [_c('i', {
     staticClass: "fa fa-chevron-right",
     attrs: {
       "aria-hidden": "true"
     }
-  })])
-}]}
+  })]) : _vm._e()], 2)]) : _vm._e()], 1)
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

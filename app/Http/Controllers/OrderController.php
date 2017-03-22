@@ -65,6 +65,6 @@ class OrderController extends Controller
         }
         $addresses = collect();
 
-        return view('orders.create', ['products' => $products, 'addresses' => $addresses, 'design' => session('design'), 'design_image' => session('design')]);
+        return view('orders.create', ['products' => $products, 'addresses' => $addresses, 'design' => session('design'), 'design_image' => session('design'), 'categoryId' => $categoryId]);
     }
 }

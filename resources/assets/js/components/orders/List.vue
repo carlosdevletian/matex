@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="">
         <transition name="fade" mode="out-in">
             <div :key="getOrder.id">
                 <a :href="'orders/'+getOrder.reference_number" class="color-secondary"># {{ getOrder.reference_number }}</a>
@@ -9,21 +9,19 @@
             </div>
         </transition>
         <div v-if="orders.length > 0" class="row">
-            <a v-if="currentOrder != orders.length -1" role="button" @click="currentOrder++">
-                <div class="Scroller Scroller--right top-40 right-5 large">
-                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                </div>
-            </a>
-            <a v-if="currentOrder != 0" role="button" class="Scroller Scroller--left top-40 left-5 large" @click="currentOrder--">
-                <i class="fa fa-chevron-left" aria-hidden="true"></i>
-            </a>
             <div class="col-xs-12 text-center">
+                <a v-if="currentOrder != 0" role="button" @click="currentOrder--">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </a>
                 <a role="button" v-for="(order, index) in orders" 
                     @click="currentOrder = index" 
                     style="display: inline-block">
                     <div class="Bullet"
                         :class="{ 'Bullet--filled' : isCurrentOrder(index) }">
                     </div>
+                </a>
+                <a v-if="currentOrder != orders.length -1" role="button" @click="currentOrder++">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
                 </a>
             </div>
         </div>

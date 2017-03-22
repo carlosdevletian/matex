@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Design extends Model
 {
     protected $fillable = [
-        'image_name', 'price', 'user_id', 'email', 'views', 'crop_width', 'crop_height', 'crop_x_position', 'crop_y_position'
+        'image_name', 'price', 'user_id', 'email', 'views', 'crop_width', 'crop_height', 'crop_x_position', 'crop_y_position', 'category_id'
     ];
 
     protected $directory;
@@ -96,5 +96,18 @@ class Design extends Model
     public function ownedByUser()
     {
         return (! empty($this->user) && auth()->check() && $this->user_id == auth()->id());
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public static function fromCategory($userId, $categoryId)
+    {
+        return self::with('category')
+            ->where('user_id', $userId)
+            ->where('category_id', $categoryId)
+            ->get();
     }
 }

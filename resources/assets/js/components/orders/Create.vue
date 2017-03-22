@@ -80,7 +80,7 @@
 
     export default {
         mixins: [stripeMixin],
-        props: ['products', 'design', 'addresses'],
+        props: ['products', 'design', 'addresses', 'categoryId'],
         data: function() {
             return {
                 amountsLoading: false,

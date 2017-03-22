@@ -42,14 +42,14 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         if(session()->has('design') && session()->has('category_id')) {
-            $categoryId = Category::findOrFail(session('category_id'))->slug_name;
-            $design = Design::create(['image_name' => session('design'), 'views' => session('fpd-views')]);
+            $categorySlug = Category::findOrFail(session('category_id'))->slug_name;
+            $design = Design::create(['image_name' => session('design'), 'views' => session('fpd-views'), 'category_id' => session('category_id')]);
             $design->move();
             session([
                 'design' => $design->id
             ]);
             session()->forget(['category_id', 'fpd-views']);
-            return route('orders.create', ['category' => $categoryId]);
+            return route('orders.create', ['category' => $categorySlug]);
         }
         return route('dashboard');
     }

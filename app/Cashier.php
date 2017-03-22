@@ -53,7 +53,7 @@ class Cashier
 
     protected function createGuestDesign()
     {
-        $this->design = Design::create([$this->identifier => $this->identifier_value, 'image_name' => session('design'), 'views' => session('fpd-views')]);
+        $this->design = Design::create([$this->identifier => $this->identifier_value, 'image_name' => session('design'), 'views' => session('fpd-views'), 'category_id' => request()->category_id]);
         $this->design->move();
     }
 

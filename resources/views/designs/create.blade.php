@@ -16,9 +16,13 @@
         <div class="row">
             <div class="col-xs-12">
             <h2>Design your {{ $category->name }}</h2>
-                @if(auth()->check() && auth()->user()->hasAnyDesigns())
-                    <a role="button" v-if="!showDesignPicker" @click="showDesignPicker = true">Select from previous designs</a>
-                    <design-picker :designs="{{ auth()->user()->designs }}" v-if="showDesignPicker"></design-picker>
+                @if(auth()->check() && auth()->user()->hasAnyDesignsInCategory($category->id))
+                    <a role="button" 
+                        v-if="!showDesignPicker" 
+                        @click="showDesignPicker = true">
+                        Select from previous designs
+                    </a>
+                    <design-picker :designs="{{ $existingDesigns }}" v-if="showDesignPicker"></design-picker>
                 @endif
                 <fpd
                     product-template="{{ URL::to('images/bracelet_template.png') }}"

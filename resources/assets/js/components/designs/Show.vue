@@ -10,7 +10,7 @@
                         <a role="button" @click="redesign" class="Icon__more--element">Redesign</a>
                     </div>
                 </div>
-                <div class="text-center">Bracelet</div>
+                <div class="text-center">{{ design.category.name }}</div>
             </div>
         </a>
         <div class="position-relative">
@@ -37,13 +37,13 @@
                 Event.$emit('open-image', this.design)
             },
             orderAgain: function() {
-                window.location = '/order/bracelets/'+this.design.id;
+                window.location = '/order/'+ this.design.category.slug_name + '/' + this.design.id;
             },
             deleteDesign: function() {
                 alert('deleting');
             },
             redesign: function() {
-                window.location = '/design/bracelets/'+this.design.id;
+                window.location = '/design/' + this.design.category.slug_name + '/' + this.design.id;
             }
         }
     }

@@ -61,7 +61,7 @@
                         if(throughLogin) {
                             window.location = "/login";
                         } else {
-                            window.location = "/design/" + response.data.category_slug_name + "/orders";
+                            window.location = "/order/" + response.data.category_slug_name;
                         }
                     }, (response) => {
                         swal({

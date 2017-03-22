@@ -77,14 +77,16 @@ class User extends Authenticatable
         return $this->id == $order->user_id;
     }
 
-    public function hasAnyDesigns()
+    public function hasAnyDesignsInCategory($categoryId)
     {
-        return $this->designs->count() > 0;
+        return Design::where('user_id', $this->id)
+                ->where('category_id', $categoryId)
+                ->count() > 0;
     }
 
     public function recentDesigns()
     {
-        return $this->designs->sortByDesc('created_at')->take(2);
+        return $this->designs->load('category')->sortByDesc('created_at')->take(2);
     }
 
     public function activeOrders()

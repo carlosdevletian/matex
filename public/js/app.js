@@ -29963,15 +29963,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_stripeMixin__["a" /* stripeMixin */]],
-    props: ['addresses'],
+    props: ['addresses', 'originalItems'],
     data: function data() {
         return {
-            items: [],
+            items: this.originalItems,
             subtotal: 0,
             shipping: 0,
             tax: 0,
@@ -29992,21 +29999,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         };
     },
-    mounted: function mounted() {
-        var _this = this;
-
-        axios.get('/items').then(function (response) {
-            _this.items = response.data;
-        });
-    },
     methods: {
         deleteItem: function deleteItem(itemId) {
-            var _this2 = this;
+            var _this = this;
 
             var vm = this;
 
             axios.delete('/items/' + itemId).then(function (response) {
-                _this2.items.forEach(function (item, index) {
+                _this.items.forEach(function (item, index) {
                     if (item.id == itemId) {
                         vm.items.splice(index, 1);
                     }
@@ -30039,25 +30039,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         calculateShipping: function calculateShipping() {
-            var _this3 = this;
+            var _this2 = this;
 
             if (this.address.zip.length == 5) {
                 var data = {
                     zip: this.address.zip
                 };
                 axios.post('/calculateShipping', data).then(function (response) {
-                    _this3.shipping = response.data.shipping;
+                    _this2.shipping = response.data.shipping;
                 });
             }
         },
         calculateTax: function calculateTax() {
-            var _this4 = this;
+            var _this3 = this;
 
             var data = {
                 zip: this.address.zip
             };
             axios.post('/calculateTax', data).then(function (response) {
-                _this4.tax = (_this4.subtotal + _this4.shipping) * response.data.tax_percentage;
+                _this3.tax = (_this3.subtotal + _this3.shipping) * response.data.tax_percentage;
             });
         }
     },
@@ -56146,7 +56146,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('order-template', [_c('h3', {
+  return _c('div', [(_vm.items.length > 0) ? _c('div', [_c('order-template', [_c('h3', {
     slot: "items-title"
   }, [_vm._v("Your items")]), _vm._v(" "), _c('div', {
     staticClass: "table-responsive borderless",
@@ -56193,7 +56193,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('hr'), _vm._v(" "), _c('div', {
     staticClass: "col-xs-12 text-center color-secondary pd-20"
-  }, [_vm._v("\n                An address must be entered to calculate shipping and tax\n            ")]), _vm._v(" "), _c('hr')])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                        An address must be entered to calculate shipping and tax\n                    ")]), _vm._v(" "), _c('hr')])]), _vm._v(" "), _c('div', {
     slot: "shipping"
   }, [_vm._v(_vm._s(_vm.filteredShipping))]), _vm._v(" "), _c('div', {
     slot: "tax"
@@ -56222,7 +56222,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.pay
     }
-  }, [_vm._v("Checkout")])])])])])
+  }, [_vm._v("Checkout")])])])])])], 1) : _c('div', [_vm._v("\n        There are no items in your cart.\n    ")])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

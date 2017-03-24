@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Gate;
 use Hash;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,8 @@ class UserController extends Controller
     public function index()
     {
         if(admin()){
-            $users = User::all();
+            $role = Role::findByName('admin');
+            $users = User::where('role_id', '!=', $role->id)->get();
 
             return view('users.index', compact('users'));
         }

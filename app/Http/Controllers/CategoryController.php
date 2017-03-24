@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Image;
 use Storage;
 use App\Models\Design;
 use App\Models\Product;
@@ -60,27 +59,17 @@ class CategoryController extends Controller
             'file' => 'required|image|max:10000'
         ]);
 
-        $file = request()->file;
+        $category = new Category();
 
-        $image = Image::make($file)->resize(null, 1080, function ($constraint) {
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        });
+        $category->addImage(request()->file, request()->name);
+        
+        $category->name = request()->name; 
+        $category->crop_width = request()->cropw; 
+        $category->crop_height = request()->croph; 
+        $category->crop_x_position = request()->cropx; 
+        $category->crop_y_position = request()->cropy;
 
-        $directory = storage_path('app/public/categories/');
-        is_dir($directory) ?: mkdir($directory, 0777, true);
-
-        $file_name = md5(uniqid($image->basename)) . '.' . $file->extension();
-        $path = $directory . $file_name;
-
-        $image->save($path, 85);
-
-        $category = Category::create(['name' => request()->name, 
-                          'crop_width' => request()->cropw, 
-                          'crop_height' => request()->croph, 
-                          'crop_x_position' => request()->cropx, 
-                          'crop_y_position' => request()->cropy,
-                          'image_name' => $file_name]);
+        $category->save();
 
         return redirect()->route('categories.edit', ['category' => $category->id]);
     }
@@ -125,26 +114,12 @@ class CategoryController extends Controller
             'file' => 'sometimes|required|image|max:10000'
         ]);
 
-        // Meter todo esto en una clase? $file_name = new ImageSaver(request()->file)->save() ?
         if(request()->hasFile('file')){
-            $file = request()->file;
+            $oldImage = $category->image_name;
 
-            $image = Image::make($file)->resize(null, 1080, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
+            $category->addImage(request()->file, request()->name);
 
-            $directory = storage_path('app/public/categories/');
-            is_dir($directory) ?: mkdir($directory, 0777, true);
-
-            $file_name = md5(uniqid($image->basename)) . '.' . $file->extension();
-            $path = $directory . $file_name;
-
-            $image->save($path, 85);
-
-            Storage::delete('/public/categories/' . $category->image_name);
-
-            $category->image_name = $file_name;
+            Storage::delete('/public/categories/' . $oldImage);
         }
 
         $category->update(['name' => request()->name, 

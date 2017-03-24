@@ -6,6 +6,7 @@ use Gate;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Design;
+use App\Models\Status;
 use App\Models\Address;
 use App\Models\Product;
 use App\Models\Category;
@@ -29,6 +30,10 @@ class OrderController extends Controller
 
     public function show($referenceNumber)
     {
+        if(admin()){
+            $statuses = Status::all();
+        }
+
         $order = Order::with(['items.design' => function($query){
                 $query->addSelect(['id', 'image_name', 'created_at']);
             },'items.product' => function($query) {
@@ -40,13 +45,13 @@ class OrderController extends Controller
 
         if($order->belongsToUser()){
             if (Gate::allows('owner', $order)) {
-                return view('orders.show', compact('order'));
+                return view('orders.show', compact('order', 'statuses'));
             }else {
                 abort(403, 'Unauthorized action.');
             }
         }
 
-        return view('orders.show', compact('order'));
+        return view('orders.show', compact('order', 'statuses'));
     }
 
     public function create($categorySlug, Design $design = null)
@@ -66,5 +71,16 @@ class OrderController extends Controller
         $addresses = collect();
 
         return view('orders.create', ['products' => $products, 'addresses' => $addresses, 'design' => session('design'), 'design_image' => session('design'), 'categoryId' => $categoryId]);
+    }
+
+    public function update(Order $order)
+    {
+        $status = Status::findOrFail(request()->status);
+
+        $order->update(['status_id' => $status->id]);
+        
+        // Mandar email al usuario cuando el status cambia
+
+        return redirect()->back();
     }
 }

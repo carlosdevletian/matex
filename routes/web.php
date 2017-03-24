@@ -42,6 +42,7 @@ Route::get('/categories/{category}/products', 'ProductController@index')->name('
 
 Route::get('/orders', 'OrderController@index')->name('orders.index')->middleware('auth');
 Route::get('/orders/{order}', 'OrderController@show')->name('orders.show');
+Route::put('/orders/{order}', 'OrderController@update')->name('orders.update')->middleware('admin');
 Route::post('/orders', 'OrderController@store')->name('orders.store');
 Route::get('/order/{category}/{design?}', 'OrderController@create')->name('orders.create');
 

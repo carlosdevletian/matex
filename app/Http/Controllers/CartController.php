@@ -11,6 +11,7 @@ class CartController extends Controller
     {
         $cart = auth()->user()->cart;
         $addresses = auth()->user()->addresses;
-        return view('carts.show', compact('cart', 'addresses'));
+        $items = $cart->items->load('product.category','design');
+        return view('carts.show', compact('cart', 'addresses', 'items'));
     }
 }

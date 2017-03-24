@@ -12,7 +12,19 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h4>All Orders</h4>
+                <h4>Orders: {{ $filter->name or 'All' }}</h4>
+
+                <form method="GET" action="{{ route('orders.index') }}">
+                    <select name="status">
+                        <option selected disabled>Filter Orders</option>
+                        <option value>All Orders</option>
+                        @foreach($statuses as $status)
+                            <option value="{{ $status->id }}">{{ $status->name }}</option>
+                        @endforeach
+                    </select>
+                    <button class="btn btn-default">Filter</button>
+                </form>
+
                 <table class="table table-hover dt-responsive nowrap text-center" cellspacing="0" width="100%" id="orders">
                     <thead>
                         <tr>

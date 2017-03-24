@@ -102,6 +102,7 @@ class Order extends Model
         return self::with('status')
             ->where('user_id', $userId)
             ->whereIn('status_id', [1,2,3,4])
+            ->take(5)
             ->get();
     }
 }

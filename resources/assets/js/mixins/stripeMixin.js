@@ -2,6 +2,7 @@ export const stripeMixin = {
     data: function() {
         return {
             stripeHandler: null,
+            paying: false,
         }
     },
     methods: {
@@ -25,6 +26,16 @@ export const stripeMixin = {
             })
         },
         purchaseOrder(token) {
+            // window.onbeforeunload = this.leaving;
+
+            swal({
+                title: 'Processing Payment',
+                customClass: 'Modal',
+                text: 'Please wait until your payment is confirmed',
+                type: 'info',
+                showConfirmButton: false
+            }).catch(swal.noop)
+
             axios.post(`/pay`, {
                 email: token.email,
                 payment_token: token.id,
@@ -35,6 +46,7 @@ export const stripeMixin = {
                 total_price: this.totalPrice,
                 category_id: this.categoryId ? this.categoryId : '',
             }).then(response => {
+                // window.onbeforeunload = null;
                 window.location = "/orders/" + response.data.order_reference_number;
             }).catch(response => {
                 // this.processing = false
@@ -60,8 +72,13 @@ export const stripeMixin = {
                 this.address.show_errors = true;
             }
         }
+        // Si quieres probar lo de evitar que la persona se vaya tienes que descomentar las lineas 29, 49, borrar la 76 y descomentar de la 77 a la 79
+        // },
+        // leaving: function(){
+        //     return "Your order is processing";
+        // }
     },
     created: function() {
-        this.stripeHandler = this.initStripe()
+        this.stripeHandler = this.initStripe();
     }
 }

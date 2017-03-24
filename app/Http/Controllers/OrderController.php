@@ -18,9 +18,16 @@ class OrderController extends Controller
     public function index()
     {
         if(admin()){
-            $orders = Order::all();
+            $statuses = Status::all();
+            
+            if(request()->has('status')){
+                $filter = Status::findOrFail(request()->status);
+                $orders = Order::where('status_id', $filter->id)->get();
+            }else{
+                $orders = Order::all();
+            }
 
-            return view('orders.admin-index', compact('orders'));
+            return view('orders.admin-index', compact('orders', 'statuses', 'filter'));
         }
 
         $orders = auth()->user()->orders->sortByDesc('created_at');

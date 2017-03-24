@@ -96,4 +96,12 @@ class Order extends Model
     {
         return $this->created_at->format('F j, Y');
     }
+
+    public static function activeForUser($userId)
+    {
+        return self::with('status')
+            ->where('user_id', $userId)
+            ->whereIn('status_id', [1,2,3,4])
+            ->get();
+    }
 }

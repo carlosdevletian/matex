@@ -88,9 +88,4 @@ class User extends Authenticatable
     {
         return $this->designs->load('category')->sortByDesc('created_at')->take(2);
     }
-
-    public function activeOrders()
-    {
-        return $this->orders->whereIn('status.id', [1,2,3,4]);
-    }
 }

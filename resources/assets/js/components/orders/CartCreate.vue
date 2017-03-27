@@ -23,7 +23,7 @@
                 </div>
                 <div slot="items">
                     <div v-for="item in items">
-                        <item-cart-create :item="item" @delete-item="deleteItem" @item-updated="updateItem">
+                        <item-cart-create :item="item" @delete-item="deleteItem" @item-updated="updateItem" :key="item.id">
                         </item-cart-create>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                 <div slot="shipping">{{ filteredShipping }}</div>
                 <div slot="tax">{{ filteredTax }}</div>
                 <div slot="total">{{ filteredTotal }}</div>
-                <h3 slot="address-title">Select an address</h3>
+                <h3 slot="address-title">Select a shipping address</h3>
                 <div slot="address-picker">
                     <address-picker
                         :existing-addresses="addresses"
@@ -104,6 +104,7 @@
                             vm.items.splice(index, 1);
                         }
                     });
+                    Event.$emit('item-deleted');
                 });
             },
             totalQuantity: function() {

@@ -21,6 +21,7 @@ class InitialSeeder extends Seeder
         $userRole = Role::create(['name' => 'user']);
 
         $admin = User::create(['name' => 'Alejandro', 'email' => 'alkv93@gmail.com', 'password' => bcrypt('123123'), 'role_id' => $adminRole->id]);
+        $user = User::create(['name' => 'Common user', 'email' => 'user@gmail.com', 'password' => bcrypt('123123'), 'role_id' => $userRole->id]);
 
         $address = factory(Address::class)->states('with-user')->create(['user_id' => $admin->id]);
 

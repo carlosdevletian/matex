@@ -63,6 +63,15 @@ class VueController extends Controller
         return response()->json(['tax_percentage' => $taxPercentage], 200);
     }
 
+    public function cartPreview()
+    {
+        return response()->json([
+            'itemQuantity' => auth()->user()->cart->items()->count(),
+            'firstItem' => auth()->user()->cart->items()->with(['product', 'design.category',])->first(),
+            'subtotal' => auth()->user()->cart->orderTotal()/100,
+        ], 200);
+    }
+
     public function pay()
     {
         $this->validate(request(), [

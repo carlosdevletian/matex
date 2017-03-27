@@ -33,6 +33,14 @@ Vue.component('products', require('./components/Products.vue'));
 Vue.component('design-picker', require('./components/DesignPicker.vue'));
 Vue.component('address-picker', require('./components/AddressPicker.vue'));
 
+Vue.component('cart-preview', require('./components/carts/Preview.vue'));
+
+Vue.directive('focus', {
+    inserted: function (el) {
+        el.focus()
+    }
+})
+
 Vue.filter('inDollars', function(cents) {
     return (cents / 100).toLocaleString('en-US');
 });
@@ -49,6 +57,7 @@ const app = new Vue({
         design: '',
         modalActive: false,
         showImageModal: false,
+        showCartPreview: false,
         showContactModal: false,
         showDesignPicker: false,
     },

@@ -52,10 +52,15 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="{{ route('carts.show') }}" data-toggle="tooltip" data-placement="bottom" title="Total: {{ auth()->user()->cart->orderTotal() }} ">
+                    <li @mouseover="showCartPreview = true" @mouseleave="showCartPreview = false">
+                        <a href="{{ route('carts.show') }}">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         </a>
+                        <div v-show="showCartPreview"
+                            v-cloak 
+                            style="position: absolute; top: 40px; right: 24%">
+                                @include('carts.preview')
+                        </div>
                     </li>
                 @endif
             </ul>

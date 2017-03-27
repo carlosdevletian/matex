@@ -62,14 +62,17 @@
 .orange-background {
     background-color: #fff0e6;
 }
-.pd-0{
+.pd-0 {
     padding: 0px;
 }
-.pd-20{
+.pd-20 {
     padding: 20px;
 }
 .pd-btm-50 {
     padding-bottom: 50px;
+}
+.pd-btm-25 {
+    padding-bottom: 25px;
 }
 .pd-top-50 {
     padding-top: 50px;
@@ -98,6 +101,11 @@
 }
 .width-150-px {
     width: 150px;
+}
+
+// Vue js
+[v-cloak] {
+  display: none;
 }
 
 // Sweet Alert 2 Overrides

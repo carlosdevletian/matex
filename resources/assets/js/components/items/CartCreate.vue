@@ -62,6 +62,7 @@
                 this.validateQuantity();
                 axios.put('/items/' + this.item.id, this.item).then((response) => {
                     this.$emit('item-updated', response.data);
+                    Event.$emit('item-updated', response.data);
                     this.processing = false;
                 });
             },

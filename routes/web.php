@@ -51,6 +51,7 @@ Auth::routes();
 Route::get('images/{image}/{forOrder?}', 'ImageController@show')->name('image_path');
 
 Route::get('/cart', 'CartController@show')->name('carts.show')->middleware('auth');
+Route::get('/cartPreview', 'VueController@cartPreview')->name('carts.preview')->middleware('auth');
 Route::post('/addToCart', 'VueController@addToCart')->name('carts.add')->middleware('auth');
 Route::post('/calculatePrice', 'VueController@calculatePrice')->name('calculate-price');
 Route::post('/calculateShipping', 'VueController@calculateShipping')->name('calculate-shipping');

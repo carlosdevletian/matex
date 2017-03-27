@@ -41,7 +41,7 @@
             </div>
             <div class="col-xs-12">
                 <a role="button" class="pull-right inherit" @click="toggleAddressForm">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Add a new address
                 </a>
             </div>
         </div>
@@ -66,7 +66,7 @@
                 <input class="Form mg-btm-20"
                     type="text"
                     v-model="address.name"
-                    placeholder="Name *"
+                    placeholder="Recipient name *"
                     v-bind:class="{ 'Form--error' : !validation.name && address.show_errors }">
                 <input class="Form mg-btm-20"
                     type="text"

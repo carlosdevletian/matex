@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->string('name');
             $table->integer('width')->unsigned()->nullable();
-            $table->integer('height')->unsigned()->nullable();
+            $table->integer('length')->unsigned()->nullable();
             $table->integer('price')->nullable();
             $table->integer('display_position');
             $table->timestamps();

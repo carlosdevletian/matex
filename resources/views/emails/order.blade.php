@@ -15,6 +15,9 @@
         <li>Tax {{ $order->tax }}</li>
         <li>Total {{ $order->total }}</li>
     </ul>
+    @if(! empty($comment))
+        <h5>{{ $comment }}</h5>
+    @endif
 @endsection
 
 @section('outro')

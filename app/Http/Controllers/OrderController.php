@@ -11,6 +11,7 @@ use App\Models\Address;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Events\OrderStatusChanged;
 use Illuminate\Support\Facades\File;
 
 class OrderController extends Controller
@@ -84,9 +85,19 @@ class OrderController extends Controller
     {
         $status = Status::findOrFail(request()->status);
 
-        $order->update(['status_id' => $status->id]);
-        
-        // Mandar email al usuario cuando el status cambia
+        if($order->status_id != $status->id){
+            $order->update(['status_id' => $status->id]);
+            
+            if(request()->has('comment')){
+                event(new OrderStatusChanged($order, request()->comment));
+            }else{
+                event(new OrderStatusChanged($order));
+            }
+            
+            flash()->success('Success','Status changed successfully');
+        }else {
+            flash()->error('Error','The status of the order did not change');
+        }
 
         return redirect()->back();
     }

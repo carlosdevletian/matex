@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NotifyCustomer implements ShouldQueue
+class NotifyOrderPlaced implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -17,6 +17,7 @@ class NotifyCustomer implements ShouldQueue
      */
     public function __construct()
     {
+        //
     }
 
     /**

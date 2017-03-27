@@ -59,7 +59,7 @@ $factory->define(App\Models\Product::class, function (Faker\Generator $faker) {
         },
         'name' => 'Medium',
         'width' => 200,
-        'height' => 80,
+        'length' => 80,
         'price' => 1000,
         'display_position' => $faker->numberBetween($min = 1, $max = 20),
     ];

@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class OrderPlacedMail extends Mailable
+class OrderStatusChangedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,7 +31,7 @@ class OrderPlacedMail extends Mailable
     public function build()
     {
         return $this->view('emails.order')
-                    ->subject('Order # '. $this->data['order']->reference_number . ' has been placed')
-                    ->with(['order' => $this->data['order']]);
+                    ->subject('Order # '. $this->data['order']->reference_number . ' now has the status: ' . $this->data['order']->status->name)
+                    ->with(['order' => $this->data['order'], 'comment' => $this->data['comment']]);
     }
 }

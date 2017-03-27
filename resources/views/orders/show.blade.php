@@ -33,6 +33,15 @@
                                                     @endforeach
                                                 </select>
 
+                                                <div class="Input__icon">
+                                                    <input id="comment"
+                                                        type="text"
+                                                        name="comment"
+                                                        class="Form"
+                                                        placeholder="Comment"
+                                                        value="{{ old('comment') }}">
+                                                </div>
+
                                                 <button class="btn btn-default">Update</button>
                                             </form>
                                         @else

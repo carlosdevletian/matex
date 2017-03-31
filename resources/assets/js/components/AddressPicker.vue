@@ -57,60 +57,63 @@
             </div>
             <div class="col-xs-12">
                 <div v-show="address.show_errors && error" class="error">{{ error }}</div>
-                <input class="Form mg-btm-20"
-                    type="email"
-                    v-model="address.email"
-                    placeholder="Email *"
-                    v-if="!signedIn"
-                    v-bind:class="{ 'Form--error' : !validation.email && address.show_errors }">
-                <input class="Form mg-btm-20"
-                    type="text"
-                    v-model="address.name"
-                    placeholder="Recipient name *"
-                    v-bind:class="{ 'Form--error' : !validation.name && address.show_errors }">
-                <input class="Form mg-btm-20"
-                    type="text"
-                    v-model="address.street"
-                    placeholder="Street *"
-                    v-bind:class="{ 'Form--error' : !validation.street && address.show_errors }">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <input class="Form mg-btm-20"
+                <form>
+                    <input class="Form mg-btm-20"
+                        type="email"
+                        v-model="address.email"
+                        placeholder="Email *"
+                        v-if="!signedIn"
+                        v-bind:class="{ 'Form--error' : !validation.email && address.show_errors }">
+                    <input class="Form mg-btm-20"
                         type="text"
-                        v-model="address.city"
-                        placeholder="City *"
-                        v-bind:class="{ 'Form--error' : !validation.city && address.show_errors }">
-                    </div>
-                    <div class="col-sm-6">
-                        <input class="Form mg-btm-20"
+                        v-model="address.name"
+                        placeholder="Recipient name *"
+                        v-bind:class="{ 'Form--error' : !validation.name && address.show_errors }">
+                    <input class="Form mg-btm-20"
                         type="text"
-                        v-model="address.state"
-                        placeholder="State *"
-                        v-bind:class="{ 'Form--error' : !validation.state && address.show_errors }">
-                    </div>
-                </div>
+                        v-model="address.street"
+                        placeholder="Street *"
+                        v-bind:class="{ 'Form--error' : !validation.street && address.show_errors }">
                     <div class="row">
                         <div class="col-sm-6">
                             <input class="Form mg-btm-20"
                             type="text"
-                            v-model="address.zip"
-                            placeholder="Zip Code *"
-                            v-bind:class="{ 'Form--error' : !validation.zip && address.show_errors }">
+                            v-model="address.city"
+                            placeholder="City *"
+                            v-bind:class="{ 'Form--error' : !validation.city && address.show_errors }">
                         </div>
                         <div class="col-sm-6">
                             <input class="Form mg-btm-20"
                             type="text"
-                            v-model="address.country"
-                            placeholder="Country *"
-                            v-bind:class="{ 'Form--error' : !validation.country && address.show_errors }">
+                            v-model="address.state"
+                            placeholder="State *"
+                            v-bind:class="{ 'Form--error' : !validation.state && address.show_errors }">
                         </div>
                     </div>
-                    <input class="Form mg-btm-20"
-                        type="text"
-                        v-model="address.phone_number"
-                        placeholder="Phone Number *"
-                        v-bind:class="{ 'Form--error' : !validation.phone_number && address.show_errors }">
-                    <textarea class="Form mg-btm-20" v-model="address.comment" placeholder="Comment"></textarea>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input class="Form mg-btm-20"
+                                type="text"
+                                v-model="address.zip"
+                                placeholder="Zip Code *"
+                                v-bind:class="{ 'Form--error' : !validation.zip && address.show_errors }">
+                            </div>
+                            <div class="col-sm-6">
+                                <input class="Form mg-btm-20"
+                                type="text"
+                                v-model="address.country"
+                                placeholder="Country *"
+                                v-bind:class="{ 'Form--error' : !validation.country && address.show_errors }">
+                            </div>
+                        </div>
+                        <input class="Form mg-btm-20"
+                            type="text"
+                            v-model="address.phone_number"
+                            placeholder="Phone Number *"
+                            v-bind:class="{ 'Form--error' : !validation.phone_number && address.show_errors }">
+                        <textarea class="Form mg-btm-20" v-model="address.comment" placeholder="Comment"></textarea>
+                    
+                </form>
                     <div v-show="false">{{ validatedAddress }}</div>
             </div>
         </div>

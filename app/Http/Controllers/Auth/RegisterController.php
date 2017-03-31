@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Design;
+use App\Models\Address;
+use App\Models\RegisterToken;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -69,5 +74,26 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'role_id' => Role::findByName('user')->id
         ]);
+    }
+
+    public function showRegistrationForm(RegisterToken $token = null)
+    {
+        // return view('auth.register-client', ['email' => $token->email, 'token' => $token->token]);
+        return view('auth.register', ['token' => $token]);
+    }
+
+    public function storeClient()
+    {
+        $this->validator(request()->all())->validate();
+
+        event(new Registered($user = $this->create(request()->all())));
+        
+        $user->upgradeFromGuest();
+
+        $user->designs->each->changeNameAndMove($user);
+
+        $this->guard()->login($user);
+
+        return redirect()->route('dashboard');
     }
 }

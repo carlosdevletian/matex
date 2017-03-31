@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\OrderPlaced;
 use App\Mail\OrderPlacedMail;
+use App\Models\RegisterToken;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -30,12 +31,15 @@ class NotifyOrderPlaced implements ShouldQueue
     {
         if($event->order->belongsToUser()){
             $email = $event->order->user->email;
+            $token = null;
         }else{
             $email = $event->order->email;
+            $token = RegisterToken::generateFor($email);
         }
 
         Mail::to($email)->queue(new OrderPlacedMail([
             'order' => $event->order,
+            'token' => $token,
         ]));
     }
 

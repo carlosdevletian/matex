@@ -52,6 +52,15 @@ class User extends Authenticatable
         return $this->hasMany(Design::class);
     }
 
+    public function upgradeFromGuest()
+    {
+        Address::where('email', $this->email)->update(['email' => null, 'user_id' => $this->id]);
+        Design::where('email', $this->email)->update(['email' => null, 'user_id' => $this->id]);
+        Order::where('email', $this->email)->update(['email' => null, 'user_id' => $this->id]);
+
+        RegisterToken::whereToken(request()->token)->delete();
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);

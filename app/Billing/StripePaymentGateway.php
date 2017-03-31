@@ -3,6 +3,11 @@
 namespace App\Billing;
 
 use Stripe\Charge;
+use Stripe\Error\Base;
+use Stripe\Error\Card;
+use Stripe\Error\RateLimit;
+use Stripe\Error\ApiConnection;
+use Stripe\Error\Authentication;
 use Stripe\Error\InvalidRequest;
 use App\Billing\PaymentFailedException;
 
@@ -23,7 +28,17 @@ class StripePaymentGateway implements PaymentGateway
                 'source' => $token,
                 'currency' => 'usd',
             ], ['api_key' => $this->apiKey]);
+        } catch (Card $e) {
+            throw new PaymentFailedException;
+        } catch (RateLimit $e) {
+            throw new PaymentFailedException;
         } catch (InvalidRequest $e) {
+            throw new PaymentFailedException;
+        } catch (Authentication $e) {
+            throw new PaymentFailedException;
+        } catch (ApiConnection $e) {
+            throw new PaymentFailedException;
+        } catch (Base $e) {
             throw new PaymentFailedException;
         }
     }

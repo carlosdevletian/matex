@@ -32,6 +32,6 @@ class OrderPlacedMail extends Mailable
     {
         return $this->view('emails.order')
                     ->subject('Order # '. $this->data['order']->reference_number . ' has been placed')
-                    ->with(['order' => $this->data['order']]);
+                    ->with(['order' => $this->data['order'], 'token' => $this->data['token']]);
     }
 }

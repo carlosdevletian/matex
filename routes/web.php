@@ -47,6 +47,8 @@ Route::post('/orders', 'OrderController@store')->name('orders.store');
 Route::get('/order/{category}/{design?}', 'OrderController@create')->name('orders.create');
 
 Auth::routes();
+Route::get('/register/token/{token}', 'Auth\RegisterController@showRegistrationForm')->name('register.client');
+Route::post('/register/guest', 'Auth\RegisterController@storeClient')->name('store.client');
 
 Route::get('images/{image}/{forOrder?}', 'ImageController@show')->name('image_path');
 
@@ -59,6 +61,7 @@ Route::post('/calculateTax', 'VueController@calculateTax')->name('calculate-tax'
 Route::post('/prepareOrder', 'VueController@prepareOrder')->name('prepare-order');
 
 Route::post('/pay', 'VueController@pay')->name('pay');
+Route::post('/retryPayment', 'VueController@retryPayment')->name('retryPayment');
 
 Route::get('/addresses', 'AddressController@index')->name('addresses.index')->middleware('auth');
 Route::get('/addresses/{address}', 'AddressController@edit')->name('addresses.edit')->middleware('auth');

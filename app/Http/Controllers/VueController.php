@@ -6,10 +6,9 @@ use App\Cashier;
 use App\Calculator;
 use App\Models\Item;
 use App\Models\Order;
-use App\Models\Design;
-use App\Models\Address;
 use App\Events\OrderPlaced;
 use Illuminate\Http\Request;
+use App\Models\RegisterToken;
 use App\Billing\PaymentGateway;
 use App\Billing\PaymentFailedException;
 
@@ -76,27 +75,46 @@ class VueController extends Controller
     {
         $this->validate(request(), [
             'payment_token' => 'required',
-            'email' => 'required'
         ]);
 
         $order = (new Cashier())->checkout();
 
         if($order->total != request('total_price')) {
-            dd('The amounts do not match');
+            return response()->json([
+                'error' => 'The amounts do not match',
+                'order_reference_number' => $order->reference_number
+            ], 422);
         }
+
+        return $this->attemptPayment($order);
+    }
+
+    public function retryPayment()
+    {
+        $this->validate(request(), [
+            'payment_token' => 'required',
+        ]);
+        
+        $order = Order::findOrFail(request('order_id'));
+
+        return $this->attemptPayment($order);
+    }
+
+    private function attemptPayment($order)
+    {
         try {
             $this->paymentGateway->charge($order->total, request('payment_token'));
             $order->setStatus('Payment Approved');
             event(new OrderPlaced($order));
             return response()->json([
-                'email' => $order->email,
                 'status' => $order->status->name,
                 'order_reference_number' => $order->reference_number
             ], 200);
         } catch (PaymentFailedException $e) {
             event(new OrderPlaced($order));
             return response()->json([
-                'status' => $order->status->name
+                'status' => $order->status->name,
+                'order_reference_number' => $order->reference_number
             ], 422);
         }
     }

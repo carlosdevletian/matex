@@ -12,6 +12,7 @@ require('./bootstrap');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.component('order-pay', require('./components/orders/Pay.vue'));
 Vue.component('order-list', require('./components/orders/List.vue'));
 Vue.component('order-show', require('./components/orders/Show.vue'));
 Vue.component('order-create', require('./components/orders/Create.vue'));

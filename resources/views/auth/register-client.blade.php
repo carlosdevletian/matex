@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register New User</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ $token->exists ? route('store.client') : url('/register') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('store.client') }}">
                         {{ csrf_field() }}
 
                         @if ($errors->count() > 0)
@@ -16,9 +16,7 @@
                             </span>
                         @endif
 
-                        @if($token->exists)
-                            <input type="hidden" name="token" value="{{ $token->token }}">
-                        @endif
+                        <input type="hidden" name="token" value="{{ $token }}">
 
                         <div class="Input__icon">
                             <input id="name"
@@ -28,7 +26,7 @@
                                 placeholder="Name"
                                 value="{{ old('name') }}"
                                 required
-                                v-focus>
+                                autofocus>
                         </div>
 
                         <div class="Input__icon">
@@ -36,10 +34,8 @@
                                 type="email"
                                 name="email"
                                 class="Form {{ $errors->has('email') ? 'Form--error' : '' }}"
-                                placeholder="Email Address"
-                                value="{{ $token->exists ? $token->email : old('email') }}"
-                                required
-                                {{ $token->exists ? 'readonly' : '' }}>
+                                value="{{ $email }}"
+                                readonly>
                         </div>
 
                         <div class="Input__icon">

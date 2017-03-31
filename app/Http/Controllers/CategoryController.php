@@ -137,10 +137,16 @@ class CategoryController extends Controller
                 if(empty($originalProduct)){
                     Product::create(['name' => $product, 
                                     'category_id' => $category->id, 
-                                    'display_position' => $key + $modifier]);
+                                    'display_position' => $key + $modifier,
+                                    'width' => request()->widths[$key],
+                                    'length' => request()->lengths[$key]
+                                    ]);
                 }else{
                     $originalProduct->update(['name' => $product, 
-                                             'display_position' => $key + $modifier]);
+                                            'display_position' => $key + $modifier,
+                                            'width' => request()->widths[$key],
+                                            'length' => request()->lengths[$key]
+                                            ]);
                 }
             }else {
                 $modifier--;

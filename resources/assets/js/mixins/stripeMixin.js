@@ -37,7 +37,6 @@ export const stripeMixin = {
             }).catch(swal.noop)
 
             axios.post(`/pay`, {
-                email: token.email,
                 payment_token: token.id,
                 newAddress: this.address,
                 selectedAddress: this.selectedAddress,
@@ -48,8 +47,8 @@ export const stripeMixin = {
             }).then(response => {
                 // window.onbeforeunload = null;
                 window.location = "/orders/" + response.data.order_reference_number;
-            }).catch(response => {
-                // this.processing = false
+            }).catch(error => {
+                window.location = "/orders/" + error.response.data.order_reference_number;
             })
         },
         pay: function() {

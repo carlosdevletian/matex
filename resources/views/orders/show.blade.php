@@ -8,6 +8,11 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
+                @if($order->status->name == 'Payment Pending')
+                    <div class="alert alert-danger">
+                        <h4>Your payment could not be processed, please try again</h4>
+                    </div>
+                @endif
                 <h2 class="mg-btm-20 text-center">Order details</h2>
                 <div class="Card Card--half-pd">
                     <div class="table-responsive borderless">
@@ -47,6 +52,9 @@
                                         @else
                                             <div style="display: inline-block; width: 10px; height: 10px; border-radius: 100%; background-color: {{ $order->status->color }}"></div>
                                             <p class="mg-0" style="display:inline-block;">{{ $order->status->name }}</p>
+                                            @if($order->status->name == 'Payment Pending')
+                                                <order-pay :order="{{ $order }}"></order-pay>
+                                            @endif
                                         @endif
                                     </td>
                                     <td class="col-xs-4">
@@ -68,3 +76,7 @@
         </div>
     </div>
 @endsection
+
+@push('head_scripts')
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+@endpush

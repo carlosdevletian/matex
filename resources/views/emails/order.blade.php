@@ -15,8 +15,17 @@
         <li>Tax {{ $order->tax }}</li>
         <li>Total {{ $order->total }}</li>
     </ul>
+    @if($order->status->name == 'Payment Pending')
+        <h4>Your payment could not be processed</h4>
+        <a href="{{ route('orders.show', ['order' => $order->reference_number]) }}">Retry Payment</a>
+    @else
+        <a href="{{ route('orders.show', ['order' => $order->reference_number]) }}">View Details</a>
+    @endif
     @if(! empty($comment))
         <h5>{{ $comment }}</h5>
+    @endif
+    @if(! empty($token))
+        <a href="{{ route('register.client', ['token' => $token]) }}">Register</a>
     @endif
 @endsection
 

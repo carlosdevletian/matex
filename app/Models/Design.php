@@ -110,4 +110,17 @@ class Design extends Model
             ->where('category_id', $categoryId)
             ->get();
     }
+
+    public function changeNameAndMove($user)
+    {
+        $oldDirectory = $this->directory . '/' . $this->image_name;
+        
+        if(File::exists($oldDirectory)) {
+            $position = strpos($this->image_name, '-');
+            $this->image_name = $user->id . substr($this->image_name, $position);
+            $this->save();
+
+            File::move($oldDirectory, $this->directory . '/' . $this->image_name);
+        }
+    }
 }

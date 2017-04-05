@@ -15,3 +15,13 @@
     @include('home/benefits')
 
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        $(document).ready(function(){ 
+            $("#header-button").click(function() { 
+                $("#navbar").toggleClass("navbar-home-click");
+            });
+        });
+    </script>
+@endpush

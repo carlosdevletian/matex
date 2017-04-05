@@ -27,3 +27,9 @@
 .navbar-default .navbar-about > li > a:hover  {
     color: $brand-primary;
 }
+
+.navbar-home-click {
+    @include md('max') {
+        background-color: $brand-primary !important;
+    }
+}

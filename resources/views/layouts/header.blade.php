@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top {{ Route::currentRouteName() == 'home' ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' ? 'navbar-about' : ''}} {{ $backgroundColor or '' }}">
 	<div class="container">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			<button id="header-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 				<span class="sr-only">Toggle navigation</span>
                 @if(Route::currentRouteName() == 'home' || Route::currentRouteName() == 'about')
                     <span class="icon-bar" style="background-color: white"></span>

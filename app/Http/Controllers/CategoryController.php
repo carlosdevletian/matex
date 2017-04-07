@@ -116,44 +116,21 @@ class CategoryController extends Controller
 
         if(request()->hasFile('file')){
             $oldImage = $category->image_name;
-
             $category->addImage(request()->file, request()->name);
-
             Storage::delete('/public/categories/' . $oldImage);
         }
 
-        $category->update(['name' => request()->name, 
-                          'crop_width' => request()->cropw, 
-                          'crop_height' => request()->croph, 
-                          'crop_x_position' => request()->cropx, 
-                          'crop_y_position' => request()->cropy]);
+        $category->update([
+            'name' => request()->name, 
+            'crop_width' => request()->cropw, 
+            'crop_height' => request()->croph, 
+            'crop_x_position' => request()->cropx, 
+            'crop_y_position' => request()->cropy
+        ]);
 
-        $modifier = 1;
+        $this->updateCategoryProducts(request('products'), $category);
 
-        foreach (request()->products as $key => $product) {
-            if(! empty($product)){
-                $originalProduct = Product::find(request()->ids[$key]);
-                
-                if(empty($originalProduct)){
-                    Product::create(['name' => $product, 
-                                    'category_id' => $category->id, 
-                                    'display_position' => $key + $modifier,
-                                    'width' => request()->widths[$key],
-                                    'length' => request()->lengths[$key]
-                                    ]);
-                }else{
-                    $originalProduct->update(['name' => $product, 
-                                            'display_position' => $key + $modifier,
-                                            'width' => request()->widths[$key],
-                                            'length' => request()->lengths[$key]
-                                            ]);
-                }
-            }else {
-                $modifier--;
-            }
-        }
-
-        flash()->success('Success','Changes Made');
+        flash()->success('Success!','Changes Made');
         return redirect()->back();
     }
 
@@ -166,5 +143,44 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function updateCategoryProducts($request, $category)
+    {
+        return collect($request)->transpose()->map(function ($productData, $key) use($category) {
+            if($productData[0] && $product = Product::find($productData[0])) {
+                return $this->updateProduct($product, $productData, $key);
+            }
+            return $this->createProduct($productData, $category->id, $key);
+        });
+    }
+
+    private function createProduct ($data, $categoryId, $displayPosition) 
+    {
+        // validar información del producto nuevo?
+        if(!$data[1] || !$data[2] || !$data[3] || !$data[4] ) {
+            return;
+        }
+        return Product::create([
+            'name' => $data[1],
+            'width' => $data[2],
+            'length' => $data[3],
+            'is_active' => (boolean) $data[4],
+            'category_id' => $categoryId,
+            'display_position' => $displayPosition
+        ]);
+    }
+
+    private function updateProduct ($product, $data, $displayPosition) 
+    {
+        // validar información de alguna forma?
+        $product->update([
+            'name' => $data[1],
+            'width' => $data[2],
+            'length' => $data[3],
+            'is_active' => (boolean) $data[4],
+            'display_position' => $displayPosition
+        ]);
+        return $product;
     }
 }

@@ -62,7 +62,6 @@
 
 .Button--purple {
     @include button($brand-purple, false, 12pt, $transition: false);
-    /*Esto es del boton y ya*/
     padding: 10px 20px; 
     &:hover {
         transform: translateY(-1px);

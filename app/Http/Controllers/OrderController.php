@@ -64,7 +64,7 @@ class OrderController extends Controller
 
     public function create($categorySlug, Design $design = null)
     {
-        if(! empty($design->id) && ! $design->ownedByUser()){
+        if(! $design->exists && ! $design->ownedByUser()){
             return redirect()->route('dashboard');
         }
 
@@ -72,13 +72,23 @@ class OrderController extends Controller
         $products = Product::where('category_id', $categoryId)->get();
         if(auth()->check()) {
             $addresses = Address::where('user_id', auth()->user()->id)->get();
-            $design = $design->id != null ? $design : Design::findOrFail(session('design'));
+            $design = $design->exists ? $design : Design::findOrFail(session('design'));
 
-            return view('orders.create', ['products' => $products, 'addresses' => $addresses, 'design' => $design->id, 'design_image' => $design->image_name]);
+            return view('orders.create', [
+                'products' => $products, 
+                'addresses' => $addresses, 
+                'design' => $design->id, 
+                'design_image' => $design->image_name
+            ]);
         }
         $addresses = collect();
 
-        return view('orders.create', ['products' => $products, 'addresses' => $addresses, 'design' => session('design'), 'design_image' => session('design'), 'categoryId' => $categoryId]);
+        return view('orders.create', [
+            'products' => $products, 
+            'addresses' => $addresses, 
+            'design' => session('design'), 
+            'design_image' => session('design'), 
+            'categoryId' => $categoryId]);
     }
 
     public function update(Order $order)

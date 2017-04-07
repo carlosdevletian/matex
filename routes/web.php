@@ -1,14 +1,4 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () { return view('home/home'); })->name('home');
 
@@ -58,7 +48,6 @@ Route::post('/addToCart', 'VueController@addToCart')->name('carts.add')->middlew
 Route::post('/calculatePrice', 'VueController@calculatePrice')->name('calculate-price');
 Route::post('/calculateShipping', 'VueController@calculateShipping')->name('calculate-shipping');
 Route::post('/calculateTax', 'VueController@calculateTax')->name('calculate-tax');
-Route::post('/prepareOrder', 'VueController@prepareOrder')->name('prepare-order');
 
 Route::post('/pay', 'VueController@pay')->name('pay');
 Route::post('/retryPayment', 'VueController@retryPayment')->name('retryPayment');

@@ -36,6 +36,8 @@ Vue.component('address-picker', require('./components/AddressPicker.vue'));
 
 Vue.component('cart-preview', require('./components/carts/Preview.vue'));
 
+Vue.component('active-checkbox', require('./components/ActiveCheckbox.vue'));
+
 Vue.directive('focus', {
     inserted: function (el) {
         el.focus()

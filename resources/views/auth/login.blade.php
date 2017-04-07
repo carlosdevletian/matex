@@ -24,7 +24,7 @@
                                 placeholder="Email Address"
                                 value="{{ old('email') }}"
                                 required
-                                autofocus>
+                                v-focus>
                         </div>
 
                         <div class="Input__icon">

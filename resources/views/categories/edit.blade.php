@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['backgroundColor' => 'blue-background'])
 
 @section('title')
     Categories
@@ -20,7 +20,11 @@
                     @endif
 
                     <label for="file" class="control-label">Photo</label>
-                    <input type="file" name="file" id="file" class="dropify" data-height="115" data-default-file="/categories/{{ $category->image_name }}" data-max-file-size="10M" data-allowed-file-extensions="png jpg jpeg gif" data-show-remove="false"/>
+                    <input type="file" name="file" id="file" class="dropify" data-height="115" 
+                                data-default-file="/categories/{{ $category->image_name }}" 
+                                data-max-file-size="10M" 
+                                data-allowed-file-extensions="png jpg jpeg gif" 
+                                data-show-remove="false"/>
 
                     <div class="Input__icon">
                         <label for="name" class="control-label">Category Name</label>
@@ -87,7 +91,7 @@
                     
                     <products :products="{{ $category->products }}"></products>
 
-                <button class="btn btn-default">Update</button>
+                    <button class="btn btn-default">Update</button>
                 </form>
             </div>
         </div>

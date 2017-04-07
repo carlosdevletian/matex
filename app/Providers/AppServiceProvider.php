@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
-use App\Models\User;
-use App\Models\Cart;
 use App\Billing\PaymentGateway;
 use App\Billing\StripePaymentGateway;
+use App\Models\Cart;
+use App\Models\User;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,14 @@ class AppServiceProvider extends ServiceProvider
     {
         User::created(function($user){
             return Cart::create(['user_id' => $user->id]);
+        });
+
+        Collection::macro('transpose', function() {
+            $items = array_map(function (...$items) {
+                return $items;
+            }, ...$this->values());
+
+            return new static($items);
         });
     }
 

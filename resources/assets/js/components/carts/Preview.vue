@@ -17,7 +17,7 @@
                                 </div>
                             </td>
                             <td class="col-xs-6">
-                                <p class="text-center mg-0 pd-top-8">
+                                <p class="text-right mg-0 pd-top-8">
                                     {{ firstItem.quantity }} {{ firstItem.product.name }} {{ firstItem.design.category.name }} 
                                 </p>
                             </td>
@@ -25,10 +25,11 @@
                     </tbody>
                 </table>
             </div>
-            <p v-if="itemQuantity != 1"
-                class="text-right mg-0">
-                    ... and {{ itemQuantity - 1 }} more
-            </p>
+            <div v-if="itemQuantity != 1">
+                    <p class="text-right mg-0">
+                        ... and {{ itemQuantity - 1 }} more
+                    </p>
+            </div>
             <hr v-if="itemQuantity != 1" style="margin-top: 0;">
             <p>
                 Subtotal: $ {{ subtotal }}

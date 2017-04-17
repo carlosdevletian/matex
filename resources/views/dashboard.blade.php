@@ -1,4 +1,4 @@
-@extends('layouts.app', ['backgroundColor' => 'orange-background'])
+@extends('layouts.app', ['backgroundColor' => 'grey-background'])
 
 @section('title')
     Dashboard

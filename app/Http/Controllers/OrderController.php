@@ -43,7 +43,7 @@ class OrderController extends Controller
         }
 
         $order = Order::with(['items.design' => function($query){
-                $query->addSelect(['id', 'image_name', 'created_at']);
+                $query->withTrashed()->addSelect(['id', 'image_name', 'created_at']);
             },'items.product' => function($query) {
                 $query->addSelect(['id', 'name', 'category_id']);
             },'items.product.category' => function($query) {
@@ -88,7 +88,8 @@ class OrderController extends Controller
             'addresses' => $addresses, 
             'design' => session('design'), 
             'design_image' => session('design'), 
-            'categoryId' => $categoryId]);
+            'categoryId' => $categoryId
+        ]);
     }
 
     public function update(Order $order)

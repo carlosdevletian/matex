@@ -40,7 +40,26 @@
                 window.location = `/order/${this.design.category.slug_name}/${this.design.id}`;
             },
             deleteDesign: function() {
-                alert('deleting');
+                var vm = this;
+                swal({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: 'rgb(0, 0, 170)',
+                    cancelButtonColor: 'rgb(208,67,40)',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then(function () {
+                    axios.delete(`/designs/${vm.design.id}`).then(response => {
+                        location.reload();
+                    }).catch(error => {
+                        swal(
+                            'An error occurred',
+                            'Please try again later',
+                            'error'
+                        )
+                    });
+                })
             },
             redesign: function() {
                 window.location = `/design/${this.design.category.slug_name}/${this.design.id}`;

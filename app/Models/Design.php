@@ -5,12 +5,17 @@ namespace App\Models;
 use Image;
 use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Design extends Model
 {
+    use SoftDeletes;
+ 
     protected $fillable = [
         'image_name', 'price', 'user_id', 'email', 'views', 'crop_width', 'crop_height', 'crop_x_position', 'crop_y_position', 'category_id'
     ];
+
+    protected $dates = ['deleted_at'];
 
     protected $directory;
 
@@ -29,6 +34,17 @@ class Design extends Model
         $this->temporaryDirectory = storage_path('app/public/designs');
         is_dir($this->temporaryDirectory) ?: mkdir($this->temporaryDirectory, 0777, true);
     }
+
+    public static function boot()
+    {
+        parent::boot();    
+    
+        // When a design is soft-deleted, its items in cart are deleted
+        static::deleted(function($design) {
+            $design->itemsInCart()->delete();
+            // $design->items()->delete();
+        });
+    } 
 
     public function items()
     {
@@ -122,5 +138,10 @@ class Design extends Model
 
             File::move($oldDirectory, $this->directory . '/' . $this->image_name);
         }
+    }
+
+    public function itemsInCart()
+    {
+        return $this->items()->whereNotNull('cart_id');
     }
 }

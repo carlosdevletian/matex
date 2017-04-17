@@ -24,4 +24,27 @@ class Product extends Model
                 ->where('is_active', true)
                 ->get();
     }
+
+    public function enable()
+    {
+        $this->update(['is_active' => true]);
+
+        foreach ($this->items as $item) {
+            $item->enable();
+        }
+    }
+
+    public function disable()
+    {
+        $this->update(['is_active' => false]);
+
+        foreach ($this->items as $item) {
+            $item->disable();
+        }
+    }
+
+    public function setActive(bool $active)
+    {
+        $active ? $this->enable() : $this->disable();
+    }
 }

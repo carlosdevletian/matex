@@ -74,6 +74,7 @@
         data: function() {
             return {
                 items: this.originalItems,
+                availableItems: this.getAvailableItems(),
                 subtotal: 0,
                 shipping: 0,
                 tax: 0,
@@ -95,6 +96,15 @@
             }
         },
         methods: {
+            getAvailableItems: function() {
+                var availableItems = [];
+                this.originalItems.forEach(function(item) {
+                    if(!! +item.available) {
+                        availableItems.push(item);
+                    }
+                })
+                return availableItems;
+            },
             deleteItem: function(itemId) {
                 var vm = this;
 
@@ -167,10 +177,10 @@
                 return this.address.zip.length == 5;
             },
             calculatedSubtotal: function() {
-                if(this.items.length > 0) {
+                if(this.availableItems.length > 0) {
                     this.subtotal = 0;
                     var vm = this;
-                    this.items.forEach(function(item) {
+                    this.availableItems.forEach(function(item) {
                         vm.subtotal = (vm.subtotal + +item.total_price);
                     });
                     return this.subtotal;

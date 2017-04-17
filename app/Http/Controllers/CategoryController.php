@@ -17,11 +17,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::active()->get();
 
         if(admin()){
-            $activeCategories = Category::where('is_active', true)->get();
-            $inactiveCategories = Category::where('is_active', false)->get();
+            $activeCategories = $categories;
+            $inactiveCategories = Category::inactive()->get();
             return view('categories.admin-index', compact('activeCategories', 'inactiveCategories'));
         }
 
@@ -162,14 +162,15 @@ class CategoryController extends Controller
         if(!$data[1] || !$data[2] || !$data[3] || !$data[4] ) {
             return;
         }
-        return Product::create([
+        $product = Product::create([
             'name' => $data[1],
             'width' => $data[2],
             'length' => $data[3],
-            'is_active' => (boolean) $data[4],
             'category_id' => $categoryId,
             'display_position' => $displayPosition
         ]);
+        $product->setActive($data[4]);
+        return $product;
     }
 
     private function updateProduct ($product, $data, $displayPosition) 
@@ -179,9 +180,9 @@ class CategoryController extends Controller
             'name' => $data[1],
             'width' => $data[2],
             'length' => $data[3],
-            'is_active' => (boolean) $data[4],
             'display_position' => $displayPosition
         ]);
+        $product->setActive($data[4]);
         return $product;
     }
 }

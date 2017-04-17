@@ -24,6 +24,7 @@ class CreateDesignsTable extends Migration
             $table->integer('color_quantity')->unsigned()->nullable();
             $table->text('comment')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');

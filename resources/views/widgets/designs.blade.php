@@ -5,14 +5,6 @@
         @foreach($designs as $design)
             <design-show :design="{{ $design }}" add-class="Thumbnail col-xs-6"></design-show>
         @endforeach
-        <!-- <a href="{{ route('categories.index') }}" class="Thumbnail col-xs-6 mg-btm-20 position-relative" title="Create a new design">
-            <div class="Card Card--thumbnail position-relative mg-0">
-                <div class="background-image position-relative Icon--add">
-                </div>
-                <div class="text-center">Add</div>
-            </div>
-        </a>
-        <br> -->
         <a href="{{ route('designs.index') }}" class="Button--red stick-to-bottom color-white">
             See all designs
         </a>

@@ -14,7 +14,8 @@ class Item extends Model
         'product_id',
         'quantity',
         'unit_price',
-        'total_price'
+        'total_price',
+        'available'
     ];
 
     public function product()
@@ -73,5 +74,15 @@ class Item extends Model
             return $this->product_id = $product;
         }
         return $this->product_id = $product->id;       
+    }
+
+    public function enable()
+    {
+        $this->update(['available' => true]);
+    }
+
+    public function disable()
+    {
+        $this->update(['available' => false]);
     }
 }

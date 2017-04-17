@@ -30,14 +30,44 @@ class Category extends Model
         return asset('categories/'.$this->image_name);
     }
 
-    public function disable()
-    {
-        $this->update(['is_active' => false]);
-    }
-
     public function enable()
     {
         $this->update(['is_active' => true]);
+
+        foreach ($this->products as $product) {
+            $product->enable();
+        }
+    }
+
+    public function disable()
+    {
+        $this->update(['is_active' => false]);
+
+        foreach ($this->products as $product) {
+            $product->disable();
+        }
+    }
+
+    /**
+     * Scope a query to only include active categories.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
+    /**
+     * Scope a query to only include inactive categories.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeInactive($query)
+    {
+        return $query->where('is_active', 0);
     }
 
     public function addImage($file, $name)

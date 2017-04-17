@@ -18,6 +18,7 @@ Route::get('/users/{user}','UserController@show')->name('users.show')->middlewar
 Route::get('/designs','DesignController@index')->name('designs.index')->middleware('auth');
 Route::post('/designs','DesignController@store')->name('designs.store');
 Route::get('/design/{category}/{design?}', 'DesignController@create')->name('designs.create');
+Route::delete('/designs/{design}', 'DesignController@destroy')->name('designs.delete');
 
 Route::get('/items', 'ItemController@index')->name('items.index');
 Route::put('/items/{item}', 'ItemController@update')->name('items.update');

@@ -39,6 +39,7 @@
                     </tr>
                 </tbody>
             </table>
+            <div v-show="!isAvailable()" style="background-color: rgba(0,0,0,0.8); position: absolute; width: 100%; height: 100%; top: 0; color: white; text-align: center">Item is currently unavailable</div>
         </div>
     </div>
 </template>
@@ -81,9 +82,18 @@
                 this.$emit('delete-item', this.item.id);
                 this.processing = false;
             },
+            isAvailable: function() {
+                return !! +this.item.available;
+            },
             openImage: function() {
                 Event.$emit('open-image', this.item.design)
             },
         }
     }
 </script>
+
+<style>
+    .black {
+        background-color: black;
+    }
+</style>

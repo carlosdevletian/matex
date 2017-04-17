@@ -113,8 +113,9 @@ class DesignController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Design $design)
     {
-        //
+        $this->authorize('delete', $design);
+        $design->delete();
     }
 }

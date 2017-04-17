@@ -22,6 +22,7 @@ class CreateItemsTable extends Migration
             $table->integer('quantity')->unsigned();
             $table->integer('total_price')->nullable()->unsigned();
             $table->integer('unit_price')->nullable()->unsigned();
+            $table->boolean('available')->default(true);
             $table->timestamps();
 
             $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');

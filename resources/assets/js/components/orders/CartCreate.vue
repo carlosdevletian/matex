@@ -1,6 +1,47 @@
 <template>
     <div>
-        <div v-if="items.length > 0">
+        <div v-show="unavailableItems.length > 0" style="display: flex; justify-content: center">
+            <div class="Card Card--half-pd text-center" style="display: inline-block">
+                <p v-if="! showUnavailable" class="mg-0">
+                    Looks like some of your selected items are unavailable...
+                    <a role="button" @click="showUnavailable = true">See unavailable items</a>
+                </p>
+                <a v-else role="button" @click="showUnavailable = false">Back</a>
+            </div>
+        </div>
+        <div v-if="unavailableItems.length > 0 && showUnavailable">
+            <div class="Card col-sm-6 col-sm-offset-3">
+                <div class="row">
+                    <div class="Order__title--orange text-center">
+                        Unavailable items
+                    </div>
+                </div>
+                <div class="row"><hr></div>
+                <div class="table-responsive borderless">
+                    <table class="table borderless mg-0">
+                        <tbody>
+                            <tr>
+                                <td class="pd-0 col-xs-7">
+                                        <p class="text-center mg-0">Items</p>
+                                </td>
+                                <td class="pd-0 col-xs-3">
+                                        <p class="text-center mg-0 visible-xs-block">Qty</p>
+                                        <p class="text-center mg-0 hidden-xs">Quantity</p>
+                                </td>
+                                <td class="pd-0 col-xs-2">
+                                        <p class="text-center mg-0">Price</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div v-for="item in unavailableItems">
+                    <item-cart-create :item="item" @delete-item="deleteUnavailableItem" @item-updated="updateItem" :key="item.id">
+                    </item-cart-create>
+                </div>
+            </div>
+        </div>
+        <div v-if="items.length > 0 && ! showUnavailable">
             <order-template>
                 <h3 slot="items-title">Your items</h3>
                 <div slot="table-header" class="table-responsive borderless">
@@ -59,7 +100,7 @@
                 </div>
             </order-template>
         </div>
-        <div v-else>
+        <div v-if="items.length <= 0">
             There are no items in your cart.
         </div>
     </div>
@@ -70,16 +111,17 @@
 
     export default {
         mixins: [stripeMixin],
-        props: ['addresses', 'originalItems'],
+        props: ['addresses', 'originalItems', 'originalUnavailableItems'],
         data: function() {
             return {
                 items: this.originalItems,
-                availableItems: this.getAvailableItems(),
+                unavailableItems: this.originalUnavailableItems,
                 subtotal: 0,
                 shipping: 0,
                 tax: 0,
                 order_id: null,
                 selectedAddress: 0,
+                showUnavailable: false,
                 address: {
                     email: '',
                     name: '',
@@ -96,15 +138,6 @@
             }
         },
         methods: {
-            getAvailableItems: function() {
-                var availableItems = [];
-                this.originalItems.forEach(function(item) {
-                    if(!! +item.available) {
-                        availableItems.push(item);
-                    }
-                })
-                return availableItems;
-            },
             deleteItem: function(itemId) {
                 var vm = this;
 
@@ -115,6 +148,17 @@
                         }
                     });
                     Event.$emit('item-deleted');
+                });
+            },
+            deleteUnavailableItem: function(itemId) {
+                var vm = this;
+                axios.delete('/items/' + itemId).then((response) => {
+                    this.unavailableItems.forEach(function(item, index){
+                        if(item.id == itemId){
+                            vm.unavailableItems.splice(index, 1);
+                        }
+                    });
+                    if(this.unavailableItems.length == 0) this.showUnavailable = false;
                 });
             },
             totalQuantity: function() {
@@ -177,10 +221,10 @@
                 return this.address.zip.length == 5;
             },
             calculatedSubtotal: function() {
-                if(this.availableItems.length > 0) {
+                if(this.items.length > 0) {
                     this.subtotal = 0;
                     var vm = this;
-                    this.availableItems.forEach(function(item) {
+                    this.items.forEach(function(item) {
                         vm.subtotal = (vm.subtotal + +item.total_price);
                     });
                     return this.subtotal;

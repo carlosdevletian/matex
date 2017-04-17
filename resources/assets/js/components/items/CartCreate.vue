@@ -24,12 +24,12 @@
                         <td class="col-xs-3">
                             <div class="position-relative">
                                 <input type="number"
-                                v-model="item.quantity"
-                                @change="updateItem"
-                                class="Form borderless pd-0 text-center"
-                                onfocus="if(this.value == '0') { this.value = ''; }"
-                                v-bind:class="{ 'Form--error' : this.error }"
-                                :disabled="processing">
+                                    v-model="item.quantity"
+                                    @change="updateItem"
+                                    class="Form borderless pd-0 text-center"
+                                    onfocus="if(this.value == '0') { this.value = ''; }"
+                                    v-bind:class="{ 'Form--error' : this.error }"
+                                    :disabled="processing">
                                 <i v-show="processing" class="fa fa-spinner fa-spin Spinner"></i>
                             </div>
                         </td>
@@ -39,7 +39,13 @@
                     </tr>
                 </tbody>
             </table>
-            <div v-show="!isAvailable()" style="background-color: rgba(0,0,0,0.8); position: absolute; width: 100%; height: 100%; top: 0; color: white; text-align: center">Item is currently unavailable</div>
+            <div v-show="!isAvailable()" 
+                style="background-color: rgb(255,255,255, 0); 
+                    position: absolute; 
+                    width: 100%; 
+                    height: 100%; 
+                    top: 0;">
+            </div>
         </div>
     </div>
 </template>

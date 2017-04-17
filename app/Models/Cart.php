@@ -23,4 +23,14 @@ class Cart extends Model
         }
         return $total;
     }
+
+    public function availableItems()
+    {
+         return $this->items->where('available', true)->load('product.category','design');
+    }
+
+    public function unavailableItems()
+    {
+         return $this->items->where('available', false)->load('product.category','design');
+    }
 }

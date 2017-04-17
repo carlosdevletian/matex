@@ -29821,6 +29821,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['item'],
@@ -30284,21 +30290,63 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_stripeMixin__["a" /* stripeMixin */]],
-    props: ['addresses', 'originalItems'],
+    props: ['addresses', 'originalItems', 'originalUnavailableItems'],
     data: function data() {
         return {
             items: this.originalItems,
-            availableItems: this.getAvailableItems(),
+            unavailableItems: this.originalUnavailableItems,
             subtotal: 0,
             shipping: 0,
             tax: 0,
             order_id: null,
             selectedAddress: 0,
+            showUnavailable: false,
             address: {
                 email: '',
                 name: '',
@@ -30315,15 +30363,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     methods: {
-        getAvailableItems: function getAvailableItems() {
-            var availableItems = [];
-            this.originalItems.forEach(function (item) {
-                if (!!+item.available) {
-                    availableItems.push(item);
-                }
-            });
-            return availableItems;
-        },
         deleteItem: function deleteItem(itemId) {
             var _this = this;
 
@@ -30336,6 +30375,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }
                 });
                 Event.$emit('item-deleted');
+            });
+        },
+        deleteUnavailableItem: function deleteUnavailableItem(itemId) {
+            var _this2 = this;
+
+            var vm = this;
+            axios.delete('/items/' + itemId).then(function (response) {
+                _this2.unavailableItems.forEach(function (item, index) {
+                    if (item.id == itemId) {
+                        vm.unavailableItems.splice(index, 1);
+                    }
+                });
+                if (_this2.unavailableItems.length == 0) _this2.showUnavailable = false;
             });
         },
         totalQuantity: function totalQuantity() {
@@ -30364,25 +30416,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         calculateShipping: function calculateShipping() {
-            var _this2 = this;
+            var _this3 = this;
 
             if (this.address.zip.length == 5) {
                 var data = {
                     zip: this.address.zip
                 };
                 axios.post('/calculateShipping', data).then(function (response) {
-                    _this2.shipping = response.data.shipping;
+                    _this3.shipping = response.data.shipping;
                 });
             }
         },
         calculateTax: function calculateTax() {
-            var _this3 = this;
+            var _this4 = this;
 
             var data = {
                 zip: this.address.zip
             };
             axios.post('/calculateTax', data).then(function (response) {
-                _this3.tax = (_this3.subtotal + _this3.shipping) * response.data.tax_percentage;
+                _this4.tax = (_this4.subtotal + _this4.shipping) * response.data.tax_percentage;
             });
         }
     },
@@ -30402,10 +30454,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.address.zip.length == 5;
         },
         calculatedSubtotal: function calculatedSubtotal() {
-            if (this.availableItems.length > 0) {
+            if (this.items.length > 0) {
                 this.subtotal = 0;
                 var vm = this;
-                this.availableItems.forEach(function (item) {
+                this.items.forEach(function (item) {
                     vm.subtotal = vm.subtotal + +item.total_price;
                 });
                 return this.subtotal;
@@ -55988,15 +56040,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "!isAvailable()"
     }],
     staticStyle: {
-      "background-color": "rgba(0,0,0,0.8)",
+      "background-color": "rgb(255,255,255, 0)",
       "position": "absolute",
       "width": "100%",
       "height": "100%",
-      "top": "0",
-      "color": "white",
-      "text-align": "center"
+      "top": "0"
     }
-  }, [_vm._v("Item is currently unavailable")])])])
+  })])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -56999,7 +57049,56 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.items.length > 0) ? _c('div', [_c('order-template', [_c('h3', {
+  return _c('div', [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.unavailableItems.length > 0),
+      expression: "unavailableItems.length > 0"
+    }],
+    staticStyle: {
+      "display": "flex",
+      "justify-content": "center"
+    }
+  }, [_c('div', {
+    staticClass: "Card Card--half-pd text-center",
+    staticStyle: {
+      "display": "inline-block"
+    }
+  }, [(!_vm.showUnavailable) ? _c('p', {
+    staticClass: "mg-0"
+  }, [_vm._v("\n                Looks like some of your selected items are unavailable...\n                "), _c('a', {
+    attrs: {
+      "role": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.showUnavailable = true
+      }
+    }
+  }, [_vm._v("See unavailable items")])]) : _c('a', {
+    attrs: {
+      "role": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.showUnavailable = false
+      }
+    }
+  }, [_vm._v("Back")])])]), _vm._v(" "), (_vm.unavailableItems.length > 0 && _vm.showUnavailable) ? _c('div', [_c('div', {
+    staticClass: "Card col-sm-6 col-sm-offset-3"
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._l((_vm.unavailableItems), function(item) {
+    return _c('div', [_c('item-cart-create', {
+      key: item.id,
+      attrs: {
+        "item": item
+      },
+      on: {
+        "delete-item": _vm.deleteUnavailableItem,
+        "item-updated": _vm.updateItem
+      }
+    })], 1)
+  })], 2)]) : _vm._e(), _vm._v(" "), (_vm.items.length > 0 && !_vm.showUnavailable) ? _c('div', [_c('order-template', [_c('h3', {
     slot: "items-title"
   }, [_vm._v("Your items")]), _vm._v(" "), _c('div', {
     staticClass: "table-responsive borderless",
@@ -57076,8 +57175,38 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.pay
     }
-  }, [_vm._v("Checkout")])])])])])], 1) : _c('div', [_vm._v("\n        There are no items in your cart.\n    ")])])
-},staticRenderFns: []}
+  }, [_vm._v("Checkout")])])])])])], 1) : _vm._e(), _vm._v(" "), (_vm.items.length <= 0) ? _c('div', [_vm._v("\n        There are no items in your cart.\n    ")]) : _vm._e()])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "Order__title--orange text-center"
+  }, [_vm._v("\n                    Unavailable items\n                ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('hr')])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "table-responsive borderless"
+  }, [_c('table', {
+    staticClass: "table borderless mg-0"
+  }, [_c('tbody', [_c('tr', [_c('td', {
+    staticClass: "pd-0 col-xs-7"
+  }, [_c('p', {
+    staticClass: "text-center mg-0"
+  }, [_vm._v("Items")])]), _vm._v(" "), _c('td', {
+    staticClass: "pd-0 col-xs-3"
+  }, [_c('p', {
+    staticClass: "text-center mg-0 visible-xs-block"
+  }, [_vm._v("Qty")]), _vm._v(" "), _c('p', {
+    staticClass: "text-center mg-0 hidden-xs"
+  }, [_vm._v("Quantity")])]), _vm._v(" "), _c('td', {
+    staticClass: "pd-0 col-xs-2"
+  }, [_c('p', {
+    staticClass: "text-center mg-0"
+  }, [_vm._v("Price")])])])])])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

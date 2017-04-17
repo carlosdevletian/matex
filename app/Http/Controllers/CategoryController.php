@@ -20,7 +20,9 @@ class CategoryController extends Controller
         $categories = Category::all();
 
         if(admin()){
-            return view('categories.admin-index', compact('categories'));
+            $activeCategories = Category::where('is_active', true)->get();
+            $inactiveCategories = Category::where('is_active', false)->get();
+            return view('categories.admin-index', compact('activeCategories', 'inactiveCategories'));
         }
 
         if($categories->count() == 1){
@@ -128,23 +130,22 @@ class CategoryController extends Controller
             'crop_y_position' => request()->cropy
         ]);
 
+        // $category->updateProducts();
         $this->updateCategoryProducts(request('products'), $category);
 
         flash()->success('Success!','Changes Made');
         return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function disable(Category $category)
     {
-        //
+        $category->disable();
     }
 
+    public function enable(Category $category)
+    {
+        $category->enable();
+    }
     private function updateCategoryProducts($request, $category)
     {
         return collect($request)->transpose()->map(function ($productData, $key) use($category) {

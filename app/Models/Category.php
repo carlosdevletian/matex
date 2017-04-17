@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['name', 'crop_width', 'crop_height', 'crop_x_position', 'crop_y_position', 'image_name'];
+    protected $fillable = ['name', 'crop_width', 'crop_height', 'crop_x_position', 'crop_y_position', 'image_name', 'is_active'];
 
     public function setNameAttribute($value)
     {
@@ -23,6 +23,21 @@ class Category extends Model
     public function designs()
     {
         return $this->hasMany(Design::class);
+    }
+
+    public function imagePath()
+    {
+        return asset('categories/'.$this->image_name);
+    }
+
+    public function disable()
+    {
+        $this->update(['is_active' => false]);
+    }
+
+    public function enable()
+    {
+        $this->update(['is_active' => true]);
     }
 
     public function addImage($file, $name)

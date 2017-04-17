@@ -59,9 +59,9 @@
                         views: JSON.stringify(vm.designer.getProduct()),
                     }).then((response) => {
                         if(throughLogin) {
-                            window.location = "/login";
+                            window.location = `/login`;
                         } else {
-                            window.location = "/order/" + response.data.category_slug_name;
+                            window.location = `/order/${response.data.category_slug_name}`;
                         }
                     }, (response) => {
                         swal({

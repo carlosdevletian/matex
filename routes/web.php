@@ -28,7 +28,10 @@ Route::post('/categories', 'CategoryController@store')->name('categories.store')
 Route::put('/categories/{category}', 'CategoryController@update')->name('categories.update')->middleware('admin');
 Route::get('/categories', 'CategoryController@index')->name('categories.index');
 Route::get('/categories/edit/{category}', 'CategoryController@edit')->name('categories.edit')->middleware('admin');
+Route::get('/category/disable/{category}', 'CategoryController@disable')->name('categories.disable')->middleware('admin');
+Route::get('/category/enable/{category}', 'CategoryController@enable')->name('categories.enable')->middleware('admin');
 Route::get('/categories/{category}/products', 'ProductController@index')->name('products.index');
+
 
 Route::get('/orders', 'OrderController@index')->name('orders.index')->middleware('auth');
 Route::get('/orders/{order}', 'OrderController@show')->name('orders.show');

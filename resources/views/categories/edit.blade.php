@@ -21,7 +21,7 @@
 
                     <label for="file" class="control-label">Photo</label>
                     <input type="file" name="file" id="file" class="dropify" data-height="115" 
-                                data-default-file="/categories/{{ $category->image_name }}" 
+                                data-default-file="{{ $category->imagePath() }}" 
                                 data-max-file-size="10M" 
                                 data-allowed-file-extensions="png jpg jpeg gif" 
                                 data-show-remove="false"/>

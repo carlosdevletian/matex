@@ -17,4 +17,11 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public static function activeFrom($categoryId)
+    {
+       return static::where('category_id', $categoryId)
+                ->where('is_active', true)
+                ->get();
+    }
 }

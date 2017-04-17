@@ -27,7 +27,7 @@
         data: function() {
             return {
                 imageUrl: {
-                    backgroundImage : "url('/images/"+this.design.image_name+"/1')",
+                    backgroundImage : `url(/images/${this.design.image_name}/1)`,
                 },
                 showMore: false,
             }
@@ -37,13 +37,13 @@
                 Event.$emit('open-image', this.design)
             },
             orderAgain: function() {
-                window.location = '/order/'+ this.design.category.slug_name + '/' + this.design.id;
+                window.location = `/order/${this.design.category.slug_name}/${this.design.id}`;
             },
             deleteDesign: function() {
                 alert('deleting');
             },
             redesign: function() {
-                window.location = '/design/' + this.design.category.slug_name + '/' + this.design.id;
+                window.location = `/design/${this.design.category.slug_name}/${this.design.id}`;
             }
         }
     }

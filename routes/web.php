@@ -14,6 +14,7 @@ Route::get('/profile','UserController@edit')->name('users.edit')->middleware('au
 Route::put('/profile','UserController@update')->name('users.update')->middleware('auth');
 Route::get('/users','UserController@index')->name('users.index')->middleware('auth');
 Route::get('/users/{user}','UserController@show')->name('users.show')->middleware('admin');
+Route::post('user/{user}/adminComment','UserController@adminComment')->name('users.show')->middleware('admin');
 
 Route::get('/designs','DesignController@index')->name('designs.index')->middleware('auth');
 Route::post('/designs','DesignController@store')->name('designs.store');

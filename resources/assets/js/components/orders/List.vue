@@ -2,7 +2,7 @@
     <div class="">
         <transition name="fade" mode="out-in">
             <div :key="getOrder.id">
-                <a :href="'orders/'+getOrder.reference_number" class="color-secondary"># {{ getOrder.reference_number }}</a>
+                <a :href="'/orders/'+getOrder.reference_number" class="color-secondary"># {{ getOrder.reference_number }}</a>
                 <p>{{ getOrder.status.name }}</p>
                 <p>Placed on {{ getOrder.created_at | ago }}</p>
                 <p>$ {{ getOrder.total | inDollars }}</p>

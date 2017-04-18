@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('business')->nullable();
             $table->integer('role_id')->unsigned()->nullable();
+            $table->text('admin_comment')->nullable();
             $table->rememberToken();
             $table->timestamps();
 

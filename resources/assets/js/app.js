@@ -30,6 +30,7 @@ Vue.component('category-show', require('./components/categories/Show.vue'));
 Vue.component('modal-image', require('./components/modals/Image.vue'));
 Vue.component('modal-contact', require('./components/modals/Contact.vue'));
 Vue.component('modal-template', require('./components/modals/Template.vue'));
+Vue.component('user-comment', require('./components/modals/UserComment.vue'));
 
 Vue.component('fpd', require('./components/Fpd.vue'));
 Vue.component('products', require('./components/Products.vue'));
@@ -60,11 +61,14 @@ const app = new Vue({
     el: '#app',
     data: {
         design: '',
+        userId: '',
+        previousComment: '',
         modalActive: false,
         showImageModal: false,
         showCartPreview: false,
         showContactModal: false,
         showDesignPicker: false,
+        showUserCommentModal: false
     },
     created: function() {
         var vm = this;
@@ -86,9 +90,7 @@ const app = new Vue({
             this.modalActive = false;
         },
         openImageModal: function(design = null) {
-            if (design) {
-                this.design = design;
-            }
+            if (design) this.design = design;
             this.showImageModal = true;
             this.modalActive = true;
         },
@@ -96,6 +98,18 @@ const app = new Vue({
             this.showImageModal = false;
             this.modalActive = false;
             this.design = '';
+        },
+        openUserCommentModal: function(userId, previousComment = null) {
+            this.userId = userId;
+            if (previousComment) this.previousComment = previousComment;
+            this.showUserCommentModal = true;
+            this.modalActive = true;
+        },
+        closeUserCommentModal: function() {
+            this.showUserCommentModal = false;
+            this.modalActive = false;
+            this.userId = '';
+            this.previousComment = '';
         },
         deleteAddress: function(event) {
             swal({

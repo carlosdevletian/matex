@@ -16833,7 +16833,7 @@ var stripeMixin = {
         openStripe: function openStripe(callback) {
             this.stripeHandler.open({
                 name: 'Matex',
-                description: 'Bracelets',
+                description: 'Your order',
                 currency: "usd",
                 allowRememberMe: false,
                 panelLabel: 'Pay {{amount}}',
@@ -28045,6 +28045,7 @@ Vue.component('category-show', __webpack_require__(195));
 Vue.component('modal-image', __webpack_require__(201));
 Vue.component('modal-contact', __webpack_require__(200));
 Vue.component('modal-template', __webpack_require__(202));
+Vue.component('user-comment', __webpack_require__(251));
 
 Vue.component('fpd', __webpack_require__(192));
 Vue.component('products', __webpack_require__(193));
@@ -28075,11 +28076,14 @@ var app = new Vue({
     el: '#app',
     data: {
         design: '',
+        userId: '',
+        previousComment: '',
         modalActive: false,
         showImageModal: false,
         showCartPreview: false,
         showContactModal: false,
-        showDesignPicker: false
+        showDesignPicker: false,
+        showUserCommentModal: false
     },
     created: function created() {
         var vm = this;
@@ -28103,9 +28107,7 @@ var app = new Vue({
         openImageModal: function openImageModal() {
             var design = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
-            if (design) {
-                this.design = design;
-            }
+            if (design) this.design = design;
             this.showImageModal = true;
             this.modalActive = true;
         },
@@ -28113,6 +28115,20 @@ var app = new Vue({
             this.showImageModal = false;
             this.modalActive = false;
             this.design = '';
+        },
+        openUserCommentModal: function openUserCommentModal(userId) {
+            var previousComment = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+            this.userId = userId;
+            if (previousComment) this.previousComment = previousComment;
+            this.showUserCommentModal = true;
+            this.modalActive = true;
+        },
+        closeUserCommentModal: function closeUserCommentModal() {
+            this.showUserCommentModal = false;
+            this.modalActive = false;
+            this.userId = '';
+            this.previousComment = '';
         },
         deleteAddress: function deleteAddress(event) {
             swal({
@@ -29742,7 +29758,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['design', 'addClass'],
+    props: ['design', 'addClass', 'admin'],
     data: function data() {
         return {
             imageUrl: {
@@ -57350,7 +57366,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Redesign")])])]), _vm._v(" "), _c('div', {
     staticClass: "text-center"
-  }, [_vm._v(_vm._s(_vm.design.category.name))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.design.category.name))])])]), _vm._v(" "), (!_vm.admin) ? _c('div', {
     staticClass: "position-relative"
   }, [_c('button', {
     staticClass: "Icon__more",
@@ -57359,7 +57375,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.showMore = !_vm.showMore
       }
     }
-  }, [_vm._v("\n            ⋮\n        ")])])])
+  }, [_vm._v("\n            ⋮\n        ")])]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -57495,7 +57511,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('a', {
     staticClass: "color-secondary",
     attrs: {
-      "href": 'orders/' + _vm.getOrder.reference_number
+      "href": '/orders/' + _vm.getOrder.reference_number
     }
   }, [_vm._v("# " + _vm._s(_vm.getOrder.reference_number))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.getOrder.status.name))]), _vm._v(" "), _c('p', [_vm._v("Placed on " + _vm._s(_vm._f("ago")(_vm.getOrder.created_at)))]), _vm._v(" "), _c('p', [_vm._v("$ " + _vm._s(_vm._f("inDollars")(_vm.getOrder.total)))])])]), _vm._v(" "), (_vm.orders.length > 0) ? _c('div', {
     staticClass: "row"
@@ -67034,6 +67050,172 @@ __webpack_require__(132);
 __webpack_require__(133);
 module.exports = __webpack_require__(134);
 
+
+/***/ }),
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(252),
+  /* template */
+  __webpack_require__(253),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/modals/UserComment.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] UserComment.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-54c22926", Component.options)
+  } else {
+    hotAPI.reload("data-v-54c22926", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 252 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['userId', 'previousComment'],
+    data: function data() {
+        return {
+            csrf: Matex.csrfToken,
+            comment: this.previousComment ? this.previousComment : '',
+            formAction: '/user/' + this.userId + '/adminComment'
+        };
+    },
+    methods: {
+        close: function close() {
+            this.$emit('close');
+            this.comment = '';
+        }
+    }
+});
+
+/***/ }),
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('modal-template', {
+    on: {
+      "close": function($event) {
+        _vm.close()
+      }
+    }
+  }, [_c('div', {
+    slot: "header"
+  }, [_vm._v("\n        Notes\n    ")]), _vm._v(" "), _c('div', {
+    slot: "description"
+  }, [_vm._v("\n        Add any relevant notes associated to this user.\n    ")]), _vm._v(" "), _c('div', {
+    slot: "body"
+  }, [_c('form', {
+    staticClass: "pd-btm-50",
+    attrs: {
+      "method": "POST",
+      "action": _vm.formAction
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.csrf),
+      expression: "csrf"
+    }],
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": (_vm.csrf)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.csrf = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.comment),
+      expression: "comment"
+    }],
+    staticClass: "Form",
+    attrs: {
+      "name": "admin_comment"
+    },
+    domProps: {
+      "value": (_vm.comment)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.comment = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('button', {
+    staticClass: "Button--primary stick-to-bottom"
+  }, [_vm._v("Add")])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-54c22926", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

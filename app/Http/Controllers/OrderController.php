@@ -64,7 +64,10 @@ class OrderController extends Controller
 
     public function create($categorySlug, Design $design = null)
     {
-        if(! empty($design->id) && ! $design->ownedByUser()){
+        if(! $design->exists && ! session('design')) {
+            return redirect()->route('home');
+        }
+        if($design->exists && ! $design->ownedByUser()){
             return redirect()->route('dashboard');
         }
 
@@ -72,7 +75,7 @@ class OrderController extends Controller
         $products = Product::activeFrom($categoryId);
         if(auth()->check()) {
             $addresses = Address::where('user_id', auth()->user()->id)->get();
-            $design = $design->id != null ? $design : Design::findOrFail(session('design'));
+            $design = $design->exists ? $design : Design::findOrFail(session('design'));
 
             return view('orders.create', [
                 'products' => $products, 

@@ -13,7 +13,7 @@
                 <div class="text-center">{{ design.category.name }}</div>
             </div>
         </a>
-        <div class="position-relative">
+        <div class="position-relative" v-if="! admin">
             <button @click="showMore = !showMore" class="Icon__more">
                 &#x22ee;
             </button>
@@ -23,7 +23,7 @@
 
 <script>
     export default {
-        props: ['design', 'addClass'],
+        props: ['design', 'addClass', 'admin'],
         data: function() {
             return {
                 imageUrl: {

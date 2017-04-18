@@ -119,4 +119,11 @@ class UserController extends Controller
     {
         //
     }
+
+    public function adminComment(User $user)
+    {
+        $user->update(['admin_comment' => request('admin_comment')]);
+        flash()->success('Success!', 'Note added');
+        return back();
+    }
 }

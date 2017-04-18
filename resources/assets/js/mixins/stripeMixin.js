@@ -15,7 +15,7 @@ export const stripeMixin = {
         openStripe(callback) {
             this.stripeHandler.open({
                 name: 'Matex',
-                description: 'Bracelets',
+                description: 'Your order',
                 currency: "usd",
                 allowRememberMe: false,
                 panelLabel: 'Pay {{amount}}',

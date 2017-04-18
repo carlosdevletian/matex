@@ -1,12 +1,17 @@
 .Modal {
     max-width: 400px;
-    margin: 60px auto;
+    margin: 50px auto;
     background: rgba(255,255,255,1);
     width: 70%;
     border-radius: $border-radius-base;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
     position: relative;
+    
+    &--wide {
+        max-width: none;
+        width: 90%;
+    }
 
     &__background {
         position: fixed;
@@ -17,11 +22,10 @@
         height: 100%;
         background-color: rgba(0, 0, 0, 0.4);
         transition: opacity .3s ease;
-        overflow-y: scroll;
+        overflow-y: hidden;
     }
 
     &__header {
-        margin-top: 0;
         font-size: 13pt;
         color: $brand-primary;
         text-align: center;
@@ -41,22 +45,29 @@
     }
 
     &__body {
-        margin: 20px 0 50px;
+        margin: 20px 0 30px;
         padding-left: 30px;
         padding-right: 30px;
+
+        & img {
+            max-height: 400px;
+            max-height: 60vh;
+            width: auto;
+        }
     }
 
     &__footer {
         text-align: center;
         padding-left: 30px;
         padding-right: 30px;
-        padding-bottom: 20px;
+        padding-bottom: 10px;
     }
+
     &__checkbox {
         text-align: left;
     }
+
     &__close {
-        float: right;
         color: lightgrey;
         padding: 20px 30px;
         position: absolute;
@@ -65,11 +76,6 @@
             color: grey;
             cursor: pointer;
         }
-    }
-
-    &--wide {
-        max-width: none;
-        width: 90%;
     }
 }
 

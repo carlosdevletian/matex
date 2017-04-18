@@ -47,14 +47,6 @@
         methods: {
             updatePrice: function () {
                 this.processing = true;
-                this.validateQuantity();
-                axios.post('/calculatePrice', this.item).then((response) => {
-                    this.item.unit_price = response.data.unit_price;
-                    this.item.total_price = response.data.total_price;
-                    this.processing = false;
-               });
-            },
-            validateQuantity: function() {
                 if(this.item.quantity < 1 || this.item.quantity % 1 != 0) {
                     this.error = 'Input a valid quantity';
                     this.item.quantity = 0;
@@ -62,10 +54,16 @@
                     return;
                 }
                 this.error = '';
+                axios.post('/calculatePrice', this.item).then((response) => {
+                    this.item.unit_price = response.data.unit_price;
+                    this.item.total_price = response.data.total_price;
+                    this.processing = false;
+               });
             },
             deleteItem: function() {
                 this.processing = true;
                 this.$emit('delete-item', this.item.product.id);
+                this.processing = false;
             }
         }
     }

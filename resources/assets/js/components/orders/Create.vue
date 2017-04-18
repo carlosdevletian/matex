@@ -185,19 +185,20 @@
                     }
                     axios.post('/calculateShipping', data).then((response) => {
                         this.shipping = response.data.shipping;
-                        this.amountsLoading = false;
                     });
                 }
                 this.amountsLoading = false;
             },
             calculateTax: function() {
-                var data = {
-                    zip: this.address.zip
+                if(this.zipIsValid) {
+                    var data = {
+                        zip: this.address.zip
+                    }
+                    axios.post('/calculateTax', data).then((response) => {
+                        this.tax = (this.subtotal + this.shipping) * response.data.tax_percentage;
+                    });
                 }
-                axios.post('/calculateTax', data).then((response) => {
-                    this.tax = (this.subtotal + this.shipping) * response.data.tax_percentage;
-                    this.amountsLoading = false;
-                });
+                this.amountsLoading = false;
             },
             sortedProducts: function() {
                 return this.products.sort(function(productA,productB){
@@ -224,14 +225,16 @@
                 return this.address.zip.length == 5;
             },
             calculatedSubtotal: function() {
-                this.amountsLoading = true;
-                this.subtotal = 0;
-                var vm = this;
-                this.items.forEach(function(item) {
-                    vm.subtotal = (vm.subtotal + item.total_price);
-                });
-                this.amountsLoading = false;
-                return this.subtotal;
+                if(this.items.length > 0) {
+                    this.amountsLoading = true;
+                    this.subtotal = 0;
+                    var vm = this;
+                    this.items.forEach(function(item) {
+                        vm.subtotal = (vm.subtotal + item.total_price);
+                    });
+                    this.amountsLoading = false;
+                    return this.subtotal;
+                }
             },
             totalPrice: function() {
                 return (this.subtotal + this.shipping + this.tax);

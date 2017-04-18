@@ -16,16 +16,9 @@
                     @include('widgets.designs')
                 </div>
                 <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            @include('widgets.cart')
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            @include('widgets.addresses')
-                        </div>
-                    </div>
+                    @include('widgets.cart')
+                    
+                    @include('widgets.addresses')
                 </div>
                 <!-- falta editar perfil -->
             </div>

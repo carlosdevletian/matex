@@ -66,14 +66,6 @@
         methods: {
             updateItem: function () {
                 this.processing = true;
-                this.validateQuantity();
-                axios.put('/items/' + this.item.id, this.item).then((response) => {
-                    this.$emit('item-updated', response.data);
-                    Event.$emit('item-updated', response.data);
-                    this.processing = false;
-                });
-            },
-            validateQuantity: function() {
                 if(this.item.quantity < 1 || this.item.quantity % 1 != 0) {
                     this.error = 'To delete, press the X button';
                     this.item.quantity = 1;
@@ -82,6 +74,11 @@
                     return;
                 }
                 this.error = '';
+                axios.put('/items/' + this.item.id, this.item).then((response) => {
+                    this.$emit('item-updated', response.data);
+                    Event.$emit('item-updated', response.data);
+                    this.processing = false;
+                });
             },
             deleteItem: function() {
                 this.processing = true;

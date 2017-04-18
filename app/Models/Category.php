@@ -25,6 +25,16 @@ class Category extends Model
         return $this->hasMany(Design::class);
     }
 
+    public function updateProducts($request)
+    {
+        return collect($request)->transpose()->map(function ($productData, $key) {
+            if($productData[0] && $product = Product::find($productData[0])) {
+                return $product->updateFromRequest($productData, $key);
+            }
+            return Product::new($productData, $this->id, $key);
+        });
+    }
+
     public function imagePath()
     {
         return asset('categories/'.$this->image_name);

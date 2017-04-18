@@ -130,8 +130,7 @@ class CategoryController extends Controller
             'crop_y_position' => request()->cropy
         ]);
 
-        // $category->updateProducts();
-        $this->updateCategoryProducts(request('products'), $category);
+        $category->updateProducts(request('products'));
 
         flash()->success('Success!','Changes Made');
         return redirect()->back();
@@ -145,44 +144,5 @@ class CategoryController extends Controller
     public function enable(Category $category)
     {
         $category->enable();
-    }
-    private function updateCategoryProducts($request, $category)
-    {
-        return collect($request)->transpose()->map(function ($productData, $key) use($category) {
-            if($productData[0] && $product = Product::find($productData[0])) {
-                return $this->updateProduct($product, $productData, $key);
-            }
-            return $this->createProduct($productData, $category->id, $key);
-        });
-    }
-
-    private function createProduct ($data, $categoryId, $displayPosition) 
-    {
-        // validar información del producto nuevo?
-        if(!$data[1] || !$data[2] || !$data[3] || !$data[4] ) {
-            return;
-        }
-        $product = Product::create([
-            'name' => $data[1],
-            'width' => $data[2],
-            'length' => $data[3],
-            'category_id' => $categoryId,
-            'display_position' => $displayPosition
-        ]);
-        $product->setActive($data[4]);
-        return $product;
-    }
-
-    private function updateProduct ($product, $data, $displayPosition) 
-    {
-        // validar información de alguna forma?
-        $product->update([
-            'name' => $data[1],
-            'width' => $data[2],
-            'length' => $data[3],
-            'display_position' => $displayPosition
-        ]);
-        $product->setActive($data[4]);
-        return $product;
     }
 }

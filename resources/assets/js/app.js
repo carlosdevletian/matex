@@ -97,5 +97,18 @@ const app = new Vue({
             this.modalActive = false;
             this.design = '';
         },
+        deleteAddress: function(event) {
+            swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: 'rgb(0, 0, 170)',
+                cancelButtonColor: 'rgb(208,67,40)',
+                confirmButtonText: 'Yes, delete it!'
+            }).then(function () {
+                event.target.submit();
+            })
+        }
     }
 });

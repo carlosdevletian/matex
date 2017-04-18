@@ -15,12 +15,13 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $addresses = auth()->user()->addresses->sortByDesc('created_at');
+        $addresses = Address::where('user_id', auth()->id())->orderBy('created_at', 'desc');
 
         if (request()->wantsJson()){
+            $addresses = $addresses->get();
             return response()->json(['addresses' => $addresses], 200);
         }
-
+        $addresses = $addresses->simplePaginate(4);
         return view('addresses.index', compact('addresses'));
     }
 
@@ -100,8 +101,8 @@ class AddressController extends Controller
             ]);
 
             $address->update(request()->all());
-
-            return redirect()->route('addresses.index');
+            flash()->success('Success!', 'Changes made');
+            return back();
         }
 
         abort(403, 'Unauthorized action.');
@@ -118,7 +119,7 @@ class AddressController extends Controller
         if (Gate::allows('owner', $address)) {
             $address->delete();
 
-            return redirect()->back();
+            return redirect()->route('addresses.index');
         }
 
         abort(403, 'Unauthorized action.');

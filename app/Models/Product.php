@@ -47,4 +47,33 @@ class Product extends Model
     {
         $active ? $this->enable() : $this->disable();
     }
+
+    public function updateFromRequest($data, $displayPosition)
+    {
+        $this->update([
+            'name' => $data[1],
+            'width' => $data[2],
+            'length' => $data[3],
+            'display_position' => $displayPosition
+        ]);
+        $this->setActive($data[4]);
+        return $this;
+    }
+
+    public static function new($data, $categoryId, $displayPosition)
+    {
+        // validar información del producto nuevo?
+        if(!$data[1] || !$data[2] || !$data[3] || !$data[4] ) {
+            return;
+        }
+        $product = self::create([
+            'name' => $data[1],
+            'width' => $data[2],
+            'length' => $data[3],
+            'category_id' => $categoryId,
+            'display_position' => $displayPosition
+        ]);
+        $product->setActive($data[4]);
+        return $product;
+    }
 }

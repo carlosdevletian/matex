@@ -26,6 +26,7 @@ class CreateAddressesTable extends Migration
             $table->string('phone_number');
             $table->text('comment')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
 

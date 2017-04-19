@@ -17,7 +17,7 @@ class DesignController extends Controller
      */
     public function index()
     {
-        $designs = auth()->user()->designs->load('category')->sortByDesc('created_at');
+        $designs = Design::where('user_id', auth()->id())->orderBy('created_at', 'desc')->paginate(12);
 
         return view('designs.index', compact('designs'));
     }

@@ -18,6 +18,8 @@ class Item extends Model
         'available'
     ];
 
+    protected $with = ['design', 'product.category'];
+
     public function product()
     {
         return $this->belongsTo(Product::class);

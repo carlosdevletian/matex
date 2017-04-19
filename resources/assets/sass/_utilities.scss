@@ -66,7 +66,7 @@
     background-color: #fff0e6;
 }
 .pd-0 {
-    padding: 0px;
+    padding: 0px !important;
 }
 .pd-20 {
     padding: 20px;
@@ -101,6 +101,9 @@
 }
 .top-40 {
     top: 40%
+}
+.white-background {
+    background-color: white;
 }
 .width-150-px {
     width: 150px;

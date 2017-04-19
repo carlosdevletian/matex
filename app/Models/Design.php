@@ -17,6 +17,8 @@ class Design extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $with = ['category'];
+
     protected $directory;
 
     protected $temporaryDirectory;

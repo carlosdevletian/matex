@@ -21,7 +21,7 @@
                 @include('widgets.orders', ['orders' => $user->orders()->with('status')->get(), 'profileUser' => $user])
             </div>
             <div class="col-md-4">
-                @include('widgets.designs', ['designs' => $user->recentDesigns()])
+                @include('widgets.designs', ['designs' => $user->recentDesigns(), 'profileUser' => $user])
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@
     @if($orders->count() > 0)
         <order-list :orders="{{ $orders }}"></order-list>
         @if(auth()->user()->hasRole('admin'))
-            <a href="{{ route('orders.index', ['user' => $profileUser->email]) }}" class="Button--secondary stick-to-bottom color-white">See all orders</a>
+            <a href="{{ route('orders.index', ['client' => $profileUser->email]) }}" class="Button--secondary stick-to-bottom color-white">See all orders</a>
         @else
             <a href="{{ route('orders.index') }}" class="Button--secondary stick-to-bottom color-white">See all orders</a>
         @endif

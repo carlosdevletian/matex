@@ -27,12 +27,16 @@ class Category extends Model
 
     public function updateProducts($request)
     {
-        return collect($request)->transpose()->map(function ($productData, $key) {
+        $products = collect($request)->transpose()->map(function ($productData, $key) {
             if($productData[0] && $product = Product::find($productData[0])) {
                 return $product->updateFromRequest($productData, $key);
             }
             return Product::new($productData, $this->id, $key);
         });
+        if($this->countActive($products) == 0) {
+            $this->disable();
+        }
+        return $products;
     }
 
     public function imagePath()
@@ -40,44 +44,46 @@ class Category extends Model
         return asset('categories/'.$this->image_name);
     }
 
+    public function isActive()
+    {
+        return $this->is_active && $this->activeProducts()->count() > 0;
+    }
+
     public function enable()
     {
         $this->update(['is_active' => true]);
-
-        foreach ($this->products as $product) {
-            $product->enable();
-        }
+        $this->products->each->enable();
     }
 
     public function disable()
     {
         $this->update(['is_active' => false]);
-
-        foreach ($this->products as $product) {
-            $product->disable();
-        }
+        $this->products->each->disable();
     }
 
-    /**
-     * Scope a query to only include active categories.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     public function scopeActive($query)
     {
-        return $query->where('is_active', 1);
+        return $query->where('is_active', 1)
+                    ->whereHas('products', function($q){ 
+                        $q->active();
+                    });
     }
 
-    /**
-     * Scope a query to only include inactive categories.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     public function scopeInactive($query)
     {
-        return $query->where('is_active', 0);
+        // Get all categories 
+        // where is_active == 0 
+        // or where all its products are inactive 
+        // or where it has no products
+        return $query->whereDoesntHave('products', function($q) {
+                        $q->active();
+                    })->orWhere('is_active', 0);
+                    
+    }
+
+    public function activeProducts()
+    {
+         return $this->products()->active();
     }
 
     public function addImage($file, $name)
@@ -96,5 +102,16 @@ class Category extends Model
         $image->save($path, 85);
 
         $this->image_name = $file_name;
+    }
+
+    private function countActive($products)
+    {
+        $countedProducts = collect();
+        foreach ($products as $product) {
+            if($product && $product->is_active) {
+                $countedProducts[] = $product;
+            }
+        }
+        return $countedProducts->count();
     }
 }

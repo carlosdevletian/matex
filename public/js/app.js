@@ -57492,9 +57492,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "Thumbnail--image position-absolute text-center",
     staticStyle: {
       "width": "100%",
-      "bottom": "0"
+      "bottom": "0",
+      "display": "flex",
+      "justify-content": "center",
+      "flex-direction": "column"
     }
-  }, [_c('a', {
+  }, [(!!+_vm.design.category.is_active) ? _c('a', {
     staticClass: "Icon__more--element",
     attrs: {
       "role": "button"
@@ -57502,7 +57505,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.orderAgain
     }
-  }, [_vm._v("Order Again")]), _vm._v(" "), _c('a', {
+  }, [_vm._v("Order Again")]) : _vm._e(), _vm._v(" "), _c('a', {
     staticClass: "Icon__more--element",
     attrs: {
       "role": "button"
@@ -57510,7 +57513,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.deleteDesign
     }
-  }, [_vm._v("Delete")]), _vm._v(" "), _c('a', {
+  }, [_vm._v("Delete")]), _vm._v(" "), (!!+_vm.design.category.is_active) ? _c('a', {
     staticClass: "Icon__more--element",
     attrs: {
       "role": "button"
@@ -57518,7 +57521,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.redesign
     }
-  }, [_vm._v("Redesign")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Redesign")]) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "text-center"
   }, [_vm._v(_vm._s(_vm.design.category.name))])])]), _vm._v(" "), (!_vm.admin) ? _c('div', {
     staticClass: "position-relative"

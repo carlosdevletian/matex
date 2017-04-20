@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Image;
+use App\Models\Traits\Filterable;
 use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Design extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Filterable;
  
     protected $fillable = [
         'image_name', 'price', 'user_id', 'email', 'views', 'crop_width', 'crop_height', 'crop_x_position', 'crop_y_position', 'category_id'

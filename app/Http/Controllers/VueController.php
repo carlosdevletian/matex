@@ -65,8 +65,8 @@ class VueController extends Controller
     public function cartPreview()
     {
         return response()->json([
-            'itemQuantity' => auth()->user()->cart->items()->count(),
-            'firstItem' => auth()->user()->cart->items()->with(['product', 'design.category',])->first(),
+            'itemQuantity' => auth()->user()->cart->availableItems()->count(),
+            'firstItem' => auth()->user()->cart->availableItems()->first(),
             'subtotal' => auth()->user()->cart->orderTotal()/100,
         ], 200);
     }

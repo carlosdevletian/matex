@@ -14,4 +14,10 @@ class DesignPolicy
     {
         return $user->id == $design->user_id;
     }
+
+    public function index(User $authUser, User $profileUser)
+    {
+        return ($authUser->hasRole('admin') && $profileUser->exists) || 
+                (! $authUser->hasRole('admin') && ! $profileUser->exists);
+    }
 }

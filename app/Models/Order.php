@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Calculator;
+use App\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    use Filterable;
+    
     protected $fillable = ['user_id', 'address_id', 'email', 'status_id'];
     protected $dates = ['created_at', 'updated_at'];
 

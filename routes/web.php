@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/profile','UserController@update')->name('users.update');
     Route::get('/users','UserController@index')->name('users.index');
     // Designs
-    Route::get('/designs','DesignController@index')->name('designs.index');
+    Route::get('/designs/{user?}','DesignController@index')->name('designs.index');
     Route::get('/orders', 'OrderController@index')->name('orders.index');
     // Carts
     Route::get('/cart', 'CartController@show')->name('carts.show');

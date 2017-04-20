@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Image;
+use App\Models\User;
 use App\Models\Design;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Filters\DesignFilters;
 use Illuminate\Support\Facades\File;
 
 class DesignController extends Controller
@@ -15,11 +17,21 @@ class DesignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user, DesignFilters $filters)
     {
-        $designs = Design::where('user_id', auth()->id())->orderBy('created_at', 'desc')->paginate(12);
+        $this->authorize('index', [Design::class, $user]);
 
-        return view('designs.index', compact('designs'));
+        if(admin()) {
+            $designs = Design::withTrashed()->where('user_id', $user->id);
+        } else {
+            $designs = Design::where('user_id', auth()->id());
+        }
+        $categories = $designs->get()->map(function($design){
+                        return $design->category;
+                    })->unique('id');
+        $designs = $designs->latest()->filter($filters)->paginate(12);
+
+        return view('designs.index', compact('designs', 'categories'));
     }
 
     /**
@@ -36,8 +48,8 @@ class DesignController extends Controller
         
         $category = Category::where('slug_name', $categorySlug)->firstOrFail();
         if(auth()->check()) {
-            return view('designs.create', 
-                        ['category' => $category, 
+            return view('designs.create', [
+                        'category' => $category, 
                         'design' => $design, 
                         'existingDesigns'=> Design::fromCategory(auth()->id(), $category->id)]);
         }

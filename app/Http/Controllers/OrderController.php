@@ -11,27 +11,24 @@ use App\Models\Address;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Filters\OrderFilters;
 use App\Events\OrderStatusChanged;
 use Illuminate\Support\Facades\File;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(OrderFilters $filters)
     {
         if(admin()){
             $statuses = Status::all();
-            
-            if(request()->has('status')){
-                $filter = Status::findOrFail(request()->status);
-                $orders = Order::where('status_id', $filter->id)->get();
-            }else{
-                $orders = Order::all();
-            }
+            $orders = Order::latest()->filter($filters)->paginate(10);
 
-            return view('orders.admin-index', compact('orders', 'statuses', 'filter'));
+            return view('orders.admin-index', compact('orders', 'statuses'));
         }
-
-        $orders = auth()->user()->orders->sortByDesc('created_at');
+        $orders = Order::where('user_id', auth()->id())
+                        ->latest()
+                        ->filter($filters)
+                        ->paginate(2);
 
         return view('orders.index', compact('orders'));
     }
@@ -44,10 +41,6 @@ class OrderController extends Controller
 
         $order = Order::with(['items.design' => function($query){
                 $query->withTrashed()->addSelect(['id', 'image_name', 'created_at']);
-            },'items.product' => function($query) {
-                $query->addSelect(['id', 'name', 'category_id']);
-            },'items.product.category' => function($query) {
-                $query->addSelect(['id', 'name']);
             }, 'status'])
             ->where('reference_number', $referenceNumber)->firstOrFail();
 
@@ -64,15 +57,18 @@ class OrderController extends Controller
 
     public function create($categorySlug, Design $design = null)
     {
+        $category = Category::where('slug_name', $categorySlug)->firstOrFail();
         if(! $design->exists && ! session('design')) {
             return redirect()->route('home');
         }
         if($design->exists && ! $design->ownedByUser()){
             return redirect()->route('dashboard');
         }
+        if(! $category->isActive()) {
+            return redirect()->route('home');
+        }
 
-        $categoryId = Category::where('slug_name', $categorySlug)->firstOrFail()->id;
-        $products = Product::activeFrom($categoryId);
+        $products = Product::activeFrom($category->id);
         if(auth()->check()) {
             $addresses = Address::where('user_id', auth()->user()->id)->get();
             $design = $design->exists ? $design : Design::findOrFail(session('design'));
@@ -91,7 +87,7 @@ class OrderController extends Controller
             'addresses' => $addresses, 
             'design' => session('design'), 
             'design_image' => session('design'), 
-            'categoryId' => $categoryId
+            'categoryId' => $category->id
         ]);
     }
 

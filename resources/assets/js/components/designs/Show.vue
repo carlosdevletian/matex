@@ -3,11 +3,11 @@
         <a role="button" @click="openImage">
             <div class="Card Card--thumbnail Flippable" :class="{ Flipped : showMore }">
                 <div class="Flippable__front Thumbnail--image background-image" :style="imageUrl"></div>
-                <div class="Flippable__back position-relative" @click.stop>
-                    <div class="Thumbnail--image position-absolute text-center" style="width: 100%; bottom: 0">
-                        <a role="button" @click="orderAgain" class="Icon__more--element">Order Again</a>
+                <div class="Flippable__back position-relative" @click.stop style="">
+                    <div class="Thumbnail--image position-absolute text-center" style="width: 100%; bottom: 0;display: flex; justify-content: center; flex-direction: column">
+                        <a role="button" v-if="!!+design.category.is_active" @click="orderAgain" class="Icon__more--element">Order Again</a>
                         <a role="button" @click="deleteDesign" class="Icon__more--element">Delete</a>
-                        <a role="button" @click="redesign" class="Icon__more--element">Redesign</a>
+                        <a role="button" v-if="!!+design.category.is_active" @click="redesign" class="Icon__more--element">Redesign</a>
                     </div>
                 </div>
                 <div class="text-center">{{ design.category.name }}</div>

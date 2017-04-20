@@ -9,13 +9,21 @@
         <div class="row">
             <div class="page-header">
                 <h1>My Orders</h1>
-                <a href="#" style="display: inline; padding-right: 10px">All orders</a>
-                <a href="#" style="display: inline; padding-right: 10px">Active orders</a>
+                <a href="{{ route('orders.index') }}" 
+                    style="display: inline; padding-right: 10px" 
+                    class="{{ request()->has('active') ?: 'color-secondary'}}">
+                        All orders
+                </a>
+                <a href="{{ route('orders.index', ['active' => 1]) }}" 
+                    style="display: inline; padding-right: 10px"
+                    class="{{ ! request()->has('active') ?: 'color-secondary'}}">
+                        Active orders
+                </a>
             </div>
             <div class="col-xs-10 col-xs-offset-1">
                 @if($orders->count() > 0)
                     @foreach($orders as $order)
-                        <div class="Card col-md-12">
+                        <div class="Card Card--double-pd col-md-12">
                             <div class="row white-background" style="margin: -20px -50px 30px -50px; border-bottom: solid 2px rgb(221, 221, 221); padding: 14px 18px">
                                 <div class="col-xs-9">
                                     <div class="table-responsive borderless">
@@ -74,6 +82,7 @@
                 @else
                     <h5>No Orders Placed</h5>
                 @endif
+                <div class="text-center">{{ $orders->links() }}</div>
             </div>
         </div>
     </div>

@@ -12,9 +12,16 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h4>Orders: {{ $filter->name or 'All' }}</h4>
+                <h4>Orders 
+                    {{ request()->has('client') ? 'by ' . request()->client : '' }}
+                </h4>
 
                 <form method="GET" action="{{ route('orders.index') }}">
+                    @foreach(request()->all() as $name => $value)
+                        @unless($name == 'status')
+                            <input type="hidden" name="{{ $name }}" value="{{ $value }}">
+                        @endunless
+                    @endforeach
                     <select name="status">
                         <option selected disabled>Filter Orders</option>
                         <option value>All Orders</option>

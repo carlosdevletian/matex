@@ -26,11 +26,11 @@ class Cart extends Model
 
     public function availableItems()
     {
-         return $this->items->where('available', true)->load('product.category','design');
+         return $this->items->where('available', true);
     }
 
     public function unavailableItems()
     {
-         return $this->items->where('available', false)->load('product.category','design');
+         return $this->items->where('available', false);
     }
 }

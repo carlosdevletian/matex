@@ -39,7 +39,7 @@
     }
 }
 .grey-background {
-    background-color: rgb(241,241,241);
+    background-color: #f5f7f9;
 }
 .large {
     font-size: 2em;
@@ -107,6 +107,10 @@
 }
 .width-150-px {
     width: 150px;
+}
+.main-title {
+    padding-left: 15px;
+    margin: 25px 0px;
 }
 
 // Vue js

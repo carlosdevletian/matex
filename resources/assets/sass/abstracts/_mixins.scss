@@ -36,8 +36,10 @@
 
 //Button mixins
 //Background color es el color de backkground del boton, transparent determina si el boton será transparente por dentro, color determina el color del font (si es transparente, será del mismo color del borde), transition determina si el boton tiene una transición de color y time el tiempo de transicion
-@mixin button($background-color: white, $transparent: true, $font-size: 12pt, $color: white, $hover-color: white, $transition: true, $time: .5s, $full-size: true) {
-    border: 2px solid $background-color;
+@mixin button($background-color: white, $transparent: true, $font-size: 12pt, $color: white, $hover-color: white, $transition: true, $time: .5s, $full-size: true, $border: true) {
+    @if ($border == true) {
+        border: 2px solid $background-color;
+    }
     @if ($transparent == true) {
         background-color: transparent;
         color: $background-color;

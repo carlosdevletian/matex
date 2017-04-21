@@ -6,10 +6,10 @@ $break-large: 992px;
 $break-extra-large: 1200px;
 
 //Colors
-$brand-primary: rgb(0, 0, 170);
-$brand-secondary: rgb(241, 106, 1);
-$brand-red: rgb(208,67,40);
-$brand-purple: rgb(116,72,157);
+$brand-primary: #0000AA;
+$brand-secondary: #F16A26;
+$brand-red: #D04343;
+$brand-purple: #74489d;
 $gradient-blue: #1659CF;
 
 //Border
@@ -40,7 +40,7 @@ $navbar-default-border: none;
 $navbar-margin-bottom: 0px;
 
 //Navbar links
-$navbar-default-link-color: black;
+$navbar-default-link-color: #546e7a;
 $navbar-default-link-hover-color: $brand-secondary;
 $navbar-default-link-hover-bg: transparent;
 $navbar-default-link-active-color: #555;
@@ -48,8 +48,8 @@ $navbar-default-link-active-bg: darken($navbar-default-bg, 6.5%);
 
 //Navbar toggle
 $navbar-default-toggle-hover-bg: transparent;
-$navbar-default-toggle-icon-bar-bg: black;
+$navbar-default-toggle-icon-bar-bg: #546e7a;
 $navbar-default-toggle-border-color: transparent;
 
 //Footer
-$footer-size: 30px;
+$footer-size: 164px;

@@ -1,3 +1,49 @@
 .Footer {
+    padding: 30px 20px 10px 20px;
+    background-color: #eceff1;
     text-align: center;
+
+    & a, p {
+        text-decoration: none;
+        color: #546e7a;
+    }
+
+    &__title {
+        font-size: 9pt;
+        margin-bottom: 15px;
+        font-weight: bold;
+
+        & a {
+            color: #30434d;
+            padding: 0 7px;
+        }
+    }
+
+    &__subtitle {
+        font-size: 8pt;
+        margin-bottom: 11px;
+
+        & p {
+            display: inline;
+            padding: 0 10px;
+        }
+    }
+
+    &__social {
+        font-size: 13pt;
+        margin-bottom: 12px;
+
+        & a {
+            padding: 0 5px;
+            
+            &:hover {
+                color: $brand-primary;
+            }
+        }
+    }
+
+    &__guava {
+        font-size: 8pt;
+        margin-bottom: 6px;
+    }
 }

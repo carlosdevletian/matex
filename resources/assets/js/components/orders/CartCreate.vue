@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-show="unavailableItems.length > 0" style="display: flex; justify-content: center">
-            <div class="Card Card--half-pd text-center" style="display: inline-block">
+            <div class="Card text-center" style="display: inline-block">
                 <p v-if="! showUnavailable" class="mg-0">
                     Looks like some of your selected items are unavailable...
                     <a role="button" @click="showUnavailable = true">See unavailable items</a>

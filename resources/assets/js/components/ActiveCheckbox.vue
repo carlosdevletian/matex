@@ -11,7 +11,7 @@
             name="products[active][]"
             @mouseover="showInformation = true"
             @mouseleave="showInformation = false">
-        <div class="Card Card--half-pd" v-show="showInformation" style="position: absolute; top: -15px; left: 25px; z-index: 3">
+        <div class="Card" v-show="showInformation" style="position: absolute; top: -15px; left: 25px; z-index: 3">
             <i class="fa fa-2x fa-caret-left" aria-hidden="true" style="
                 position: absolute;
                 top: 3px;

@@ -1,4 +1,6 @@
 .Thumbnail {
+    padding-top: 5px;
+
     &:nth-child(odd) {
         padding-right: 5px
     }
@@ -8,5 +10,12 @@
     &--image {
         height: 100px !important; 
         background-color: white;
+        cursor: zoom-in;
+    }
+
+    &__text {
+        color: #546e7a;
+        margin-top: 7px;
+        margin-bottom: -4px;
     }
 }

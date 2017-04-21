@@ -74,3 +74,13 @@
 .Button--address {
     @include button($brand-primary, true, 11pt);
 }
+
+.Button--card {
+    @include button(#a2b2ba, true, 9pt, #ebeef2, $transition: false, $border: false);
+    border-top: 1px solid #ebeef2;
+    padding: 10px 20px;
+    &:hover {
+        color: #546e7a;
+        font-weight: bold;
+    }
+}

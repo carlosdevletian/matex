@@ -1,27 +1,31 @@
 <template>
-    <div class="">
-        <transition name="fade" mode="out-in">
-            <div :key="getOrder.id">
-                <a :href="'/orders/'+getOrder.reference_number" class="color-secondary"># {{ getOrder.reference_number }}</a>
-                <p>{{ getOrder.status.name }}</p>
-                <p>Placed on {{ getOrder.created_at | ago }}</p>
-                <p>$ {{ getOrder.total | inDollars }}</p>
+    <div>
+        <div class="Card Card--order">
+            <div class="Card__body">
+                <transition name="fade" mode="out-in">
+                    <div :key="getOrder.id">
+                        <p><a :href="'/orders/'+getOrder.reference_number" class="color-primary"># {{ getOrder.reference_number }}</a></p>
+                        <p>{{ getOrder.status.name }}</p>
+                        <p>Placed on {{ getOrder.created_at | ago }}</p>
+                        <p>Total: $ {{ getOrder.total | inDollars }}</p>
+                    </div>
+                </transition>
             </div>
-        </transition>
-        <div v-if="orders.length > 0" class="row">
+        </div>
+        <div v-if="orders.length > 1" class="row Card__chevrons">
             <div class="col-xs-12 text-center">
                 <a v-if="currentOrder != 0" role="button" @click="currentOrder--">
-                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    <i class="fa fa-chevron-circle-left color-secondary Card__chevrons--left" aria-hidden="true"></i>
                 </a>
-                <a role="button" v-for="(order, index) in orders" 
-                    @click="currentOrder = index" 
+                <!-- <a role="button" v-for="(order, index) in orders" 
+                    @click="currentOrder = index"
                     style="display: inline-block">
                     <div class="Bullet"
                         :class="{ 'Bullet--filled' : isCurrentOrder(index) }">
                     </div>
-                </a>
+                </a> -->
                 <a v-if="currentOrder != orders.length -1" role="button" @click="currentOrder++">
-                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    <i class="fa fa-chevron-circle-right color-secondary Card__chevrons--right" aria-hidden="true"></i>
                 </a>
             </div>
         </div>

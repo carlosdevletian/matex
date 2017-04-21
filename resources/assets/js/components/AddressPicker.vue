@@ -18,7 +18,7 @@
                     </a>
                 <div ref="carousel" class="Scroll__container">
                     <div v-for="existingAddress in existingAddresses" class="Scroll__element">
-                        <div class="Card Card--half-pd col-md-12" :class="{ 'border-primary' : isSelected(existingAddress.id)}">
+                        <div class="Card col-md-12" :class="{ 'border-primary' : isSelected(existingAddress.id)}">
                             <a role="button" @click="showExtraInfo(existingAddress.id)" class="Address__expand">
                                 <i class="fa fa-angle-down" aria-hidden="true"></i>
                             </a>

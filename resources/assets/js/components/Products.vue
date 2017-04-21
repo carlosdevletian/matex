@@ -5,7 +5,7 @@
                 <div v-dragula="products" class="Dragula" bag="products-bag">
                     <h4>Products</h4>
                     <div v-for="product in sortedProducts" :key="product.id">
-                        <div class="row Card Card--half-pd">
+                        <div class="row Card">
                             <input type="hidden" name="products[id][]" v-model="product.id">
                             <div class="col-xs-4">
                                 <div class="Input__icon">
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row Card Card--half-pd">
+                    <div class="row Card">
                         <input type="hidden" name="products[id][]" :value="getNull()">
                         <div class="col-xs-4">
                             <div class="Input__icon">

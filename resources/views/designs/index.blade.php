@@ -7,26 +7,25 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="page-header">
-                <h1>Designs</h1>
-                <form method="GET" action="{{ route('designs.index') }}">
-                    @foreach(request()->all() as $name => $value)
-                        @unless($name == 'category')
-                            <input type="hidden" name="{{ $name }}" value="{{ $value }}">
-                        @endunless
-                    @endforeach
-                    <select name="category">
-                        <option selected disabled>Filter by products</option>
-                        <option value>All Designs</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category->slug_name }}">{{ $category->name }}</option>
+            <div class="col-xs-12">
+                <div class="page-header">
+                    <h1>Designs</h1>
+                    <form method="GET" action="{{ route('designs.index') }}">
+                        @foreach(request()->all() as $name => $value)
+                            @unless($name == 'category')
+                                <input type="hidden" name="{{ $name }}" value="{{ $value }}">
+                            @endunless
                         @endforeach
-                    </select>
-                    <button class="btn btn-default">Go</button>
-                </form>
-            </div>
-
-            <div class="col-xs-10 col-xs-offset-1">
+                        <select name="category">
+                            <option selected disabled>Filter by products</option>
+                            <option value>All Designs</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->slug_name }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                        <button class="btn btn-default">Go</button>
+                    </form>
+                </div>
                 <div class="row">
                     @if($designs->count() > 0)
                         @foreach($designs as $design)

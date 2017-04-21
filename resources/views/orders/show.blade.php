@@ -14,7 +14,7 @@
                     </div>
                 @endif
                 <h2 class="mg-btm-20 text-center">Order details</h2>
-                <div class="Card Card--half-pd">
+                <div class="Card">
                     <div class="table-responsive borderless">
                         <table class="table borderless mg-0">
                             <tbody>

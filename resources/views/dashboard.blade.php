@@ -7,8 +7,8 @@
 @section('content')
 	<div class="container">
         <div class="row Section">
-            <h1>Dashboard</h1>
             <div class="col-xs-12">
+                <h3 class="main-title">Dashboard</h3>
                 <div class="col-md-4">
                     @include('widgets.orders')
                 </div>
@@ -20,7 +20,6 @@
                     
                     @include('widgets.addresses')
                 </div>
-                <!-- falta editar perfil -->
             </div>
         </div>
     </div>

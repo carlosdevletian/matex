@@ -225,16 +225,14 @@
                 return this.address.zip.length == 5;
             },
             calculatedSubtotal: function() {
-                if(this.items.length > 0) {
-                    this.amountsLoading = true;
-                    this.subtotal = 0;
-                    var vm = this;
-                    this.items.forEach(function(item) {
-                        vm.subtotal = (vm.subtotal + item.total_price);
-                    });
-                    this.amountsLoading = false;
-                    return this.subtotal;
-                }
+                this.amountsLoading = true;
+                this.subtotal = 0;
+                var vm = this;
+                this.items.forEach(function(item) {
+                    vm.subtotal = (vm.subtotal + item.total_price);
+                });
+                this.amountsLoading = false;
+                return this.subtotal;
             },
             totalPrice: function() {
                 return (this.subtotal + this.shipping + this.tax);

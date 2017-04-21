@@ -30,6 +30,16 @@
                     <li><a href="{{ url('/register') }}">Register</a></li>
                 @else
                     <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                    <li @mouseover="showCartPreview = true" @mouseleave="showCartPreview = false">
+                        <a href="{{ route('carts.show') }}">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        </a>
+                        <div v-show="showCartPreview"
+                            v-cloak 
+                            style="position: absolute; top: 40px; right: 24%">
+                                @include('carts.preview')
+                        </div>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->name }} <span class="caret"></span>
@@ -51,16 +61,6 @@
                                 </form>
                             </li>
                         </ul>
-                    </li>
-                    <li @mouseover="showCartPreview = true" @mouseleave="showCartPreview = false">
-                        <a href="{{ route('carts.show') }}">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                        </a>
-                        <div v-show="showCartPreview"
-                            v-cloak 
-                            style="position: absolute; top: 40px; right: 24%">
-                                @include('carts.preview')
-                        </div>
                     </li>
                 @endif
             </ul>

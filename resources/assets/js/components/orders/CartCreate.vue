@@ -10,7 +10,7 @@
             </div>
         </div>
         <div v-if="unavailableItems.length > 0 && showUnavailable">
-            <div class="Card col-sm-6 col-sm-offset-3">
+            <div class="Card Card--double-pd col-sm-6 col-sm-offset-3">
                 <div class="row">
                     <div class="Order__title--orange text-center">
                         Unavailable items

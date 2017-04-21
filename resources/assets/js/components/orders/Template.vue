@@ -2,7 +2,7 @@
     <div>
         <div class="row">
             <div class="col-md-6">
-                <div class="Card col-sm-12">
+                <div class="Card Card--double-pd col-sm-12">
                     <div class="row">
                         <div class="Order__title--orange text-center">
                             <slot name="items-title"></slot>
@@ -61,7 +61,7 @@
                 </div> 
             </div>
             <div class="col-md-6">
-                <div class="Card col-sm-12 text-center">
+                <div class="Card Card--double-pd col-sm-12 text-center">
                     <div class="row">
                         <div class="Order__title--blue">
                             <slot name="address-title"></slot>

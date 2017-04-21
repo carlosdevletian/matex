@@ -61,8 +61,7 @@ const app = new Vue({
     el: '#app',
     data: {
         design: '',
-        userId: '',
-        previousComment: '',
+        user: null,
         modalActive: false,
         showImageModal: false,
         showCartPreview: false,
@@ -99,17 +98,15 @@ const app = new Vue({
             this.modalActive = false;
             this.design = '';
         },
-        openUserCommentModal: function(userId, previousComment = null) {
-            this.userId = userId;
-            if (previousComment) this.previousComment = previousComment;
+        openUserCommentModal: function(user) {
+            this.user = user;
             this.showUserCommentModal = true;
             this.modalActive = true;
         },
         closeUserCommentModal: function() {
             this.showUserCommentModal = false;
             this.modalActive = false;
-            this.userId = '';
-            this.previousComment = '';
+            this.user = null;
         },
         deleteAddress: function(event) {
             swal({

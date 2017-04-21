@@ -21,12 +21,12 @@
 
 <script>
     export default {
-        props: ['userId', 'previousComment'],
+        props: ['user'],
         data: function () {
             return {
                 csrf: Matex.csrfToken,
-                comment: this.previousComment ? this.previousComment : '',
-                formAction: `/user/${this.userId}/adminComment`
+                comment: this.user.admin_comment,
+                formAction: `/user/${this.user.id}/adminComment`
             };
         },
         methods: {

@@ -1,4 +1,4 @@
-@extends('layouts.app', ['backgroundColor' => 'grey-background'])
+@extends('layouts.app')
 
 @section('title')
     Order # {{ $order->reference_number }}

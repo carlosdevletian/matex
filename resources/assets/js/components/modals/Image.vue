@@ -9,7 +9,7 @@
         </div>
 
         <div slot="body">
-            <img class="img-responsive margin-auto box-shadow" :src="'/images/' + design.image_name + '/1'">
+            <img class="img-responsive margin-auto box-shadow" :src="'/images/' + design.image_name ">
         </div>
 
         <div slot="footer"><p>Created {{ design.created_at | ago }}</p></div>

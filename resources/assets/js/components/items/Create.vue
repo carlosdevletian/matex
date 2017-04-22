@@ -8,7 +8,7 @@
                             <div class="row position-relative">
                                 <div class="col-xs-12">
                                     <a @click="deleteItem" role="button" class="Item__delete" style="position: absolute; top: 3%;left: 0;">&#10005;</a>
-                                    <p class="text-center color-secondary">{{ item.product.name }}</p>
+                                    <p class="color-secondary">{{ item.product.name }}</p>
                                 </div>
                             </div>
                         </td>
@@ -17,7 +17,7 @@
                                 <input type="number"
                                 v-model="item.quantity"
                                 @change="updatePrice"
-                                class="Form pd-0 text-center"
+                                class="Form pd-0"
                                 onfocus="if(this.value == '0') { this.value = ''; }"
                                 v-bind:class="{ 'Form--error' : this.error }"
                                 :disabled="processing"
@@ -26,7 +26,7 @@
                             </div>
                         </td>
                         <td class="col-xs-2">
-                            <p class="text-center">$ {{ item.unit_price | inDollars }}</p>
+                            <p>$ {{ item.unit_price | inDollars }}</p>
                         </td>
                     </tr>
                 </tbody>

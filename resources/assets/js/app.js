@@ -24,6 +24,7 @@ Vue.component('item-create', require('./components/items/Create.vue'));
 Vue.component('item-cart-create', require('./components/items/CartCreate.vue'));
 
 Vue.component('design-show', require('./components/designs/Show.vue'));
+Vue.component('design-thumbnail', require('./components/designs/Thumbnail.vue'));
 
 Vue.component('category-show', require('./components/categories/Show.vue'));
 

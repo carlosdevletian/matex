@@ -1,5 +1,4 @@
 <div class="col-xs-12 Card Card--dashboard position-relative pd-btm-50" style="padding-left: 10px; padding-right: 10px">
-    <img class="Icon img img-responsive" src="{{ URL::to('images/design.png') }}" alt="design">
     <p class="Card__title" style="margin-left: 15px">Designs</p>
     @if($designs->count() > 0)
         @foreach($designs as $design)

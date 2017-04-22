@@ -1,29 +1,31 @@
 <template>
     <order-template>
-        <h3 slot="items-title">Choose your sizes</h3>
+        <p slot="items-title">Choose your sizes</p>
         <div slot="products">
              <div class="row">
-                <div class="col-xs-6 col-xs-offset-3">
-                    <div v-for="product in sortedProducts()">
+                <div class="col-xs-12">
+                    <div v-for="product in sortedProducts()" style="display: inline">
                         <button @click="createItem(product)" class="Button--product">{{ product.name }}</button>
                     </div>
                 </div>
             </div>
         </div>
         <div v-if="items.length > 0" slot="table-header" class="table-responsive borderless">
-            <hr>
+            <div v-show="products.length != 0">
+                <hr>
+            </div>
             <table class="table borderless mg-0">
                 <tbody>
                     <tr>
-                        <td class="pd-0 col-xs-7">
-                                <p class="text-center mg-0">Items</p>
+                        <td class="col-xs-7">
+                            <p>Items</p>
                         </td>
-                        <td class="pd-0 col-xs-3">
-                                <p class="text-center mg-0 visible-xs-block">Qty</p>
-                                <p class="text-center mg-0 hidden-xs">Quantity</p>
+                        <td class="col-xs-3">
+                            <p class="visible-xs-block">Qty</p>
+                            <p class="hidden-xs">Quantity</p>
                         </td>
-                        <td class="pd-0 col-xs-2">
-                                <p class="text-center mg-0">Price</p>
+                        <td class="col-xs-2">
+                            <p>Price</p>
                         </td>
                     </tr>
                 </tbody>
@@ -41,17 +43,17 @@
         <div slot="subtotal">$ {{ calculatedSubtotal | inDollars }}</div>
         <div slot="zip-error">
             <div class="row" v-show="! zipIsValid">
-                <hr>
                 <div class="col-xs-12 text-center color-secondary">
+                    <hr>
                     An address must be entered to calculate shipping and tax
+                    <hr>
                 </div>
-                <hr>
             </div>
         </div>
         <div slot="shipping">{{ filteredShipping }}</div>
         <div slot="tax">{{ filteredTax }}</div>
         <div slot="total">{{ filteredTotal }}</div>
-        <h3 slot="address-title">Select a shipping address</h3>
+        <p slot="address-title">Select a shipping address</p>
         <div slot="address-picker">
             <address-picker
                 :existing-addresses="addresses"
@@ -68,7 +70,7 @@
             </div>
             <div class="col-xs-6" :class="{ 'col-xs-offset-3': !signedIn }">
                 <button @click="pay"
-                    class="Button--secondary box-shadow mg-btm-20"
+                    class="Button--primary box-shadow mg-btm-20"
                     >Checkout</button>
             </div>
         </div>
@@ -235,7 +237,10 @@
                 return this.subtotal;
             },
             totalPrice: function() {
-                return (this.subtotal + this.shipping + this.tax);
+                if (this.items.length >0) {
+                    return (this.subtotal + this.shipping + this.tax);
+                }
+                return 0;
             },
             sortedItems: function() {
                 return this.items.sort(function(a,b){
@@ -263,14 +268,3 @@
         }
     }
 </script>
-
-<style type="text/css">
-    .Order__title--orange {
-        font-size: 20px;
-        color: #F16A01;
-    }
-    .Order__title--blue {
-        font-size: 20px;
-        color: #0000AA;
-    }
-</style>

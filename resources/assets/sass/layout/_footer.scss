@@ -1,20 +1,22 @@
 .Footer {
-    padding: 30px 20px 10px 20px;
-    background-color: #eceff1;
+    margin-top: 20px;
+    padding: 25px 20px 10px 20px;
+    background-color: $brand-primary;
+    background-image: linear-gradient($gradient-blue, $brand-primary);
     text-align: center;
+    box-shadow: inset 0px 3px 4px 1px rgba(0,0,0,.08);
 
     & a, p {
         text-decoration: none;
-        color: #546e7a;
+        color: #a2b2ba;
     }
 
     &__title {
         font-size: 9pt;
         margin-bottom: 15px;
-        font-weight: bold;
 
         & a {
-            color: #30434d;
+            color: white;
             padding: 0 7px;
         }
     }
@@ -37,7 +39,7 @@
             padding: 0 5px;
             
             &:hover {
-                color: $brand-primary;
+                color: white;
             }
         }
     }

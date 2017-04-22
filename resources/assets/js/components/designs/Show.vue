@@ -11,7 +11,7 @@
                     <a role="button" v-if="!!+design.category.is_active" @click="redesign" class="Icon__more--element">Redesign</a>
                 </div>
             </div>
-            <div class="text-center">{{ design.category.name }}</div>
+            <div class="Thumbnail__text text-center">{{ design.category.name }}</div>
         </div>
         <div class="position-relative" v-if="! admin">
             <button @click="showMore = !showMore" class="Icon__more">

@@ -18,11 +18,11 @@
                     </a>
                 <div ref="carousel" class="Scroll__container">
                     <div v-for="existingAddress in existingAddresses" class="Scroll__element">
-                        <div class="Card col-md-12" :class="{ 'border-primary' : isSelected(existingAddress.id)}">
+                        <div class="Card Card--address col-md-12" :class="{ 'Card--address--selected' : isSelected(existingAddress.id)}">
                             <a role="button" @click="showExtraInfo(existingAddress.id)" class="Address__expand">
                                 <i class="fa fa-angle-down" aria-hidden="true"></i>
                             </a>
-                            <a role="button" @click="updateSelectedAddress(existingAddress)" class="inherit">
+                            <a role="button" @click="updateSelectedAddress(existingAddress)">
                                 <div>{{ existingAddress.name }}</div>
                                 <div>{{ existingAddress.street }}</div>
                                 <div>{{ existingAddress.city }}</div>
@@ -32,15 +32,15 @@
                                     <div>{{ existingAddress.phone_number }}</div>
                                 </div>
                             </a>
-                            <div v-show="isSelected(existingAddress.id)" class="text-center">
+                            <!-- <div v-show="isSelected(existingAddress.id)" class="text-center">
                                 <i class="fa fa-check-circle" aria-hidden="true" ></i>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xs-12">
-                <a role="button" class="pull-right inherit" @click="toggleAddressForm">
+                <a role="button" class="pull-right color-primary" @click="toggleAddressForm">
                     Add a new address
                 </a>
             </div>
@@ -204,9 +204,6 @@
 </script>
 
 <style>
-    .border-primary{
-        border: solid 2px #0000AA;
-    }
     .error {
         color: red;
         text-align: center;

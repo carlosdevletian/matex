@@ -1,5 +1,4 @@
 <div class="col-xs-12 Card Card--dashboard position-relative pd-btm-50">
-    <img class="Icon img img-responsive" src="{{ URL::to('images/order.png') }}" alt="orders">
     <p class="Card__title">Orders</p>
     @if($orders->count() > 0)
         <order-list :orders="{{ $orders }}"></order-list>

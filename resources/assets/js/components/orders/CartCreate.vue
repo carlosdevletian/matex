@@ -273,12 +273,4 @@
     .left {
         left: 0;
     }
-    .Order__title--orange {
-        font-size: 20px;
-        color: #F16A01;
-    }
-    .Order__title--blue {
-        font-size: 20px;
-        color: #0000AA;
-    }
 </style>

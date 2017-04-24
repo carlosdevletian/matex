@@ -24,6 +24,9 @@ class CreateOrdersTable extends Migration
             $table->integer('shipping')->nullable();
             $table->integer('tax')->nullable();
             $table->integer('total')->nullable();
+            $table->string('shipping_company')->nullable();
+            $table->string('tracking_number')->nullable();
+            $table->string('tracking_url')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

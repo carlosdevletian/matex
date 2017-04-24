@@ -36,7 +36,8 @@ class NotifyStatusChanged
 
         Mail::to($email)->queue(new OrderStatusChangedMail([
             'order' => $event->order,
-            'comment' => $event->comment,
+            'comment' => $event->data['comment'] ?: null ,
+            'shipping' => $event->data['shipping'] ?: null ,
         ]));
     }
 

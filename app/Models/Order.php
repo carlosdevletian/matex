@@ -10,7 +10,7 @@ class Order extends Model
 {
     use Filterable;
     
-    protected $fillable = ['user_id', 'address_id', 'email', 'status_id'];
+    protected $fillable = ['user_id', 'address_id', 'email', 'status_id', 'shipping_company','tracking_number', 'tracking_url'];
     protected $dates = ['created_at', 'updated_at'];
     protected $with = ['status'];
 

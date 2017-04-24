@@ -32,6 +32,9 @@ class OrderStatusChangedMail extends Mailable
     {
         return $this->view('emails.order')
                     ->subject('Order # '. $this->data['order']->reference_number . ' now has the status: ' . $this->data['order']->status->name)
-                    ->with(['order' => $this->data['order'], 'comment' => $this->data['comment']]);
+                    ->with(['order' => $this->data['order'], 
+                           'comment' => $this->data['comment'],
+                           'shipping' => $this->data['shipping'],
+                           ]);
     }
 }

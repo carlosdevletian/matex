@@ -94,21 +94,25 @@ class OrderController extends Controller
 
     public function update(Order $order)
     {
-        $status = Status::findOrFail(request()->status);
+        $this->validate(request(), [
+            'status_id' => 'required',
+            'shipping.shipping_company' => 'required_with:shipping.tracking_number,shipping.tracking_url',
+            'shipping.tracking_number' => 'required_with:shipping.shipping_company,shipping.tracking_url',
+            'shipping.tracking_url' => 'required_with:shipping.shipping_company,shipping.tracking_number',
+        ]);
 
-        if($order->status_id != $status->id){
-            $order->update(['status_id' => $status->id]);
-            
-            if(request()->has('comment')){
-                event(new OrderStatusChanged($order, request()->comment));
-            }else{
-                event(new OrderStatusChanged($order));
-            }
-            
-            flash()->success('Success','Status changed successfully');
-        }else {
-            flash()->error('Error','The status of the order did not change');
-        }
+        $status = Status::findOrFail(request()->status_id);
+
+        $order->update([
+           'status_id' => $status->id,
+           'shipping_company' => request('shipping.shipping_company') ?: null,
+           'tracking_number' => request('shipping.tracking_number') ?: null,
+           'tracking_url' => request('shipping.tracking_url') ?: null
+        ]);
+
+        event(new OrderStatusChanged($order, request()->toArray()));
+        
+        flash()->success('Success','Status changed successfully');
 
         return redirect()->back();
     }

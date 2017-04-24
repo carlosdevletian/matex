@@ -9,6 +9,12 @@
     <br>
     Order Summary:
     <br>
+    @isset($shipping['shipping_company'])
+        <h1>Shipping Details</h1>
+        <h3>Shipping company: {{ $shipping['shipping_company'] }}</h3>
+        <h3>Tracking Number: {{ $shipping['tracking_number'] }}</h3>
+        <h3>Tracking Url: {{ $shipping['tracking_url'] }}</h3>
+    @endisset
     <ul>
         <li>Subtotal {{ $order->subtotal }}</li>
         <li>Shipping {{ $order->shipping }}</li>

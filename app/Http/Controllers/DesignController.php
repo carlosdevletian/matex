@@ -78,7 +78,6 @@ class DesignController extends Controller
         }
         session(['category_id' => request()->category_id]);
 
-
         return response()->json([
             'message' => 'Image successfully generated',
             'category_slug_name' => $category->slug_name

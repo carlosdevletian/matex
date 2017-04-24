@@ -64,6 +64,7 @@ const app = new Vue({
         design: '',
         user: null,
         modalActive: false,
+        selectedRole: 'Select a role for the new user',
         showImageModal: false,
         showCartPreview: false,
         showContactModal: false,
@@ -81,6 +82,25 @@ const app = new Vue({
         })
     },
     methods: {
+        createUser: function(event) {
+            if(this.selectedRole == 1) {
+                swal({
+                    title: 'You are about to create an administrator',
+                    text: "This user will have access to all parts of this website, do you want to continue?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: 'rgb(0, 0, 170)',
+                    cancelButtonColor: 'rgb(208,67,40)',
+                    confirmButtonText: 'Yes, create an admin'
+                }).then(function () {
+                    this.selectedRole = '';
+                    event.target.submit();
+                })
+            }else {
+                this.selectedRole = '';
+                event.target.submit();
+            }
+        },
         openContactModal: function() {
             this.showContactModal = true;
             this.modalActive = true;

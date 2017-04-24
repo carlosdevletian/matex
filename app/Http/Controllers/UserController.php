@@ -17,12 +17,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        if(admin()){
-            $role = Role::findByName('admin');
-            $users = User::where('role_id', '!=', $role->id)->get();
+        $role = Role::findByName('admin');
+        $users = User::where('role_id', '!=', $role->id)->get();
 
-            return view('users.index', compact('users'));
-        }
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -32,7 +30,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::all();
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -43,7 +42,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+            'role' => 'required|exists:roles,id'
+        ]);
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role_id' => $request->role
+        ]);
+        flash()->success('Success!', 'The new user was created');
+        return redirect()->back();
     }
 
     /**
@@ -81,7 +93,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(User $user)
+    public function update()
     {
         $user = auth()->user();
 

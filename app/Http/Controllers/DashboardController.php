@@ -16,7 +16,7 @@ class DashboardController extends Controller
 
         $designs = auth()->user()->recentDesigns();
         $orders = Order::activeForUser(auth()->id());
-        $addresses = auth()->user()->addresses->count();
+        $addresses = auth()->user()->addresses()->count();
 
         return view('dashboard', compact('designs', 'orders', 'addresses'));
     }

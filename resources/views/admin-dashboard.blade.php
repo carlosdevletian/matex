@@ -75,6 +75,13 @@
                         <br>
                         <a href="{{ route('categories.index') }}">Manage all products</a>
                     </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 Card pd-btm-50">
+                        <h3 class="color-secondary">Admins</h3>
+                        <a href="#">Manage all administrators</a>
+                    </div>
                 </div>
             </div>
         </div>

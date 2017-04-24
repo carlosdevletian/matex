@@ -25,7 +25,8 @@ class OrderController extends Controller
 
             return view('orders.admin-index', compact('orders', 'statuses'));
         }
-        $orders = Order::where('user_id', auth()->id())
+        $orders = Order::with('items')
+                        ->where('user_id', auth()->id())
                         ->latest()
                         ->filter($filters)
                         ->paginate(2);

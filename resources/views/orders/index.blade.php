@@ -58,24 +58,31 @@
                                     <div class="row pd-0 mg-0"><p class="text-center pd-0 mg-0"><a href="{{ route('orders.show', $order->reference_number) }}">Order details</a></p></div>
                                 </div>
                             </div>
-                            <div class="row">
-                                @foreach($order->items as $item)
-                                    <div class="row" style="display: flex; align-items: center">
-                                        <div class="background-image Thumbnail--image box-shadow"
-                                            style="background-image: url({{ route('image_path', ['image' => $item->design->image_name, 'forOrder' => 1]) }});
-                                                    max-width: 100px;
-                                                    margin-right: 15px">
+                            <div class="row position-relative">
+                                <div class="col-xs-8">
+                                    @foreach($order->availableItems as $item)
+                                        <div class="row position-relative" style="display: flex; align-items: center">
+                                            <div class="background-image Thumbnail--image box-shadow"
+                                                style="background-image: url({{ route('image_path', ['image' => $item->design->image_name, 'forOrder' => 1]) }});
+                                                        max-width: 100px;
+                                                        margin-right: 15px">
+                                            </div>
+                                            <div class="position-relative">
+                                                <p>{{ "{$item->quantity} {$item->product->name} " . str_plural($item->product->category->name, $item->quantity)  }}</p>
+                                                <p>${{ $item->unit_price / 100 }}</p>
+                                                <p><a class="Button--card" style="border: 1px solid" href="{{ route('orders.create', ['category' => $item->product->category->slug_name, 'design' => $item->design->id]) }}">ORDER AGAIN</a></p>
+                                            </div>
                                         </div>
-                                        <div style="">
-                                            <p class="mg-0">{{ "{$item->quantity} {$item->product->name} " . str_plural($item->product->category->name, $item->quantity)  }}</p>
-                                            <p class="mg-0">${{ $item->unit_price / 100 }}</p>
-                                            <p class="mg-0"><a href="{{ route('orders.create', ['category' => $item->product->category->slug_name, 'design' => $item->design->id]) }}">Order again</a></p>
-                                        </div>
-                                    </div>
-                                    @if(! $loop->last)
-                                        <br>
-                                    @endif
-                                @endforeach
+                                        @unless($loop->last)
+                                            <br>
+                                        @endunless
+                                    @endforeach
+                                </div>
+                                <div class="col-xs-4 text-center" style="position: absolute; height: 100%; display: flex; justify-content: center; flex-direction: column; right: 0;">
+                                    <p style="border: 2px solid {{ $order->status->color }}; border-radius: 5px; color:  {{ $order->status->color }}; padding: 8px;">
+                                        {{ strtoupper($order->status->name) }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     @endforeach

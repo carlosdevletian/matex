@@ -17,11 +17,11 @@ class Cart extends Model
 
     public function orderTotal()
     {
-        $total = 0;
-        foreach ($this->items as $item) {
-            $total += $item->total_price;
-        }
-        return $total;
+        return $this->items->sum(function ($item) {
+            if($item->product->is_active) {
+                return $item->total_price;
+            }
+        });
     }
 
     public function availableItems()

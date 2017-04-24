@@ -58,7 +58,7 @@
                 error: '',
                 processing: false,
                 imageUrl: {
-                    backgroundImage : "url('/images/"+this.item.design.image_name+"/1')",
+                    backgroundImage : `url(/images/${this.item.design.image_name}/1)`,
                     height: '40px !important',
                 }
             }

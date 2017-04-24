@@ -12,10 +12,21 @@ class Order extends Model
     
     protected $fillable = ['user_id', 'address_id', 'email', 'status_id'];
     protected $dates = ['created_at', 'updated_at'];
+    protected $with = ['status'];
 
     public function items()
     {
         return $this->hasMany(Item::class);
+    }
+
+    public function availableItems()
+    {
+        return $this->items()->where('available', 1);
+    }
+
+    public function unavailableItems()
+    {
+        return $this->items()->where('available', 0);
     }
 
     public function address()
@@ -50,12 +61,13 @@ class Order extends Model
         $this->subtotal()
             ->shipping()
             ->tax()
-            ->total();
+            ->total()
+            ->update();
     }
 
     public function subtotal()
     {
-        $this->subtotal = $this->items()->sum('total_price');
+        $this->subtotal = $this->availableItems()->sum('total_price');
 
         return $this;
     }
@@ -107,5 +119,15 @@ class Order extends Model
             ->whereIn('status_id', [1,2,3,4])
             ->take(5)
             ->get();
+    }
+
+    public function scopeUnpaid($query)
+    {
+        return $query->whereIn('status_id', [1]);
+    }
+
+    public function cancel()
+    {
+        $this->update(['status_id' => 6]);
     }
 }

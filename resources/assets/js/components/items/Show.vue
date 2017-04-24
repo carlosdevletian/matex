@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="borderless">
+        <div class="borderless position-relative">
             <table class="table borderless mg-0">
                 <tbody>
                     <tr>
@@ -29,6 +29,18 @@
                     </tr>
                 </tbody>
             </table>
+            <div v-show="!isAvailable()" 
+                style="background-color: rgba(0,0,0,0.6);
+                    color: white; 
+                    position: absolute; 
+                    width: 100%; 
+                    height: 100%; 
+                    top: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center">
+                Item currently unavailable
+            </div>
         </div>
     </div>
 </template>
@@ -39,7 +51,7 @@
         data: function() {
             return {
                 imageUrl: {
-                    backgroundImage : "url('/images/"+this.item.design.image_name+"/1')",
+                    backgroundImage : `url(/images/${this.item.design.image_name}/1)`,
                     height: '40px !important',
                 }
             }
@@ -47,7 +59,10 @@
         methods: {
             openImage: function() {
                 Event.$emit('open-image', this.item.design)
-            }
+            },
+            isAvailable: function() {
+                return !! +this.item.available;
+            },
         }
     }
 </script>

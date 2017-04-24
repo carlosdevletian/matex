@@ -122,6 +122,5 @@ class Cashier
     {
         $this->order->assignReferenceNumber();
         $this->order->calculatePricing();
-        $this->order->save();
     }
 }

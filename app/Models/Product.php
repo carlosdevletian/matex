@@ -28,13 +28,13 @@ class Product extends Model
     public function enable()
     {
         $this->update(['is_active' => true]);
-        $this->items->each->enable();
+        $this->unpaidItems->each->enable();
     }
 
     public function disable()
     {
         $this->update(['is_active' => false]);
-        $this->items->each->disable();
+        $this->unpaidItems->each->disable();
     }
 
     public function setActive(bool $active)
@@ -71,25 +71,25 @@ class Product extends Model
         return $product;
     }
 
-    /**
-     * Scope a query to only include active products.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     public function scopeActive($query)
     {
         return $query->where('is_active', 1);
     }
 
-    /**
-     * Scope a query to only include inactive products.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
     public function scopeInactive($query)
     {
         return $query->where('is_active', 0);
+    }
+
+    public function unpaidItems()
+    {
+        return $this->items()
+                    ->where(function ($q) {
+                        $q->whereNull('order_id')
+                            ->orWhereHas('order.status', function ($q) {
+                                // Status de 'Payment Pending'
+                                $q->where('id', 1);
+                            });
+                    });
     }
 }

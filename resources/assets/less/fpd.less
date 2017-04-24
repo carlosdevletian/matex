@@ -1,7 +1,7 @@
  /* COLOR SCHEME - here you can define your own color scheme */
 
-@primaryColor: #0000AA;
-@secondaryColor: #F16A01;
+@primaryColor: #a2b2ba;
+@secondaryColor: #F16A26;
 @mainTextColor: rgba(0,0,0, 0.8);
 @mainBorderColor: rgba(0, 0, 0, 0.1);
 @snapLineColor: #ccc;
@@ -85,4 +85,25 @@
 // Grid background color
 .fpd-container>.fpd-main-wrapper {
     background-color: lightgrey;
+}
+
+// Main Buttons
+.fpd-topbar .fpd-navigation>div {
+    background-color: white;
+    color: #a2b2ba;
+    border-right: 1px solid #ebeef2;
+    font-size: 9pt !important;
+    &:last-child {
+        border-right: none;
+    }
+}
+
+.fpd-topbar .fpd-navigation>div:hover, 
+.fpd-topbar .fpd-navigation>div:active, {
+    color: #F16A26;
+    font-weight: bold;
+}
+
+.fpd-actions-wrapper > .fpd-action-btn:hover {
+    background-color: #F16A26;
 }

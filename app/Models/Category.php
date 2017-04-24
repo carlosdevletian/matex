@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Image;
+use App\Events\ProductsToggled;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -27,15 +28,18 @@ class Category extends Model
 
     public function updateProducts($request)
     {
-        $products = collect($request)->transpose()->map(function ($productData, $key) {
+        $toggledProducts = collect();
+        $products = collect($request)->transpose()->map(function ($productData, $key) use ($toggledProducts) {
             if($productData[0] && $product = Product::find($productData[0])) {
+                if($productData[4] !== $product->is_active) {
+                    $toggledProducts[] = $product;  
+                } 
                 return $product->updateFromRequest($productData, $key);
             }
             return Product::new($productData, $this->id, $key);
         });
-        if($this->countActive($products) == 0) {
-            $this->disable();
-        }
+        if($this->countActive($products) == 0) $this->disable();
+        if($toggledProducts->count() > 0) event(new ProductsToggled($toggledProducts));
         return $products;
     }
 
@@ -71,14 +75,9 @@ class Category extends Model
 
     public function scopeInactive($query)
     {
-        // Get all categories 
-        // where is_active == 0 
-        // or where all its products are inactive 
-        // or where it has no products
         return $query->whereDoesntHave('products', function($q) {
                         $q->active();
                     })->orWhere('is_active', 0);
-                    
     }
 
     public function activeProducts()

@@ -111,6 +111,9 @@
         left: 0;
     }
 }
+.top-0 {
+    top: 0;
+}
 .top-40 {
     top: 40%
 }
@@ -145,4 +148,35 @@
 }
 .swal2-icon.swal2-success .placeholder {
     border: 4px solid $brand-primary;
+}
+.swal2-modal .swal2-textarea {
+    // Copiado de la clase Form
+    display: block;
+    width: 100%;
+    line-height: 1.5;
+    border: none;
+    border-bottom: solid 1px lightgrey;
+    color: black;
+    box-shadow: none;
+    font-weight: normal;
+    // height: 36px;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 0px;
+    &:focus {
+        outline: none;
+        border: none;
+        box-shadow: none;
+        border-bottom: solid 2px $brand-primary;
+    }
+}
+.swal2-modal .swal2-title {
+    // Copiado de la clase Modal__header
+    font-size: 13pt;
+    color: $brand-primary;
+    text-align: center;
+    padding-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-weight: normal;
 }

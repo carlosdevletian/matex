@@ -43,7 +43,7 @@ class Cashier
             $this->identifier = 'email';
             $this->identifier_value = request()->newAddress['email'];
             $this->createGuestDesign();
-            session()->forget(['fpd-views']);
+            session()->forget(['fpd-views', 'design_comment']);
         }
 
         session()->forget(['design']);
@@ -53,7 +53,13 @@ class Cashier
 
     protected function createGuestDesign()
     {
-        $this->design = Design::create([$this->identifier => $this->identifier_value, 'image_name' => session('design'), 'views' => session('fpd-views'), 'category_id' => request()->category_id]);
+        $this->design = Design::create([
+            $this->identifier => $this->identifier_value, 
+            'image_name' => session('design'), 
+            'views' => session('fpd-views'), 
+            'category_id' => request()->category_id,
+            'comment' => session('design_comment')
+        ]);
         $this->design->move();
     }
 

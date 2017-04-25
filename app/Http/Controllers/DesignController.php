@@ -71,10 +71,11 @@ class DesignController extends Controller
         if(auth()->check()){
             $design->views = request()->views;
             $design->category_id = $category->id;
+            $design->comment = request()->comment;
             $design->save();
             session(['design' => $design->id,]);
         }else{
-            session(['design' => $filename, 'fpd-views' => request()->views]);
+            session(['design' => $filename, 'fpd-views' => request()->views, 'design_comment' => request()->comment]);
         }
         session(['category_id' => request()->category_id]);
 

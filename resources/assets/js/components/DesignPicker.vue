@@ -15,7 +15,7 @@
                 <i class="fa fa-chevron-right Scroller__icon" aria-hidden="true"></i>
             </a>
         <div ref="carousel" class="Card Scroll__container">
-            <div v-for="design in designs" class="Scroll__element col-xs-5 col-sm-4 col-md-2 mg-0">
+            <div v-for="design in designs" class="Scroll__element">
                 <design-show :design="design" add-class="width-150-px"></design-show>
             </div>
         </div>

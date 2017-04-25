@@ -13,7 +13,7 @@ class Design extends Model
     use SoftDeletes, Filterable;
  
     protected $fillable = [
-        'image_name', 'price', 'user_id', 'email', 'views', 'crop_width', 'crop_height', 'crop_x_position', 'crop_y_position', 'category_id'
+        'image_name', 'price', 'user_id', 'email', 'views', 'crop_width', 'crop_height', 'crop_x_position', 'crop_y_position', 'category_id', 'comment'
     ];
 
     protected $dates = ['deleted_at'];

@@ -20,15 +20,15 @@
             </div>
         </div>
         <div v-if="signedIn">
-            <button class="Button--primary mg-btm-20" @click="continueToCheckout()">Continue</button>
+            <button class="Button--primary mg-btm-20" @click="checkout()">Continue</button>
         </div>
         <div v-else>
             <div class="row mg-btm-20">
                 <div class="col-xs-6">
-                    <button class="Button--secondary" @click="continueToCheckout(true)">Continue as user</button>
+                    <button class="Button--secondary" @click="checkout(true)">Continue as user</button>
                 </div>
                 <div class="col-xs-6">
-                    <button class="Button--primary" @click="continueToCheckout()">Continue as guest</button>
+                    <button class="Button--primary" @click="checkout()">Continue as guest</button>
                 </div>
             </div>
         </div>
@@ -52,17 +52,19 @@
         data: function() {
             return {
                 designer: '',
-                signedIn: Matex.signedIn
+                comment: null,
+                signedIn: Matex.signedIn,
             }
         },
         methods: {
-            continueToCheckout: function(throughLogin = false) {
+            continue: function(throughLogin = false) {
                 var vm = this;
                 this.designer.getProductDataURL( function(base64) {
                     axios.post('/designs', {
                         base64_image: base64,
                         category_id: vm.categoryId,
                         views: JSON.stringify(vm.designer.getProduct()),
+                        comment: vm.comment
                     }).then((response) => {
                         if(throughLogin) {
                             window.location = `/login`;
@@ -80,6 +82,26 @@
                     });
                 });
             },
+            checkout: function(throughLogin = false) {
+                var vm = this;
+                swal({
+                    title: "Add a comment <span class='Modal__close pd-0 top-0' onclick='swal.closeModal(); return false;'>&#10005;</span>",
+                    html: "<div class='Modal__description'>Tell us something relevant about your design</div>",
+                    input: 'textarea',
+                    type: null,
+                    customClass: 'Modal',
+                    buttonsStyling: false,
+                    showConfirmButton: true,
+                    confirmButtonClass: 'Button--secondary stick-to-bottom',
+                    showCancelButton: false,
+                    confirmButtonText: 'Continue',
+                    inputPlaceholder: 'Your comment goes here. Or leave blank if not necessary',
+                    inputClass: 'Form',
+                }).then(function (comment) {
+                    vm.comment = comment;
+                    vm.continue(throughLogin);
+                }).catch(swal.noop);
+            }
         },
         created: function() {
             var vm = this;

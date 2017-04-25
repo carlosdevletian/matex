@@ -3,11 +3,7 @@
         <div slot="header">
             Design
         </div>
-
-        <div slot="description">
-            Check out your own design!
-        </div>
-
+        
         <div slot="body">
             <img class="img-responsive margin-auto box-shadow" :src="'/images/' + design.image_name ">
             <div v-if="design.comment">{{ design.comment }}</div>

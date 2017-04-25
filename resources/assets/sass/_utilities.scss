@@ -38,6 +38,9 @@
         color: white;
     }
 }
+.color-grey {
+    color: #546e7a;
+}
 .grey-background {
     background-color: #f5f7f9;
 }
@@ -55,6 +58,9 @@
 }
 .mg-btm-20 {
     margin-bottom: 20px;
+}
+.mg-btm-50 {
+    margin-bottom: 50px;
 }
 .mg-0 {
     margin: 0;
@@ -104,7 +110,7 @@
     position: absolute;
     right: 0;
     bottom: 0;
-    border-radius: 0px 0px 5px 5px;
+    border-radius: 0px 0px 3px 3px;
     margin-bottom: -1px; 
 
     &-left {

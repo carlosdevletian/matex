@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div v-if="itemQuantity > 0" class="pd-btm-25">
+    <div class="color-grey">
+        <div v-if="itemQuantity > 0" class="pd-btm-25 mg-btm-20">
             <div class="borderless">
                 <table class="table borderless mg-0">
                     <tbody>
@@ -35,7 +35,7 @@
                 Subtotal: $ {{ subtotal }}
             </p>
         </div>
-        <p v-else class="pd-btm-25">
+        <p v-else class="pd-btm-25 mg-btm-20 text-center">
             There are no items in your cart
         </p>
         <a href="/cart" class="Button Button--primary stick-to-bottom color-white">Go to cart</a>

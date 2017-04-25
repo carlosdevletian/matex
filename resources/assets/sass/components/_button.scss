@@ -79,4 +79,19 @@
         color: #546e7a;
         font-weight: bold;
     }
+
+    &--left {
+        width: 50%;
+        border-right: 1px solid #ebeef2;
+    }
+
+    &--right {
+        width: 50%;
+        border: none;
+        border-top: 1px solid #ebeef2;
+        
+        &:hover {
+            color: red;
+        }
+    }
 }

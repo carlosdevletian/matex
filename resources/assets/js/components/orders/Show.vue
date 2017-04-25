@@ -1,6 +1,6 @@
 <template>
     <order-template>
-        <h3 slot="items-title">Ordered items</h3>
+        <p slot="items-title">Ordered items</p>
         <div slot="table-header" class="table-responsive borderless">
             <table class="table borderless mg-0">
                 <tbody>
@@ -28,7 +28,7 @@
         <div slot="shipping">$ {{ order.shipping | inDollars }}</div>
         <div slot="tax">$ {{ order.tax | inDollars }}</div>
         <div slot="total">$ {{ order.total | inDollars }}</div>
-        <h3 slot="address-title">Shipping address</h3>
+        <p slot="address-title">Shipping address</p>
         <div slot="address-picker">
             <div class="col-xs-12"><p>Name: {{ address.name }}</p></div>
             <div class="col-xs-12"><p>Street: {{ address.street }}</p></div>

@@ -15,13 +15,16 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-            <h2>Design your {{ $category->name }}</h2>
+                <h3 class="main-title">Design your {{ $category->name }}</h3>
                 @if(auth()->check() && auth()->user()->hasAnyDesignsInCategory($category->id))
-                    <a role="button" 
-                        v-if="!showDesignPicker" 
-                        @click="showDesignPicker = true">
-                        Select from previous designs
-                    </a>
+                    <div class="mg-btm-20">
+                        <a role="button" 
+                            v-if="!showDesignPicker" 
+                            @click="showDesignPicker = true"
+                            class="Button--product">
+                            Select from previous designs
+                        </a>
+                    </div>
                     <design-picker :designs="{{ $existingDesigns }}" v-if="showDesignPicker"></design-picker>
                 @endif
                 <fpd

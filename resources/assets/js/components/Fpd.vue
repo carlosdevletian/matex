@@ -20,11 +20,17 @@
             </div>
         </div>
         <div v-if="signedIn">
-            <button class="btn btn-default" @click="continueToCheckout()">Continue</button>
+            <button class="Button--primary mg-btm-20" @click="continueToCheckout()">Continue</button>
         </div>
         <div v-else>
-            <button class="btn btn-default" @click="continueToCheckout(true)">Continue as user</button>
-            <button class="btn btn-default" @click="continueToCheckout()">Continue as guest</button>
+            <div class="row mg-btm-20">
+                <div class="col-xs-6">
+                    <button class="Button--secondary" @click="continueToCheckout(true)">Continue as user</button>
+                </div>
+                <div class="col-xs-6">
+                    <button class="Button--primary" @click="continueToCheckout()">Continue as guest</button>
+                </div>
+            </div>
         </div>
     </div>
 </template>

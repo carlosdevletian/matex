@@ -13,7 +13,7 @@
                         <h4>Your payment could not be processed, please try again</h4>
                     </div>
                 @endif
-                <h2 class="mg-btm-20 text-center">Order details</h2>
+                <h3 class="mg-btm-20 text-center">Order details</h3>
                 @if(admin())
                     @include('admin.edit-order')
                 @endif

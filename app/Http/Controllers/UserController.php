@@ -103,6 +103,7 @@ class UserController extends Controller
                 'email' => 'required|email|max:255|unique:users,email,' . $user->id,
                 'previous_password' => 'required_with:password',
                 'password' => 'nullable|min:6|confirmed',
+                'password_confirmation' => 'required_with:password',
             ]);
 
             if(request()->has('previous_password') && ! Hash::check(request()->previous_password, $user->password)){

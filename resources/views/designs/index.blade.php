@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="page-header">
-                    <h1>Designs</h1>
+                    <h3 class="main-title">Designs</h3>
                     <form method="GET" action="{{ route('designs.index') }}">
                         @foreach(request()->all() as $name => $value)
                             @unless($name == 'category')
@@ -23,7 +23,7 @@
                                 <option value="{{ $category->slug_name }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
-                        <button class="btn btn-default">Go</button>
+                        <button class="Button--product">Go</button>
                     </form>
                 </div>
                 <div class="row">

@@ -7,8 +7,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-xs-6 col-xs-offset-3">
-                <h4 class="text-center">Edit Address</h4>
+            <div class="col-sm-6 col-sm-offset-3">
+                <h4 class="main-title text-center">Edit Address</h4>
                 <div class="Card position-relative" style="padding-bottom: 75px">
                     <form method="POST" 
                         action="{{ route('addresses.update', ['address' => $address]) }}">
@@ -103,15 +103,6 @@
                         </div>
                         <button class="Button--primary stick-to-bottom">Update</button>
                     </form>
-                    <form method="POST" 
-                        action="{{ route('addresses.destroy', ['address' => $address]) }}" 
-                        v-on:submit.prevent="deleteAddress($event)">
-                        {{ csrf_field() }}
-                        {{ method_field('DELETE') }}
-                        <button class="color-red pull-right" 
-                            style="border: none; background-color: transparent">Delete this address</button>
-                    </form>
-                    
                 </div>
             </div>
         </div>

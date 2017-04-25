@@ -43,7 +43,7 @@
         </div>
         <div v-if="items.length > 0 && ! showUnavailable">
             <order-template>
-                <h3 slot="items-title">Your items</h3>
+                <p slot="items-title">Your items</p>
                 <div slot="table-header" class="table-responsive borderless">
                     <table class="table borderless mg-0">
                         <tbody>
@@ -84,7 +84,7 @@
                 <div slot="shipping">{{ filteredShipping }}</div>
                 <div slot="tax">{{ filteredTax }}</div>
                 <div slot="total">{{ filteredTotal }}</div>
-                <h3 slot="address-title">Select a shipping address</h3>
+                <p slot="address-title">Select a shipping address</p>
                 <div slot="address-picker">
                     <address-picker
                         :existing-addresses="addresses"

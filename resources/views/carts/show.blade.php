@@ -8,15 +8,15 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
+                <h3 class="mg-btm-20 text-center">Shopping cart</h3>
                 @if($items->count() > 0)
-                    <h2 class="mg-btm-20 text-center">Shopping cart</h2>
                     <order-cart-create 
                         :addresses="{{ $addresses }}" 
                         :original-items="{{ $items }}" 
                         :original-unavailable-items="{{ $unavailableItems }}">
                     </order-cart-create>
                 @else
-                    <div>There are no items in your cart.</div>
+                    <div class="Card">There are no items in your cart.</div>
                 @endif
             </div>
         </div>

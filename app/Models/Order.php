@@ -130,4 +130,9 @@ class Order extends Model
     {
         $this->update(['status_id' => 6]);
     }
+
+    public function isCanceled()
+    {
+        return $this->status_id == 6;
+    }
 }

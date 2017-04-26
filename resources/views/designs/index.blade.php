@@ -10,21 +10,7 @@
             <div class="col-xs-12">
                 <div class="page-header">
                     <h3 class="main-title">Designs</h3>
-                    <form method="GET" action="{{ route('designs.index') }}">
-                        @foreach(request()->all() as $name => $value)
-                            @unless($name == 'category')
-                                <input type="hidden" name="{{ $name }}" value="{{ $value }}">
-                            @endunless
-                        @endforeach
-                        <select name="category">
-                            <option selected disabled>Filter by products</option>
-                            <option value>All Designs</option>
-                            @foreach($categories as $category)
-                                <option value="{{ $category->slug_name }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
-                        <button class="Button--product">Go</button>
-                    </form>
+                    @include('designs.filters.all')
                 </div>
                 <div class="row">
                     @if($designs->count() > 0)

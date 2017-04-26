@@ -22,14 +22,17 @@
                             <input type="hidden" name="{{ $name }}" value="{{ $value }}">
                         @endunless
                     @endforeach
-                    <select name="status">
-                        <option selected disabled>Filter Orders</option>
-                        <option value>All Orders</option>
-                        @foreach($statuses as $status)
-                            <option value="{{ $status->id }}">{{ $status->name }}</option>
-                        @endforeach
-                    </select>
-                    <button class="btn btn-default">Filter</button>
+                    <div class="Form__select mg-rgt-10">
+                        <select name="status">
+                            <option selected disabled>Filter Orders</option>
+                            <option value>All Orders</option>
+                            @foreach($statuses as $status)
+                                <option value="{{ $status->id }}" {{ request('status') == $status->id ? 'selected' : '' }}>{{ $status->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <button class="Button--product">Go</button>
+                    <a class="Button--product" href="{{ route('orders.index') }}" style="padding: 7px">Reset Filters</a>
                 </form>
 
                 <table class="table table-hover dt-responsive nowrap text-center" cellspacing="0" width="100%" id="orders">

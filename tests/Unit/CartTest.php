@@ -17,13 +17,12 @@ class CartTest extends TestCase
     function it_adds_calculates_order_total()
     {
         $user = factory(User::class)->create();
-        $cart = factory(Cart::class)->create(['user_id' => $user->id]);
 
-        $item1 = factory(Item::class)->create(['cart_id' => $cart->id,'total_price' => 100]);
-        $item2 = factory(Item::class)->create(['total_price' => 200, 'cart_id' => $cart->id]);
-        $item3 = factory(Item::class)->create(['total_price' => 300, 'cart_id' => $cart->id]);
+        $item1 = factory(Item::class)->create(['total_price' => 100, 'cart_id' => $user->cart->id]);
+        $item2 = factory(Item::class)->create(['total_price' => 200, 'cart_id' => $user->cart->id]);
+        $item3 = factory(Item::class)->create(['total_price' => 300, 'cart_id' => $user->cart->id]);
 
-        $total = $cart->orderTotal();
+        $total = $user->cart->orderTotal();
 
         $this->assertEquals(600, $total);
     }

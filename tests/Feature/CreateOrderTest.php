@@ -20,7 +20,9 @@ class CreateOrderTest extends TestCase
     {
         $user = factory(User::class)->create();
         $category = factory(Category::class)->create(['name' => 'Bracelets']);
+        $product = factory(Product::class)->create(['category_id' => $category->id, 'is_active' => 1]);
         $category2 = factory(Category::class)->create(['name' => 'Calendars']);
+        $product = factory(Product::class)->create(['category_id' => $category2->id, 'is_active' => 1]);
 
         $response = $this->actingAs($user)->json('GET','/categories');
 

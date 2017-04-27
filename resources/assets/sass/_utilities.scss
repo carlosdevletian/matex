@@ -109,6 +109,10 @@
     white-space: nowrap;
     text-align: center;
 }
+.no-overflow {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
 .stick-to-bottom {
     position: absolute;
     right: 0;
@@ -188,4 +192,8 @@
     padding-left: 30px;
     padding-right: 30px;
     font-weight: normal;
+}
+
+.swal2-show {
+    overflow: hidden;
 }

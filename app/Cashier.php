@@ -40,6 +40,9 @@ class Cashier
             $this->identifier = 'user_id';
             $this->identifier_value = auth()->user()->id;
         }else {
+            // if(User::whereEmail(request()->newAddress['email'])->first()) {
+            //     abort(422, "That email address belongs to a registered user");
+            // }
             $this->identifier = 'email';
             $this->identifier_value = request()->newAddress['email'];
             $this->createGuestDesign();

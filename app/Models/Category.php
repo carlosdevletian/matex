@@ -36,7 +36,7 @@ class Category extends Model
                 } 
                 return $product->updateFromRequest($productData, $key);
             }
-            return Product::new($productData, $this->id, $key);
+            return Product::newProduct($productData, $this->id, $key);
         });
         if($this->countActive($products) == 0) $this->disable();
         if($toggledProducts->count() > 0) event(new ProductsToggled($toggledProducts));

@@ -17,7 +17,7 @@
         @if(auth()->user()->hasRole('admin'))
             <p style="margin-right: 40px; margin-left: 40px">This user has no designs</p>
         @else
-            <p style="margin-right: 40px; margin-left: 40px">Seems like you don't have any designs... yet.</p>
+            <p style="margin-right: 20px; margin-left: 20px">Seems like you don't have any designs... yet.</p>
             <a href="{{ route('categories.index') }}" class="Button--card stick-to-bottom">
                 CREATE DESIGN
             </a>

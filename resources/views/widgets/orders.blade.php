@@ -12,6 +12,9 @@
             <p>This user has no orders.</p>
         @else
             <p>No active orders at the moment.</p>
+              <a href="{{ route('categories.index') }}" class="Button--card stick-to-bottom">
+                BROWSE SHOP
+            </a>
         @endif
     @endif
 </div>

@@ -18,7 +18,9 @@
                             <design-show :design="{{ $design }}" add-class="col-xs-6 col-sm-4 col-md-3" admin="{{ auth()->user()->hasRole('admin') }}"></design-show>
                         @endforeach
                     @else
-                        <h5>No Designs Created</h5>
+                        <div class="Card">
+                            <h5>No Designs Created</h5>
+                        </div>
                     @endif
                 </div>
             </div>

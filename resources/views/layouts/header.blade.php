@@ -46,6 +46,9 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ route('orders.index') }}">My Orders</a></li>
+                            <li><a href="{{ route('designs.index') }}">My Designs</a></li>
+                            <li><a href="{{ route('addresses.index') }}">My Addresses</a></li>
                             <li>
                                 <a href="{{ route('users.edit', ['user' => auth()->user()->id]) }}">Edit Profile</a>
                             </li>

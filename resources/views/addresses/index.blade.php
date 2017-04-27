@@ -30,7 +30,9 @@
                     </div>
                 @endforeach
             @else
-                <h5>No Addresses Created</h5>
+                <div class="Card">
+                    <h5>No Addresses Created</h5>
+                </div>
             @endif
             <div class="text-center">
                 {{ $addresses->links() }}

@@ -26,21 +26,21 @@
 }
 
 .Button--secondary {
-    @include button($brand-secondary, false, 12pt, $transition: false);
+    @include button($brand-secondary, false, 12pt, $transition: false, $border: false);
+    background-image: linear-gradient($gradient-orange, $brand-secondary);
     padding: 10px 20px; 
     &:hover {
         transform: translateY(-1px);
-        border: 2px solid rgba(241, 106, 1, 0.7);
         box-shadow: $box-shadow-hover;
     }
 }
 
 .Button--primary {
-    @include button($brand-primary, false, 12pt, $transition: false);
+    @include button($brand-primary, false, 12pt, $transition: false, $border: false);
+    background-image: linear-gradient($gradient-blue, $brand-primary);
     padding: 10px 20px; 
     &:hover {
         transform: translateY(-1px);
-        border: 2px solid rgba(0, 0, 170, 0.7);
         box-shadow: $box-shadow-hover;
     }
 }

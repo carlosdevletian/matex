@@ -78,4 +78,15 @@
     &__address {
         font-size: 10pt;
     }
+
+    &__thumbnail {
+        margin-top: 10px;
+        display: inline-block;
+    }
+
+    &__index-price {
+        vertical-align: top;
+        margin-top: 10px;
+        display: inline-block;
+    }
 }

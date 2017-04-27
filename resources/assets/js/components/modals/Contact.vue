@@ -24,7 +24,7 @@
                         placeholder="Subject"
                         v-bind:class="{ 'Form--error' : !validation.subject}">
                 </div>
-                <div class="Input__icon" style="padding-bottom: 10px; margin-bottom: 20px">
+                <div class="Input__icon mg-btm-50">
                     <textarea v-model="contact.body"
                         class="Form"
                         placeholder="Your message here..."

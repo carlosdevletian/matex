@@ -39,6 +39,8 @@
 @mixin button($background-color: white, $transparent: true, $font-size: 12pt, $color: white, $hover-color: white, $transition: true, $time: .5s, $full-size: true, $border: true) {
     @if ($border == true) {
         border: 2px solid $background-color;
+    }@else {
+        border: none;
     }
     @if ($transparent == true) {
         background-color: transparent;

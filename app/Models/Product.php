@@ -54,7 +54,7 @@ class Product extends Model
         return $this;
     }
 
-    public static function new($data, $categoryId, $displayPosition)
+    public static function newProduct($data, $categoryId, $displayPosition)
     {
         // validar información del producto nuevo?
         if(!$data[1] || !$data[2] || !$data[3]) {

@@ -43,12 +43,17 @@ class LoginController extends Controller
     {
         if(session()->has('design') && session()->has('category_id')) {
             $categorySlug = Category::findOrFail(session('category_id'))->slug_name;
-            $design = Design::create(['image_name' => session('design'), 'views' => session('fpd-views'), 'category_id' => session('category_id')]);
+            $design = Design::create([
+                'image_name' => session('design'), 
+                'comment' => session('design_comment'), 
+                'views' => session('fpd-views'), 
+                'category_id' => session('category_id')
+            ]);
             $design->move();
             session([
                 'design' => $design->id
             ]);
-            session()->forget(['category_id', 'fpd-views']);
+            session()->forget(['category_id', 'fpd-views', 'design_comment']);
             return route('orders.create', ['category' => $categorySlug]);
         }
         return route('dashboard');

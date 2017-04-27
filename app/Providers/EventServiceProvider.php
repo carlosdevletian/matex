@@ -15,6 +15,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'App\Events\OrderPlaced' => [
             'App\Listeners\NotifyOrderPlaced',
+            'App\Listeners\NotifyCompanyNewOrder',
         ],
         'App\Events\OrderStatusChanged' => [
             'App\Listeners\NotifyStatusChanged',

@@ -60,6 +60,11 @@ return [
         'name' => 'Example',
     ],
 
+    'new-orders' => [
+        'address' => 'new-orders@matex.com',
+        'name' => 'Matex',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | E-Mail Encryption Protocol

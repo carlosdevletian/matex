@@ -147,4 +147,9 @@ class Design extends Model
     {
         return $this->items()->whereNotNull('cart_id');
     }
+
+    public function getImagePath()
+    {
+        return "{$this->directory}/{$this->image_name}";
+    }
 }

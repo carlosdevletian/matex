@@ -39,10 +39,14 @@ class NewOrderMail extends Mailable
             return $design->id;
         });
 
-        $mail = $this->markdown('emails.new-order')
+        $mail = $this->from(config('mail.new-orders'))
+                    ->markdown('emails.new-order')
                     ->subject('A new order has been placed')
-                    ->with(['order' => $this->order, 
-                           'items' => $items]);
+                    ->with([
+                        'order' => $this->order, 
+                        'items' => $items,
+                        'orderUrl' => route('orders.show', $this->order->reference_number)
+                    ]);
 
         foreach ($designs as $design) {
             $mail->attach($design->getImagePath(), [

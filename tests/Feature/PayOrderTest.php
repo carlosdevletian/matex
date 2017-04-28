@@ -2,18 +2,19 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\Item;
-use App\Models\User;
-use App\Models\Order;
-use App\Models\Design;
-use App\Models\Status;
-use App\Models\Address;
-use App\Billing\PaymentGateway;
 use App\Billing\FakePaymentGateway;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+use App\Billing\PaymentGateway;
+use App\Models\Address;
+use App\Models\Design;
+use App\Models\Item;
+use App\Models\Order;
+use App\Models\Status;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Support\Facades\Mail;
+use Tests\TestCase;
 
 class PayOrderTest extends TestCase
 {
@@ -57,7 +58,7 @@ class PayOrderTest extends TestCase
     /** @test */
     public function registered_user_can_pay_an_order()
     {
-
+        Mail::fake();
         $orderInformation = $this->makeOrderThings();
 
         $response = $this->actingAs($orderInformation['user'])->json('POST', "/pay", [
@@ -77,6 +78,7 @@ class PayOrderTest extends TestCase
     /** @test */
     public function an_exception_is_thrown_if_payment_fails()
     {
+        Mail::fake();
         $orderInformation = $this->makeOrderThings();
 
         $response = $this->actingAs($orderInformation['user'])->json('POST', "/pay", [

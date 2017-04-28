@@ -15,17 +15,17 @@ class OrderStatusChanged
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $order;
-    public $data;
+    public $comment;
     
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($order, $data)
+    public function __construct($order, $comment)
     {
         $this->order = $order;
-        $this->data = $data;
+        $this->comment = $comment;
     }
 
     /**

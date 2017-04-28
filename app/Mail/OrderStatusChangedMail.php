@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -11,16 +12,18 @@ class OrderStatusChangedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $data = [];
+    private $order;
+    private $comment;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(array $data)
+    public function __construct(Order $order, $comment)
     {
-        $this->data = $data;
+        $this->order = $order;
+        $this->comment = $comment;
     }
 
     /**
@@ -30,11 +33,18 @@ class OrderStatusChangedMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.order')
-                    ->subject('Order # '. $this->data['order']->reference_number . ' now has the status: ' . $this->data['order']->status->name)
-                    ->with(['order' => $this->data['order'], 
-                           'comment' => $this->data['comment'],
-                           'shipping' => $this->data['shipping'],
-                           ]);
+        $items = $this->order->items()->get()->groupBy(function ($item) {
+            return $item->design->image_name;
+        });
+
+        return $this->from(config('mail.customer-support'))
+                    ->markdown('emails.statusChanged')
+                    ->subject("Your Matex order has been updated - '{$this->order->status->name}'")
+                    ->with([
+                           'order' => $this->order, 
+                           'comment' => $this->comment,
+                           'items' => $items,
+                           'orderUrl' => route('orders.show', $this->order->reference_number)
+                        ]);
     }
 }

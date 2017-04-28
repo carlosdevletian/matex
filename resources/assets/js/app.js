@@ -32,6 +32,7 @@ Vue.component('modal-image', require('./components/modals/Image.vue'));
 Vue.component('modal-contact', require('./components/modals/Contact.vue'));
 Vue.component('modal-template', require('./components/modals/Template.vue'));
 Vue.component('user-comment', require('./components/modals/UserComment.vue'));
+Vue.component('contact-user', require('./components/modals/ContactUser.vue'));
 
 Vue.component('fpd', require('./components/Fpd.vue'));
 Vue.component('products', require('./components/Products.vue'));
@@ -69,7 +70,8 @@ const app = new Vue({
         showCartPreview: false,
         showContactModal: false,
         showDesignPicker: false,
-        showUserCommentModal: false
+        showContactUserModal: false,
+        showUserCommentModal: false,
     },
     created: function() {
         var vm = this;
@@ -107,6 +109,14 @@ const app = new Vue({
         },
         closeContactModal: function() {
             this.showContactModal = false;
+            this.modalActive = false;
+        },
+        openContactUserModal: function() {
+            this.showContactUserModal = true;
+            this.modalActive = true;
+        },
+        closeContactUserModal: function() {
+            this.showContactUserModal = false;
             this.modalActive = false;
         },
         openImageModal: function(design = null) {

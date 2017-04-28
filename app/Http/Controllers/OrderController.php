@@ -110,7 +110,7 @@ class OrderController extends Controller
            'tracking_url' => request('shipping.tracking_url') ?: null
         ]);
 
-        event(new OrderStatusChanged($order, request()->toArray()));
+        event(new OrderStatusChanged($order, request('comment')));
         
         flash()->success('Success','Status changed successfully');
 

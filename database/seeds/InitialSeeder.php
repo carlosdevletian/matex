@@ -39,7 +39,7 @@ class InitialSeeder extends Seeder
 
         factory(Status::class)->create(['name' => 'Payment Pending', 'color' => 'red']);
         factory(Status::class)->create(['name' => 'Payment Approved', 'color' => 'blue']);
-        factory(Status::class)->create(['name' => 'Shipping', 'color' => 'yellow']);
+        factory(Status::class)->create(['name' => 'Manufacturing', 'color' => 'yellow']);
         factory(Status::class)->create(['name' => 'Shipped', 'color' => 'orange']);
         factory(Status::class)->create(['name' => 'Delivered', 'color' => 'green']);
         factory(Status::class)->create(['name' => 'Canceled', 'color' => 'black']);

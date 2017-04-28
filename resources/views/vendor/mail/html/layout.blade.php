@@ -7,6 +7,9 @@
 <body>
     <style>
         @media only screen and (max-width: 600px) {
+            .table td {
+                /*font-size: 12px;*/
+            }
             .inner-body {
                 width: 100% !important;
             }
@@ -17,6 +20,9 @@
         }
 
         @media only screen and (max-width: 500px) {
+            .table td {
+                font-size: 12px;
+            }
             .button {
                 width: 100% !important;
             }

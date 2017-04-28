@@ -1,10 +1,8 @@
 @component('mail::message')
 
-# {{ $userEmail }} has sent a message.
-
+# {{ $subject }}
 
 @component('mail::promotion')
-## {{ $subject }}
 {{ $body }}
 @endcomponent
 

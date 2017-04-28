@@ -33,12 +33,8 @@ class NotifyStatusChanged
         }else{
             $email = $event->order->email;
         }
-
-        Mail::to($email)->queue(new OrderStatusChangedMail([
-            'order' => $event->order,
-            'comment' => $event->data['comment'] ?: null ,
-            'shipping' => $event->data['shipping'] ?: null ,
-        ]));
+        $comment = $event->comment ?: null;
+        Mail::to($email)->queue(new OrderStatusChangedMail($event->order, $comment));
     }
 
     public function failed(OrderStatusChanged $event, $exception)

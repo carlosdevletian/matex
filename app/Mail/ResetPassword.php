@@ -12,7 +12,7 @@ class ResetPassword extends Mailable
     use Queueable, SerializesModels;
 
     public $actionUrl;
-    public $actionText = 'Cambiar contraseña';
+    public $actionText = 'Change password';
     public $level = 'success';
 
     /**
@@ -40,7 +40,8 @@ class ResetPassword extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.reset-password')
-                    ->subject('Cambio de Contraseña');
+        return $this->from(config('mail.password-reset'))
+                    ->view('emails.reset-password')
+                    ->subject('Change your password');
     }
 }

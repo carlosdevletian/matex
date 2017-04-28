@@ -16,7 +16,8 @@
                         <p>{{ $user->email }}</p>
                         @include('admin.add-notes')
                     </div>
-                    <a role="button" class="Button--card stick-to-bottom white-background">CONTACT USER</a>
+                    <a role="button" class="Button--card stick-to-bottom white-background" @click="openContactUserModal()">CONTACT USER</a>
+                    <contact-user v-if="showContactUserModal" @close="closeContactUserModal()" :user="{{ $user }}"></contact-user>
                 </div>
             </div>
             <div class="col-md-4">

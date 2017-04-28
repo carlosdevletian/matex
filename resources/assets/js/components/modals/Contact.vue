@@ -65,7 +65,7 @@
                 var data = this.contact;
                 var vm = this;
                 axios.post('/contact', data).then((response) => {
-                    this.close();
+                    vm.close();
                     swal({
                             title: 'Thanks for contacting us!',
                             text: 'The email was successfully sent.',
@@ -75,7 +75,7 @@
                     }).catch(swal.noop);
                 }).catch(function(error) {
                     if (error.response.status != 422) {
-                        this.close();
+                        vm.close();
                         swal({
                             title: 'An error occurred',
                             text: 'The email could not be sent. Try again later',

@@ -48,6 +48,8 @@ Route::group(['middleware' => 'auth'], function () {
 
  /* ADMIN ROUTES */
 Route::group(['middleware' => 'admin'], function () {
+    // Contact
+    Route::post('/contact-user','ContactController@contactUser')->name('contact.user');
     // Dashboard
     Route::post('/searchClient','DashboardController@searchClient')->name('search.client');
     Route::post('/searchOrder','DashboardController@searchOrder')->name('search.order');

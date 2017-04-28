@@ -30,9 +30,14 @@ class ContactEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.contact')
-                    ->subject($this->data['subject'])
+        return $this->from(config('mail.customer-support'))
+                    ->markdown('emails.contact')
+                    ->subject("Message from User - '{$this->data['subject']}'")
                     ->replyTo($this->data['email'])
-                    ->with(['data' => $this->data]);
+                    ->with([
+                        'subject' => $this->data['subject'],
+                        'userEmail' => $this->data['email'],
+                        'body' => $this->data['body'],
+                    ]);
     }
 }

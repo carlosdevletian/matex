@@ -60,8 +60,18 @@ return [
         'name' => 'Example',
     ],
 
+    'password-reset' => [
+        'address' => 'password-reset@matex.com',
+        'name' => 'Matex',
+    ],
+
     'new-orders' => [
         'address' => 'new-orders@matex.com',
+        'name' => 'Matex',
+    ],
+
+    'customer-support' => [
+        'address' => 'customer-support@matex.com',
         'name' => 'Matex',
     ],
 

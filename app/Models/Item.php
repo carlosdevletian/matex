@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Calculator;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Presenters\ItemPresenter;
 
 class Item extends Model
 {
@@ -75,5 +76,10 @@ class Item extends Model
     public function disable()
     {
         $this->update(['available' => false]);
+    }
+
+    public function present()
+    {
+        return new ItemPresenter($this);
     }
 }

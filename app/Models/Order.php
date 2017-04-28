@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Calculator;
 use App\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Presenters\OrderPresenter;
 
 class Order extends Model
 {
@@ -134,5 +135,10 @@ class Order extends Model
     public function isCanceled()
     {
         return $this->status_id == 6;
+    }
+
+    public function present()
+    {
+        return new OrderPresenter($this);
     }
 }

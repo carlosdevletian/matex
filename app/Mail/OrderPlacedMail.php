@@ -30,8 +30,18 @@ class OrderPlacedMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.order')
+        $items = $this->data['order']->items()->get()->groupBy(function ($item) {
+            return $item->design->image_name;
+        });
+        return $this->from(config('mail.new-orders'))
+                    ->markdown('emails.order')
                     ->subject('Order # '. $this->data['order']->reference_number . ' has been placed')
-                    ->with(['order' => $this->data['order'], 'token' => $this->data['token']]);
+                    ->with([
+                           'order' => $this->data['order'], 
+                           'token' => $this->data['token'],
+                           'items' => $items,
+                           'orderUrl' => route('orders.show', $this->data['order']->reference_number),
+                           'registerUrl' => route('register.client', $this->data['token'])
+                       ]);
     }
 }

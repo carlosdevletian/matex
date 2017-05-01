@@ -8,15 +8,17 @@
                 <div class="Card">
                     <h5><strong>Status</strong></h5>
                     <div style="display: inline-block; width: 10px; height: 10px; border-radius: 100%; background-color: {{ $order->status->color }}"></div>
-                    <select name="status_id">
-                        @foreach($statuses as $status)
-                            @if($order->status->id == $status->id)
-                                <option value="{{ $status->id }}" selected>{{ $status->name }}</option>
-                            @else
-                                <option value="{{ $status->id }}">{{ $status->name }}</option>
-                            @endif
-                        @endforeach
-                    </select>
+                    <div class="Form__select">
+                        <select name="status_id">
+                            @foreach($statuses as $status)
+                                @if($order->status->id == $status->id)
+                                    <option value="{{ $status->id }}" selected>{{ $status->name }}</option>
+                                @else
+                                    <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-6">

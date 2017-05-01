@@ -247,13 +247,13 @@
                 return (this.subtotal + this.shipping + this.tax);
             },
             filteredShipping: function() {
-                if(this.zipIsValid) {
+                if(this.zipIsValid  && this.calculatedSubtotal > 0) {
                     return '$ ' + (this.shipping / 100).toLocaleString('en-US');
                 }
                 return '-';
             },
             filteredTax: function() {
-                if(this.zipIsValid) {
+                if(this.zipIsValid  && this.calculatedSubtotal > 0) {
                     return '$ ' + (this.tax / 100).toLocaleString('en-US');
                 }
                 return '-';

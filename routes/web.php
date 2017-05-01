@@ -14,6 +14,7 @@ Auth::routes();
 Route::get('/register/token/{token}', 'Auth\RegisterController@showRegistrationForm')->name('register.client');
 Route::post('/register/guest', 'Auth\RegisterController@storeClient')->name('store.client');
 Route::get('images/{image}/{forOrder?}', 'ImageController@show')->name('image_path');
+Route::post('/validateEmailAddress', 'VueController@validateEmail')->name('validate-email');
 Route::post('/calculatePrice', 'VueController@calculatePrice')->name('calculate-price');
 Route::post('/calculateShipping', 'VueController@calculateShipping')->name('calculate-shipping');
 Route::post('/calculateTax', 'VueController@calculateTax')->name('calculate-tax');

@@ -29,9 +29,9 @@ class ContactUserMail extends Mailable
      */
     public function build()
     {
-        return $this->from(config('mail.customer-support.address'))
+        return $this->from(config('mail.customer-support'))
                     ->subject("Message from Matex - '{$this->request['subject']}'")
-                    ->replyTo(config('mail.customer-support.address'))
+                    ->replyTo(config('mail.customer-support'))
                     ->markdown('emails.contactUser')
                     ->with([
                        'subject' => $this->request['subject'],

@@ -5,7 +5,7 @@
         </div>
         
         <div slot="body">
-            <img class="img-responsive margin-auto box-shadow" :src="'/images/' + design.image_name ">
+            <img class="img-responsive margin-auto box-shadow" :src="'/images/' + design.image_name + '/1' ">
             <div v-if="design.comment">{{ design.comment }}</div>
         </div>
 

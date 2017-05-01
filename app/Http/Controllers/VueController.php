@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cashier;
 use App\Calculator;
 use App\Models\Item;
+use App\Models\User;
 use App\Models\Order;
 use App\Events\OrderPlaced;
 use Illuminate\Http\Request;
@@ -41,6 +42,17 @@ class VueController extends Controller
             $newItem->calculatePricing();
         });
         session()->forget(['design', 'category_id']);
+    }
+
+    public function validateEmail()
+    {
+        if($user = User::where('email', request('email'))->first()) {
+            if($user->id == auth()->id()) {
+                return response()->json([], 200);
+            }
+            return response()->json(['email' => 'Email address is not valid, please try another one.'], 422);
+        }
+        return response()->json([], 200);
     }
 
     public function calculatePrice()

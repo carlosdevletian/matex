@@ -21,6 +21,7 @@
                                 onfocus="if(this.value == '0') { this.value = ''; }"
                                 v-bind:class="{ 'Form--error' : this.error }"
                                 :disabled="processing"
+                                :key="item.product.id"
                                 v-focus>
                                 <i v-show="processing" class="fa fa-spinner fa-spin Spinner"></i>
                             </div>

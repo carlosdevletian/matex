@@ -56,14 +56,15 @@
                 </a>
             </div>
             <div class="col-xs-12">
-                <div v-show="address.show_errors && error" class="error">{{ error }}</div>
+                <div v-show="address.show_errors && error" class="error">{{ emailError ? emailError : error }}</div>
                 <form>
                     <input class="Form mg-btm-20"
                         type="email"
                         v-model="address.email"
                         placeholder="Email *"
+                        @blur="validateEmail"
                         v-if="!signedIn"
-                        v-bind:class="{ 'Form--error' : !validation.email && address.show_errors }">
+                        v-bind:class="{ 'Form--error' : (!validation.email && address.show_errors) || (emailTaken && address.show_errors) }">
                     <input class="Form mg-btm-20"
                         type="text"
                         v-model="address.name"
@@ -135,6 +136,8 @@
                 selected: 0,
                 showMoreId: 0,
                 error: '',
+                emailTaken: false,
+                emailError: false,
             }
         },
         methods: {
@@ -163,6 +166,17 @@
                     this.updateSelectedAddress(0);
                 }
             },
+            validateEmail() {
+                axios.post('/validateEmailAddress', {
+                    email : this.address.email,
+                }).then((response) => {
+                    this.emailTaken = false;
+                    this.emailError = '';
+                }).catch(error => {
+                    this.emailTaken = true;
+                    this.emailError = error.response.data.email;
+                })
+            },
             showExtraInfo: function(id) {
                 if(this.showMoreId == id) {
                     this.showMoreId = 0;
@@ -187,7 +201,12 @@
             validatedAddress: function() {
                 var vm = this;
                 this.address.is_valid = true;
+                this.error = '';
                 for (var field in this.validation) {
+                    if(vm.error) {
+                        vm.address.is_valid = false;
+                        break;
+                    }
                     if(! vm.validation[field]){
                         vm.address.is_valid = false;
                         vm.error = field == 'phone_number' ? 'Please enter a phone number' : 'Please enter a ' + field;

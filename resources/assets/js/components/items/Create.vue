@@ -55,9 +55,10 @@
                     return;
                 }
                 this.error = '';
-                axios.post('/calculatePrice', this.item).then((response) => {
-                    this.item.unit_price = response.data.unit_price;
-                    this.item.total_price = response.data.total_price;
+                axios.post('/calculatePrice', {
+                    item : this.item
+                }).then((response) => {
+                    this.$emit('item-updated', response.data.item);
                     this.processing = false;
                });
             },

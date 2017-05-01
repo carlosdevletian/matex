@@ -10,6 +10,7 @@ Route::get('/categories', 'CategoryController@index')->name('categories.index');
 Route::get('/orders/{order}', 'OrderController@show')->name('orders.show');
 // Route::post('/orders', 'OrderController@store')->name('orders.store');
 Route::get('/order/{category}/{design?}', 'OrderController@create')->name('orders.create');
+Route::post('/items/create','ItemController@create')->name('items.create');
 Auth::routes();
 Route::get('/register/token/{token}', 'Auth\RegisterController@showRegistrationForm')->name('register.client');
 Route::post('/register/guest', 'Auth\RegisterController@storeClient')->name('store.client');

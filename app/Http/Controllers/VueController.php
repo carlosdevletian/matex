@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cashier;
 use App\Calculator;
+use App\ItemCalculator;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Order;
@@ -25,21 +26,18 @@ class VueController extends Controller
         $this->calculator = $calculator;
     }
 
-    public function addToCart()
+    public function addToCart(Request $request)
     {
-        $items = collect(request()->toArray());
-        $items->map(function($item) {
-            $item['cart_id'] = auth()->user()->cart->id;
-            $item['product_id'] = $item['product']['id'];
-            $item['design_id'] = $item['design_id'];
+        collect($request->toArray())->map(function ($item) {
+            $item = new Item($item);
+            $item->cart_id = auth()->user()->cart->id;
 
-            if($originalItem = Item::exists($item)) {
-                $originalItem->quantity += $item['quantity'];
-                $originalItem->save();
+            if($existingItem = Item::alreadyExists($item)) {
+                $existingItem->quantity += $item->quantity;
+                $existingItem->calculate()->save();
                 return;
             }
-            $newItem = Item::create($item);
-            $newItem->calculatePricing();
+            $item->calculate()->save();
         });
         session()->forget(['design', 'category_id']);
     }
@@ -55,11 +53,13 @@ class VueController extends Controller
         return response()->json([], 200);
     }
 
-    public function calculatePrice()
+    public function calculatePrice(Request $request)
     {
-        $unitPrice = $this->calculator->unitPrice(request()->product['id'], 1, request()->quantity);
-        $totalPrice = $this->calculator->totalPrice(request()->quantity, $unitPrice);
-        return response()->json(['unit_price' => $unitPrice, 'total_price' => $totalPrice], 200);
+        $item = new Item($request->item);
+        
+        return response()->json([
+            'item' => $item->calculate()->load('product'),
+        ], 200);
     }
 
     public function calculateShipping()
@@ -76,10 +76,11 @@ class VueController extends Controller
 
     public function cartPreview()
     {
+        $cart = auth()->user()->cart;
         return response()->json([
-            'itemQuantity' => auth()->user()->cart->availableItems()->count(),
-            'firstItem' => auth()->user()->cart->availableItems()->first(),
-            'subtotal' => auth()->user()->cart->orderTotal()/100,
+            'itemQuantity' => $cart->availableItems()->count(),
+            'firstItem' => $cart->availableItems()->first(),
+            'subtotal' => $cart->orderTotal()/100,
         ], 200);
     }
 

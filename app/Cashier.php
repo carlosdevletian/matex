@@ -104,26 +104,16 @@ class Cashier
 
     protected function addItems()
     {
-        foreach(request()->items as $itemData){
-            if(! empty($itemData['id'])){
-                $item = Item::findOrFail($itemData['id']);
-            }else{
-                if($itemData['quantity'] > 0) {
-                    $item = new Item;
-                    $item->assignProduct($itemData['product']['id']);
-                    $item->quantity = $itemData['quantity'];
-                    if(auth()->check()) {
-                        $item->design_id = $itemData['design_id'];
-                    }else {
-                        $item->design_id = $this->design->id;
-                    }
-                }
-            }
-
-            $item->calculatePricing();
+        if(auth()->check()) {
+            $items = Item::generate(request('items'));
+        } else {
+            $items = Item::generate(request('items'), $this->design->id);
+        }
+        
+        foreach ($items as $item) {
             $this->order->addItem($item);
         }
-
+        
         return $this;
     }
 

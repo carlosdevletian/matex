@@ -5,7 +5,7 @@
              <div class="row">
                 <div class="col-xs-12">
                     <div v-for="product in sortedProducts()" style="display: inline">
-                        <button @click="createItem(product)" class="Button--product">{{ product.name }}</button>
+                        <button @click="createItem(product.id)" class="Button--product">{{ product.name }}</button>
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
         </div>
         <div slot="items">
             <div v-for="item in sortedItems">
-                <item-create :item="item" @delete-item="deleteItem">
+                <item-create :item="item" @delete-item="deleteItem" @item-updated="updateItem">
                 </item-create>
             </div>
         </div>
@@ -108,18 +108,14 @@
             }
         },
         methods: {
-            createItem: function(product) {
-                var item = {
-                    product : product,
-                    design_id: this.design,
-                    quantity: 0,
-                    unit_price: 0,
-                    total_price: 0,
-                };
-
-                this.items.push(item);
-
-                this.removeProduct(product.id);
+            createItem: function(productId) {
+                axios.post(`/items/create`, {
+                    product_id : productId,
+                    design : this.design,
+                }).then(response => {
+                    this.items.push(response.data);
+                    this.removeProduct(productId);
+                });
             },
             removeProduct: function(productId) {
                 var vm = this;
@@ -136,6 +132,15 @@
                     if(item.product.id == productId){
                         vm.products.push(item.product);
                         vm.items.splice(index, 1);
+                    }
+                });
+            },
+            updateItem: function(updatedItem) {
+                var vm = this;
+                this.items.forEach( function(originalItem, index){
+                    if(originalItem.product_id == updatedItem.product_id){
+                        vm.items.splice(index, 1);
+                        vm.items.push(updatedItem);
                     }
                 });
             },

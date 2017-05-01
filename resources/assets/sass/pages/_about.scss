@@ -10,16 +10,25 @@
     }
 
     &__title {
+        padding: 20px;
         font-family: baloo;
         color: white;
         margin: auto;
         text-align: left;
-        font-size: 2em;
+        font-size: 3em;
         @include sm(){
-            font-size: 5em;
+            font-size: 4em;
         }
         @include md(){
-            font-size: 6em;
+            font-size: 5em;
+        }
+
+        &--secondary {
+            padding-top: 70px;
+
+            @include sm(){
+                font-size: 4em;
+            }
         }
     }
 
@@ -58,8 +67,8 @@
             max-width: 200px;
             margin: 0 auto;
             width: 100px;
-             @include md(){
-                width: 200px;
+            @include md(){
+                width: 150px;
             }
             &--circle {
                 margin: 0px auto;
@@ -68,6 +77,9 @@
         }
         &__cell {
             padding: 10px;
+            @include sm(){
+                padding:30px;
+            }
             &--line {
                 background-image:url('/images/about/about_line.png');
                 background-repeat:no-repeat;

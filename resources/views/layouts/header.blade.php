@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top {{ Route::currentRouteName() == 'home' ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' ? 'navbar-about' : ''}} {{ $backgroundColor or '' }}">
+<nav class="navbar navbar-default navbar-fixed-top {{ auth()->check() ? '' : 'navbar-primary' }} {{ Route::currentRouteName() == 'home' && !auth()->check() ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' && !auth()->check() ? 'navbar-about' : ''}}">
 	<div class="container">
 		<div class="navbar-header">
 			<button id="header-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -18,25 +18,24 @@
 			</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse navbar-home">
-			<ul class="nav navbar-nav {{ Route::currentRouteName() == 'home' ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' ? 'navbar-about' : ''}}">
+			<ul class="nav navbar-nav {{ Route::currentRouteName() == 'home' && !auth()->check() ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' && !auth()->check() ? 'navbar-about' : ''}}">
 				<li><a href="{{ route('about') }}">About</a></li>
                 <li><a href="{{ route('categories.index') }}">Design</a></li>
 				<li><a @click="openContactModal()" role="button">Contact Us</a></li>
 			</ul>
-            <ul class="nav navbar-nav navbar-right {{ Route::currentRouteName() == 'home' ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' ? 'navbar-about' : '' }}">
+            <ul class="nav navbar-nav navbar-right {{ Route::currentRouteName() == 'home' && !auth()->check() ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' && !auth()->check() ? 'navbar-about' : '' }}">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li><a href="{{ url('/login') }}">Login</a></li>
                     <li><a href="{{ url('/register') }}">Register</a></li>
                 @else
-                    <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                     <li @mouseover="showCartPreview = true" @mouseleave="showCartPreview = false">
                         <a href="{{ route('carts.show') }}">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         </a>
-                        <div v-show="showCartPreview"
+                        <div class="hidden-xs" v-show="showCartPreview"
                             v-cloak 
-                            style="position: absolute; top: 40px; right: 24%">
+                            style="position: absolute; top: 40px; right: 24%; z-index: 2">
                                 @include('carts.preview')
                         </div>
                     </li>
@@ -46,9 +45,7 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ route('orders.index') }}">My Orders</a></li>
-                            <li><a href="{{ route('designs.index') }}">My Designs</a></li>
-                            <li><a href="{{ route('addresses.index') }}">My Addresses</a></li>
+                            <li><a href="{{ route('addresses.index') }}">Addresses</a></li>
                             <li>
                                 <a href="{{ route('users.edit', ['user' => auth()->user()->id]) }}">Edit Profile</a>
                             </li>
@@ -69,4 +66,36 @@
             </ul>
 		</div>
 	</div>
+    @if(auth()->check())
+        <div class="container-fluid navbar-secondary">
+            <div class="row">
+                <a href="{{ route('dashboard') }}" class="navbar-secondary-link">
+                    <div class="col-xs-4 col-sm-2 col-sm-offset-3 navbar-secondary-button navbar-secondary-button-left navbar-secondary-padding">
+                        Dashboard
+                    </div>
+                </a>
+                <a href="{{ route('orders.index') }}" class="navbar-secondary-link">
+                    <div class="col-xs-4 col-sm-2 navbar-secondary-button navbar-secondary-padding">
+                        Orders
+                    </div>
+                </a>
+                @if (admin())
+                    <a href="{{ route('users.index') }}" class="navbar-secondary-link">
+                        <div class="col-xs-4 col-sm-2 navbar-secondary-button navbar-secondary-padding">
+                            Clients
+                        </div>
+                    </a>
+                @else
+                    <a href="{{ route('designs.index') }}" class="navbar-secondary-link">
+                        <div class="col-xs-4 col-sm-2 navbar-secondary-button navbar-secondary-padding">
+                            Designs
+                        </div>
+                    </a>
+                @endif
+            </div>
+        </div>
+    @endif
 </nav>
+@if(auth()->check())
+    <div class="navbar-secondary-body"></div>
+@endif

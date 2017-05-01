@@ -7,7 +7,11 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
+        <div class="col-sm-5 col-md-6 hidden-xs">
+            <img src="{{ URL::to("images/home/puls.png") }}" alt="pulsera" class="img-responsive center-block Login__image" onmousedown="return false">
+        </div>
+        <div class="col-md-5 col-sm-6">
+            <img src="{{ URL::to("images/matex.png") }}" alt="pulsera" class="img-responsive center-block Login__logo" onmousedown="return false">
             <h4 class="main-title text-center">Login</h4>
             <div class="Card position-relative">
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">

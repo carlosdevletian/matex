@@ -23,11 +23,14 @@
                 </div>
                 @if($orders->count() > 0)
                     @foreach($orders as $order)
-                        <div class="row Card text-center">
+                        <h4><a href="{{ route("orders.show", ['reference_number' => $order->reference_number ]) }}" class="color-primary">Order #{{ $order->reference_number }}</a></h4>
+                        <div class="row Card text-center" style="margin-bottom: 50px">
                             <div class="row Card__header">
                                 <div class="col-xs-4">
-                                    <p>ORDER #</p>
-                                    <p>{{ $order->reference_number }}</p>
+                                    <p>STATUS</p>
+                                    <p style="color: {{ $order->status->color }}" data-toggle="tooltip" data-placement="bottom" title="{{ $order->status->name . " since " . $order->status->updated_at->diffForHumans() }}">
+                                        {{ strtoupper($order->status->name) }}
+                                    </p>
                                 </div>
                                 <div class="col-xs-4">
                                     <p>PLACED</p>
@@ -40,26 +43,35 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    @foreach($order->availableItems as $item)
+                                    @foreach($order->itemsGroupedByDesign() as $designImage => $itemCollection)
                                         <div class="row" style="text-align: left">
                                             <div class="col-xs-12">
-                                                <div @click="openImageModal({{ $item->design }})" class="background-image Thumbnail--image box-shadow Order__thumbnail"
-                                                    style="background-image: url({{ route('image_path', ['image' => $item->design->image_name, 'forOrder' => 1]) }});
-                                                            max-width: 100px;
-                                                            margin-right: 15px;">
+                                                <div class="Order__thumbnail">
+                                                    <div @click="openImageModal({{ $itemCollection->first()->design }})" class="background-image Thumbnail--image box-shadow"
+                                                        style="background-image: url({{ route('image_path', ['image' => $designImage, 'forOrder' => 1]) }});
+                                                                max-width: 90px;">
+                                                    </div>
+                                                    <a class="Button--order-item" style="border: 1px solid" href="{{ route('orders.create', ['category' => $itemCollection->first()->product->category->slug_name, 'design' => $itemCollection->first()->design->id ]) }}">ORDER AGAIN</a>
                                                 </div>
-                                                <div class="Order__index-price">
-                                                    <p>{{ "{$item->quantity} {$item->product->name} " . str_plural($item->product->category->name, $item->quantity)  }}</p>
-                                                    <p>${{ $item->unit_price / 100 }}</p>
-                                                    <p><a class="Button--card" style="border: 1px solid" href="{{ route('orders.create', ['category' => $item->product->category->slug_name, 'design' => $item->design->id]) }}">ORDER AGAIN</a></p>
+                                                <div class="Order__index__detail">
+                                                    @foreach($itemCollection as $item)
+                                                        <div style="display:block; margin-bottom: 20px">
+                                                            <p class="Order__index__amount">
+                                                                {{ $item->quantity . " of " }}
+                                                            </p>
+                                                            <p class="Order__index__name">{{ $item->product->name . " " . str_plural($item->product->category->name, $item->quantity)  }}
+                                                            </p>
+                                                            <p class="Order__index__price">${{ $item->unit_price / 100 }}</p>
+                                                        </div>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </div>
+                                        @unless($loop->last)
+                                            <hr class="Order__hr">
+                                        @endunless
                                     @endforeach
-                                    <p style="border: 2px solid {{ $order->status->color }}; border-radius: 5px; color:  {{ $order->status->color }}; padding: 8px;">
-                                        {{ strtoupper($order->status->name) }}
-                                    </p>
-                                    <p>TOTAL: $ {{ $order->total }}</p>
+                                    <p class="Order__index__total">Total: ${{ $order->total }}</p>
                                 </div>
                             </div>                             
                         </div>

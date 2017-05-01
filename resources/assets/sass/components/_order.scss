@@ -80,13 +80,50 @@
     }
 
     &__thumbnail {
-        margin-top: 10px;
+        margin-top: 15px;
         display: inline-block;
+        margin-left: -5px;
     }
 
-    &__index-price {
-        vertical-align: top;
-        margin-top: 10px;
-        display: inline-block;
+    &__index {
+        &__detail {
+            vertical-align: top;
+            margin-top: 15px;
+            margin-left: 15px;
+            display: inline-block;
+        }
+
+        &__amount, &__name, &__price {
+            font-size: 9pt;
+            @include sm('max') {
+                font-size: 8pt;
+            }
+        }
+        
+        &__amount {
+            font-weight: bold;
+            display: inline;
+        }
+
+        &__name {
+            padding: 0 2px;
+            display: inline;
+        }
+
+        &__price {
+            padding: 0 3px;
+            color: #a2b2ba;
+            display: inline;
+        }
+
+        &__total {
+            color: $brand-secondary;
+            padding-top: 20px;
+            margin-bottom: -3px;
+        }
+    }
+
+    &__hr {
+        margin: 15px 0 5px 0;
     }
 }

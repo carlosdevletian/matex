@@ -103,7 +103,7 @@
                 </div>
             </order-template>
         </div>
-        <div v-if="items.length <= 0">
+        <div v-if="items.length <= 0 && unavailableItems.length <= 0" class="Card">
             There are no items in your cart.
         </div>
     </div>

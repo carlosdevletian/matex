@@ -90,8 +90,9 @@
                     </div>
                     
                     <products :products="{{ $category->products }}"></products>
-
-                    <button class="btn btn-default">Update</button>
+                    <div class="col-sm-6 col-sm-offset-3 mg-top-10 mg-btm-20">
+                        <button class="Button--primary">Update</button>
+                    </div>
                 </form>
             </div>
         </div>

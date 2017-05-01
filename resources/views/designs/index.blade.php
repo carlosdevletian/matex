@@ -8,8 +8,8 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
+                <h3 class="main-title">Designs</h3>
                 <div class="page-header">
-                    <h3 class="main-title">Designs</h3>
                     @include('designs.filters.all')
                 </div>
                 <div class="row">

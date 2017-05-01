@@ -122,6 +122,13 @@ class Order extends Model
             ->get();
     }
 
+    public function itemsGroupedByDesign()
+    {
+        return $this->availableItems()->get()->groupBy(function($item) {
+            return $item->design->image_name;
+        });
+    }
+
     public function scopeUnpaid($query)
     {
         return $query->whereIn('status_id', [1]);

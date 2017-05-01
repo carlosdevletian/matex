@@ -95,3 +95,14 @@
         }
     }
 }
+
+.Button--order-item {
+    @include button(#a2b2ba, true, 7pt, #ebeef2, $transition: false, $border: false);
+    margin-top: 15px;
+    display: block;
+    padding: 6px;
+    &:hover {
+        color: #546e7a;
+        font-weight: bold;
+    }
+}

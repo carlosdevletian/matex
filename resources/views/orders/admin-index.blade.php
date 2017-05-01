@@ -16,7 +16,7 @@
                     {{ request()->has('client') ? 'by ' . request()->client : '' }}
                 </h4>
 
-                <form method="GET" action="{{ route('orders.index') }}">
+                <form method="GET" action="{{ route('orders.index') }}" class="mg-btm-20">
                     @foreach(request()->all() as $name => $value)
                         @unless($name == 'status')
                             <input type="hidden" name="{{ $name }}" value="{{ $value }}">
@@ -32,7 +32,7 @@
                         </select>
                     </div>
                     <button class="Button--product">Go</button>
-                    <a class="Button--product" href="{{ route('orders.index') }}" style="padding: 7px">Reset Filters</a>
+                    <a class="Button--product" href="{{ route('orders.index') }}" style="padding: 7px; display: inline-block;">Reset Filters</a>
                 </form>
 
                 <table class="table table-hover dt-responsive nowrap text-center" cellspacing="0" width="100%" id="orders">

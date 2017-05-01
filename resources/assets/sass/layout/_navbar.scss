@@ -6,6 +6,10 @@
     position: absolute;
 }
 
+.navbar-primary {
+    background-color: #f5f7f9;
+}
+
 .navbar-logo {
     margin-top: 11px;
     margin-right: 5px;
@@ -31,5 +35,38 @@
 .navbar-home-click {
     @include md('max') {
         background-color: $brand-primary !important;
+    }
+}
+
+.navbar-secondary {
+    background-color: white;
+    height: 35px;
+    text-align: center;
+    box-shadow: 0px 2px 5px -1px rgba(0,0,0,.05);
+
+    &-button {
+        border-right: 2px solid #f5f7f9;
+
+        &-left {
+            border-left: 2px solid #f5f7f9;
+        }
+    }
+
+    &-padding {
+        padding-top: 8px;
+        padding-bottom: 6px;
+    }
+
+    &-link {
+        color: #a2b2ba;
+        font-size: 10pt;
+
+        &:hover {
+            color: #546e7a;
+        }
+    }
+
+    &-body {
+        padding-top: 40px;
     }
 }

@@ -9,8 +9,8 @@
         <div class="row">
             <div class="col-xs-12">
                 @if($order->status->name == 'Payment Pending')
-                    <div class="alert alert-danger">
-                        <h4>Your payment could not be processed, please try again</h4>
+                    <div class="mg-top-10 alert alert-danger">
+                        <h5>Your payment could not be processed, please try again</h5>
                     </div>
                 @endif
                 <h3 class="mg-btm-20 text-center">Order details</h3>

@@ -84,7 +84,9 @@
                         </div>
                     </div>
 
-                <button class="btn btn-default">Create</button>
+                    <div class="col-sm-6 col-sm-offset-3 mg-top-10 mg-btm-20">
+                        <button class="Button--primary">Create</button>
+                    </div>
                 </form>
             </div>
         </div>

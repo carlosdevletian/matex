@@ -24,16 +24,16 @@ class ItemController extends Controller
         return $item->load('product');
     }
 
-    public function update($item)
+    public function update(Item $item, Request $request)
     {
-        if(! request()->quantity > 0) {
+        if(! $request->item['quantity'] > 0) {
             return json(['error' => 'Could not process', 422]);
         }
-        $item = Item::findOrFail(request()->id);
-        $item->quantity = request()->quantity;
-        $item->calculatePricing();
-        $item->save();
-        return $item;   
+        $item->quantity = $request->item['quantity'];
+        $item->calculate()->save();
+        return response()->json([
+            'item' => $item,
+        ], 200);
     }
 
     public function destroy(Item $item)

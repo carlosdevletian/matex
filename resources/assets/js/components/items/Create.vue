@@ -8,7 +8,7 @@
                             <div class="row position-relative">
                                 <div class="col-xs-12">
                                     <a @click="deleteItem" role="button" class="Item__delete" style="position: absolute; top: 3%;left: 0;">&#10005;</a>
-                                    <p class="color-secondary">{{ item.product.name }}</p>
+                                    <p class="color-secondary">{{ productName() }}</p>
                                 </div>
                             </div>
                         </td>
@@ -48,13 +48,12 @@
         methods: {
             updatePrice: function () {
                 this.processing = true;
-                if(this.item.quantity < 1 || this.item.quantity % 1 != 0) {
-                    this.error = 'Input a valid quantity';
-                    this.item.quantity = 0;
-                    this.processing = false;
-                    return;
+                if(! this.quantityIsValid()) {
+                    this.error = 'Please input a valid quantity';
+                    this.item.quantity = 1;
+                } else {
+                    this.error = '';
                 }
-                this.error = '';
                 axios.post('/calculatePrice', {
                     item : this.item
                 }).then((response) => {
@@ -62,10 +61,16 @@
                     this.processing = false;
                });
             },
+            quantityIsValid: function() {
+                return (this.item.quantity > 0 && this.item.quantity % 1 == 0);
+            },
             deleteItem: function() {
                 this.processing = true;
                 this.$emit('delete-item', this.item.product.id);
                 this.processing = false;
+            },
+            productName: function() {
+                return `${this.item.product.name.charAt(0).toUpperCase()}${this.item.product.name.slice(1)}`;
             }
         }
     }

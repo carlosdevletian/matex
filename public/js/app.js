@@ -16851,7 +16851,9 @@ var stripeMixin = {
                 customClass: 'Modal',
                 text: 'Please wait until your payment is confirmed',
                 type: 'info',
-                showConfirmButton: false
+                showConfirmButton: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false
             }).catch(swal.noop);
 
             axios.post('/pay', {
@@ -16866,8 +16868,7 @@ var stripeMixin = {
                 // window.onbeforeunload = null;
                 window.location = "/orders/" + response.data.order_reference_number;
             }).catch(function (error) {
-                console.log(error.response.data);
-                // window.location = "/orders/" + error.response.data.order_reference_number;
+                window.location = "/orders/" + error.response.data.order_reference_number;
             });
         },
 
@@ -28066,7 +28067,7 @@ Vue.directive('focus', {
 });
 
 Vue.filter('inDollars', function (cents) {
-    return (cents / 100).toLocaleString('en-US');
+    return (cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
 });
 
 Vue.filter('ago', function (date) {
@@ -29776,7 +29777,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['category', 'addClass', 'imagePath'],
+    props: ['category', 'addClass', 'imagePath', 'isAdmin'],
     data: function data() {
         return {
             imageUrl: {
@@ -29786,6 +29787,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     methods: {
+        onClick: function onClick() {
+            if (this.isAdmin) {
+                return this.editCategory();
+            }
+            return this.categoryIndex();
+        },
+        categoryIndex: function categoryIndex() {
+            window.location = '/design/' + this.category.slug_name;
+        },
         editCategory: function editCategory() {
             window.location = '/categories/edit/' + this.category.id;
         },
@@ -29990,24 +30000,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.processing = true;
-            if (this.item.quantity < 1 || this.item.quantity % 1 != 0) {
-                this.error = 'To delete, press the X button';
+            if (!this.quantityIsValid()) {
+                this.error = 'Please input a valid quantity';
                 this.item.quantity = 1;
-                this.processing = false;
-                this.editEnabled();
-                return;
+            } else {
+                this.error = '';
             }
-            this.error = '';
-            axios.put('/items/' + this.item.id, this.item).then(function (response) {
-                _this.$emit('item-updated', response.data);
-                Event.$emit('item-updated', response.data);
+            axios.put('/items/' + this.item.id, {
+                item: this.item
+            }).then(function (response) {
+                _this.$emit('item-updated', response.data.item);
+                Event.$emit('item-updated', response.data.item);
                 _this.processing = false;
             });
+        },
+        quantityIsValid: function quantityIsValid() {
+            return this.item.quantity > 0 && this.item.quantity % 1 == 0;
         },
         deleteItem: function deleteItem() {
             this.processing = true;
             this.$emit('delete-item', this.item.id);
             this.processing = false;
+        },
+        productName: function productName() {
+            return '' + this.item.product.name.charAt(0).toUpperCase() + this.item.product.name.slice(1);
+        },
+        categoryName: function categoryName() {
+            return '' + this.item.product.category.name.charAt(0).toUpperCase() + this.item.product.category.name.slice(1);
         },
         isAvailable: function isAvailable() {
             return !!+this.item.available;
@@ -30076,13 +30095,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             this.processing = true;
-            if (this.item.quantity < 1 || this.item.quantity % 1 != 0) {
-                this.error = 'Input a valid quantity';
-                this.item.quantity = 0;
-                this.processing = false;
-                return;
+            if (!this.quantityIsValid()) {
+                this.error = 'Please input a valid quantity';
+                this.item.quantity = 1;
+            } else {
+                this.error = '';
             }
-            this.error = '';
             axios.post('/calculatePrice', {
                 item: this.item
             }).then(function (response) {
@@ -30090,10 +30108,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.processing = false;
             });
         },
+        quantityIsValid: function quantityIsValid() {
+            return this.item.quantity > 0 && this.item.quantity % 1 == 0;
+        },
         deleteItem: function deleteItem() {
             this.processing = true;
             this.$emit('delete-item', this.item.product.id);
             this.processing = false;
+        },
+        productName: function productName() {
+            return '' + this.item.product.name.charAt(0).toUpperCase() + this.item.product.name.slice(1);
         }
     }
 });
@@ -30786,19 +30810,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         filteredShipping: function filteredShipping() {
             if (this.zipIsValid && this.calculatedSubtotal > 0) {
-                return '$ ' + (this.shipping / 100).toLocaleString('en-US');
+                return '$ ' + (this.shipping / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
             }
             return '-';
         },
         filteredTax: function filteredTax() {
             if (this.zipIsValid && this.calculatedSubtotal > 0) {
-                return '$ ' + (this.tax / 100).toLocaleString('en-US');
+                return '$ ' + (this.tax / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
             }
             return '-';
         },
         filteredTotal: function filteredTotal() {
             if (this.zipIsValid) {
-                return '$ ' + (this.totalPrice / 100).toLocaleString('en-US');
+                return '$ ' + (this.totalPrice / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
             }
             return '-';
         }
@@ -31074,19 +31098,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         filteredShipping: function filteredShipping() {
             if (this.zipIsValid && this.calculatedSubtotal > 0) {
-                return '$ ' + (this.shipping / 100).toLocaleString('en-US');
+                return '$ ' + (this.shipping / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
             }
             return '-';
         },
         filteredTax: function filteredTax() {
             if (this.zipIsValid && this.calculatedSubtotal > 0) {
-                return '$ ' + (this.tax / 100).toLocaleString('en-US');
+                return '$ ' + (this.tax / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
             }
             return '-';
         },
         filteredTotal: function filteredTotal() {
             if (this.zipIsValid) {
-                return '$ ' + (this.totalPrice / 100).toLocaleString('en-US');
+                return '$ ' + (this.totalPrice / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
             }
             return '-';
         }
@@ -33807,13 +33831,7 @@ if (typeof jQuery === 'undefined') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
-/* 178 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n.black {\n    background-color: black;\n}\n", ""]);
-
-/***/ }),
+/* 178 */,
 /* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -55405,10 +55423,6 @@ module.exports = Component.exports
 /* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(237)
-
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(162),
@@ -56000,12 +56014,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "role": "button"
     },
     on: {
-      "click": _vm.editCategory
+      "click": _vm.onClick
     }
   }, [_c('div', {
-    staticClass: "Card Card--thumbnail Flippable",
+    staticClass: "Card Card--thumbnail",
     class: {
-      Flipped: _vm.showMore
+      Flipped: _vm.showMore, Flippable: _vm.isAdmin
     }
   }, [_c('div', {
     staticClass: "Flippable__front Thumbnail--image background-image",
@@ -56049,7 +56063,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Enable")])])]), _vm._v(" "), _c('div', {
     staticClass: "text-center"
-  }, [_vm._v(_vm._s(_vm.category.name))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.category.name))])])]), _vm._v(" "), (_vm.isAdmin) ? _c('div', {
     staticClass: "position-relative"
   }, [_c('button', {
     staticClass: "Icon__more",
@@ -56058,7 +56072,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.showMore = !_vm.showMore
       }
     }
-  }, [_vm._v("\n            ⋮\n        ")])])])
+  }, [_vm._v("\n            ⋮\n        ")])]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -56576,7 +56590,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     style: (_vm.imageUrl)
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-xs-8"
-  }, [_c('p', [_vm._v("\n                                    " + _vm._s(_vm.item.product.name) + " " + _vm._s(_vm.item.product.category.name) + "\n                                ")])])])]), _vm._v(" "), _c('td', {
+  }, [_c('p', [_vm._v("\n                                    " + _vm._s(_vm.productName()) + " " + _vm._s(_vm.categoryName()) + "\n                                ")])])])]), _vm._v(" "), _c('td', {
     staticClass: "col-xs-3"
   }, [_c('div', {
     staticClass: "position-relative"
@@ -56587,7 +56601,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.item.quantity),
       expression: "item.quantity"
     }],
-    staticClass: "Form borderless pd-0 text-center",
+    staticClass: "Form pd-0 text-center",
     class: {
       'Form--error': this.error
     },
@@ -57443,7 +57457,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("✕")]), _vm._v(" "), _c('p', {
     staticClass: "color-secondary"
-  }, [_vm._v(_vm._s(_vm.item.product.name))])])])]), _vm._v(" "), _c('td', {
+  }, [_vm._v(_vm._s(_vm.productName()))])])])]), _vm._v(" "), _c('td', {
     staticClass: "col-xs-3"
   }, [_c('div', {
     staticClass: "position-relative"
@@ -58167,32 +58181,7 @@ if (false) {
 }
 
 /***/ }),
-/* 237 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(178);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(4)("3cb61c70", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-501d5526!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CartCreate.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-501d5526!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CartCreate.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 237 */,
 /* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 

@@ -65,7 +65,7 @@ class CategoryController extends Controller
 
         $category->addImage(request()->file, request()->name);
         
-        $category->name = request()->name; 
+        $category->name = strtolower( str_singular(request()->name) ); 
         $category->crop_width = request()->cropw; 
         $category->crop_height = request()->croph; 
         $category->crop_x_position = request()->cropx; 

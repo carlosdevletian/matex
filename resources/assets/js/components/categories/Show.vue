@@ -1,7 +1,7 @@
 <template>
     <div class="mg-btm-20" :class="addClass">
-        <a role="button" @click="editCategory">
-            <div class="Card Card--thumbnail Flippable" :class="{ Flipped : showMore }">
+        <a role="button" @click="onClick">
+            <div class="Card Card--thumbnail" :class="{ Flipped : showMore, Flippable : isAdmin}">
                 <div class="Flippable__front Thumbnail--image background-image" :style="imageUrl"></div>
                 <div class="Flippable__back position-relative" @click.stop>
                     <div class="Thumbnail--image position-absolute text-center" style="width: 100%; bottom: 0">
@@ -13,7 +13,7 @@
                 <div class="text-center">{{ category.name }}</div>
             </div>
         </a>
-        <div class="position-relative">
+        <div v-if="isAdmin" class="position-relative">
             <button @click="showMore = !showMore" class="Icon__more">
                 &#x22ee;
             </button>
@@ -23,7 +23,7 @@
 
 <script>
     export default {
-        props: ['category', 'addClass', 'imagePath'],
+        props: ['category', 'addClass', 'imagePath', 'isAdmin'],
         data: function() {
             return {
                 imageUrl: {
@@ -33,6 +33,15 @@
             }
         },
         methods: {
+            onClick: function() {
+                if(this.isAdmin) {
+                    return this.editCategory();
+                }
+                return this.categoryIndex();
+            },
+            categoryIndex: function() {
+                window.location = `/design/${this.category.slug_name}`
+            },
             editCategory: function() {
                 window.location = `/categories/edit/${this.category.id}`
             },

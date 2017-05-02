@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="col-xs-4">
                                     <p>PLACED</p>
-                                    <p>{{ $order->created_at->diffForHumans() }}</p>
+                                    <p>{{ $order->present()->datePlaced }}</p>
                                 </div>
                                 <div class="col-xs-4">
                                     <p>DELIVER TO</p>
@@ -59,9 +59,9 @@
                                                             <p class="Order__index__amount">
                                                                 {{ $item->quantity . " of " }}
                                                             </p>
-                                                            <p class="Order__index__name">{{ $item->product->name . " " . str_plural($item->product->category->name, $item->quantity)  }}
+                                                            <p class="Order__index__name">{{ $item->present()->product  }}
                                                             </p>
-                                                            <p class="Order__index__price">${{ $item->unit_price / 100 }}</p>
+                                                            <p class="Order__index__price">${{ $item->present()->unit_price}}</p>
                                                         </div>
                                                     @endforeach
                                                 </div>
@@ -71,7 +71,7 @@
                                             <hr class="Order__hr">
                                         @endunless
                                     @endforeach
-                                    <p class="Order__index__total">Total: ${{ $order->total }}</p>
+                                    <p class="Order__index__total">Total: ${{ $order->present()->total }}</p>
                                 </div>
                             </div>                             
                         </div>

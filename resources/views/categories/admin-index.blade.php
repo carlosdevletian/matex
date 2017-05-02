@@ -14,7 +14,8 @@
                         <category-show 
                             :category="{{ $category }}" 
                             image-path="{{ $category->imagePath() }}"
-                            add-class="col-xs-6 col-sm-4 col-md-3">
+                            add-class="col-xs-6 col-sm-4 col-md-3"
+                            is-admin="{{ admin() }}">
                         </category-show>
                     @endforeach
                 </div>

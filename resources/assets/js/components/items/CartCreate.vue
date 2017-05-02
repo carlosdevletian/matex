@@ -16,7 +16,7 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <p>
-                                        {{ item.product.name }} {{ item.product.category.name }}
+                                        {{ productName() }} {{ categoryName() }}
                                     </p>
                                 </div>
                             </div>
@@ -26,7 +26,7 @@
                                 <input type="number"
                                     v-model="item.quantity"
                                     @change="updateItem"
-                                    class="Form borderless pd-0 text-center"
+                                    class="Form pd-0 text-center"
                                     onfocus="if(this.value == '0') { this.value = ''; }"
                                     v-bind:class="{ 'Form--error' : this.error }"
                                     :disabled="processing">
@@ -66,24 +66,33 @@
         methods: {
             updateItem: function () {
                 this.processing = true;
-                if(this.item.quantity < 1 || this.item.quantity % 1 != 0) {
-                    this.error = 'To delete, press the X button';
+                if(! this.quantityIsValid()) {
+                    this.error = 'Please input a valid quantity';
                     this.item.quantity = 1;
-                    this.processing = false;
-                    this.editEnabled();
-                    return;
+                } else {
+                    this.error = '';
                 }
-                this.error = '';
-                axios.put('/items/' + this.item.id, this.item).then((response) => {
-                    this.$emit('item-updated', response.data);
-                    Event.$emit('item-updated', response.data);
+                axios.put('/items/' + this.item.id, {
+                    item: this.item
+                }).then((response) => {
+                    this.$emit('item-updated', response.data.item);
+                    Event.$emit('item-updated', response.data.item);
                     this.processing = false;
                 });
+            },
+            quantityIsValid: function() {
+                return (this.item.quantity > 0 && this.item.quantity % 1 == 0);
             },
             deleteItem: function() {
                 this.processing = true;
                 this.$emit('delete-item', this.item.id);
                 this.processing = false;
+            },
+            productName: function() {
+                return `${this.item.product.name.charAt(0).toUpperCase()}${this.item.product.name.slice(1)}`;
+            },
+            categoryName: function() {
+                return `${this.item.product.category.name.charAt(0).toUpperCase()}${this.item.product.category.name.slice(1)}`;
             },
             isAvailable: function() {
                 return !! +this.item.available;
@@ -94,9 +103,3 @@
         }
     }
 </script>
-
-<style>
-    .black {
-        background-color: black;
-    }
-</style>

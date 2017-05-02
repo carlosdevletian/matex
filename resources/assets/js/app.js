@@ -50,7 +50,7 @@ Vue.directive('focus', {
 })
 
 Vue.filter('inDollars', function(cents) {
-    return (cents / 100).toLocaleString('en-US');
+    return (cents / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
 });
 
 Vue.filter('ago', function(date) {

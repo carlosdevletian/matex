@@ -45,7 +45,7 @@ class Product extends Model
     public function updateFromRequest($data, $displayPosition)
     {
         $this->update([
-            'name' => $data[1],
+            'name' => strtolower($data[1]),
             'width' => $data[2],
             'length' => $data[3],
             'display_position' => $displayPosition
@@ -61,7 +61,7 @@ class Product extends Model
             return;
         }
         $product = self::create([
-            'name' => $data[1],
+            'name' => strtolower($data[1]),
             'width' => $data[2],
             'length' => $data[3],
             'category_id' => $categoryId,

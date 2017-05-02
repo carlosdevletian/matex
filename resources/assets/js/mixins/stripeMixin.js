@@ -33,7 +33,9 @@ export const stripeMixin = {
                 customClass: 'Modal',
                 text: 'Please wait until your payment is confirmed',
                 type: 'info',
-                showConfirmButton: false
+                showConfirmButton: false,
+                allowEscapeKey : false,
+                allowOutsideClick : false,
             }).catch(swal.noop)
 
             axios.post(`/pay`, {

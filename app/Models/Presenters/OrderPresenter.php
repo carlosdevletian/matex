@@ -27,4 +27,9 @@ class OrderPresenter extends Presenter
         $shipping = $this->model->shipping / 100;
         return $this->presentAsDollars($shipping);
     }
+
+    public function datePlaced()
+    {
+        return $this->model->created_at->toFormattedDateString();
+    }
 }

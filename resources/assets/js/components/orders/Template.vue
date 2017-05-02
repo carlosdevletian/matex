@@ -22,8 +22,8 @@
                                 <div class="col-xs-4">
                                     Subtotal:
                                 </div>
-                                <div class="col-xs-2 col-xs-offset-6">
-                                    <p class="text-center"><slot name="subtotal"></slot></p>
+                                <div class="col-xs-3 col-xs-offset-5">
+                                    <p class="text-center no-wrap"><slot name="subtotal"></slot></p>
                                 </div>
                             </div>
                             <slot name="zip-error"></slot>
@@ -31,8 +31,8 @@
                                 <div class="col-xs-4">
                                     Shipping:
                                 </div>
-                                <div class="col-xs-2 col-xs-offset-6">
-                                    <p class="text-center">
+                                <div class="col-xs-3 col-xs-offset-5">
+                                    <p class="text-center no-wrap">
                                         <slot name="shipping"></slot>
                                     </p>
                                 </div>
@@ -41,8 +41,8 @@
                                 <div class="col-xs-4">
                                     Tax:
                                 </div>
-                                <div class="col-xs-2 col-xs-offset-6">
-                                    <p class="text-center">
+                                <div class="col-xs-3 col-xs-offset-5">
+                                    <p class="text-center no-wrap">
                                         <slot name="tax"></slot>
                                     </p>
                                 </div>
@@ -53,8 +53,8 @@
                             <div class="col-xs-4">
                                 Total:
                             </div>
-                            <div class="col-xs-2 col-xs-offset-6">
-                                <p class="text-center">
+                            <div class="col-xs-3 col-xs-offset-5">
+                                <p class="text-center no-wrap">
                                     <slot name="total"></slot>
                                 </p>
                             </div>

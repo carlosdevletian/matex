@@ -90,6 +90,9 @@
             vertical-align: top;
             margin-top: 15px;
             margin-left: 15px;
+            @include sm('max') {
+                margin-left: 5px;
+            }
             display: inline-block;
         }
 

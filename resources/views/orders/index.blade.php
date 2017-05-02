@@ -28,7 +28,7 @@
                             <div class="row Card__header">
                                 <div class="col-xs-4">
                                     <p>STATUS</p>
-                                    <p style="color: {{ $order->status->color }}" data-toggle="tooltip" data-placement="bottom" title="{{ $order->status->name . " since " . $order->status->updated_at->diffForHumans() }}">
+                                    <p style="color: {{ $order->status->color }}; border: 2px solid {{ $order->status->color }}; border-radius: 3px" data-toggle="tooltip" data-placement="bottom" title="{{ $order->status->name . " since " . $order->status->updated_at->diffForHumans() }}">
                                         {{ strtoupper($order->status->name) }}
                                     </p>
                                 </div>

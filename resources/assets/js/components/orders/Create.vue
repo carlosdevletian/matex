@@ -65,7 +65,7 @@
             <div class="col-xs-6">
                 <button v-if="signedIn"
                     @click="addToCart"
-                    class="Button--secondary box-shadow mg-btm-20"
+                    class="Button--secondary box-shadow mg-btm-20 no-wrap"
                     >Add to cart</button>
             </div>
             <div class="col-xs-6" :class="{ 'col-xs-offset-3': !signedIn }">

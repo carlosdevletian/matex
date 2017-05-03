@@ -7,8 +7,10 @@
 
     &--dashboard {
         height: 280px;
+        border-top: 2px solid $gradient-blue;
 
         &--half-size {
+            border-top: 2px solid $gradient-blue;
             height: 130px;
         }
     }

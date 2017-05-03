@@ -70,24 +70,24 @@
         <div class="container-fluid navbar-secondary">
             <div class="row">
                 <a href="{{ route('dashboard') }}" class="navbar-secondary-link">
-                    <div class="col-xs-4 col-sm-2 col-sm-offset-3 navbar-secondary-button navbar-secondary-button-left navbar-secondary-padding">
+                    <div class="col-xs-4 col-sm-2 col-sm-offset-3 navbar-secondary-button navbar-secondary-button-left navbar-secondary-padding {{ Route::currentRouteName() == 'dashboard' ? 'navbar-secondary-active' : ''}}">
                         Dashboard
                     </div>
                 </a>
                 <a href="{{ route('orders.index') }}" class="navbar-secondary-link">
-                    <div class="col-xs-4 col-sm-2 navbar-secondary-button navbar-secondary-padding">
+                    <div class="col-xs-4 col-sm-2 navbar-secondary-button navbar-secondary-padding {{ Route::currentRouteName() == 'orders.index' ? 'navbar-secondary-active' : ''}}">
                         Orders
                     </div>
                 </a>
                 @if (admin())
                     <a href="{{ route('users.index') }}" class="navbar-secondary-link">
-                        <div class="col-xs-4 col-sm-2 navbar-secondary-button navbar-secondary-padding">
+                        <div class="col-xs-4 col-sm-2 navbar-secondary-button navbar-secondary-padding {{ Route::currentRouteName() == 'users.index' ? 'navbar-secondary-active' : ''}}">
                             Clients
                         </div>
                     </a>
                 @else
                     <a href="{{ route('designs.index') }}" class="navbar-secondary-link">
-                        <div class="col-xs-4 col-sm-2 navbar-secondary-button navbar-secondary-padding">
+                        <div class="col-xs-4 col-sm-2 navbar-secondary-button navbar-secondary-padding {{ Route::currentRouteName() == 'designs.index' ? 'navbar-secondary-active' : ''}}">
                             Designs
                         </div>
                     </a>

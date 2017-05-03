@@ -141,16 +141,18 @@ const app = new Vue({
         },
         deleteAddress: function(event) {
             swal({
-                title: 'Are you sure?',
+                title: "Are you sure? <span class='Modal__close pd-0 top-0' onclick='swal.closeModal(); return false;'>&#10005;</span>",
                 text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: 'rgb(0, 0, 170)',
-                cancelButtonColor: 'rgb(208,67,40)',
+                type: null,
+                customClass: 'Modal',
+                buttonsStyling: false,
+                showConfirmButton: true,
+                confirmButtonClass: 'Button--secondary stick-to-bottom',
+                showCancelButton: false,
                 confirmButtonText: 'Yes, delete it!'
             }).then(function () {
                 event.target.submit();
-            })
+            }).catch(swal.noop);
         }
     }
 });

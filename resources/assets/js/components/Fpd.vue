@@ -180,6 +180,51 @@
                     vm.addEventListenersForModals();
                 })
             });
+
+            swal.setDefaults({
+                type: null,
+                customClass: 'Modal',
+                buttonsStyling: false,
+                showConfirmButton: true,
+                confirmButtonClass: 'Button--secondary stick-to-bottom',
+                confirmButtonText: 'Finish Tutorial',
+                showCancelButton: false,
+                animation: false,
+                imageWidth: 300,
+                imageHeight: 150,
+                confirmButtonText: 'Next',
+                progressSteps: ['1', '2', '3', '4']
+            })
+
+            var steps = [
+                {
+                    title: "Welcome to the Matex Designer",
+                    text: 'We have a short tutorial prepared for you!',
+                    animation: true
+                },
+                {
+                    title: "Edit an Object",
+                    text: 'To edit an object click on it, a series of options will appear (change color, size, delete, rotate)',
+                    imageUrl: 'http://i.imgur.com/66pIoZY.png',
+                },
+                {
+                    title: "Add Text",
+                    text: 'You can add text by clicking the "Add Text" button, then you can style it to your liking',
+                    imageUrl: 'http://i.imgur.com/1IFmy8K.png',
+                },
+                {
+                    title: "Add Images",
+                    text: 'To add images you can click the "Add Image" button, you may drag and drop your image or select it from your files',
+                    confirmButtonText: 'Finish Tutorial',
+                    imageUrl: 'http://i.imgur.com/IX1jQWP.png',
+                }
+            ];
+
+            swal.queue(steps).then(function (result) {
+                swal.resetDefaults()
+            }, function () {
+                swal.resetDefaults()
+            }).catch(swal.noop);
         }
     }
 </script>

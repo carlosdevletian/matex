@@ -10,7 +10,7 @@
                         <a v-else role="button" @click="enableCategory" class="Icon__more--element">Enable</a>
                     </div>
                 </div>
-                <div class="text-center">{{ category.name }}</div>
+                <div class="text-center">{{ categoryName() }}</div>
             </div>
         </a>
         <div v-if="isAdmin" class="position-relative">
@@ -60,7 +60,10 @@
                 }).catch(error => {
                     alert('error');
                 })
-            }
+            },
+            categoryName: function() {
+                return `${this.category.name.charAt(0).toUpperCase()}${this.category.name.slice(1)}`;
+            },
         }
     }
 </script>

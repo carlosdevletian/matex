@@ -89,11 +89,11 @@ class Item extends Model
         return new ItemPresenter($this);
     }
 
-    public static function generate($data, $designId = null)
+    public static function generate($data, $design = null)
     {
         return self::hydrate($data)
-                    ->map(function ($item) use ($designId) {
-                        return $item->withoutRelated()->persistOrDelete($designId);
+                    ->map(function ($item) use ($design) {
+                        return $item->withoutRelated()->persistOrDelete($design);
                     })->filter(function ($item) {
                         return $item instanceof self;
                     });
@@ -107,7 +107,7 @@ class Item extends Model
         return $this->newFromBuilder($filtered);
     }
 
-    private function persistOrDelete($designId)
+    private function persistOrDelete($design)
     {
         if($this->quantity < 1) return $this->delete();
 
@@ -118,7 +118,7 @@ class Item extends Model
 
         // Finally, assign the design id that was passed through,
         // if any, calculate the item's price, and persist it.
-        if(isset($designId)) $this->design_id = $designId;
+        if(isset($design)) $this->design_id = $design->id;
         $this->calculate()->save();
         return $this;
     }

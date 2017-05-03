@@ -11,7 +11,7 @@
                     <a role="button" v-if="!!+design.category.is_active" @click="redesign" class="Icon__more--element">Redesign</a>
                 </div>
             </div>
-            <div class="Thumbnail__text text-center">{{ design.category.name }}</div>
+            <div class="Thumbnail__text text-center">{{ categoryName() }}</div>
         </div>
         <div class="position-relative" v-if="! admin">
             <button @click="showMore = !showMore" class="Icon__more">
@@ -63,7 +63,10 @@
             },
             redesign: function() {
                 window.location = `/design/${this.design.category.slug_name}/${this.design.id}`;
-            }
+            },
+            categoryName: function() {
+                return `${this.design.category.name.charAt(0).toUpperCase()}${this.design.category.name.slice(1)}`;
+            },
         }
     }
 </script>

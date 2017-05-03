@@ -15,7 +15,7 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <p class="mg-0 pd-top-8">
-                                        {{ item.product.name }} {{ item.product.category.name }}
+                                        {{ productName() }} {{ categoryName() }}
                                     </p>
                                 </div>
                             </div>
@@ -62,6 +62,12 @@
             },
             isAvailable: function() {
                 return !! +this.item.available;
+            },
+            productName: function() {
+                return `${this.item.product.name.charAt(0).toUpperCase()}${this.item.product.name.slice(1)}`;
+            },
+            categoryName: function() {
+                return `${this.item.product.category.name.charAt(0).toUpperCase()}${this.item.product.category.name.slice(1)}`;
             },
         }
     }

@@ -1,18 +1,17 @@
 <template>
     <div>
         <div class="Card col-xs-12 pd-0">
-           <div ref="fpd" id="fpd" class="fpd-container fpd-topbar fpd-hidden-tablets">
+           <div ref="fpd" id="fpd" class="fpd-container fpd-topbar fpd-hidden-tablets fpd-top-actions-centered fpd-bottom-actions-centered">
                 <div class="fpd-product" title="Titulo" data-thumbnail="#">
                     <img :src="productTemplate"
                         title="Bracelet"
                         data-parameters=
-                            '{"left": 340,
-                            "top": 329,
+                            '{
                             "draggable": false,
                             "removable": false,
                             "autoCenter": true,
                             "zChangeable": false,
-                            "colors": "#ffffff,#e3e3e3,#000000,#ffff80,#ff6666,#00ff80",
+                            "colors": [],
                             "z": 2
                             }'
                     />
@@ -101,6 +100,33 @@
                     vm.comment = comment;
                     vm.continue(throughLogin);
                 }).catch(swal.noop);
+            },
+            addEventListenersForModals: function() {
+                var modal = document.getElementsByClassName('fpd-draggable-dialog');
+                this.onEscape(modal);
+                this.onOutsideClick(modal);
+                // this.onElementAdded(modal);
+            },
+            onEscape: function(modal) {
+                document.addEventListener("keydown", (e) => {
+                    if (modal && e.keyCode == 27) {
+                        $(modal).removeClass("fpd-active");
+                    }
+                });
+            },
+            onOutsideClick: function(modal) {
+                this.$refs.fpd.addEventListener("click", (e) => {
+                    if(modal && e.target != modal) {
+                        $(modal).removeClass("fpd-active");
+                    }
+                });
+            },
+            onElementAdded: function(modal) {
+                $('#fpd').bind("elementAdd", (e) => {
+                    if(modal && e.target != modal) {
+                        $(modal).removeClass("fpd-active");
+                    }
+                })
             }
         },
         created: function() {
@@ -118,21 +144,18 @@
                 langJSON: this.langJson,
                 templatesDirectory: this.templateDirectory,
                 actions:  {
-                    'top': ['download', 'snap', 'preview-lightbox'],
-                    'right': ['magnify-glass', 'zoom', 'reset-product'],
+                    'top': ['manage-layers','magnify-glass', 'zoom', 'reset-product'],
                     'bottom': ['undo','redo'],
-                    'left': ['manage-layers','save']
                 },
                 selectedColor: "#f5f5f5",
                 customTextParameters: {
-                    colors: "#000000,#ffffff",
                     removable: true,
                     resizable: true,
                     draggable: true,
                     rotatable: true,
                     autoCenter: true,
                     toolbarPlacement: "inside-top",
-                    colors: "#e3e3e3,#000000,#ffff80,#ff6666,#00ff80",
+                    colors: []
                 },
                 customImageParameters: {
                     draggable: true,
@@ -144,6 +167,8 @@
                 },
                 outOfBoundaryColor: "#FF0000",
                 toolbarPlacement: "inside-top",
+                hideDialogOnAdd: true,
+                mainBarModules: ['images', 'text', 'designs'],
             };
             $(document).ready(function(){
                 vm.designer = new FancyProductDesigner(fpd, pluginOptions);
@@ -152,6 +177,7 @@
                     if(Object.keys(vm.existingDesign).length !== 0) {
                         Event.$emit('design-selected', vm.existingDesign)
                     }
+                    vm.addEventListenersForModals();
                 })
             });
         }

@@ -67,12 +67,12 @@
 		"text": "Add Text",
 		"text_input_placeholder": "Enter some text",
 		"text_add_btn": "Add Text",
-		"designs": "Choose From Designs",
+		"designs": "Select template",
 		"designs_search_in": "Search in",
 		"manage_layers": "Layers"
 	},
 	"misc": {
-		"initializing": "Initializing Product Designer",
+		"initializing": "Loading",
 		"out_of_bounding_box": "Move element in its containment!",
 		"product_saved": "Product Saved!",
 		"loading_image": "Loading Image...",

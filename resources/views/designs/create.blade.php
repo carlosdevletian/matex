@@ -15,20 +15,22 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h3 class="main-title">Design your {{ $category->name }}</h3>
-                @if(auth()->check() && auth()->user()->hasAnyDesignsInCategory($category->id))
-                    <div class="mg-btm-20">
-                        <a role="button" 
-                            v-if="!showDesignPicker" 
-                            @click="showDesignPicker = true"
-                            class="Button--product">
-                            Select from previous designs
-                        </a>
-                    </div>
-                    <design-picker :designs="{{ $existingDesigns }}" v-if="showDesignPicker"></design-picker>
-                @endif
+                <div class="page-header">
+                    <h3 class="main-title">Design your {{ $category->name }}</h3>
+                    @if(auth()->check() && auth()->user()->hasAnyDesignsInCategory($category->id))
+                        <div class="mg-btm-20">
+                            <a role="button" 
+                                v-if="!showDesignPicker" 
+                                @click="showDesignPicker = true"
+                                class="Button--product">
+                                Select from previous designs
+                            </a>
+                        </div>
+                        <design-picker :designs="{{ $existingDesigns }}" v-if="showDesignPicker"></design-picker>
+                    @endif
+                </div>
                 <fpd
-                    product-template="{{ URL::to('images/bracelet_template.png') }}"
+                    product-template="{{ URL::to('images/design_templates/bracelet_template.png') }}"
                     template-directory="{{ URL::to('fpd') . '/'}}"
                     lang-json="{{ URL::to('default.json') }}"
                     :category-id="{{ $category->id }}"

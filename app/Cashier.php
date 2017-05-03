@@ -2,10 +2,11 @@
 
 namespace App;
 
+use App\Models\User;
 use App\Models\Item;
 use App\Models\Order;
-use App\Models\Design;
 use App\Models\Status;
+use App\Models\Design;
 use App\Models\Address;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
@@ -104,11 +105,7 @@ class Cashier
 
     protected function addItems()
     {
-        if(auth()->check()) {
-            $items = Item::generate(request('items'));
-        } else {
-            $items = Item::generate(request('items'), $this->design->id);
-        }
+        $items = Item::generate(request('items'), $this->design);
         
         foreach ($items as $item) {
             $this->order->addItem($item);

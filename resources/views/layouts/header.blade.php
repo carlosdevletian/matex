@@ -47,7 +47,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ route('addresses.index') }}">Addresses</a></li>
                             <li>
-                                <a href="{{ route('users.edit', ['user' => auth()->user()->id]) }}">Edit Profile</a>
+                                <a href="{{ route('users.edit', ['user' => auth()->user()->email]) }}">Edit Profile</a>
                             </li>
                             <li>
                                 <a href="{{ url('/logout') }}"

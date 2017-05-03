@@ -2,12 +2,13 @@
 
 namespace Tests\Unit;
 
+use Tests\TestCase;
 use App\Models\Item;
+use App\Models\Design;
 use App\Models\Product;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Tests\TestCase;
 
 class ItemTest extends TestCase
 {
@@ -27,9 +28,9 @@ class ItemTest extends TestCase
     function it_creates_new_items_from_request_data_for_a_given_design()
     {
        $requestData = factory(Item::class, 3)->make(['quantity' => 10]);
-       $designId = 99;
+       $design = factory(Design::class)->create(['id' => 99]);
 
-       $items = Item::generate($requestData->toArray(), $designId);
+       $items = Item::generate($requestData->toArray(), $design);
 
        $this->assertEquals($items->first()->design_id, 99);
        $this->assertEquals(3, Item::count());

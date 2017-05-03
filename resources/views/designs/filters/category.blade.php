@@ -4,7 +4,7 @@
         <option value>All Designs</option>
         @foreach($categories as $category)
             <option value="{{ $category->slug_name }}" {{ request('category') == $category->slug_name ? 'selected' : '' }}>
-                {{ $category->name }}
+                {{ ucfirst($category->name) }}
             </option>
         @endforeach
     </select>

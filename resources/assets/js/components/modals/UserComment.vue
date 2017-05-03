@@ -12,7 +12,7 @@
             <form method="POST" :action="formAction" class="pd-btm-50">
                 <input type="hidden" name="_token" v-model="csrf">
                 <textarea v-model="comment" name="admin_comment" class="Form"></textarea>
-                <button class="Button--primary stick-to-bottom">Add</button>
+                <button class="Button--secondary stick-to-bottom">Add</button>
             </form>
         </div>
 

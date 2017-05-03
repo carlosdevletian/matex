@@ -29992,7 +29992,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         openImage: function openImage() {
             var design = {
-                image_name: this.image
+                image_name: this.image,
+                initial: true
             };
             Event.$emit('open-image', design);
         }
@@ -30506,6 +30507,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -57989,7 +57991,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "header"
   }, [_vm._v("\n        Design\n    ")]), _vm._v(" "), _c('div', {
     slot: "body"
-  }, [_c('img', {
+  }, [(typeof _vm.design.initial !== 'undefined') ? _c('img', {
+    staticClass: "img-responsive margin-auto box-shadow",
+    attrs: {
+      "src": '/images/' + _vm.design.image_name
+    }
+  }) : _c('img', {
     staticClass: "img-responsive margin-auto box-shadow",
     attrs: {
       "src": '/images/' + _vm.design.image_name + '/1'

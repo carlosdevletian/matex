@@ -22,7 +22,8 @@
         methods: {
             openImage: function() {
                 var design = {
-                    image_name : this.image
+                    image_name : this.image,
+                    initial: true
                 }
                 Event.$emit('open-image', design);
             },

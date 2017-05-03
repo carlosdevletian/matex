@@ -5,7 +5,8 @@
         </div>
         
         <div slot="body">
-            <img class="img-responsive margin-auto box-shadow" :src="'/images/' + design.image_name + '/1' ">
+            <img v-if="typeof design.initial !=='undefined'" class="img-responsive margin-auto box-shadow" :src="'/images/' + design.image_name">
+            <img v-else class="img-responsive margin-auto box-shadow" :src="'/images/' + design.image_name + '/1' ">
             <div class="Modal__image-description" v-if="design.comment">{{ design.comment }}</div>
         </div>
 

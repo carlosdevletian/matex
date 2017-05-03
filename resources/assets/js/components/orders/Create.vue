@@ -10,7 +10,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="items.length > 0" slot="table-header" class="table-responsive borderless">
+        <div v-if="items.length > 0" slot="table-header" class="borderless">
             <div v-show="products.length != 0">
                 <hr>
             </div>

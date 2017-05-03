@@ -1,7 +1,7 @@
 <template>
     <order-template>
         <p slot="items-title">Ordered items</p>
-        <div slot="table-header" class="table-responsive borderless">
+        <div slot="table-header" class="borderless">
             <table class="table borderless mg-0">
                 <tbody>
                     <tr>

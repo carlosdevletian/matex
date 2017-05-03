@@ -56452,7 +56452,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v(_vm._s(product.name))])])
   }))])]), _vm._v(" "), (_vm.items.length > 0) ? _c('div', {
-    staticClass: "table-responsive borderless",
+    staticClass: "borderless",
     slot: "table-header"
   }, [_c('div', {
     directives: [{
@@ -56564,7 +56564,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('order-template', [_c('p', {
     slot: "items-title"
   }, [_vm._v("Ordered items")]), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive borderless",
+    staticClass: "borderless",
     slot: "table-header"
   }, [_c('table', {
     staticClass: "table borderless mg-0"
@@ -57845,7 +57845,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 2)]) : _vm._e(), _vm._v(" "), (_vm.items.length > 0 && !_vm.showUnavailable) ? _c('div', [_c('order-template', [_c('p', {
     slot: "items-title"
   }, [_vm._v("Your items")]), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive borderless",
+    staticClass: "borderless",
     slot: "table-header"
   }, [_c('table', {
     staticClass: "table borderless mg-0"
@@ -57944,7 +57944,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('hr')])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "table-responsive borderless"
+    staticClass: "borderless"
   }, [_c('table', {
     staticClass: "table borderless mg-0"
   }, [_c('tbody', [_c('tr', [_c('td', {
@@ -58135,7 +58135,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "Order__title"
   }, [_vm._t("items-title")], 2)]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "row scroll-x"
+    staticClass: "row scroll-x",
+    staticStyle: {
+      "padding": "10px 0px"
+    }
   }, [_vm._t("products")], 2), _vm._v(" "), _c('div', {
     staticClass: "row Order__table-header"
   }, [_vm._t("table-header")], 2), _vm._v(" "), _c('div', {

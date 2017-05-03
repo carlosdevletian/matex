@@ -9,7 +9,7 @@
                         </div>
                     </div>
                     <div class="row"><hr></div>
-                    <div class="row scroll-x"><slot name="products"></slot></div>
+                    <div class="row scroll-x" style="padding: 10px 0px"><slot name="products"></slot></div>
                     <div class="row Order__table-header"><slot name="table-header"></slot></div>
                     <div class="row Order__items"><slot name="items"></slot></div>
                     <div class="position-relative Order__prices">

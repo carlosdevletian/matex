@@ -18,7 +18,7 @@
                     @include('admin.edit-order')
                 @endif
                 <div class="Card">
-                    <div class="table-responsive borderless">
+                    <div class="borderless">
                         <table class="table borderless mg-0">
                             <tbody>
                                 <tr>

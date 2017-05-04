@@ -72,23 +72,23 @@
 }
 
 .Button--card {
-    @include button(#a2b2ba, true, 9pt, #ebeef2, $transition: false, $border: false);
-    border-top: 1px solid #ebeef2;
+    @include button($text-color-secondary, true, 9pt, $text-color-secondary, $transition: false, $border: false);
+    border-top: 1px solid #e8ebef;
     padding: 10px 20px;
     &:hover {
-        color: #546e7a;
+        color: $brand-secondary;
         font-weight: bold;
     }
 
     &--left {
         width: 50%;
-        border-right: 1px solid #ebeef2;
+        border-right: 1px solid #e8ebef;
     }
 
     &--right {
         width: 50%;
         border: none;
-        border-top: 1px solid #ebeef2;
+        border-top: 1px solid #e8ebef;
         
         &:hover {
             color: red;
@@ -97,12 +97,8 @@
 }
 
 .Button--order-item {
-    @include button(#a2b2ba, true, 7pt, #ebeef2, $transition: false, $border: false);
+    @include button($text-color-secondary, true, 7pt, $text-color-secondary, $transition: true, $border: false);
     margin-top: 15px;
     display: block;
     padding: 6px;
-    &:hover {
-        color: #546e7a;
-        font-weight: bold;
-    }
 }

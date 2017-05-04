@@ -29462,33 +29462,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 vm.comment = comment;
                 vm.continue(throughLogin);
             }).catch(swal.noop);
-        },
-        addEventListenersForModals: function addEventListenersForModals() {
-            var modal = document.getElementsByClassName('fpd-draggable-dialog');
-            this.onEscape(modal);
-            this.onOutsideClick(modal);
-            // this.onElementAdded(modal);
-        },
-        onEscape: function onEscape(modal) {
-            document.addEventListener("keydown", function (e) {
-                if (modal && e.keyCode == 27) {
-                    $(modal).removeClass("fpd-active");
-                }
-            });
-        },
-        onOutsideClick: function onOutsideClick(modal) {
-            this.$refs.fpd.addEventListener("click", function (e) {
-                if (modal && e.target != modal) {
-                    $(modal).removeClass("fpd-active");
-                }
-            });
-        },
-        onElementAdded: function onElementAdded(modal) {
-            $('#fpd').bind("elementAdd", function (e) {
-                if (modal && e.target != modal) {
-                    $(modal).removeClass("fpd-active");
-                }
-            });
         }
     },
     created: function created() {
@@ -29511,7 +29484,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 'top': ['manage-layers', 'magnify-glass', 'zoom', 'reset-product'],
                 'bottom': ['undo', 'redo']
             },
-            selectedColor: "#f5f5f5",
+            selectedColor: "#dbdee3",
             customTextParameters: {
                 removable: true,
                 resizable: true,
@@ -29541,7 +29514,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 if (Object.keys(vm.existingDesign).length !== 0) {
                     Event.$emit('design-selected', vm.existingDesign);
                 }
-                vm.addEventListenersForModals();
+                // vm.addEventListenersForModals();
             });
         });
 
@@ -56173,7 +56146,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "Card col-xs-12 pd-0"
   }, [_c('div', {
     ref: "fpd",
-    staticClass: "fpd-container fpd-topbar fpd-hidden-tablets fpd-top-actions-centered fpd-bottom-actions-centered",
+    staticClass: "fpd-container fpd-topbar fpd-off-canvas-left fpd-top-actions-centered fpd-bottom-actions-centered",
     attrs: {
       "id": "fpd"
     }
@@ -56187,7 +56160,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": _vm.productTemplate,
       "title": "Bracelet",
-      "data-parameters": "{\n                        \"draggable\": false,\n                        \"removable\": false,\n                        \"autoCenter\": true,\n                        \"zChangeable\": false,\n                        \"colors\": [],\n                        \"z\": 2\n                        }"
+      "data-parameters": "{\n                            \"draggable\": false,\n                            \"removable\": false,\n                            \"autoCenter\": true,\n                            \"zChangeable\": false,\n                            \"colors\": [],\n                            \"z\": 2\n                        }"
     }
   })])])]), _vm._v(" "), (_vm.signedIn) ? _c('div', [_c('button', {
     staticClass: "Button--primary mg-btm-20",

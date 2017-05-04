@@ -45,7 +45,7 @@
         
         & a {
             text-decoration: none;
-            color: #546e7a;
+            color: $text-color;
         }
 
         &--selected {
@@ -70,7 +70,7 @@
     }
 
     &__body {
-        color: #546e7a;
+        color: $text-color;
         font-size: 10pt;
         line-height: 17px;
     }

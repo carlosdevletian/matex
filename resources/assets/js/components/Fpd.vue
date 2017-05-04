@@ -1,18 +1,18 @@
 <template>
     <div>
         <div class="Card col-xs-12 pd-0">
-           <div ref="fpd" id="fpd" class="fpd-container fpd-topbar fpd-hidden-tablets fpd-top-actions-centered fpd-bottom-actions-centered">
+           <div ref="fpd" id="fpd" class="fpd-container fpd-topbar fpd-off-canvas-left fpd-top-actions-centered fpd-bottom-actions-centered">
                 <div class="fpd-product" title="Titulo" data-thumbnail="#">
                     <img :src="productTemplate"
                         title="Bracelet"
                         data-parameters=
                             '{
-                            "draggable": false,
-                            "removable": false,
-                            "autoCenter": true,
-                            "zChangeable": false,
-                            "colors": [],
-                            "z": 2
+                                "draggable": false,
+                                "removable": false,
+                                "autoCenter": true,
+                                "zChangeable": false,
+                                "colors": [],
+                                "z": 2
                             }'
                     />
                 </div>
@@ -101,33 +101,25 @@
                     vm.continue(throughLogin);
                 }).catch(swal.noop);
             },
-            addEventListenersForModals: function() {
-                var modal = document.getElementsByClassName('fpd-draggable-dialog');
-                this.onEscape(modal);
-                this.onOutsideClick(modal);
-                // this.onElementAdded(modal);
-            },
-            onEscape: function(modal) {
-                document.addEventListener("keydown", (e) => {
-                    if (modal && e.keyCode == 27) {
-                        $(modal).removeClass("fpd-active");
-                    }
-                });
-            },
-            onOutsideClick: function(modal) {
-                this.$refs.fpd.addEventListener("click", (e) => {
-                    if(modal && e.target != modal) {
-                        $(modal).removeClass("fpd-active");
-                    }
-                });
-            },
-            onElementAdded: function(modal) {
-                $('#fpd').bind("elementAdd", (e) => {
-                    if(modal && e.target != modal) {
-                        $(modal).removeClass("fpd-active");
-                    }
-                })
-            }
+            // addEventListenersForModals: function() {
+            //     var modal = document.getElementsByClassName('fpd-draggable-dialog');
+            //     this.onEscape(modal);
+            //     this.onOutsideClick(modal);
+            // },
+            // onEscape: function(modal) {
+            //     document.addEventListener("keydown", (e) => {
+            //         if (modal && e.keyCode == 27) {
+            //             $(modal).removeClass("fpd-active");
+            //         }
+            //     });
+            // },
+            // onOutsideClick: function(modal) {
+            //     this.$refs.fpd.addEventListener("click", (e) => {
+            //         if(modal && e.target != modal) {
+            //             $(modal).removeClass("fpd-active");
+            //         }
+            //     });
+            // },
         },
         created: function() {
             var vm = this;
@@ -147,7 +139,7 @@
                     'top': ['manage-layers','magnify-glass', 'zoom', 'reset-product'],
                     'bottom': ['undo','redo'],
                 },
-                selectedColor: "#f5f5f5",
+                selectedColor: "#dbdee3",
                 customTextParameters: {
                     removable: true,
                     resizable: true,
@@ -177,7 +169,7 @@
                     if(Object.keys(vm.existingDesign).length !== 0) {
                         Event.$emit('design-selected', vm.existingDesign)
                     }
-                    vm.addEventListenersForModals();
+                    // vm.addEventListenersForModals();
                 })
             });
 

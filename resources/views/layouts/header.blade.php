@@ -20,7 +20,7 @@
 		<div id="navbar" class="collapse navbar-collapse navbar-home">
 			<ul class="nav navbar-nav {{ Route::currentRouteName() == 'home' && !auth()->check() ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' && !auth()->check() ? 'navbar-about' : ''}}">
 				<li><a href="{{ route('about') }}">About</a></li>
-                <li><a href="{{ route('categories.index') }}">Design</a></li>
+                <li><a href="{{ route('categories.index') }}">Designer</a></li>
 				<li><a @click="openContactModal()" role="button">Contact Us</a></li>
 			</ul>
             <ul class="nav navbar-nav navbar-right {{ Route::currentRouteName() == 'home' && !auth()->check() ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' && !auth()->check() ? 'navbar-about' : '' }}">

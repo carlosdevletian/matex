@@ -20,8 +20,14 @@
 		<div id="navbar" class="collapse navbar-collapse navbar-home">
 			<ul class="nav navbar-nav {{ Route::currentRouteName() == 'home' && !auth()->check() ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' && !auth()->check() ? 'navbar-about' : ''}}">
 				<li><a href="{{ route('about') }}">About</a></li>
-                <li><a href="{{ route('categories.index') }}">Designer</a></li>
-				<li><a @click="openContactModal()" role="button">Contact Us</a></li>
+                @if(admin())
+                    <li><a href="{{ route('categories.index') }}">Products</a></li>
+                @else
+                    <li><a href="{{ route('categories.index') }}">Designer</a></li>
+                @endif
+                @unless(admin())
+                    <li><a @click="openContactModal()" role="button">Contact Us</a></li>
+                @endunless
 			</ul>
             <ul class="nav navbar-nav navbar-right {{ Route::currentRouteName() == 'home' && !auth()->check() ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' && !auth()->check() ? 'navbar-about' : '' }}">
                 <!-- Authentication Links -->
@@ -29,16 +35,18 @@
                     <li><a href="{{ url('/login') }}">Login</a></li>
                     <li><a href="{{ url('/register') }}">Register</a></li>
                 @else
-                    <li @mouseover="showCartPreview = true" @mouseleave="showCartPreview = false">
-                        <a href="{{ route('carts.show') }}">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                        </a>
-                        <div class="hidden-xs" v-show="showCartPreview"
-                            v-cloak 
-                            style="position: absolute; top: 40px; right: 24%; z-index: 2">
-                                @include('carts.preview')
-                        </div>
-                    </li>
+                    @unless(admin())
+                        <li @mouseover="showCartPreview = true" @mouseleave="showCartPreview = false">
+                            <a href="{{ route('carts.show') }}">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                            </a>
+                            <div class="hidden-xs" v-show="showCartPreview"
+                                v-cloak 
+                                style="position: absolute; top: 40px; right: 24%; z-index: 2">
+                                    @include('carts.preview')
+                            </div>
+                        </li>
+                    @endunless
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->name }} <span class="caret"></span>

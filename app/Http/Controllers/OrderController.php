@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Gate;
 use App\Models\Item;
 use App\Models\Order;
-use App\Models\Design;
 use App\Models\Status;
+use App\Models\Design;
 use App\Models\Address;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Filters\OrderFilters;
+use App\Models\RegisterToken;
 use App\Events\OrderStatusChanged;
 use Illuminate\Support\Facades\File;
 
@@ -34,7 +35,7 @@ class OrderController extends Controller
         return view('orders.index', compact('orders'));
     }
 
-    public function show($referenceNumber)
+    public function show($referenceNumber, RegisterToken $token = null)
     {
         if(admin()){
             $statuses = Status::all();
@@ -53,7 +54,12 @@ class OrderController extends Controller
             }
         }
 
-        return view('orders.show', compact('order', 'statuses'));
+        if($token && ($token->email == $order->email || admin())) {
+            return view('orders.show', compact('order', 'statuses'));
+        }
+
+        abort(403, 'Unauthorized action');
+        // return view('orders.show', compact('order', 'statuses'));
     }
 
     public function create($categorySlug, Design $design = null)

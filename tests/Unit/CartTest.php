@@ -26,4 +26,25 @@ class CartTest extends TestCase
 
         $this->assertEquals(600, $total);
     }
+
+    /** @test */
+    function a_cart_is_created_when_a_user_is_created()
+    {
+        $user = factory(User::class)->create();
+        $this->assertNotNull($user->cart);
+    }
+
+    /** @test */
+    function a_cart_is_not_created_when_an_admin_is_created()
+    {
+        $user = factory(User::class)->states('admin')->create();
+        $this->assertNull($user->cart);
+    }
+
+    /** @test */
+    function a_cart_is_not_created_when_an_owner_is_created()
+    {
+        $user = factory(User::class)->states('owner')->create();
+        $this->assertNull($user->cart);
+    }
 }

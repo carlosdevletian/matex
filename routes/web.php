@@ -7,10 +7,11 @@ Route::post('/designs','DesignController@store')->name('designs.store');
 Route::get('/design/{category}/{design?}', 'DesignController@create')->name('designs.create');
 Route::get('/categories', 'CategoryController@index')->name('categories.index');
 // Route::get('/categories/{category}/products', 'ProductController@index')->name('products.index');
-Route::get('/orders/{order}', 'OrderController@show')->name('orders.show');
+Route::get('/orders/{order}/{token?}', 'OrderController@show')->name('orders.show');
 // Route::post('/orders', 'OrderController@store')->name('orders.store');
 Route::get('/order/{category}/{design?}', 'OrderController@create')->name('orders.create');
 Route::post('/items/create','ItemController@create')->name('items.create');
+Route::put('/items/{item?}', 'ItemController@update')->name('items.update');
 Auth::routes();
 Route::get('/register/token/{token}', 'Auth\RegisterController@showRegistrationForm')->name('register.client');
 Route::post('/register/guest', 'Auth\RegisterController@storeClient')->name('store.client');
@@ -44,7 +45,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/addresses/{address}', 'AddressController@update')->name('addresses.update');
     Route::delete('/addresses/{address}', 'AddressController@destroy')->name('addresses.destroy');
     // Items
-    Route::put('/items/{item}', 'ItemController@update')->name('items.update');
     Route::delete('/items/{item}', 'ItemController@destroy')->name('items.destroy');
 });
 
@@ -74,4 +74,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/items', 'ItemController@index')->name('items.index');
     // Designs
     Route::delete('/designs/{design}', 'DesignController@destroy')->name('designs.delete');
+});
+
+ /* OWNER ROUTES */
+Route::group(['middleware' => 'owner'], function () {
+    Route::get('/admins', 'AdminController@index')->name('admins.index');
+    Route::delete('/admins/{user}', 'AdminController@destroy')->name('admins.delete');
 });

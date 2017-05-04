@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         User::created(function($user){
+            if(! $user->hasRole('user')) return; 
             return Cart::create(['user_id' => $user->id]);
         });
 

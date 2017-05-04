@@ -26,7 +26,7 @@
                                 <input type="number"
                                     v-model="item.quantity"
                                     @change="updateItem"
-                                    class="Form pd-0 text-center"
+                                    class="Form text-center pd-0"
                                     onfocus="if(this.value == '0') { this.value = ''; }"
                                     v-bind:class="{ 'Form--error' : this.error }"
                                     :disabled="processing">
@@ -51,12 +51,12 @@
 </template>
 
 <script>
+    import { updatesItems } from './updatesItems';
     export default {
+        mixins: [updatesItems],
         props: ['item'],
         data: function () {
             return {
-                error: '',
-                processing: false,
                 imageUrl: {
                     backgroundImage : `url(/images/${this.item.design.image_name}/1)`,
                     height: '40px !important',
@@ -64,33 +64,6 @@
             }
         },
         methods: {
-            updateItem: function () {
-                this.processing = true;
-                if(! this.quantityIsValid()) {
-                    this.error = 'Please input a valid quantity';
-                    this.item.quantity = 1;
-                } else {
-                    this.error = '';
-                }
-                axios.put('/items/' + this.item.id, {
-                    item: this.item
-                }).then((response) => {
-                    this.$emit('item-updated', response.data.item);
-                    Event.$emit('item-updated', response.data.item);
-                    this.processing = false;
-                });
-            },
-            quantityIsValid: function() {
-                return (this.item.quantity > 0 && this.item.quantity % 1 == 0);
-            },
-            deleteItem: function() {
-                this.processing = true;
-                this.$emit('delete-item', this.item.id);
-                this.processing = false;
-            },
-            productName: function() {
-                return `${this.item.product.name.charAt(0).toUpperCase()}${this.item.product.name.slice(1)}`;
-            },
             categoryName: function() {
                 return `${this.item.product.category.name.charAt(0).toUpperCase()}${this.item.product.category.name.slice(1)}`;
             },

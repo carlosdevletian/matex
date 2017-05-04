@@ -1,4 +1,4 @@
-@if(auth()->user()->hasRole('admin'))
+@if(admin())
     <hr>
     <p class="Card__title" style="margin-left: 15px">Admin notes</p>
     @if($user->admin_comment != null)

@@ -13,6 +13,6 @@ class Role extends Model
 
     public static function findByName($role)
     {
-        return self::whereName($role)->first();
+        return self::whereName($role)->firstOrFail();
     }
 }

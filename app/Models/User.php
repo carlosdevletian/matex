@@ -97,4 +97,10 @@ class User extends Authenticatable
     {
         return $this->designs->load('category')->sortByDesc('created_at')->take(2);
     }
+
+    public function scopeHaveRole($query, $roleName)
+    {
+        $roleId = Role::findByName($roleName)->id;
+        return $query->where('role_id', $roleId);
+    }
 }

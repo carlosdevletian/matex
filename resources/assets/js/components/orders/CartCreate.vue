@@ -111,34 +111,16 @@
 
 <script>
     import { stripeMixin } from '../../mixins/stripeMixin';
+    import { calculatesOrders } from './calculatesOrders';
 
     export default {
-        mixins: [stripeMixin],
+        mixins: [stripeMixin, calculatesOrders],
         props: ['addresses', 'originalItems', 'originalUnavailableItems'],
         data: function() {
             return {
-                amountsLoading: false,
                 items: this.originalItems,
                 unavailableItems: this.originalUnavailableItems,
-                subtotal: 0,
-                shipping: 0,
-                tax: 0,
-                order_id: null,
-                selectedAddress: 0,
                 showUnavailable: false,
-                address: {
-                    email: '',
-                    name: '',
-                    street: '',
-                    city: '',
-                    state: '',
-                    zip: '',
-                    country: '',
-                    phone_number: '',
-                    comment: '',
-                    is_valid: false,
-                    show_errors: false
-                },
             }
         },
         methods: {
@@ -165,106 +147,17 @@
                     if(this.unavailableItems.length == 0) this.showUnavailable = false;
                 });
             },
-            totalQuantity: function() {
-                var total = 0;
-
-                this.items.forEach( function(item){
-                    total = total + item.quantity;
-                });
-
-                return total;
-            },
-            updateSelectedAddress: function(data) {
-                this.selectedAddress = data.id;
-                this.address.zip = data.zip;
-            },
-            canPay: function() {
-                return this.totalQuantity() > 0 && (this.address.is_valid || this.selectedAddress != 0);
-            },
             updateItem: function(updatedItem) {
-                this.items.forEach(function(item) {
-                    if(updatedItem.id == item.id) {
-                        item.quantity = updatedItem.quantity;
-                        item.unit_price = updatedItem.unit_price;
-                        item.total_price = updatedItem.total_price;
+                var vm = this;
+                this.items.forEach(function(originalItem, index) {
+                    if(updatedItem.id == originalItem.id) {
+                        originalItem.quantity = updatedItem.quantity;
+                        originalItem.unit_price = updatedItem.unit_price;
+                        originalItem.total_price = updatedItem.total_price;
                     }
                 });
             },
-            calculateShipping: function() {
-                if(this.zipIsValid) {
-                    var data = {
-                        zip: this.address.zip
-                    }
-                    axios.post('/calculateShipping', data).then((response) => {
-                        this.shipping = response.data.shipping;
-                    });
-                }
-                this.amountsLoading = false;
-            },
-            calculateTax: function() {
-                if(this.zipIsValid) {
-                    var data = {
-                        zip: this.address.zip
-                    }
-                    axios.post('/calculateTax', data).then((response) => {
-                        this.tax = (this.subtotal + this.shipping) * response.data.tax_percentage;
-                    });
-                }
-                this.amountsLoading = false;
-            },
         },
-        watch: {
-            'address.zip': function (getShippingAndTax) {
-                this.amountsLoading = true;
-                this.calculateShipping();
-            },
-            shipping: function() {
-                this.amountsLoading = true;
-                this.calculateTax();
-            },
-            subtotal: function (getTax) {
-                this.amountsLoading = true;
-                this.calculateTax();
-            }
-        },
-        computed:  {
-            zipIsValid: function() {
-                return this.address.zip.length == 5;
-            },
-            calculatedSubtotal: function() {
-                if(this.items.length > 0) {
-                    this.amountsLoading = true;
-                    this.subtotal = 0;
-                    var vm = this;
-                    this.items.forEach(function(item) {
-                        vm.subtotal = (vm.subtotal + +item.total_price);
-                    });
-                    this.amountsLoading = false;
-                    return this.subtotal;
-                }
-            },
-            totalPrice: function() {
-                return (this.subtotal + this.shipping + this.tax);
-            },
-            filteredShipping: function() {
-                if(this.zipIsValid  && this.calculatedSubtotal > 0) {
-                    return '$ ' + (this.shipping / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
-                }
-                return '-';
-            },
-            filteredTax: function() {
-                if(this.zipIsValid  && this.calculatedSubtotal > 0) {
-                    return '$ ' + (this.tax / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
-                }
-                return '-';
-            },
-            filteredTotal: function() {
-                if(this.zipIsValid) {
-                    return '$ ' + (this.totalPrice / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
-                }
-                return '-';
-            }
-        }
     }
 </script>
 

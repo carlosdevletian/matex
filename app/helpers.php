@@ -13,5 +13,10 @@ function flash($title = null, $message = null)
 
 function admin()
 {
-    return (auth()->check() && auth()->user()->hasRole('admin'));
+    return ((auth()->check()) && (auth()->user()->hasRole('admin') || auth()->user()->hasRole('owner')));
+}
+
+function owner()
+{
+    return (auth()->check()) && auth()->user()->hasRole('owner');
 }

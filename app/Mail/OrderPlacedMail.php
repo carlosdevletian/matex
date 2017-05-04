@@ -33,6 +33,14 @@ class OrderPlacedMail extends Mailable
         $items = $this->data['order']->items()->get()->groupBy(function ($item) {
             return $item->design->image_name;
         });
+        if(isset($this->data['token'])) {
+            $orderUrl = route('orders.show', [
+                'order' => $this->data['order']->reference_number, 
+                'token' => $this->data['token']
+            ]);
+        } else {
+            $orderUrl = route('orders.show', $this->data['order']->reference_number);
+        }
         return $this->from(config('mail.new-orders'))
                     ->markdown('emails.order')
                     ->subject('Order # '. $this->data['order']->reference_number . ' has been placed')
@@ -40,7 +48,7 @@ class OrderPlacedMail extends Mailable
                            'order' => $this->data['order'], 
                            'token' => $this->data['token'],
                            'items' => $items,
-                           'orderUrl' => route('orders.show', $this->data['order']->reference_number),
+                           'orderUrl' => $orderUrl,
                            'registerUrl' => route('register.client', $this->data['token'])
                        ]);
     }

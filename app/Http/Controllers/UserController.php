@@ -17,8 +17,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $role = Role::findByName('admin');
-        $users = User::where('role_id', '!=', $role->id)->get();
+        $admin = Role::findByName('admin');
+        $owner = Role::findByName('owner');
+        $users = User::where('role_id', '!=', $admin->id)
+                        ->where('role_id', '!=', $owner->id)
+                        ->get();
 
         return view('users.index', compact('users'));
     }
@@ -79,11 +82,7 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        if (Gate::allows('user', $user)) {
-            return view('users.edit', compact('user'));
-        }
-
-        abort(403, 'Unauthorized action.');
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -97,29 +96,26 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
-        if (Gate::allows('user', $user)) {
-            $this->validate(request(), [
-                'name' => 'required|max:255',
-                'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-                'previous_password' => 'required_with:password',
-                'password' => 'nullable|min:6|confirmed',
-                'password_confirmation' => 'required_with:password',
-            ]);
+        $this->validate(request(), [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'previous_password' => 'required_with:password',
+            'password' => 'nullable|min:6|confirmed',
+            'password_confirmation' => 'required_with:password',
+        ]);
 
-            if(request()->has('previous_password') && ! Hash::check(request()->previous_password, $user->password)){
-                return redirect()->back()->withErrors(['previous_password' => 'Your old password does not match']);
-            }
-
-            if(request()->has('password')){
-                $user->password = bcrypt(request()->password);
-            }
-
-            $user->update(request()->except(['password']));
-
-            return redirect()->route('dashboard');
+        if(request()->has('previous_password') && ! Hash::check(request()->previous_password, $user->password)){
+            return redirect()->back()->withErrors(['previous_password' => 'Your old password does not match']);
         }
 
-        abort(403, 'Unauthorized action.');
+        if(request()->has('password')){
+            $user->password = bcrypt(request()->password);
+        }
+
+        $user->update(request()->except(['password']));
+
+        return redirect()->route('dashboard');
+
     }
 
     /**

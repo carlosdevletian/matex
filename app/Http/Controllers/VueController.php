@@ -121,13 +121,13 @@ class VueController extends Controller
             event(new OrderPlaced($order));
             return response()->json([
                 'status' => $order->status->name,
-                'order_reference_number' => $order->reference_number
+                'order_url' => $order->showUrl()
             ], 200);
         } catch (PaymentFailedException $e) {
             event(new OrderPlaced($order));
             return response()->json([
                 'status' => $order->status->name,
-                'order_reference_number' => $order->reference_number
+                'order_url' => $order->showUrl()
             ], 422);
         }
     }

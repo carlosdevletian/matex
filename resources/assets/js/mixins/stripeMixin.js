@@ -48,9 +48,9 @@ export const stripeMixin = {
                 category_id: this.categoryId ? this.categoryId : '',
             }).then(response => {
                 // window.onbeforeunload = null;
-                window.location = "/orders/" + response.data.order_reference_number;
+                window.location = response.data.order_url;
             }).catch(error => {
-                window.location = "/orders/" + error.response.data.order_reference_number;
+                window.location = error.response.data.order_url;
             })
         },
         pay: function() {

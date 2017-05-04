@@ -18,6 +18,7 @@ class ContactEmailTest extends TestCase
     /** @test */
     public function email_address_is_required_to_send_contact_email()
     {
+        $this->withExceptionHandling();
         $this->sendContactEmail([
             'email' => 'invalid_email_address',
             'subject' => 'An example subject',
@@ -30,6 +31,7 @@ class ContactEmailTest extends TestCase
     /** @test */
     public function email_address_must_be_valid_to_send_contact_email()
     {
+        $this->withExceptionHandling();
         $this->sendContactEmail([
             'email' => 'valid_address@example.com',
             'subject' => 'An example subject',
@@ -42,6 +44,7 @@ class ContactEmailTest extends TestCase
     /** @test */
     public function subject_is_required_to_send_contact_email()
     {
+        $this->withExceptionHandling();
         $this->sendContactEmail([
             'email' => 'john@example.com',
             'body' => 'An example body'
@@ -54,6 +57,7 @@ class ContactEmailTest extends TestCase
     /** @test */
     public function body_is_required_to_send_contact_email()
     {
+        $this->withExceptionHandling();
         $this->sendContactEmail([
             'email' => 'john@example.com',
             'subject' => 'An example subject'

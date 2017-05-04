@@ -15,14 +15,14 @@
                         <td class="col-xs-3">
                             <div class="position-relative">
                                 <input type="number"
-                                v-model="item.quantity"
-                                @change="updatePrice"
-                                class="Form pd-0"
-                                onfocus="if(this.value == '0') { this.value = ''; }"
-                                v-bind:class="{ 'Form--error' : this.error }"
-                                :disabled="processing"
-                                :key="item.product.id"
-                                v-focus>
+                                    v-model="item.quantity"
+                                    @change="updateItem"
+                                    class="Form text-center pd-0"
+                                    onfocus="if(this.value == '0') { this.value = ''; }"
+                                    v-bind:class="{ 'Form--error' : this.error }"
+                                    :disabled="processing"
+                                    :key="item.product.id"
+                                    v-focus>
                                 <i v-show="processing" class="fa fa-spinner fa-spin Spinner"></i>
                             </div>
                         </td>
@@ -37,41 +37,9 @@
 </template>
 
 <script>
+    import { updatesItems } from './updatesItems';
     export default {
+        mixins: [updatesItems],
         props: ['item'],
-        data: function () {
-            return {
-                error: '',
-                processing: false,
-            }
-        },
-        methods: {
-            updatePrice: function () {
-                this.processing = true;
-                if(! this.quantityIsValid()) {
-                    this.error = 'Please input a valid quantity';
-                    this.item.quantity = 1;
-                } else {
-                    this.error = '';
-                }
-                axios.post('/calculatePrice', {
-                    item : this.item
-                }).then((response) => {
-                    this.$emit('item-updated', response.data.item);
-                    this.processing = false;
-               });
-            },
-            quantityIsValid: function() {
-                return (this.item.quantity > 0 && this.item.quantity % 1 == 0);
-            },
-            deleteItem: function() {
-                this.processing = true;
-                this.$emit('delete-item', this.item.product.id);
-                this.processing = false;
-            },
-            productName: function() {
-                return `${this.item.product.name.charAt(0).toUpperCase()}${this.item.product.name.slice(1)}`;
-            }
-        }
     }
 </script>

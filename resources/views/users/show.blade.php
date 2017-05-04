@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="container">
-        <h2 class="text-center">User Profile</h2>
+        <h2 class="text-center">{{ ucfirst($user->role->name) }} Profile</h2>
         <div class="row">
             <div class="col-md-4">
                 <div class="position-relative">
@@ -14,7 +14,7 @@
                         <p class="Card__title" style="margin-left: 15px">Personal information</p>
                         <p>{{ $user->name }}</p>
                         <p>{{ $user->email }}</p>
-                        @include('admin.add-notes')
+                        @include('admins.add-notes')
                     </div>
                     <a role="button" class="Button--card stick-to-bottom white-background" @click="openContactUserModal()">CONTACT USER</a>
                     <contact-user v-if="showContactUserModal" @close="closeContactUserModal()" :user="{{ $user }}"></contact-user>
@@ -27,5 +27,16 @@
                 @include('widgets.designs', ['designs' => $user->recentDesigns(), 'profileUser' => $user])
             </div>
         </div>
+        @if(owner() && $user->hasRole('admin'))
+            <div class="row">
+                <div class="col-xs-12">
+                    <form method="POST" action="{{ route('admins.delete', $user) }}">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button class="Button--secondary pull-right">Delete this administrator</button>
+                    </form>
+                </div>
+            </div>
+        @endif
     </div>
 @endsection

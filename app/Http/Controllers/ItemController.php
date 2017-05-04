@@ -13,24 +13,14 @@ class ItemController extends Controller
         return Item::inCart();
     }
 
-    public function create(Request $request)
+    public function update(Item $item = null, Request $request)
     {
-        $item = new Item;
-        $item->product_id = $request->product_id;
-        $item->design_id = $request->design;
-        $item->quantity = 0;
-        $item->unit_price = 0;
-        $item->total_price = 0;
-        return $item->load('product');
-    }
-
-    public function update(Item $item, Request $request)
-    {
-        if(! $request->item['quantity'] > 0) {
-            return json(['error' => 'Could not process', 422]);
+        if($item->exists) {
+            $item = $this->updateExisting($item, $request);
+        } else {
+            $item = (new Item($request->item))->calculate()->load('product');
         }
-        $item->quantity = $request->item['quantity'];
-        $item->calculate()->save();
+        
         return response()->json([
             'item' => $item,
         ], 200);
@@ -39,5 +29,15 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         $item->delete();
+    }
+
+    private function updateExisting(Item $item, Request $request)
+    {
+        if(! $request->item['quantity'] > 0) {
+            return json(['error' => 'Could not process', 422]);
+        }
+        $item->quantity = $request->item['quantity'];
+        $item->calculate()->save();
+        return $item;
     }
 }

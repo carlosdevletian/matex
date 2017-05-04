@@ -4,14 +4,14 @@
         <div slot="products">
              <div class="row">
                 <div class="col-xs-12">
-                    <div v-for="product in sortedProducts()" style="display: inline">
-                        <button @click="createItem(product.id)" class="Button--product">{{ product.name }}</button>
+                    <div v-for="product in sortedProducts" style="display: inline">
+                        <button @click="createItem(product)" class="Button--product">{{ product.name }}</button>
                     </div>
                 </div>
             </div>
         </div>
         <div v-if="items.length > 0" slot="table-header" class="borderless">
-            <div v-show="products.length != 0">
+            <div v-show="productList.length != 0">
                 <hr>
             </div>
             <table class="table borderless mg-0">
@@ -79,50 +79,37 @@
 
 <script>
     import { stripeMixin } from '../../mixins/stripeMixin';
+    import { calculatesOrders } from './calculatesOrders';
 
     export default {
-        mixins: [stripeMixin],
+        mixins: [stripeMixin, calculatesOrders],
         props: ['products', 'design', 'addresses', 'categoryId'],
         data: function() {
             return {
-                amountsLoading: false,
                 items: [],
-                subtotal: 0,
-                shipping: 0,
-                tax: 0,
-                selectedAddress: 0,
-                address: {
-                    email: '',
-                    name: '',
-                    street: '',
-                    city: '',
-                    state: '',
-                    zip: '',
-                    country: '',
-                    phone_number: '',
-                    comment: '',
-                    is_valid: false,
-                    show_errors: false
-                },
+                productList: this.products,
                 signedIn: Matex.signedIn,
             }
         },
         methods: {
-            createItem: function(productId) {
-                axios.post(`/items/create`, {
-                    product_id : productId,
-                    design : this.design,
-                }).then(response => {
-                    this.items.push(response.data);
-                    this.removeProduct(productId);
-                });
+            createItem: function(product) {
+                this.removeProduct(product.id);
+                var item = {
+                    product_id : product.id,
+                    product : product,
+                    design_id : this.design,
+                    quantity : 0,
+                    unit_price : 0,
+                    total_price : 0,
+                }
+                this.items.push(item);
             },
             removeProduct: function(productId) {
                 var vm = this;
 
-                this.products.forEach( function(product, index){
+                this.productList.forEach( function(product, index){
                     if(product.id == productId){
-                        vm.products.splice(index, 1);
+                        vm.productList.splice(index, 1);
                     }
                 });
             },
@@ -130,7 +117,7 @@
                 var vm = this;
                 this.items.forEach( function(item, index){
                     if(item.product.id == productId){
-                        vm.products.push(item.product);
+                        vm.productList.push(item.product);
                         vm.items.splice(index, 1);
                     }
                 });
@@ -169,107 +156,18 @@
                     }).catch(swal.noop);
                 }
             },
-            totalQuantity: function() {
-                var total = 0;
-
-                this.items.forEach( function(item){
-                    total = total + item.quantity;
-                });
-
-                return total;
-            },
-            updateSelectedAddress: function(data) {
-                this.selectedAddress = data.id;
-                this.address.zip = data.zip;
-            },
-            canPay: function() {
-                return this.totalQuantity() > 0 && (this.address.is_valid || this.selectedAddress != 0);
-            },
-            calculateShipping: function() {
-                if(this.zipIsValid) {
-                    var data = {
-                        zip: this.address.zip
-                    }
-                    axios.post('/calculateShipping', data).then((response) => {
-                        this.shipping = response.data.shipping;
-                    });
-                }
-                this.amountsLoading = false;
-            },
-            calculateTax: function() {
-                if(this.zipIsValid) {
-                    var data = {
-                        zip: this.address.zip
-                    }
-                    axios.post('/calculateTax', data).then((response) => {
-                        this.tax = (this.subtotal + this.shipping) * response.data.tax_percentage;
-                    });
-                }
-                this.amountsLoading = false;
-            },
-            sortedProducts: function() {
-                return this.products.sort(function(productA,productB){
-                    return productA.display_position - productB.display_position;
-                })
-            },
-        },
-        watch: {
-            'address.zip': function (getShippingAndTax) {
-                this.amountsLoading = true;
-                this.calculateShipping();
-            },
-            shipping: function() {
-                this.amountsLoading = true;
-                this.calculateTax();
-            },
-            subtotal: function (getTax) {
-                this.amountsLoading = true;
-                this.calculateTax();
-            }
         },
         computed:  {
-            zipIsValid: function() {
-                return this.address.zip.length == 5;
-            },
-            calculatedSubtotal: function() {
-                this.amountsLoading = true;
-                this.subtotal = 0;
-                var vm = this;
-                this.items.forEach(function(item) {
-                    vm.subtotal = (vm.subtotal + item.total_price);
-                });
-                this.amountsLoading = false;
-                return this.subtotal;
-            },
-            totalPrice: function() {
-                if (this.items.length >0) {
-                    return (this.subtotal + this.shipping + this.tax);
-                }
-                return 0;
-            },
             sortedItems: function() {
                 return this.items.sort(function(a,b){
                     return a.product.display_position - b.product.display_position;
                 })
             },
-            filteredShipping: function() {
-                if(this.zipIsValid && this.calculatedSubtotal > 0) {
-                    return '$ ' + (this.shipping / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
-                }
-                return '-';
+            sortedProducts: function() {
+                return this.productList.sort(function(productA,productB){
+                    return productA.display_position - productB.display_position;
+                })
             },
-            filteredTax: function() {
-                if(this.zipIsValid && this.calculatedSubtotal > 0) {
-                    return '$ ' + (this.tax / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
-                }
-                return '-';
-            },
-            filteredTotal: function() {
-                if(this.zipIsValid) {
-                    return '$ ' + (this.totalPrice / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
-                }
-                return '-';
-            }
         }
     }
 </script>

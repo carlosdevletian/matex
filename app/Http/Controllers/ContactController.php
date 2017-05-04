@@ -5,11 +5,19 @@ namespace App\Http\Controllers;
 use App\Mail\ContactEmail;
 use Illuminate\Http\Request;
 use App\Mail\ContactUserMail;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
     public function store(Request $request) {
+        if(auth()->check()) {
+            $this->validate($request, [
+                'email' => ['required', Rule::exists('users')->where(function ($query) {
+                                $query->where('email', auth()->user()->email);
+                            }),] 
+            ]);
+        }
         $this->validate($request, [
             'email' => 'required|email', 
             'subject' => 'required', 

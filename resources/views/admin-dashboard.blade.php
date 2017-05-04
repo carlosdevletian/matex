@@ -83,6 +83,9 @@
                     <div class="col-md-4">
                         <div class="col-xs-12 Card position-relative pd-btm-50">
                             <p class="Card__title">Admins</p>
+                            @if(owner())
+                                <a href="{{ route('admins.index') }}">Manage administrators</a><br>
+                            @endif
                             <a href="{{ route('users.create') }}">Create a new user</a>
                         </div>
                     </div>

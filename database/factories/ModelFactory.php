@@ -38,6 +38,12 @@ $factory->state(App\Models\User::class, 'admin', function (Faker\Generator $fake
     ];
 });
 
+$factory->state(App\Models\User::class, 'owner', function (Faker\Generator $faker) {
+    return [
+        'role_id' => factory(App\Models\Role::class)->create(['name' => 'owner'])->id,
+    ];
+});
+
 $factory->define(App\Models\Design::class, function (Faker\Generator $faker) {
     return [
         'price' => 100,

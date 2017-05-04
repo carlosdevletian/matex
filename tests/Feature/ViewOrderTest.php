@@ -2,25 +2,26 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
+use App\Models\Design;
 use App\Models\Item;
 use App\Models\Order;
-use App\Models\Design;
 use App\Models\Product;
+use App\Models\RegisterToken;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Tests\TestCase;
 
 class ViewOrderTest extends TestCase
 {
     use DatabaseMigrations;
 
-    private function createOrder($userId)
+    private function createOrder($user = null, $email = null)
     {
         $design = factory(Design::class)->create(['image_name' => 'test_filename.jpg']);
         $product = factory(Product::class)->create(['name' => 'small bracelet']);
-        $order = factory(Order::class)->states('for-user')->create(['user_id' => $userId]);
+        $order = factory(Order::class)->states('for-user')->create(['user_id' => $user, 'email' => $email]);
 
         $item = Item::create([
             'order_id' => $order->id,
@@ -48,6 +49,7 @@ class ViewOrderTest extends TestCase
     /** @test */
     function user_cannot_view_others_order()
     {
+        $this->withExceptionHandling();
         $user1 = factory(User::class)->create();
         $order = $this->createOrder($user1->id);
 
@@ -72,13 +74,39 @@ class ViewOrderTest extends TestCase
     }
 
     /** @test */
-    function guest_cannot_view_order()
+    function guest_cannot_view_a_users_order()
     {
+        $this->withExceptionHandling();
         $user = factory(User::class)->states('user')->create();
         $order = $this->createOrder($user->id);
 
         $response = $this->json('GET','/orders/'.$order->reference_number);
 
         $response->assertStatus(403);
+    }
+
+    /** @test */
+    function a_guest_can_view_their_order_only_with_their_token()
+    {
+        $this->withExceptionHandling();
+        $order = $this->createOrder(null, 'guest@mail.com');
+        $token = RegisterToken::generateFor('guest@mail.com');
+
+        $this->json('GET',"/orders/{$order->reference_number}/{$token}")
+            ->assertStatus(200);
+
+        $this->json('GET',"/orders/{$order->reference_number}")
+            ->assertStatus(403);
+    }
+
+    /** @test */
+    function a_user_cannot_view_a_guests_order()
+    {
+        $this->withExceptionHandling();
+        $this->signIn();
+        $order = $this->createOrder(null, 'guest@mail.com');
+
+        $this->json('GET',"/orders/{$order->reference_number}")
+            ->assertStatus(403);
     }
 }

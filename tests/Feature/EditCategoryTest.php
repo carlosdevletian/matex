@@ -23,13 +23,4 @@ class EditCategoryTest extends TestCase
 
         $response->assertRedirect('/');
     }
-
-    /** @test */
-    public function it_updates_an_existing_category()
-    {
-        $this->signInAdmin();
-
-        $this->post('');
-
-    }
 }

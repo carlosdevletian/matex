@@ -15,20 +15,21 @@
         outline: none;
         border-bottom: solid 2px $brand-primary;
     }
-    &--error {
-        border-bottom: solid 2px red;
-        &:focus {
-            outline: none;
-            border-bottom: solid 2px red;
-        }
-    }
     &__select {
-        border: 2px solid #ccc;
-        border-radius: $border-radius-base;
+        line-height: 1.5;
+        border: none;
+        border-bottom: solid 1px lightgrey;
+        color: black;
+        box-shadow: none;
+        font-weight: normal;
+        padding: 1px;
+        font-size: 14px;
+        border-radius: 0px;
         display: inline-block;
         position: relative;
         padding-right: 10px;
         &:hover {
+            border-radius: $border-radius-base;
             border: 2px solid $brand-primary;
             color: $brand-primary;
         }
@@ -54,6 +55,13 @@
             &:focus {
                 outline: none;
             }
+        }
+    }
+    &--error {
+        border-bottom: solid 2px red;
+        &:focus {
+            outline: none;
+            border-bottom: solid 2px red;
         }
     }
 }

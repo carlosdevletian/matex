@@ -101,25 +101,26 @@
                     vm.continue(throughLogin);
                 }).catch(swal.noop);
             },
-            // addEventListenersForModals: function() {
-            //     var modal = document.getElementsByClassName('fpd-draggable-dialog');
-            //     this.onEscape(modal);
-            //     this.onOutsideClick(modal);
-            // },
-            // onEscape: function(modal) {
-            //     document.addEventListener("keydown", (e) => {
-            //         if (modal && e.keyCode == 27) {
-            //             $(modal).removeClass("fpd-active");
-            //         }
-            //     });
-            // },
-            // onOutsideClick: function(modal) {
-            //     this.$refs.fpd.addEventListener("click", (e) => {
-            //         if(modal && e.target != modal) {
-            //             $(modal).removeClass("fpd-active");
-            //         }
-            //     });
-            // },
+            addEventListenersForModals: function() {
+                this.onEscape();
+                this.onOutsideClick();
+            },
+            onEscape: function() {
+                document.addEventListener("keydown", (e) => {
+                    if (e.keyCode == 27) {
+                        $('.fpd-close-off-canvas').click();
+                    }
+                });
+            },
+            onOutsideClick: function() {
+                var element = document.getElementsByClassName('fpd-content')[0];
+                
+                this.$refs.fpd.addEventListener("click", (e) => {
+                    if(! element.contains(e.target)) {
+                        $('.fpd-close-off-canvas').click();
+                    }
+                });
+            },
         },
         created: function() {
             var vm = this;
@@ -169,7 +170,7 @@
                     if(Object.keys(vm.existingDesign).length !== 0) {
                         Event.$emit('design-selected', vm.existingDesign)
                     }
-                    // vm.addEventListenersForModals();
+                    vm.addEventListenersForModals();
                 })
             });
 

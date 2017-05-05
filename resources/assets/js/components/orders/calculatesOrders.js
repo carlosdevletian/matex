@@ -13,7 +13,7 @@ export const calculatesOrders = {
                 city: '',
                 state: '',
                 zip: '',
-                country: '',
+                country: 'United States',
                 phone_number: '',
                 comment: '',
                 is_valid: false,

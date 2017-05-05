@@ -29,8 +29,7 @@
         position: relative;
         padding-right: 10px;
         &:hover {
-            border-radius: $border-radius-base;
-            border: 2px solid $brand-primary;
+            border-bottom: 2px solid $brand-primary;
             color: $brand-primary;
         }
         &:before {

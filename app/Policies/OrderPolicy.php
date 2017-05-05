@@ -13,6 +13,6 @@ class OrderPolicy
 
     public function show(User $user, Order $order)
     {
-        return $order->user_id == $user->id || $user->hasRole('admin');
+        return $order->user_id == $user->id || $user->hasRole('admin') || $user->hasRole('owner');
     }
 }

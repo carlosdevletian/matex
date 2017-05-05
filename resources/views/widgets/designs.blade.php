@@ -2,9 +2,9 @@
     <p class="Card__title" style="margin-left: 15px">Designs</p>
     @if($designs->count() > 0)
         @foreach($designs as $design)
-            <design-show :design="{{ $design }}" add-class="Thumbnail col-xs-6" admin="{{ auth()->user()->hasRole('admin') }}"></design-show>
+            <design-show :design="{{ $design }}" add-class="Thumbnail col-xs-6" admin="{{ admin() }}"></design-show>
         @endforeach
-        @if(auth()->user()->hasRole('admin'))
+        @if(admin())
             <a href="{{ route('designs.index', $profileUser) }}" class="Button--card stick-to-bottom">
                 ALL DESIGNS
             </a>
@@ -14,7 +14,7 @@
             </a>
         @endif
     @else
-        @if(auth()->user()->hasRole('admin'))
+        @if(admin())
             <p style="margin-right: 40px; margin-left: 40px">This user has no designs</p>
         @else
             <p style="margin-right: 20px; margin-left: 20px">Seems like you don't have any designs... yet.</p>

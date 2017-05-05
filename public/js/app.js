@@ -29683,8 +29683,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             var vm = this;
             swal({
-                title: "Add a comment <span class='Modal__close pd-0 top-0' onclick='swal.closeModal(); return false;'>&#10005;</span>",
-                html: "<div class='Modal__description'>Tell us something relevant about your design</div>",
+                title: "Add a comment (Optional) <span class='Modal__close pd-0 top-0' onclick='swal.closeModal(); return false;'>&#10005;</span>",
+                html: "<div class='Modal__description'>You can add a comment for your design so our team takes it into consideration</div>",
                 input: 'textarea',
                 type: null,
                 customClass: 'Modal',
@@ -29693,7 +29693,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 confirmButtonClass: 'Button--secondary stick-to-bottom',
                 showCancelButton: false,
                 confirmButtonText: 'Continue',
-                inputPlaceholder: 'Your comment goes here. Or leave blank if not necessary',
                 inputClass: 'Form'
             }).then(function (comment) {
                 vm.comment = comment;
@@ -29810,7 +29809,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 if (Object.keys(vm.existingDesign).length !== 0) {
                     Event.$emit('design-selected', vm.existingDesign);
                 }
-                vm.help();
+                if (!vm.signedIn) {
+                    vm.help();
+                }
                 vm.addEventListenersForModals();
             });
         });

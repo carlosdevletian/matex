@@ -17,7 +17,7 @@ class OrderFilters extends Filters
 
     public function client($email)
     {
-        if(! auth()->user()->hasRole('admin')) return $this->query;
+        if(! admin()) return $this->query;
         if($userId = User::where('email', $email)->firstOrFail()->id) {
             return $this->query->where('user_id', $userId);
         }

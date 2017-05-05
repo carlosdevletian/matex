@@ -15,7 +15,7 @@
                 <div class="row">
                     @if($designs->count() > 0)
                         @foreach($designs as $design)
-                            <design-show :design="{{ $design }}" add-class="col-xs-6 col-sm-4 col-md-3" admin="{{ auth()->user()->hasRole('admin') }}"></design-show>
+                            <design-show :design="{{ $design }}" add-class="col-xs-6 col-sm-4 col-md-3" admin="{{ admin() }}"></design-show>
                         @endforeach
                     @else
                         <div class="Card">

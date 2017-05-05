@@ -6,9 +6,9 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h4>Create new user</h4>
+        <div class="row mg-top-10">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h4>Create a new user</h4>
                 <div class="Card position-relative pd-btm-50">
                     <form method="POST" action="{{ route('users.store') }}" v-on:submit.prevent="createUser($event)">
                         {{ csrf_field() }}

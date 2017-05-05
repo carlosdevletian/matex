@@ -35,7 +35,7 @@
                                         required>
                                 </div>
 
-                                <button type="submit" class="Button--primary stick-to-bottom">Search</button>
+                                <button type="submit" class="Button--card stick-to-bottom">Search</button>
                             </form>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                                         required>
                                 </div>
 
-                                <button type="submit" class="Button--primary stick-to-bottom">Search</button>
+                                <button type="submit" class="Button--card stick-to-bottom">Search</button>
                             </form>
                         </div>
                     </div>

@@ -20,8 +20,11 @@
                 <div class="Card">
                     <div class="row text-center mg-top-10">
                         <div class="col-sm-4">
-                            <div style="display: inline-block; width: 10px; height: 10px; border-radius: 100%; background-color: {{ $order->status->color }}"></div>
-                            <p style="display:inline-block;">{{ $order->status->name }}</p>
+                            <p style="color: {{ $order->status->color }}; border: 2px solid {{ $order->status->color }}; border-radius: 3px"    data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="{{ $order->status->name . " since " . $order->status->updated_at->diffForHumans() }}">
+                                    {{ $order->status->name }}
+                            </p>
                             @unless(admin())
                                 @if($order->status->name == 'Payment Pending')
                                     <order-pay :order="{{ $order }}"></order-pay>

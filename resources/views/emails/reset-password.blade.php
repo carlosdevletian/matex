@@ -1,17 +1,17 @@
 @extends('layouts.email')
 
 @section('greeting')
-    ¿Olvidaste tu contraseña?.
+    Did you forget your password?
 @endsection
 
 @section('intro')
-    Para cambiar tu contraseña, haz click aquí:</a>
+    To change your password click here:</a>
 @endsection
 
 @section('salutation')
-    Si tú no solicitaste un cambio de contraseña, puedes ignorar este mentaje.<br><br>Saludos.
+    If you did not request a password change, feel free to ignore this message.<br><br>
 @endsection
 
 @section('subcopy')
-    Si no puedes ver el botón para cambiar tu contraseña, haz click aquí:
+    If you do not see the button to change your password, please click here:
 @endsection

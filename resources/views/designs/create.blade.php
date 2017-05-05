@@ -15,26 +15,25 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <div class="page-header">
-                    <h3 class="main-title">Design your {{ $category->name }}</h3>
-                    @if(auth()->check() && auth()->user()->hasAnyDesignsInCategory($category->id))
-                        <div class="mg-btm-20">
-                            <a role="button" 
-                                v-if="!showDesignPicker" 
-                                @click="showDesignPicker = true"
-                                class="Button--product">
-                                Select from previous designs
-                            </a>
-                        </div>
-                        <design-picker :designs="{{ $existingDesigns }}" v-if="showDesignPicker"></design-picker>
-                    @endif
-                </div>
+                <h3 class="main-title">Design your {{ $category->name }}</h3>
+                @if(auth()->check() && auth()->user()->hasAnyDesignsInCategory($category->id))
+                    <div class="mg-btm-20">
+                        <a role="button" 
+                            v-if="!showDesignPicker" 
+                            @click="showDesignPicker = true"
+                            class="Button--product">
+                            Select from previous designs
+                        </a>
+                    </div>
+                    <design-picker :designs="{{ $existingDesigns }}" v-if="showDesignPicker"></design-picker>
+                @endif
                 <fpd
                     product-template="{{ URL::to('images/design_templates/bracelet_template.png') }}"
                     template-directory="{{ URL::to('fpd') . '/'}}"
                     lang-json="{{ URL::to('default.json') }}"
                     :category-id="{{ $category->id }}"
                     :existing-design="{{ $design ? $design : '{}' }}"
+                    existing-designs="{{ auth()->check() && auth()->user()->hasAnyDesignsInCategory($category->id) ? true : false }}"
                 ></fpd>
             </div>
         </div>

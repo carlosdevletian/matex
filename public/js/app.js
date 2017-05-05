@@ -16835,7 +16835,7 @@ var calculatesOrders = {
                 city: '',
                 state: '',
                 zip: '',
-                country: '',
+                country: 'United States',
                 phone_number: '',
                 comment: '',
                 is_valid: false,
@@ -29385,6 +29385,61 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -29570,6 +29625,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -29582,7 +29640,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             default: function _default() {
                 return {};
             }
-        }
+        },
+        existingDesigns: false
     },
     data: function data() {
         return {
@@ -29640,6 +29699,67 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 vm.comment = comment;
                 vm.continue(throughLogin);
             }).catch(swal.noop);
+        },
+        help: function help() {
+            var _swal$setDefaults;
+
+            swal.setDefaults((_swal$setDefaults = {
+                type: null,
+                customClass: 'Modal',
+                buttonsStyling: false,
+                showConfirmButton: true,
+                confirmButtonClass: 'Button--secondary stick-to-bottom',
+                confirmButtonText: 'Finish Tutorial',
+                showCancelButton: false,
+                animation: false,
+                imageWidth: 300,
+                imageHeight: 150
+            }, _defineProperty(_swal$setDefaults, 'confirmButtonText', 'Next'), _defineProperty(_swal$setDefaults, 'progressSteps', ['1', '2', '3', '4']), _swal$setDefaults));
+
+            var steps = [{
+                title: "Welcome to the Matex Designer",
+                text: 'We have a short tutorial prepared for you!',
+                animation: true
+            }, {
+                title: "Edit an Object",
+                text: 'To edit an object click on it, a series of options will appear (change color, size, delete, rotate)',
+                imageUrl: 'http://i.imgur.com/66pIoZY.png'
+            }, {
+                title: "Add Text",
+                text: 'You can add text by clicking the "Add Text" button, then you can style it to your liking',
+                imageUrl: 'http://i.imgur.com/1IFmy8K.png'
+            }, {
+                title: "Add Images",
+                text: 'To add images you can click the "Add Image" button, you may drag and drop your image or select it from your files',
+                confirmButtonText: 'Finish Tutorial',
+                imageUrl: 'http://i.imgur.com/IX1jQWP.png'
+            }];
+
+            swal.queue(steps).then(function (result) {
+                swal.resetDefaults();
+            }, function () {
+                swal.resetDefaults();
+            }).catch(swal.noop);
+        },
+        addEventListenersForModals: function addEventListenersForModals() {
+            this.onEscape();
+            this.onOutsideClick();
+        },
+        onEscape: function onEscape() {
+            document.addEventListener("keydown", function (e) {
+                if (e.keyCode == 27) {
+                    $('.fpd-close-off-canvas').click();
+                }
+            });
+        },
+        onOutsideClick: function onOutsideClick() {
+            var element = document.getElementsByClassName('fpd-content')[0];
+
+            this.$refs.fpd.addEventListener("click", function (e) {
+                if (!element.contains(e.target)) {
+                    $('.fpd-close-off-canvas').click();
+                }
+            });
         }
     },
     created: function created() {
@@ -29649,8 +29769,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         });
     },
     mounted: function mounted() {
-        var _swal$setDefaults;
-
         var vm = this;
         var fpd = this.$refs.fpd;
         var pluginOptions = {
@@ -29692,47 +29810,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 if (Object.keys(vm.existingDesign).length !== 0) {
                     Event.$emit('design-selected', vm.existingDesign);
                 }
-                // vm.addEventListenersForModals();
+                vm.help();
+                vm.addEventListenersForModals();
             });
         });
-
-        swal.setDefaults((_swal$setDefaults = {
-            type: null,
-            customClass: 'Modal',
-            buttonsStyling: false,
-            showConfirmButton: true,
-            confirmButtonClass: 'Button--secondary stick-to-bottom',
-            confirmButtonText: 'Finish Tutorial',
-            showCancelButton: false,
-            animation: false,
-            imageWidth: 300,
-            imageHeight: 150
-        }, _defineProperty(_swal$setDefaults, 'confirmButtonText', 'Next'), _defineProperty(_swal$setDefaults, 'progressSteps', ['1', '2', '3', '4']), _swal$setDefaults));
-
-        var steps = [{
-            title: "Welcome to the Matex Designer",
-            text: 'We have a short tutorial prepared for you!',
-            animation: true
-        }, {
-            title: "Edit an Object",
-            text: 'To edit an object click on it, a series of options will appear (change color, size, delete, rotate)',
-            imageUrl: 'http://i.imgur.com/66pIoZY.png'
-        }, {
-            title: "Add Text",
-            text: 'You can add text by clicking the "Add Text" button, then you can style it to your liking',
-            imageUrl: 'http://i.imgur.com/1IFmy8K.png'
-        }, {
-            title: "Add Images",
-            text: 'To add images you can click the "Add Image" button, you may drag and drop your image or select it from your files',
-            confirmButtonText: 'Finish Tutorial',
-            imageUrl: 'http://i.imgur.com/IX1jQWP.png'
-        }];
-
-        swal.queue(steps).then(function (result) {
-            swal.resetDefaults();
-        }, function () {
-            swal.resetDefaults();
-        }).catch(swal.noop);
     }
 });
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(6)))
@@ -29866,16 +29947,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -55072,7 +55143,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/ActiveCheckbox.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/ActiveCheckbox.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ActiveCheckbox.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55110,7 +55181,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/AddressPicker.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/AddressPicker.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] AddressPicker.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55144,7 +55215,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/DesignPicker.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/DesignPicker.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] DesignPicker.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55178,7 +55249,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/Fpd.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/Fpd.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Fpd.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55216,7 +55287,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/Products.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/Products.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Products.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55250,7 +55321,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/carts/Preview.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/carts/Preview.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Preview.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55284,7 +55355,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/categories/Show.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/categories/Show.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Show.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55322,7 +55393,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/designs/Show.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/designs/Show.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Show.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55356,7 +55427,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/designs/Thumbnail.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/designs/Thumbnail.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Thumbnail.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55390,7 +55461,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/items/CartCreate.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/items/CartCreate.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CartCreate.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55424,7 +55495,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/items/Create.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/items/Create.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Create.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55458,7 +55529,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/items/Show.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/items/Show.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Show.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55492,7 +55563,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/modals/Contact.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/modals/Contact.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Contact.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55526,7 +55597,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/modals/ContactUser.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/modals/ContactUser.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ContactUser.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55560,7 +55631,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/modals/Image.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/modals/Image.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Image.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55594,7 +55665,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/modals/Template.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/modals/Template.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Template.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55628,7 +55699,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/modals/UserComment.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/modals/UserComment.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] UserComment.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55666,7 +55737,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/orders/CartCreate.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/orders/CartCreate.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] CartCreate.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55700,7 +55771,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/orders/Create.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/orders/Create.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Create.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55738,7 +55809,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/orders/List.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/orders/List.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] List.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55772,7 +55843,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/orders/Pay.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/orders/Pay.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Pay.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55806,7 +55877,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/orders/Show.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/orders/Show.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Show.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -55840,7 +55911,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/cdevletian/code/matex/resources/assets/js/components/orders/Template.vue"
+Component.options.__file = "/Users/Alejandro/Code/matex/resources/assets/js/components/orders/Template.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Template.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -56044,7 +56115,33 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
+  return _c('div', [(_vm.signedIn && _vm.existingDesigns) ? _c('hr') : _vm._e(), _vm._v(" "), (_vm.signedIn && _vm.existingDesigns) ? _c('i', {
+    staticClass: "fa fa-question-circle fa-2x color-primary",
+    staticStyle: {
+      "position": "absolute",
+      "top": "75px",
+      "right": "20px"
+    },
+    attrs: {
+      "aria-hidden": "true"
+    },
+    on: {
+      "click": _vm.help
+    }
+  }) : _c('i', {
+    staticClass: "fa fa-question-circle fa-2x color-primary",
+    staticStyle: {
+      "position": "absolute",
+      "top": "30px",
+      "right": "20px"
+    },
+    attrs: {
+      "aria-hidden": "true"
+    },
+    on: {
+      "click": _vm.help
+    }
+  }), _vm._v(" "), _c('div', {
     staticClass: "Card col-xs-12 pd-0"
   }, [_c('div', {
     ref: "fpd",
@@ -56107,19 +56204,14 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "color-grey"
-  }, [(_vm.itemQuantity > 0) ? _c('div', {
-    staticClass: "pd-btm-25 mg-btm-20"
+    staticClass: "row color-grey"
+  }, [(_vm.itemQuantity > 0) ? _c('div', [_c('div', {
+    staticStyle: {
+      "padding": "5px 0px",
+      "min-height": "170px"
+    }
   }, [_c('div', {
-    staticClass: "borderless"
-  }, [_c('table', {
-    staticClass: "table borderless mg-0"
-  }, [_c('tbody', [_c('tr', [_c('td', {
-    staticClass: "col-xs-6"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-xs-12"
+    staticClass: "col-xs-5"
   }, [_c('a', {
     attrs: {
       "role": "button"
@@ -56130,24 +56222,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "background-image Thumbnail--image box-shadow",
     style: (_vm.imageUrl)
-  })])])])]), _vm._v(" "), _c('td', {
-    staticClass: "col-xs-6"
-  }, [_c('p', {
-    staticClass: "text-right mg-0 pd-top-8"
-  }, [_vm._v("\n                                " + _vm._s(_vm.firstItem.quantity) + " " + _vm._s(_vm.firstItem.product.name) + " " + _vm._s(_vm.firstItem.design.category.name) + " \n                            ")])])])])])]), _vm._v(" "), (_vm.itemQuantity != 1) ? _c('div', [_c('p', {
-    staticClass: "text-right mg-0"
-  }, [_vm._v("\n                    ... and " + _vm._s(_vm.itemQuantity - 1) + " more\n                ")])]) : _vm._e(), _vm._v(" "), (_vm.itemQuantity != 1) ? _c('hr', {
-    staticStyle: {
-      "margin-top": "0"
-    }
-  }) : _vm._e(), _vm._v(" "), _c('p', [_vm._v("\n            Subtotal: $ " + _vm._s(_vm.subtotal) + "\n        ")])]) : _c('p', {
-    staticClass: "pd-btm-25 mg-btm-20 text-center"
-  }, [_vm._v("\n        There are no items in your cart\n    ")]), _vm._v(" "), _c('a', {
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-7"
+  }, [_c('p', [_vm._v("\n                    " + _vm._s(_vm.firstItem.quantity) + " " + _vm._s(_vm.firstItem.product.name) + " " + _vm._s(_vm.firstItem.design.category.name) + " \n                ")]), _vm._v(" "), (_vm.itemQuantity != 1) ? _c('div', [_c('p', [_vm._v("\n                        ... and " + _vm._s(_vm.itemQuantity - 1) + " more\n                    ")])]) : _vm._e(), _vm._v(" "), _c('hr'), _vm._v(" "), _c('p', {
+    staticClass: "color-secondary"
+  }, [_vm._v("\n                    Subtotal: $ " + _vm._s(_vm.subtotal) + "\n                ")])])]), _vm._v(" "), _c('a', {
     staticClass: "Button Button--primary stick-to-bottom color-white",
     attrs: {
       "href": "/cart"
     }
-  }, [_vm._v("Go to cart")])])
+  }, [_vm._v("Go to cart")])]) : _c('p', {
+    staticClass: "text-center mg-top-10"
+  }, [_vm._v("\n        Your cart is empty\n    ")])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -56872,31 +56958,242 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-sm-6"
-  }, [_c('input', {
+  }, [_c('div', {
+    staticClass: "Form__select",
+    class: {
+      'Form--error': !_vm.validation.state && _vm.address.show_errors
+    }
+  }, [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: (_vm.address.state),
       expression: "address.state"
     }],
-    staticClass: "Form mg-btm-20",
-    class: {
-      'Form--error': !_vm.validation.state && _vm.address.show_errors
-    },
     attrs: {
-      "type": "text",
-      "placeholder": "State *"
-    },
-    domProps: {
-      "value": (_vm.address.state)
+      "name": "state"
     },
     on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.address.state = $event.target.value
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.address.state = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
       }
     }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_c('option', {
+    attrs: {
+      "value": "",
+      "disabled": ""
+    }
+  }, [_vm._v("Select a State *")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "AL"
+    }
+  }, [_vm._v("Alabama")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "AK"
+    }
+  }, [_vm._v("Alaska")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "AZ"
+    }
+  }, [_vm._v("Arizona")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "AR"
+    }
+  }, [_vm._v("Arkansas")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "CA"
+    }
+  }, [_vm._v("California")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "CO"
+    }
+  }, [_vm._v("Colorado")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "CT"
+    }
+  }, [_vm._v("Connecticut")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "DE"
+    }
+  }, [_vm._v("Delaware")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "DC"
+    }
+  }, [_vm._v("District Of Columbia")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "FL"
+    }
+  }, [_vm._v("Florida")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "GA"
+    }
+  }, [_vm._v("Georgia")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "HI"
+    }
+  }, [_vm._v("Hawaii")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "ID"
+    }
+  }, [_vm._v("Idaho")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "IL"
+    }
+  }, [_vm._v("Illinois")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "IN"
+    }
+  }, [_vm._v("Indiana")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "IA"
+    }
+  }, [_vm._v("Iowa")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "KS"
+    }
+  }, [_vm._v("Kansas")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "KY"
+    }
+  }, [_vm._v("Kentucky")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "LA"
+    }
+  }, [_vm._v("Louisiana")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "ME"
+    }
+  }, [_vm._v("Maine")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "MD"
+    }
+  }, [_vm._v("Maryland")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "MA"
+    }
+  }, [_vm._v("Massachusetts")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "MI"
+    }
+  }, [_vm._v("Michigan")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "MN"
+    }
+  }, [_vm._v("Minnesota")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "MS"
+    }
+  }, [_vm._v("Mississippi")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "MO"
+    }
+  }, [_vm._v("Missouri")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "MT"
+    }
+  }, [_vm._v("Montana")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "NE"
+    }
+  }, [_vm._v("Nebraska")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "NV"
+    }
+  }, [_vm._v("Nevada")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "NH"
+    }
+  }, [_vm._v("New Hampshire")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "NJ"
+    }
+  }, [_vm._v("New Jersey")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "NM"
+    }
+  }, [_vm._v("New Mexico")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "NY"
+    }
+  }, [_vm._v("New York")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "NC"
+    }
+  }, [_vm._v("North Carolina")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "ND"
+    }
+  }, [_vm._v("North Dakota")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "OH"
+    }
+  }, [_vm._v("Ohio")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "OK"
+    }
+  }, [_vm._v("Oklahoma")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "OR"
+    }
+  }, [_vm._v("Oregon")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "PA"
+    }
+  }, [_vm._v("Pennsylvania")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "RI"
+    }
+  }, [_vm._v("Rhode Island")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "SC"
+    }
+  }, [_vm._v("South Carolina")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "SD"
+    }
+  }, [_vm._v("South Dakota")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "TN"
+    }
+  }, [_vm._v("Tennessee")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "TX"
+    }
+  }, [_vm._v("Texas")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "UT"
+    }
+  }, [_vm._v("Utah")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "VT"
+    }
+  }, [_vm._v("Vermont")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "VA"
+    }
+  }, [_vm._v("Virginia")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "WA"
+    }
+  }, [_vm._v("Washington")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "WV"
+    }
+  }, [_vm._v("West Virginia")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "WI"
+    }
+  }, [_vm._v("Wisconsin")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "WY"
+    }
+  }, [_vm._v("Wyoming")])])])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-6"
@@ -56925,7 +57222,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   })]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-6"
+    staticClass: "col-sm-6",
+    attrs: {
+      "data-toggle": "tooltip",
+      "data-placement": "bottom",
+      "title": "At the moment we are only shipping in the US"
+    }
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -56939,6 +57241,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     attrs: {
       "type": "text",
+      "disabled": "",
       "placeholder": "Country *"
     },
     domProps: {

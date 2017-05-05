@@ -11,11 +11,11 @@
         }
         &--element {
             display: block;
-            color: #a2b2ba;
+            color: $text-color-secondary;
             height: 33%;
             font-size: 10pt;
             padding-top: 5px;
-            border-top: 1px solid #ebeef2;
+            border-top: 1px solid #e8ebef;
             &:hover {
                 color: $text-color;
             }

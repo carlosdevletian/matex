@@ -42,7 +42,7 @@
                             </a>
                             <div class="hidden-xs" v-show="showCartPreview"
                                 v-cloak 
-                                style="position: absolute; top: 40px; right: 24%; z-index: 2">
+                                style="position: absolute; top: 45px; right: 24%; z-index: 2">
                                     @include('carts.preview')
                             </div>
                         </li>

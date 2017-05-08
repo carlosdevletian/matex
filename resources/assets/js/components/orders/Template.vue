@@ -76,6 +76,18 @@
                 </div>
             </div>
         </div>
+        <div class="row visible-xs visible-sm Order__prices--total">
+            <div class="col-xs-12">
+                <div class="Card text-center">
+                    <p class="Order__title mg-btm-20">
+                        Order Total 
+                    </p>
+                    <p>
+                        <slot name="hidden-total"></slot>
+                    </p>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <slot name="buttons"></slot>
         </div>

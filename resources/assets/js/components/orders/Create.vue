@@ -53,6 +53,7 @@
         <div slot="shipping">{{ filteredShipping }}</div>
         <div slot="tax">{{ filteredTax }}</div>
         <div slot="total">{{ filteredTotal }}</div>
+        <div slot="hidden-total">{{ filteredTotal }}</div>
         <p slot="address-title">Select a shipping address</p>
         <div slot="address-picker">
             <address-picker
@@ -68,7 +69,7 @@
                     class="Button--secondary box-shadow mg-btm-20 no-wrap"
                     >Add to cart</button>
             </div>
-            <div class="col-xs-6" :class="{ 'col-xs-offset-3': !signedIn }">
+            <div class="col-xs-6" :class="{ 'col-xs-12 col-sm-6 col-sm-offset-3': !signedIn }">
                 <button @click="pay"
                     class="Button--primary box-shadow mg-btm-20"
                     >Checkout</button>

@@ -65,16 +65,16 @@ We will contact you as soon as it ships.
 </div>
 @endcomponent
 
+@component('mail::button', ["url" => $orderUrl])
+Go to order
+@endcomponent
+
 @if(! empty($token))
 ## We noticed you don't have an account with us
 @component('mail::button', ["url" => $registerUrl])
 Create an account
 @endcomponent
 @endif
-
-@component('mail::button', ["url" => $orderUrl])
-Go to order
-@endcomponent
 
 <h3 style="text-align: center">If you have any questions, you can <a class="matex-link" href={{ 'mailto:' . config('mail.customer-support.address') }}>contact us!</a></h3>
 

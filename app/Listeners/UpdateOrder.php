@@ -6,7 +6,7 @@ use App\Events\OrderPlaced;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class UpdateOrder
+class UpdateOrder implements ShouldQueue
 {
     /**
      * Create the event listener.

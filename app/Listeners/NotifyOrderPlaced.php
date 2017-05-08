@@ -6,10 +6,8 @@ use App\Events\OrderPlaced;
 use App\Mail\OrderPlacedMail;
 use App\Models\RegisterToken;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NotifyOrderPlaced implements ShouldQueue
+class NotifyOrderPlaced
 {
     /**
      * Create the event listener.

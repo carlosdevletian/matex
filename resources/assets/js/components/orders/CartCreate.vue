@@ -84,6 +84,7 @@
                 <div slot="shipping">{{ filteredShipping }}</div>
                 <div slot="tax">{{ filteredTax }}</div>
                 <div slot="total">{{ filteredTotal }}</div>
+                <div slot="hidden-total">{{ filteredTotal }}</div>
                 <p slot="address-title">Select a shipping address</p>
                 <div slot="address-picker">
                     <address-picker
@@ -94,7 +95,7 @@
                 </div>
                 <div slot="buttons">
                     <div class="row">
-                        <div class="col-xs-6 col-xs-offset-3">
+                        <div class="col-xs-12  col-sm-6 col-sm-offset-3">
                             <button @click="pay"
                             class="Button--secondary box-shadow mg-btm-20"
                             >Checkout</button>

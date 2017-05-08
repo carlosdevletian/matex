@@ -84,7 +84,7 @@
                             v-bind:class="{ 'Form--error' : !validation.city && address.show_errors }">
                         </div>
                         <div class="col-sm-6">
-                            <div class="Form__select" v-bind:class="{ 'Form--error' : !validation.state && address.show_errors }">
+                            <div class="Form__select Form__select--full-width" v-bind:class="{ 'Form--error' : !validation.state && address.show_errors }">
                                 <select name="state" v-model="address.state">
                                     <option value="" disabled>Select a State *</option>
                                     <option value="AL">Alabama</option>

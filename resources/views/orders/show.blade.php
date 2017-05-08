@@ -43,6 +43,9 @@
                             :items="{{ $order->items }}" 
                             :address="{{ $order->address }}">
                 </order-show>
+                @unless(auth()->check())
+                    <p class="text-center"><a href="{{ route('register.client', ['token' => $token]) }}" class="Button--secondary">Create an Account</a></p>
+                @endunless
             </div>
         </div>
     </div>

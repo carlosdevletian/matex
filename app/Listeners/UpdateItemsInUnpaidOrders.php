@@ -7,7 +7,7 @@ use App\Events\ProductsToggled;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class UpdateItemsInUnpaidOrders
+class UpdateItemsInUnpaidOrders implements ShouldQueue
 {
     /**
      * Create the event listener.

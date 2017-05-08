@@ -55,7 +55,7 @@ class OrderController extends Controller
         }
 
         if($token && ($token->email == $order->email || admin())) {
-            return view('orders.show', compact('order', 'statuses'));
+            return view('orders.show', compact('order', 'statuses', 'token'));
         }
 
         abort(403, 'Unauthorized action');

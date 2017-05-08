@@ -40,6 +40,12 @@
             top: 5px;
             pointer-events: none;
         }
+    
+        &--full-width {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
         & select {
             padding: 5px 8px;
             width: 110%;

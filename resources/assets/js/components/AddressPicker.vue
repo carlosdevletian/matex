@@ -56,7 +56,7 @@
                 </a>
             </div>
             <div class="col-xs-12">
-                <div v-show="address.show_errors && error" class="error">{{ emailError ? emailError : error }}</div>
+                <div v-show="address.show_errors && (error || emailError)" class="error">{{ emailError ? emailError : error }}</div>
                 <form>
                     <input class="Form mg-btm-20"
                         type="email"
@@ -230,6 +230,7 @@
                 }).catch(error => {
                     this.emailTaken = true;
                     this.emailError = error.response.data.email;
+                    this.address.is_valid = false;
                 })
             },
             showExtraInfo: function(id) {
@@ -268,6 +269,7 @@
                         break;
                     }
                 }
+                if(this.emailTaken) this.address.is_valid = false;
                 if(this.address.is_valid) {
                     this.error = '';
                 }

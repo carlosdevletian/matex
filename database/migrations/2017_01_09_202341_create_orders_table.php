@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email')->nullable();
-            $table->string('reference_number')->nullable();
+            $table->string('reference_number');
             $table->integer('user_id')->nullable()->unsigned();
             $table->integer('address_id')->nullable()->unsigned();
             $table->integer('status_id')->nullable()->unsigned();
@@ -27,6 +27,7 @@ class CreateOrdersTable extends Migration
             $table->string('shipping_company')->nullable();
             $table->string('tracking_number')->nullable();
             $table->string('tracking_url')->nullable();
+            $table->string('card_last_four')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

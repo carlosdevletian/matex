@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Cashier;
 use App\Calculator;
-use App\ItemCalculator;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Order;
+use App\ItemCalculator;
+use Facades\App\Cashier;
 use App\Events\OrderPlaced;
 use Illuminate\Http\Request;
 use App\Models\RegisterToken;
@@ -80,7 +80,7 @@ class VueController extends Controller
         return response()->json([
             'itemQuantity' => $cart->availableItems()->count(),
             'firstItem' => $cart->availableItems()->first(),
-            'subtotal' => $cart->orderTotal()/100,
+            'subtotal' => $cart->orderTotal(),
         ], 200);
     }
 
@@ -90,7 +90,7 @@ class VueController extends Controller
             'payment_token' => 'required',
         ]);
 
-        $order = (new Cashier())->checkout();
+        $order = Cashier::checkout();
 
         if($order->total != request('total_price')) {
             return response()->json([
@@ -116,14 +116,15 @@ class VueController extends Controller
     private function attemptPayment($order)
     {
         try {
-            $this->paymentGateway->charge($order->total, request('payment_token'));
-            $order->setStatus('Payment Approved');
-            event(new OrderPlaced($order));
+            $charge = $this->paymentGateway->charge($order->total, request('payment_token'));
+            event(new OrderPlaced($order, $charge));
+
             return response()->json([
                 'status' => $order->status->name,
                 'order_url' => $order->showUrl()
             ], 200);
         } catch (PaymentFailedException $e) {
+            // Este event debería ser específico para cuando el pago falla
             event(new OrderPlaced($order));
             return response()->json([
                 'status' => $order->status->name,

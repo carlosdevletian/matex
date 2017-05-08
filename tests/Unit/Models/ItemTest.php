@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Models;
 
 use Tests\TestCase;
 use App\Models\Item;
@@ -13,7 +13,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class ItemTest extends TestCase
 {
     use DatabaseMigrations;
-
+    
     /** @test */
     function it_generates_new_items_from_request_data()
     {

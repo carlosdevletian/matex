@@ -34,7 +34,7 @@
                             </div>
                         </td>
                         <td class="col-xs-2">
-                            <p class="text-center no-wrap">$ {{ item.unit_price | inDollars }}</p>
+                            <p class="text-center no-wrap">${{ item.unit_price | inDollars }}</p>
                         </td>
                     </tr>
                 </tbody>

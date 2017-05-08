@@ -20,7 +20,7 @@
                     </div>
                     <hr>
                     <p class="color-secondary">
-                        Subtotal: $ {{ subtotal }}
+                        Subtotal: ${{ subtotal | inDollars }}
                     </p>
                 </div>
             </div>

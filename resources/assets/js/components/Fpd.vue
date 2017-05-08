@@ -1,8 +1,8 @@
 <template>
     <div>
         <hr v-if="signedIn && existingDesigns">
-        <i v-if="signedIn && existingDesigns" class="fa fa-question-circle fa-2x color-primary" aria-hidden="true" @click="help" style="position: absolute; top: 75px; right: 20px"></i>
-        <i v-else class="fa fa-question-circle fa-2x color-primary" aria-hidden="true" @click="help" style="position: absolute; top: 30px; right: 20px"></i>
+        <i v-if="signedIn && existingDesigns" class="fa fa-question-circle fa-2x color-primary" aria-hidden="true" @click="help" style="position: absolute; top: 75px; right: 20px; cursor: pointer"></i>
+        <i v-else class="fa fa-question-circle fa-2x color-primary" aria-hidden="true" @click="help" style="position: absolute; top: 30px; right: 20px; cursor: pointer"></i>
         <div class="Card col-xs-12 pd-0">
            <div ref="fpd" id="fpd" class="fpd-container fpd-topbar fpd-off-canvas-left fpd-top-actions-centered fpd-bottom-actions-centered">
                 <div class="fpd-product" title="Titulo" data-thumbnail="#">

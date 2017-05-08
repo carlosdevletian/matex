@@ -24,13 +24,14 @@ class Cashier
 
     protected $order;
 
+    protected $items;
+
     public function checkout()
     {
         $this->determineClient()
             ->determineAddress()
-            ->createOrder()
             ->addItems()
-            ->determineAmount();
+            ->createOrder();
 
         return $this->order;
     }
@@ -91,32 +92,17 @@ class Cashier
         return $this;
     }
 
-    protected function createOrder()
-    {
-        $this->order = Order::create([
-            'address_id' => $this->address->id,
-            $this->identifier => $this->identifier_value,
-        ]);
-
-        $this->order->setStatus('Payment Pending');
-
-        return $this;
-    }
-
     protected function addItems()
     {
-        $items = Item::generate(request('items'), $this->design);
-        
-        foreach ($items as $item) {
-            $this->order->addItem($item);
-        }
+        $this->items = Item::generate(request('items'), $this->design);
         
         return $this;
     }
 
-    protected function determineAmount()
+    protected function createOrder()
     {
-        $this->order->assignReferenceNumber();
-        $this->order->calculatePricing();
+        $this->order = Order::forItems($this->items, $this->address);
+
+        return $this;
     }
 }

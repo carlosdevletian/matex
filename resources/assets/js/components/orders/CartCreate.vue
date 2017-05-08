@@ -71,7 +71,7 @@
                 <div slot="spinner">
                     <i v-show="amountsLoading" class="fa fa-spinner fa-spin Spinner"></i>
                 </div>
-                <div slot="subtotal">$ {{ calculatedSubtotal | inDollars }}</div>
+                <div slot="subtotal">${{ calculatedSubtotal | inDollars }}</div>
                 <div slot="zip-error">
                     <div class="row" v-show="! zipIsValid">
                         <hr>

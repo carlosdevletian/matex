@@ -50,6 +50,7 @@ export const stripeMixin = {
                 // window.onbeforeunload = null;
                 window.location = response.data.order_url;
             }).catch(error => {
+                // console.log(error.response);
                 window.location = error.response.data.order_url;
             })
         },

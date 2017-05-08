@@ -42,14 +42,6 @@ class Item extends Model
         return (new ItemCalculator($this))->calculate();
     }
 
-    public function calculatePricing()
-    {
-        $calculator = new Calculator();
-        $this->unit_price = $calculator->unitPrice($this->product_id, $this->design_id, $this->quantity);
-        $this->total_price = $calculator->totalPrice($this->quantity, $this->unit_price);
-        $this->save();
-    }
-
     public static function alreadyExists(Item $item)
     {
         return self::where('cart_id', $item->cart_id)

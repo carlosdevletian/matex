@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Calculator;
 use App\Models\Traits\Filterable;
+use Facades\App\OrderReferenceNumber;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Presenters\OrderPresenter;
 
@@ -11,9 +12,35 @@ class Order extends Model
 {
     use Filterable;
     
-    protected $fillable = ['user_id', 'address_id', 'email', 'status_id', 'shipping_company','tracking_number', 'tracking_url'];
+    protected $fillable = [
+        'user_id', 
+        'address_id', 
+        'email', 
+        'status_id', 
+        'shipping_company',
+        'tracking_number', 
+        'tracking_url', 
+        'reference_number',
+        'card_last_four'
+    ];
     protected $dates = ['created_at', 'updated_at'];
     protected $with = ['status'];
+
+    public static function forItems($items, $address)
+    {
+        $order = self::create([
+            'reference_number' => OrderReferenceNumber::generate(),
+            'email' => $address->user_id ? null : $address->email,
+            'user_id' => $address->user_id ?: null,
+            'address_id' => $address->id,
+        ]);
+
+        $order->items()->saveMany($items);
+        $order->calculatePricing();
+        $order->setStatus('Payment Pending');
+
+        return $order;
+    }
 
     public function items()
     {
@@ -50,11 +77,6 @@ class Order extends Model
         $this->status_id = Status::findByName($status)->id;
 
         $this->save();
-    }
-
-    public function assignReferenceNumber()
-    {
-        return $this->reference_number = uniqid();
     }
 
     public function calculatePricing()

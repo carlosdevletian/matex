@@ -99,19 +99,19 @@ export const calculatesOrders = {
         },
         filteredShipping: function() {
             if(this.zipIsValid && this.calculatedSubtotal > 0) {
-                return '$ ' + (this.shipping / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
+                return '$' + (this.shipping / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
             }
             return '-';
         },
         filteredTax: function() {
             if(this.zipIsValid && this.calculatedSubtotal > 0) {
-                return '$ ' + (this.tax / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
+                return '$' + (this.tax / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
             }
             return '-';
         },
         filteredTotal: function() {
             if(this.zipIsValid) {
-                return '$ ' + (this.totalPrice / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
+                return '$' + (this.totalPrice / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
             }
             return '-';
         }

@@ -3,7 +3,7 @@
 namespace Tests\Unit\Billing;
 
 use Tests\TestCase;
-use PaymentGatewayContractTests;
+use Tests\Unit\Billing\PaymentGatewayContractTests;
 use App\Billing\StripePaymentGateway;
 use App\Billing\PaymentFailedException;
 

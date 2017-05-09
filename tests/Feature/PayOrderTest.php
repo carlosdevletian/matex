@@ -36,7 +36,7 @@ class PayOrderTest extends TestCase
         $design = factory(Design::class)->create();
         $items = factory(Item::class, 2)->create();
         foreach ($items as $item) {
-            $item->calculatePricing();
+            $item->calculate()->save();
         }
 
         $order = factory(Order::class)->states('for-user')->create(['address_id' => $address->id]);

@@ -15,6 +15,7 @@
                         <td class="col-xs-3">
                             <div class="position-relative">
                                 <input type="number"
+                                    :name="inputName"
                                     v-model="item.quantity"
                                     @change="updateItem"
                                     class="Form text-center pd-0"
@@ -41,5 +42,10 @@
     export default {
         mixins: [updatesItems],
         props: ['item'],
+        computed: {
+            inputName: function() {
+                return `product-${this.item.product.name.toLowerCase()}`;
+            }
+        }
     }
 </script>

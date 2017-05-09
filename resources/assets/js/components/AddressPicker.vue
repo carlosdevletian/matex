@@ -59,6 +59,7 @@
                 <div v-show="address.show_errors && (error || emailError)" class="error">{{ emailError ? emailError : error }}</div>
                 <form>
                     <input class="Form mg-btm-20"
+                        name="email"
                         type="email"
                         v-model="address.email"
                         placeholder="Email *"
@@ -66,11 +67,13 @@
                         v-if="!signedIn"
                         v-bind:class="{ 'Form--error' : (!validation.email && address.show_errors) || (emailTaken && address.show_errors) }">
                     <input class="Form mg-btm-20"
+                        name="recipient"
                         type="text"
                         v-model="address.name"
                         placeholder="Recipient name *"
                         v-bind:class="{ 'Form--error' : !validation.name && address.show_errors }">
                     <input class="Form mg-btm-20"
+                        name="street"
                         type="text"
                         v-model="address.street"
                         placeholder="Street *"
@@ -78,6 +81,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <input class="Form mg-btm-20"
+                            name="city"
                             type="text"
                             v-model="address.city"
                             placeholder="City *"
@@ -145,6 +149,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <input class="Form mg-btm-20"
+                                name="zip"
                                 type="text"
                                 v-model="address.zip"
                                 placeholder="Zip Code *"
@@ -155,6 +160,7 @@
                                     data-placement="bottom" 
                                     title="At the moment we are only shipping in the US">
                                         <input class="Form mg-btm-20"
+                                        name="country"
                                         type="text"
                                         v-model="address.country"
                                         disabled
@@ -163,6 +169,7 @@
                             </div>
                         </div>
                         <input class="Form mg-btm-20"
+                            name="phone_number"
                             type="text"
                             v-model="address.phone_number"
                             placeholder="Phone Number *"

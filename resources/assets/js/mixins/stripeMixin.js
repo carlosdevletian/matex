@@ -8,7 +8,7 @@ export const stripeMixin = {
     methods: {
         initStripe() {
             const handler = StripeCheckout.configure({
-                key: Matex.stripeKey
+                key: Matex.stripeKey,
             })
             return handler
         },

@@ -19,7 +19,7 @@
                 @endif
                 <div class="Card">
                     <div class="row text-center mg-top-10">
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <p style="color: {{ $order->status->color }}; border: 2px solid {{ $order->status->color }}; border-radius: 3px"    data-toggle="tooltip"
                                 data-placement="bottom"
                                 title="{{ $order->status->name . " since " . $order->status->updated_at->diffForHumans() }}">
@@ -31,11 +31,18 @@
                                 @endif
                             @endunless
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <p>Placed on {{ $order->formated_date }}</p>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <p>Order #{{ $order->reference_number }}</p>
+                        </div>
+                        <div class="col-sm-3">
+                            @if(! empty($order->card_last_four))
+                                <p><i class="fa fa-credit-card-alt color-primary" aria-hidden="true"></i> **** {{ $order->card_last_four }}</p>
+                            @else
+                                <p>No Payment Info</p>
+                            @endif
                         </div>
                     </div>
                 </div>

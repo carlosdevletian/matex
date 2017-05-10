@@ -256,7 +256,7 @@
                     street: !! this.address.street != '',
                     city: !! this.address.city != '',
                     state: !! this.address.state != '',
-                    zip: !! this.address.zip != '' && this.address.zip.length === 5,
+                    zip: !! this.address.zip != '' && /^[0-9]{5}(\-[0-9]{4})?$/.test(this.address.zip),
                     country: !! this.address.country != '',
                     phone_number: !! this.address.phone_number != '',
                 }

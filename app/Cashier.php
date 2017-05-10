@@ -110,7 +110,7 @@ class Cashier
             'newAddress.street' => 'required',
             'newAddress.city' => 'required',
             'newAddress.state' => 'required',
-            'newAddress.zip' => 'required|digits:5',
+            'newAddress.zip' => 'required|zip',
             'newAddress.country' => 'required',
             'newAddress.phone_number' => 'required',
             'newAddress.comment' => 'nullable'

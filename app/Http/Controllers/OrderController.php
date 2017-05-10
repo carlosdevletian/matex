@@ -41,10 +41,7 @@ class OrderController extends Controller
             $statuses = Status::all();
         }
 
-        $order = Order::with(['items.design' => function($query){
-                $query->withTrashed()->addSelect(['id', 'image_name', 'created_at']);
-            }, 'status'])
-            ->where('reference_number', $referenceNumber)->firstOrFail();
+        $order = Order::show($referenceNumber);
 
         if($order->belongsToUser()){
             if (Gate::allows('owner', $order)) {
@@ -59,39 +56,27 @@ class OrderController extends Controller
         }
 
         abort(403, 'Unauthorized action');
-        // return view('orders.show', compact('order', 'statuses'));
     }
 
     public function create($categorySlug, Design $design = null)
     {
         $category = Category::where('slug_name', $categorySlug)->firstOrFail();
-        if(! $design->exists && ! session('design')) {
-            return redirect()->route('home');
-        }
-        if($design->exists && ! $design->ownedByUser()){
-            return redirect()->route('dashboard');
-        }
-        if(! $category->isActive()) {
-            return redirect()->route('home');
-        }
+        if($redirect = $this->isUnauthorized($design, $category)) return $redirect;
 
-        $products = Product::activeFrom($category->id);
         if(auth()->check()) {
-            $addresses = Address::where('user_id', auth()->user()->id)->get();
             $design = $design->exists ? $design : Design::findOrFail(session('design'));
 
             return view('orders.create', [
-                'products' => $products, 
-                'addresses' => $addresses, 
+                'products' => Product::activeFrom($category->id),
+                'addresses' => Address::where('user_id', auth()->user()->id)->get(),
                 'design' => $design->id, 
                 'design_image' => $design->image_name
             ]);
         }
-        $addresses = collect();
 
         return view('orders.create', [
-            'products' => $products, 
-            'addresses' => $addresses, 
+            'products' => Product::activeFrom($category->id),
+            'addresses' => collect(),
             'design' => session('design'), 
             'design_image' => session('design'), 
             'categoryId' => $category->id
@@ -121,5 +106,14 @@ class OrderController extends Controller
         flash()->success('Success','Status changed successfully');
 
         return redirect()->back();
+    }
+
+    private function isUnauthorized($design, $category)
+    {
+        if(! $design->exists && ! session('design')) return redirect()->route('home');
+        if($design->exists && ! $design->ownedByUser())return redirect()->route('dashboard');
+        if(! $category->isActive()) return redirect()->route('home');
+
+        return;
     }
 }

@@ -2,107 +2,118 @@
 
 namespace App;
 
-use App\Models\User;
 use App\Models\Item;
+use App\Models\User;
 use App\Models\Order;
-use App\Models\Status;
 use App\Models\Design;
+use App\Models\Status;
 use App\Models\Address;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class Cashier
 {
     use ValidatesRequests;
 
-    protected $identifier;
+    protected $request, $client, $address, $design, $items, $order;
 
-    protected $identifier_value;
-
-    protected $design;
-
-    protected $address;
-
-    protected $order;
-
-    protected $items;
+    function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
 
     public function checkout()
     {
-        $this->determineClient()
-            ->determineAddress()
-            ->addItems()
-            ->createOrder();
-
-        return $this->order;
+        return $this->setClient()
+                    ->setAddress()
+                    ->createDesign()
+                    ->addItems()
+                    ->createOrder();
     }
 
-    protected function determineClient()
+    protected function setClient()
     {
-        if(auth()->check()) {
-            $this->identifier = 'user_id';
-            $this->identifier_value = auth()->user()->id;
-        }else {
-            if(User::whereEmail(request()->newAddress['email'])->first()) {
-                abort(422, "That email address belongs to a registered user");
-            }
-            $this->identifier = 'email';
-            $this->identifier_value = request()->newAddress['email'];
-            $this->createGuestDesign();
-            session()->forget(['fpd-views', 'design_comment']);
-        }
+        $isRegistered = auth()->check();
 
-        session()->forget(['design']);
+        $this->client = [
+            'is_registered' => $isRegistered,
+            'identifier' => $isRegistered ? 'user_id' : 'email',
+            'user_id' => auth()->id(),
+            'email' => $isRegistered ? null : $this->request->newAddress['email']
+        ];
 
         return $this;
     }
 
-    protected function createGuestDesign()
+    protected function setAddress()
     {
+        if($this->request->selectedAddress != 0) {
+            $this->address = Address::findOrFail($this->request->selectedAddress);
+        } else {
+            $this->address = $this->createNewAddress();
+        }
+
+        return $this;
+    }
+
+    protected function createDesign()
+    {
+        if($this->client['is_registered']){
+            session()->forget(['design']); 
+            return $this;
+        } 
+
         $this->design = Design::create([
-            $this->identifier => $this->identifier_value, 
+            'email' => $this->client['email'], 
+            'category_id' => $this->request->category_id,
             'image_name' => session('design'), 
             'views' => session('fpd-views'), 
-            'category_id' => request()->category_id,
             'comment' => session('design_comment')
         ]);
         $this->design->move();
-    }
-
-    protected function determineAddress()
-    {
-        if(request()->selectedAddress != 0){
-            $this->address = Address::findOrFail(request()->selectedAddress);
-        }else {
-            $this->validate(request(), [
-                'newAddress.email' => 'sometimes|required|email|unique:users,email',
-                'newAddress.name' => 'required',
-                'newAddress.street' => 'required',
-                'newAddress.city' => 'required',
-                'newAddress.state' => 'required',
-                'newAddress.zip' => 'required|digits:5',
-                'newAddress.country' => 'required',
-                'newAddress.phone_number' => 'required',
-                'newAddress.comment' => 'nullable'
-            ]);
-            $addressData = request()->except(['newAddress.is_valid', 'newAddress.show_errors'])['newAddress'];
-            $addressData[$this->identifier] = $this->identifier_value;
-            $this->address = Address::create($addressData);
-        }
+        session()->forget(['fpd-views', 'design_comment', 'design']);
 
         return $this;
     }
 
     protected function addItems()
     {
-        $this->items = Item::generate(request('items'), $this->design);
+        $this->items = Item::generate($this->request['items'], $this->design);
         
         return $this;
     }
 
     protected function createOrder()
     {
-        $this->order = Order::forItems($this->items, $this->address);
+        return Order::forItems($this->items, $this->address);
+    }
 
-        return $this;
+    private function createNewAddress()
+    {
+        $this->validateNewAddress();
+        
+        $addressData = $this->request->except(['newAddress.is_valid', 'newAddress.show_errors'])['newAddress'];
+        $addressData[$this->client['identifier']] = $this->client[$this->client['identifier']];
+
+        return Address::create($addressData);
+    }
+
+    private function validateNewAddress()
+    {
+        if(! $this->client['is_registered'] && User::whereEmail($this->client['email'])->first()){
+            abort(422, "That email address belongs to a registered user");
+        }
+
+        $this->validate($this->request, [
+            'newAddress.email' => 'sometimes|required|email|unique:users,email',
+            'newAddress.name' => 'required',
+            'newAddress.street' => 'required',
+            'newAddress.city' => 'required',
+            'newAddress.state' => 'required',
+            'newAddress.zip' => 'required|digits:5',
+            'newAddress.country' => 'required',
+            'newAddress.phone_number' => 'required',
+            'newAddress.comment' => 'nullable'
+        ]);
     }
 }

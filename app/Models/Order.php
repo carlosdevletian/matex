@@ -35,7 +35,7 @@ class Order extends Model
             'address_id' => $address->id,
         ]);
 
-        $order->items()->saveMany($items);
+        $order->addItems($items);
         $order->calculatePricing();
         $order->setStatus('Payment Pending');
 
@@ -119,10 +119,12 @@ class Order extends Model
         return $this;
     }
 
-    public function addItem(Item $item)
+    public function addItems($items)
     {
-        $item->cart_id = null;
-        $this->items()->save($item);
+        $items->each(function($item) {
+            $item->cart_id = null;
+        });
+        $this->items()->saveMany($items);
     }
 
     public function belongsToUser()
@@ -133,6 +135,14 @@ class Order extends Model
     public function getFormatedDateAttribute()
     {
         return $this->created_at->format('F j, Y');
+    }
+
+    public static function show($referenceNumber)
+    {
+        return self::with(['items.design' => function($query){
+                $query->withTrashed()->addSelect(['id', 'image_name', 'created_at']);
+            }, 'status'])
+            ->where('reference_number', $referenceNumber)->firstOrFail();
     }
 
     public static function activeForUser($userId)

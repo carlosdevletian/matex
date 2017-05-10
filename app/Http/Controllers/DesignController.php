@@ -26,9 +26,10 @@ class DesignController extends Controller
         } else {
             $designs = Design::where('user_id', auth()->id());
         }
-        $categories = $designs->get()->map(function($design){
-                        return $design->category;
-                    })->unique('id');
+        $categories = $designs->get()
+                            ->map(function($design) {
+                                return $design->category;
+                            })->unique('id');
         $designs = $designs->latest()->filter($filters)->paginate(12);
 
         return view('designs.index', compact('designs', 'categories'));
@@ -73,9 +74,13 @@ class DesignController extends Controller
             $design->category_id = $category->id;
             $design->comment = request()->comment;
             $design->save();
-            session(['design' => $design->id,]);
-        }else{
-            session(['design' => $filename, 'fpd-views' => request()->views, 'design_comment' => request()->comment]);
+            session(['design' => $design->id]);
+        } else {
+            session([
+                'design' => $filename, 
+                'fpd-views' => request()->views, 
+                'design_comment' => request()->comment
+            ]);
         }
         session(['category_id' => request()->category_id]);
 
@@ -83,40 +88,6 @@ class DesignController extends Controller
             'message' => 'Image successfully generated',
             'category_slug_name' => $category->slug_name
         ],200);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

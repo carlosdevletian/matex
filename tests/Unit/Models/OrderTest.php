@@ -42,8 +42,8 @@ class OrderTest extends TestCase
     function creating_an_order_from_items_and_address_for_a_user()
     {
         $status = factory(Status::class)->create(['name' => 'Payment Pending']);
-        $items = factory(Item::class, 3)->create(['total_price' => 1000]);
         $user = factory(User::class)->create(['email' => 'not-important@email.com']);
+        $items = factory(Item::class, 3)->create(['total_price' => 1000, 'cart_id' => $user->cart->id]);
         $address = factory(Address::class)->create(['user_id' => $user->id]);
         OrderReferenceNumber::shouldReceive('generate')->andReturn('ORDERREFERENCENUMBER1234');
 
@@ -58,5 +58,6 @@ class OrderTest extends TestCase
             'subtotal' => 3000
         ]);
         $this->assertEquals(3, $order->items()->count());
+        $this->assertNull($items->first()->cart_id);
     }
 }

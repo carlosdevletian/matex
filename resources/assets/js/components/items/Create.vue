@@ -4,13 +4,16 @@
             <table class="table borderless mg-0">
                 <tbody>
                     <tr>
-                        <td class="col-xs-7">
+                        <td class="col-xs-7 col-sm-5">
                             <div class="row position-relative">
                                 <div class="col-xs-12">
                                     <a @click="deleteItem" role="button" class="Item__delete" style="position: absolute; top: 3%;left: 0;">&#10005;</a>
                                     <p class="color-secondary">{{ productName() }}</p>
                                 </div>
                             </div>
+                        </td>
+                        <td class="hidden-xs col-sm-2">
+                            <p>{{ item.product.width + 'x' + item.product.length }}</p>
                         </td>
                         <td class="col-xs-3">
                             <div class="position-relative">

@@ -4,7 +4,7 @@
             <table class="table borderless mg-0">
                 <tbody>
                     <tr>
-                        <td class="col-xs-7">
+                        <td class="col-xs-7 col-sm-5">
                             <div class="row">
                                 <div class="col-xs-4">
                                     <a role="button" @click="openImage">
@@ -19,6 +19,9 @@
                                     </p>
                                 </div>
                             </div>
+                        </td>
+                        <td class="hidden-xs col-sm-2">
+                            <p class="text-center mg-0 pd-top-8">{{ item.product.width + 'x' + item.product.length }}</p>
                         </td>
                         <td class="col-xs-3">
                             <p class="text-center mg-0 pd-top-8">{{ item.quantity }}</p>

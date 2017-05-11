@@ -5,7 +5,15 @@
              <div class="row">
                 <div class="col-xs-12">
                     <div v-for="product in sortedProducts" style="display: inline">
-                        <button @click="createItem(product)" class="Button--product">{{ product.name }}</button>
+                        <button @click="createItem(product)" 
+                                class="Button--product"
+                                data-toggle="tooltip"
+                                data-html="true"
+                                data-placement="bottom"
+                                data-container="body"
+                                :title="'Width: ' + product.width + '<br>Length: ' + product.length">
+                                    {{ product.name }}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -17,8 +25,11 @@
             <table class="table borderless mg-0">
                 <tbody>
                     <tr>
-                        <td class="col-xs-7">
+                        <td class="col-xs-7 col-sm-5">
                             <p>Items</p>
+                        </td>
+                        <td class="hidden-xs col-sm-2">
+                            <p>Size</p>
                         </td>
                         <td class="col-xs-3">
                             <p class="visible-xs-block">Qty</p>

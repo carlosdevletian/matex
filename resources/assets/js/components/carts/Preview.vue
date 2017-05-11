@@ -1,7 +1,7 @@
 <template>
     <div class="row color-grey">
         <div v-if="itemQuantity > 0">
-            <div style="padding: 5px 0px; min-height: 170px">
+            <div style="padding: 5px 0px; min-height: 180px">
                 <div class="col-xs-5">
                     <a role="button" @click="openImage">
                         <div class="background-image Thumbnail--image box-shadow" 

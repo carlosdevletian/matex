@@ -28,7 +28,7 @@
                             <div class="row Card__header">
                                 <div class="col-xs-4">
                                     <p>STATUS</p>
-                                    <p style="color: {{ $order->status->color }}; border: 2px solid {{ $order->status->color }}; border-radius: 3px" data-toggle="tooltip" data-placement="bottom" title="{{ $order->status->name . " since " . $order->status->updated_at->diffForHumans() }}">
+                                    <p style="color: {{ $order->status->color }}; border: 2px solid {{ $order->status->color }}; border-radius: 3px" data-html="true" data-toggle="tooltip" data-placement="bottom" title="{{ $order->status->name . "<br>since " . $order->status->updated_at->diffForHumans() }}">
                                         {{ strtoupper($order->status->name) }}
                                     </p>
                                 </div>
@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="col-xs-4">
                                     <p>DELIVER TO</p>
-                                    <a data-toggle="tooltip" data-placement="bottom" title="{{ $order->address->street }}, {{ $order->address->state }}. {{ $order->address->country }} ">{{ $order->address->name }}</a>
+                                    <a data-toggle="tooltip" data-html="true" data-placement="bottom" title="{{ $order->address->street }} <br> {{ $order->address->state }} <br> {{ $order->address->country }} ">{{ $order->address->name }}</a>
                                 </div>
                             </div>
                             <div class="row">

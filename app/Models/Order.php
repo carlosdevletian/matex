@@ -184,7 +184,7 @@ class Order extends Model
     public function showUrl()
     {
         if($this->belongsToUser()) {
-            return route('orders.show', $this->reference_number);
+            return route('orders.show', ['order' => $this->reference_number ]);
         }
         $token = RegisterToken::whereEmail($this->email)->first();
         return route('orders.show', ['order' => $this->reference_number, 'token' => $token->token]);

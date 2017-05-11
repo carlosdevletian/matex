@@ -15,7 +15,7 @@ export const stripeMixin = {
         openStripe(callback) {
             this.stripeHandler.open({
                 name: 'Matex',
-                description: 'Your order',
+                description: 'Review your order before paying',
                 currency: "usd",
                 allowRememberMe: false,
                 panelLabel: 'Pay {{amount}}',
@@ -29,7 +29,7 @@ export const stripeMixin = {
             // window.onbeforeunload = this.leaving;
 
             swal({
-                title: 'Processing Payment',
+                title: 'Thank you for shopping with us!',
                 customClass: 'Modal',
                 text: 'Please wait until your payment is confirmed',
                 type: 'info',

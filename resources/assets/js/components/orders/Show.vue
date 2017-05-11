@@ -5,15 +5,18 @@
             <table class="table borderless mg-0">
                 <tbody>
                     <tr>
-                        <td class="pd-0 col-xs-7">
-                                <p class="text-center mg-0">Items</p>
+                        <td class="col-xs-7 col-sm-5">
+                            <p class="text-center mg-0">Items</p>
                         </td>
-                        <td class="pd-0 col-xs-3">
-                                <p class="text-center mg-0 visible-xs-block">Qty</p>
-                                <p class="text-center mg-0 hidden-xs">Quantity</p>
+                        <td class="hidden-xs col-sm-2">
+                            <p class="text-center mg-0">Size</p>
                         </td>
-                        <td class="pd-0 col-xs-2">
-                                <p class="text-center mg-0">Price</p>
+                        <td class="col-xs-3">
+                            <p class="text-center mg-0 visible-xs-block">Qty</p>
+                            <p class="text-center mg-0 hidden-xs">Quantity</p>
+                        </td>
+                        <td class="col-xs-2">
+                            <p class="text-center mg-0">Price</p>
                         </td>
                     </tr>
                 </tbody>

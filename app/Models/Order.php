@@ -17,6 +17,7 @@ class Order extends Model
         'address_id', 
         'email', 
         'status_id', 
+        'responsible_id',
         'shipping_company',
         'tracking_number', 
         'tracking_url', 
@@ -72,6 +73,11 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function responsible()
+    {
+        return $this->belongsTo(User::class, 'responsible_id');
+    }
+
     public function setStatus($status)
     {
         $this->status_id = Status::findByName($status)->id;
@@ -82,7 +88,6 @@ class Order extends Model
     public function calculatePricing()
     {
         $this->subtotal()
-            ->shipping()
             ->tax()
             ->total()
             ->update();
@@ -95,26 +100,18 @@ class Order extends Model
         return $this;
     }
 
-    public function shipping()
-    {
-        $calculator = new Calculator;
-        $this->shipping = $calculator->shipping($this->address->zip);
-
-        return $this;
-    }
-
     public function tax()
     {
         $calculator = new Calculator;
         $percentage = $calculator->tax($this->address->zip);
-        $this->tax = intval(($this->subtotal + $this->shipping) * $percentage);
+        $this->tax = intval($this->subtotal * $percentage);
 
         return $this;
     }
 
     public function total()
     {
-        $this->total = $this->subtotal + $this->shipping + $this->tax;
+        $this->total = $this->subtotal + $this->tax;
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 Route::get('/', function () { return view('home/home'); })->name('home');
 Route::get('/about-us', function () { return view('about'); })->name('about');
+Route::get('/faq', function () { return view('faq'); })->name('faq');
 Route::post('/contact','ContactController@store')->name('contacts.store');
 Route::post('/designs','DesignController@store')->name('designs.store');
 Route::get('/design/{category}/{design?}', 'DesignController@create')->name('designs.create');
@@ -18,7 +19,6 @@ Route::post('/register/guest', 'Auth\RegisterController@storeClient')->name('sto
 Route::get('images/{image}/{forOrder?}', 'ImageController@show')->name('image_path');
 Route::post('/validateEmailAddress', 'VueController@validateEmail')->name('validate-email');
 Route::post('/calculatePrice', 'VueController@calculatePrice')->name('calculate-price');
-Route::post('/calculateShipping', 'VueController@calculateShipping')->name('calculate-shipping');
 Route::post('/calculateTax', 'VueController@calculateTax')->name('calculate-tax');
 Route::post('/pay', 'VueController@pay')->name('pay');
 Route::post('/retryPayment', 'VueController@retryPayment')->name('retryPayment');
@@ -41,11 +41,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/addToCart', 'VueController@addToCart')->name('carts.add');
     // Addresses
     Route::get('/addresses', 'AddressController@index')->name('addresses.index');
-    Route::get('/addresses/{address}', 'AddressController@edit')->name('addresses.edit');
-    Route::put('/addresses/{address}', 'AddressController@update')->name('addresses.update');
     Route::delete('/addresses/{address}', 'AddressController@destroy')->name('addresses.destroy');
     // Items
     Route::delete('/items/{item}', 'ItemController@destroy')->name('items.destroy');
+});
+
+ /* OWNER ROUTES */
+Route::group(['middleware' => 'owner'], function () {
+    Route::get('/users/create','UserController@create')->name('users.create');
+    Route::get('/admins', 'AdminController@index')->name('admins.index');
+    Route::delete('/admins/{user}', 'AdminController@destroy')->name('admins.delete');
 });
 
  /* ADMIN ROUTES */
@@ -58,7 +63,6 @@ Route::group(['middleware' => 'admin'], function () {
     // Users
     Route::get('/users','UserController@index')->name('users.index');
     Route::post('/users','UserController@store')->name('users.store');
-    Route::get('/users/create','UserController@create')->name('users.create');
     Route::get('/users/{user}','UserController@show')->name('users.show');
     Route::post('user/{user}/adminComment','UserController@adminComment')->name('users.admin-comment');
     // Categories
@@ -74,10 +78,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/items', 'ItemController@index')->name('items.index');
     // Designs
     Route::delete('/designs/{design}', 'DesignController@destroy')->name('designs.delete');
-});
-
- /* OWNER ROUTES */
-Route::group(['middleware' => 'owner'], function () {
-    Route::get('/admins', 'AdminController@index')->name('admins.index');
-    Route::delete('/admins/{user}', 'AdminController@destroy')->name('admins.delete');
+    // Addresses
+    Route::get('/addresses/{address}', 'AddressController@edit')->name('addresses.edit');
+    Route::put('/addresses/{address}', 'AddressController@update')->name('addresses.update');
 });

@@ -27,6 +27,7 @@
                 @endif
                 @unless(admin())
                     <li><a @click="openContactModal()" role="button">Contact Us</a></li>
+                    <li><a href="{{ route('faq') }}">FAQ</a></li>
                 @endunless
 			</ul>
             <ul class="nav navbar-nav navbar-right {{ Route::currentRouteName() == 'home' && !auth()->check() ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' && !auth()->check() ? 'navbar-about' : '' }}">
@@ -53,7 +54,9 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ route('addresses.index') }}">Addresses</a></li>
+                            @unless(admin())
+                                <li><a href="{{ route('addresses.index') }}">Addresses</a></li>
+                            @endunless
                             <li>
                                 <a href="{{ route('users.edit', ['user' => auth()->user()->email]) }}">Edit Profile</a>
                             </li>

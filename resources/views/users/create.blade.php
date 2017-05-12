@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row mg-top-10">
             <div class="col-sm-6 col-sm-offset-3">
-                <h4>Create a new user</h4>
+                <h3 class="main-title text-center">Create a new user</h3>
                 <div class="Card position-relative pd-btm-50">
                     <form method="POST" action="{{ route('users.store') }}" v-on:submit.prevent="createUser($event)">
                         {{ csrf_field() }}
@@ -48,12 +48,14 @@
                             class="Form mg-btm-20"
                             name="password_confirmation"
                             placeholder="Confirm the password">
-                        <select name="role"  v-model="selectedRole" class="mg-btm-20">
-                            <option disabled selected>Select a role for the new user</option>
-                            @foreach($roles as $role)
-                                <option value="{{ $role->id }}">{{ ucfirst($role->name) }}</option>
-                            @endforeach
-                        </select>
+                        <div class="Form__select mg-rgt-10">
+                            <select name="role"  v-model="selectedRole">
+                                <option disabled selected>Select a role for the new user</option>
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->id }}">{{ ucfirst($role->name) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <button class="Button Button--primary stick-to-bottom color-white">Create</button>
                     </form>
                 </div>

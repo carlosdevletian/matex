@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
-                <h4 class="main-title text-center">Edit Address</h4>
+                <h3 class="main-title text-center">Edit Address</h3>
                 <div class="Card position-relative" style="padding-bottom: 75px">
                     <form method="POST" 
                         action="{{ route('addresses.update', ['address' => $address]) }}">

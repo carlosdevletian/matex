@@ -20,11 +20,14 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('business')->nullable();
             $table->integer('role_id')->unsigned()->nullable();
+            $table->integer('creator_id')->unsigned()->nullable();
             $table->text('admin_comment')->nullable();
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
 
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('set null');
+            $table->foreign('creator_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

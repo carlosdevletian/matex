@@ -42,7 +42,7 @@ We will contact you as soon as it ships.
     <td style="border-bottom: 1px solid lightgrey"></td>
 </tr>
 <div class="table">
-    <!-- <tr>
+    {{-- <tr>
         <td style="text-align: left">Subtotal</td>
         <td></td>
         <td style="text-align: right">${{ $order->present()->subtotal }}</td>
@@ -56,7 +56,7 @@ We will contact you as soon as it ships.
         <td style="text-align: left">Shipping</td>
         <td></td>
         <td style="text-align: right">${{ $order->present()->shipping }}</td>
-    </tr> -->
+    </tr> --}}
     <tr>
         <td style="text-align: left">Total</td>
         <td></td>

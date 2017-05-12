@@ -55,7 +55,8 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'role_id' => $request->role
+            'role_id' => $request->role,
+            'creator_id' => auth()->id()
         ]);
         flash()->success('Success!', 'The new user was created');
         return redirect()->back();
@@ -69,7 +70,16 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        if(auth()->user()->hasRole('admin') && $user->hasRole('owner')) {
+            flash()->error('Error','You do not have permission to view this page');
+            return redirect()->route('dashboard');
+        }
+
+        if($user->hasRole('user')){
+            return view('users.show', compact('user'));
+        }
+        
+        return view('admins.show', compact('user'));
     }
 
     /**

@@ -13,12 +13,13 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="position-relative">
-                    <div class="Card Card--dashboard pd-btm-50 scroll-y">
-                        <p class="Card__title">Personal information</p>
+                    <div class="Card pd-btm-50 scroll-y">
+                        <p class="Card__title" style="margin-left: 15px">Personal information</p>
                         <p>{{ $user->name }}</p>
                         <p>{{ $user->email }}</p>
-                        <p>{{ $user->business or '' }}</p>
-                        <p>Joined: {{ $user->created_at->format('F j, Y') }}</p>
+                        @if(admin())
+                            <p>Joined: {{ $user->created_at->format('F j, Y') }}</p>
+                        @endif
                         @unless(empty($user->creator))
                             <p>Created by: <a href="{{ route('users.show', ['user' => $user->creator_id ]) }}">{{ $user->creator->name }}</a></p>
                         @endunless
@@ -28,12 +29,25 @@
                     <contact-user v-if="showContactUserModal" @close="closeContactUserModal()" :user="{{ $user }}"></contact-user>
                 </div>
             </div>
-            <div class="col-md-4">
-                @include('widgets.orders', ['orders' => $user->orders()->with('status')->get(), 'profileUser' => $user])
-            </div>
-            <div class="col-md-4">
-                @include('widgets.designs', ['designs' => $user->recentDesigns(), 'profileUser' => $user])
-            </div>
+            @if($user->hasRole('user'))
+                <div class="col-md-4">
+                    @include('widgets.orders', ['orders' => $user->orders()->with('status')->get(), 'profileUser' => $user])
+                </div>
+                <div class="col-md-4">
+                    @include('widgets.designs', ['designs' => $user->recentDesigns(), 'profileUser' => $user])
+                </div>
+            @endif 
         </div>
+        @if(owner() && $user->hasRole('admin'))
+            <div class="row">
+                <div class="col-xs-12">
+                    <form method="POST" action="{{ route('admins.delete', $user) }}">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button class="Button--secondary pull-right">Delete this administrator</button>
+                    </form>
+                </div>
+            </div>
+        @endif
     </div>
 @endsection

@@ -80,14 +80,14 @@
                 <div slot="subtotal">${{ calculatedSubtotal | inDollars }}</div>
                 <div slot="zip-error">
                     <div class="row" v-show="! zipIsValid">
-                        <hr>
-                        <div class="col-xs-12 text-center color-secondary pd-20">
-                            An address must be entered to calculate shipping and tax
+                        <div class="col-xs-12 text-center color-secondary">
+                            <hr>
+                            An address must be entered to calculate tax
+                            <hr>
                         </div>
-                        <hr>
                     </div>
                 </div>
-                <div slot="shipping">{{ filteredShipping }}</div>
+                <div slot="shipping">Free</div>
                 <div slot="tax">{{ filteredTax }}</div>
                 <div slot="total">{{ filteredTotal }}</div>
                 <div slot="hidden-total">{{ filteredTotal }}</div>

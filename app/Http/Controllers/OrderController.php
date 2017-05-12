@@ -96,6 +96,7 @@ class OrderController extends Controller
 
         $order->update([
            'status_id' => $status->id,
+           'responsible_id' => auth()->id(),
            'shipping_company' => request('shipping.shipping_company') ?: null,
            'tracking_number' => request('shipping.tracking_number') ?: null,
            'tracking_url' => request('shipping.tracking_url') ?: null

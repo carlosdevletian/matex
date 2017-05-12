@@ -4,7 +4,7 @@
         {{ csrf_field() }}
         <input type="hidden" name="_method" value="PUT">
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-sm-4">
                 <div class="Card">
                     <h5><strong>Status</strong></h5>
                     <div style="display: inline-block; width: 10px; height: 10px; border-radius: 100%; background-color: {{ $order->status->color }}"></div>
@@ -21,7 +21,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-6">
+            <div class="col-sm-4">
+                <div class="Card">
+                    <h5><strong>Responsible</strong></h5>
+                        @if(! empty($order->responsible))
+                            <a href="{{ route('users.show', ['user' => $order->responsible_id ]) }}">{{ $order->responsible->name }}</a>
+                        @else
+                            <p>System</p>
+                        @endif
+                </div>
+            </div>
+            <div class="col-sm-4">
                 <div class="Card">
                     <h5><strong>Additional Information</strong></h5>
                     <input id="comment"

@@ -26,17 +26,20 @@
                                     <p class="text-center no-wrap"><slot name="subtotal"></slot></p>
                                 </div>
                             </div>
-                            <slot name="zip-error"></slot>
                             <div class="row">
                                 <div class="col-xs-4">
                                     Shipping:
                                 </div>
                                 <div class="col-xs-3 col-xs-offset-5">
-                                    <p class="text-center no-wrap">
+                                    <p class="text-center no-wrap color-secondary"
+                                        data-toggle="tooltip"
+                                        data-placement="bottom"
+                                        title="All our orders come with free shipping!">
                                         <slot name="shipping"></slot>
                                     </p>
                                 </div>
                             </div>
+                            <slot name="zip-error"></slot>
                             <div class="row">
                                 <div class="col-xs-4">
                                     Tax:
@@ -73,6 +76,8 @@
                     <div class="row Order__address">
                         <slot name="address-picker"></slot>
                     </div>
+                    <slot name="edit-address-mg"></slot>
+                    <slot name="edit-address"></slot>
                 </div>
             </div>
         </div>

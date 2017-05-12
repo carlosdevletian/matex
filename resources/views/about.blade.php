@@ -10,7 +10,7 @@
 <div class="About">
     <div class="container">
         <div class="row">
-            <h1 class="col-sm-10 About__title">we strive to make quality products</h1>
+            <h1 class="col-sm-10 About__title">We Strive to Make Quality Products</h1>
         </div>
     </div>
 </div>

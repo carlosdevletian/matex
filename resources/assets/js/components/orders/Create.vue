@@ -5,14 +5,8 @@
              <div class="row">
                 <div class="col-xs-12">
                     <div v-for="product in sortedProducts" style="display: inline">
-                        <button @click="createItem(product)" 
-                                class="Button--product"
-                                data-toggle="tooltip"
-                                data-html="true"
-                                data-placement="bottom"
-                                data-container="body"
-                                :title="'Width: ' + product.width + '<br>Length: ' + product.length">
-                                    {{ product.name }}
+                        <button @click="createItem(product)" class="Button--product">
+                            {{ product.name }}
                         </button>
                     </div>
                 </div>
@@ -56,12 +50,12 @@
             <div class="row" v-show="! zipIsValid">
                 <div class="col-xs-12 text-center color-secondary">
                     <hr>
-                    An address must be entered to calculate shipping and tax
+                    An address must be entered to calculate tax
                     <hr>
                 </div>
             </div>
         </div>
-        <div slot="shipping">{{ filteredShipping }}</div>
+        <div slot="shipping">Free</div>
         <div slot="tax">{{ filteredTax }}</div>
         <div slot="total">{{ filteredTotal }}</div>
         <div slot="hidden-total">{{ filteredTotal }}</div>

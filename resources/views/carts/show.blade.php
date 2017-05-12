@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h3 class="mg-btm-20 text-center">Shopping cart</h3>
+                <h3 class="mg-btm-20 text-center main-title">Shopping cart</h3>
                 <order-cart-create 
                     :addresses="{{ $addresses }}" 
                     :original-items="{{ $items }}" 

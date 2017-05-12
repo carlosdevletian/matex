@@ -24,7 +24,7 @@
 
         <title>@yield('title')</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Oxygen:300,400|Baloo" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Oxygen:300,400|Raleway:600" rel="stylesheet">
 
         <!-- Styles -->
         <link href="{{ URL::to('css/app.css') }}" rel="stylesheet">

@@ -1,6 +1,6 @@
 @if(admin())
     <hr>
-    <p class="Card__title" style="margin-left: 15px">Admin notes</p>
+    <p class="Card__title">Admin notes</p>
     @if($user->admin_comment != null)
         <a role="button" @click="openUserCommentModal({{ $user }})">
             <p style="color: grey">{{ $user->admin_comment }}</p>

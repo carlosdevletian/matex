@@ -28,8 +28,8 @@ The order contains the following items:
     <tr>
         <td></td>
         <td style="text-align: center">{{ $item->quantity }} {{ $item->product->name }} {{ $item->design->category->name }}</td>
-        <!-- <td style="text-align: center">${{ $item->present()->unit_price }}</td> -->
-        <!-- <td style="text-align: right">${{ $item->present()->total_price }}</td> -->
+        {{-- <td style="text-align: center">${{ $item->present()->unit_price }}</td> --}}
+        {{-- <td style="text-align: right">${{ $item->present()->total_price }}</td> --}}
     </tr>
 @endforeach
 @if($itemCollection->first()->design->comment)

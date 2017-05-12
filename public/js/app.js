@@ -16825,7 +16825,6 @@ var calculatesOrders = {
         return {
             amountsLoading: false,
             subtotal: 0,
-            shipping: 0,
             tax: 0,
             selectedAddress: 0,
             address: {
@@ -16860,28 +16859,15 @@ var calculatesOrders = {
         canPay: function canPay() {
             return this.totalQuantity() > 0 && (this.address.is_valid || this.selectedAddress != 0);
         },
-        calculateShipping: function calculateShipping() {
-            var _this = this;
-
-            if (this.zipIsValid) {
-                var data = {
-                    zip: this.address.zip
-                };
-                axios.post('/calculateShipping', data).then(function (response) {
-                    _this.shipping = response.data.shipping;
-                });
-            }
-            this.amountsLoading = false;
-        },
         calculateTax: function calculateTax() {
-            var _this2 = this;
+            var _this = this;
 
             if (this.zipIsValid && this.totalQuantity() > 0) {
                 var data = {
                     zip: this.address.zip
                 };
                 axios.post('/calculateTax', data).then(function (response) {
-                    _this2.tax = (_this2.subtotal + _this2.shipping) * response.data.tax_percentage;
+                    _this.tax = _this.subtotal * response.data.tax_percentage;
                 });
             } else {
                 this.tax = 0;
@@ -16890,11 +16876,7 @@ var calculatesOrders = {
         }
     },
     watch: {
-        'address.zip': function addressZip(getShippingAndTax) {
-            this.amountsLoading = true;
-            this.calculateShipping();
-        },
-        shipping: function shipping() {
+        'address.zip': function addressZip(getTax) {
             this.amountsLoading = true;
             this.calculateTax();
         },
@@ -16919,15 +16901,9 @@ var calculatesOrders = {
         },
         totalPrice: function totalPrice() {
             if (this.totalQuantity() > 0) {
-                return this.subtotal + this.shipping + this.tax;
+                return this.subtotal + this.tax;
             }
             return 0;
-        },
-        filteredShipping: function filteredShipping() {
-            if (this.zipIsValid && this.calculatedSubtotal > 0) {
-                return '$' + (this.shipping / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
-            }
-            return '-';
         },
         filteredTax: function filteredTax() {
             if (this.zipIsValid && this.calculatedSubtotal > 0) {
@@ -31091,12 +31067,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -31375,9 +31345,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['order', 'items', 'address']
+    props: ['order', 'items', 'address', 'admin']
 });
 
 /***/ }),
@@ -31386,6 +31359,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
 //
 //
 //
@@ -56472,19 +56450,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('button', {
       staticClass: "Button--product",
-      attrs: {
-        "data-toggle": "tooltip",
-        "data-html": "true",
-        "data-placement": "bottom",
-        "data-container": "body",
-        "title": 'Width: ' + product.width + '<br>Length: ' + product.length
-      },
       on: {
         "click": function($event) {
           _vm.createItem(product)
         }
       }
-    }, [_vm._v("\n                                " + _vm._s(product.name) + "\n                    ")])])
+    }, [_vm._v("\n                        " + _vm._s(product.name) + "\n                    ")])])
   }))])]), _vm._v(" "), (_vm.items.length > 0) ? _c('div', {
     staticClass: "borderless",
     slot: "table-header"
@@ -56545,9 +56516,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-xs-12 text-center color-secondary"
-  }, [_c('hr'), _vm._v("\n                An address must be entered to calculate shipping and tax\n                "), _c('hr')])])]), _vm._v(" "), _c('div', {
+  }, [_c('hr'), _vm._v("\n                An address must be entered to calculate tax\n                "), _c('hr')])])]), _vm._v(" "), _c('div', {
     slot: "shipping"
-  }, [_vm._v(_vm._s(_vm.filteredShipping))]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Free")]), _vm._v(" "), _c('div', {
     slot: "tax"
   }, [_vm._v(_vm._s(_vm.filteredTax))]), _vm._v(" "), _c('div', {
     slot: "total"
@@ -56636,7 +56607,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "subtotal"
   }, [_vm._v("$ " + _vm._s(_vm._f("inDollars")(_vm.order.subtotal)))]), _vm._v(" "), _c('div', {
     slot: "shipping"
-  }, [_vm._v("$ " + _vm._s(_vm._f("inDollars")(_vm.order.shipping)))]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Free")]), _vm._v(" "), _c('div', {
     slot: "tax"
   }, [_vm._v("$ " + _vm._s(_vm._f("inDollars")(_vm.order.tax)))]), _vm._v(" "), _c('div', {
     slot: "total"
@@ -56664,7 +56635,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "address.comment"
     }],
     staticClass: "col-xs-12"
-  }, [_vm._v("User comment: " + _vm._s(_vm.address.comment))])])])
+  }, [_vm._v("User comment: " + _vm._s(_vm.address.comment))])]), _vm._v(" "), (_vm.admin) ? _c('div', {
+    staticClass: "mg-btm-30",
+    slot: "edit-address-mg"
+  }, [_c('a', {
+    staticClass: "Button--card stick-to-bottom",
+    attrs: {
+      "href": '/addresses/' + _vm.address.id
+    },
+    slot: "edit-address"
+  }, [_vm._v("Edit")])]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -58174,11 +58154,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "! zipIsValid"
     }],
     staticClass: "row"
-  }, [_c('hr'), _vm._v(" "), _c('div', {
-    staticClass: "col-xs-12 text-center color-secondary pd-20"
-  }, [_vm._v("\n                        An address must be entered to calculate shipping and tax\n                    ")]), _vm._v(" "), _c('hr')])]), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "col-xs-12 text-center color-secondary"
+  }, [_c('hr'), _vm._v("\n                        An address must be entered to calculate tax\n                        "), _c('hr')])])]), _vm._v(" "), _c('div', {
     slot: "shipping"
-  }, [_vm._v(_vm._s(_vm.filteredShipping))]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Free")]), _vm._v(" "), _c('div', {
     slot: "tax"
   }, [_vm._v(_vm._s(_vm.filteredTax))]), _vm._v(" "), _c('div', {
     slot: "total"
@@ -58439,15 +58419,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-xs-3 col-xs-offset-5"
   }, [_c('p', {
     staticClass: "text-center no-wrap"
-  }, [_vm._t("subtotal")], 2)])]), _vm._v(" "), _vm._t("zip-error"), _vm._v(" "), _c('div', {
+  }, [_vm._t("subtotal")], 2)])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-xs-4"
   }, [_vm._v("\n                                Shipping:\n                            ")]), _vm._v(" "), _c('div', {
     staticClass: "col-xs-3 col-xs-offset-5"
   }, [_c('p', {
-    staticClass: "text-center no-wrap"
-  }, [_vm._t("shipping")], 2)])]), _vm._v(" "), _c('div', {
+    staticClass: "text-center no-wrap color-secondary",
+    attrs: {
+      "data-toggle": "tooltip",
+      "data-placement": "bottom",
+      "title": "All our orders come with free shipping!"
+    }
+  }, [_vm._t("shipping")], 2)])]), _vm._v(" "), _vm._t("zip-error"), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-xs-4"
@@ -58473,7 +58458,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "Order__title Order__title--blue"
   }, [_vm._t("address-title")], 2)]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
     staticClass: "row Order__address"
-  }, [_vm._t("address-picker")], 2)])])]), _vm._v(" "), _c('div', {
+  }, [_vm._t("address-picker")], 2), _vm._v(" "), _vm._t("edit-address-mg"), _vm._v(" "), _vm._t("edit-address")], 2)])]), _vm._v(" "), _c('div', {
     staticClass: "row visible-xs visible-sm Order__prices--total"
   }, [_c('div', {
     staticClass: "col-xs-12"

@@ -5,7 +5,7 @@
                 <a href="{{ route('home') }}">Home</a>
                 <a href="{{ route('about') }}">About</a>
                 <a href="{{ route('categories.index') }}">Design</a>
-                <a href="{{ route('login') }}">Your Account</a>  
+                <a href="{{ route('faq') }}">FAQ</a>  
             </div>
             <div class="Footer__subtitle">
                 <p>&copy; 2017 Matex</p>

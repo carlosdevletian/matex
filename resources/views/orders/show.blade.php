@@ -13,7 +13,7 @@
                         <h5>Your payment could not be processed, please try again</h5>
                     </div>
                 @endif
-                <h3 class="mg-btm-20 text-center">Order details</h3>
+                <h3 class="mg-btm-20 text-center main-title">Order #{{ $order->reference_number }}</h3>
                 @if(admin())
                     @include('admins.edit-order')
                 @endif
@@ -35,7 +35,13 @@
                             <p>Placed on {{ $order->formated_date }}</p>
                         </div>
                         <div class="col-sm-3">
-                            <p>Order #{{ $order->reference_number }}</p>
+                            @if(admin())
+                                @if($order->belongsToUser())
+                                    <a href="{{ route('users.show', $order->user_id) }}">{{ $order->user->email }}</a>
+                                @else
+                                    <p>{{ $order->email }}</p>
+                                @endif
+                            @endif
                         </div>
                         <div class="col-sm-3">
                             @if(! empty($order->card_last_four))
@@ -48,7 +54,8 @@
                 </div>
                 <order-show :order="{{ $order }}" 
                             :items="{{ $order->items }}" 
-                            :address="{{ $order->address }}">
+                            :address="{{ $order->address }}"
+                            admin="{{ admin() }}">
                 </order-show>
                 @unless(auth()->check())
                     <p class="text-center"><a href="{{ route('register.client', ['token' => $token]) }}" class="Button--secondary">Create an Account</a></p>

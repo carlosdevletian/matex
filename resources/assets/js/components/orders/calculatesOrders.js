@@ -3,7 +3,6 @@ export const calculatesOrders = {
         return {
             amountsLoading: false,
             subtotal: 0,
-            shipping: 0,
             tax: 0,
             selectedAddress: 0,
             address: {
@@ -38,24 +37,13 @@ export const calculatesOrders = {
         canPay: function() {
             return this.totalQuantity() > 0 && (this.address.is_valid || this.selectedAddress != 0);
         },
-        calculateShipping: function() {
-            if(this.zipIsValid) {
-                var data = {
-                    zip: this.address.zip
-                }
-                axios.post('/calculateShipping', data).then((response) => {
-                    this.shipping = response.data.shipping;
-                });
-            }
-            this.amountsLoading = false;
-        },
         calculateTax: function() {
             if(this.zipIsValid && this.totalQuantity() > 0) {
                 var data = {
                     zip: this.address.zip
                 }
                 axios.post('/calculateTax', data).then((response) => {
-                    this.tax = (this.subtotal + this.shipping) * response.data.tax_percentage;
+                    this.tax = this.subtotal * response.data.tax_percentage;
                 });
             } else {
                 this.tax = 0;
@@ -64,11 +52,7 @@ export const calculatesOrders = {
         },
     },
     watch: {
-        'address.zip': function (getShippingAndTax) {
-            this.amountsLoading = true;
-            this.calculateShipping();
-        },
-        shipping: function() {
+        'address.zip': function (getTax) {
             this.amountsLoading = true;
             this.calculateTax();
         },
@@ -93,15 +77,9 @@ export const calculatesOrders = {
         },
         totalPrice: function() {
             if (this.totalQuantity() >0) {
-                return (this.subtotal + this.shipping + this.tax);
+                return (this.subtotal + this.tax);
             }
             return 0;
-        },
-        filteredShipping: function() {
-            if(this.zipIsValid && this.calculatedSubtotal > 0) {
-                return '$' + (this.shipping / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
-            }
-            return '-';
         },
         filteredTax: function() {
             if(this.zipIsValid && this.calculatedSubtotal > 0) {

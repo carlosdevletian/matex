@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
-            <h4 class="main-title text-center">Reset your Password</h4>
+            <h3 class="main-title text-center">Reset your Password</h3>
             <div class="Card position-relative">
                 <form class="form-horizontal mg-btm-50 mg-top-10" role="form" method="POST" action="{{ url('/password/reset') }}">
                     {{ csrf_field() }}

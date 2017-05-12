@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h4>Administrators</h4>
+                <h3 class="main-title">Administrators</h3>
 
                 <table class="table table-hover dt-responsive nowrap text-center" cellspacing="0" width="100%" id="admins">
                     <thead>

@@ -22,12 +22,6 @@ class OrderPresenter extends Presenter
         return $this->presentAsDollars($tax);
     }
 
-    public function shipping()
-    {
-        $shipping = $this->model->shipping / 100;
-        return $this->presentAsDollars($shipping);
-    }
-
     public function datePlaced()
     {
         return $this->model->created_at->toFormattedDateString();

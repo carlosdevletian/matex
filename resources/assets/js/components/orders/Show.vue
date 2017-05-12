@@ -28,7 +28,7 @@
             </div>
         </div>
         <div slot="subtotal">$ {{ order.subtotal | inDollars }}</div>
-        <div slot="shipping">$ {{ order.shipping | inDollars }}</div>
+        <div slot="shipping">Free</div>
         <div slot="tax">$ {{ order.tax | inDollars }}</div>
         <div slot="total">$ {{ order.total | inDollars }}</div>
         <p slot="address-title">Shipping address</p>
@@ -41,11 +41,14 @@
             <div class="col-xs-12"><p>Phone Number: {{ address.phone_number }}</p></div>
             <div v-show="address.comment" class="col-xs-12">User comment: {{ address.comment }}</div>
         </div>
+        <div v-if="admin" slot="edit-address-mg" class="mg-btm-30">
+            <a slot="edit-address" class="Button--card stick-to-bottom" :href="'/addresses/' + address.id ">Edit</a>
+        </div>
     </order-template>
 </template>
 
 <script>
     export default {
-        props: ['order', 'items', 'address'],
+        props: ['order', 'items', 'address', 'admin'],
     }
 </script>

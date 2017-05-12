@@ -25,7 +25,7 @@ class InitialSeeder extends Seeder
         $owner = User::create(['name' => 'Owner', 'email' => 'owner@gmail.com', 'password' => bcrypt('123123'), 'role_id' => $ownerRole->id]);
         $user = User::create(['name' => 'User', 'email' => 'user@gmail.com', 'password' => bcrypt('123123'), 'role_id' => $userRole->id]);
 
-        $address = factory(Address::class)->states('with-user')->create(['user_id' => $admin->id]);
+        $address = factory(Address::class)->states('with-user')->create(['user_id' => $user->id]);
 
         $category = factory(Category::class)->create([
             'name' => 'Bracelets', 

@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
-                <h4 class="main-title text-center">Edit Profile</h4>
+                <h3 class="main-title text-center">Edit Profile</h3>
                 <div class="Card position-relative" style="padding-bottom: 75px">
                     <form method="POST" action="{{ route('users.update') }}">
                         {{ csrf_field() }}
@@ -27,6 +27,17 @@
                                 class="Form {{ $errors->has('name') ? 'Form--error' : '' }}"
                                 placeholder="Name"
                                 value="{{ old('name', $user->name) }}"
+                                required
+                                autofocus>
+                        </div>
+
+                        <div class="Input__icon">
+                            <input id="business"
+                                type="text"
+                                name="business"
+                                class="Form {{ $errors->has('business') ? 'Form--error' : '' }}"
+                                placeholder="Company Name (Optional)"
+                                value="{{ old('business', $user->business) }}"
                                 required
                                 autofocus>
                         </div>

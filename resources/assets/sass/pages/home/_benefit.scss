@@ -6,7 +6,7 @@
 
     &__title {
         font-size: 15pt;
-        font-family: baloo;
+        font-family: $title-font;
         color: $brand-secondary;
         @include md(){
             font-size: 24pt;

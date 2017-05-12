@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-5 col-sm-6">
             <img src="{{ URL::to("images/matex.png") }}" alt="pulsera" class="img-responsive center-block Login__logo" onmousedown="return false">
-            <h4 class="main-title text-center">Register</h4>
+            <h3 class="main-title text-center">Register</h3>
             <div class="Card position-relative">
                 <form class="form-horizontal" role="form" method="POST" action="{{ $token->exists ? route('store.client') : url('/register') }}">
                     {{ csrf_field() }}
@@ -36,6 +36,15 @@
                             value="{{ old('name') }}"
                             required
                             v-focus>
+                    </div>
+
+                    <div class="Input__icon">
+                        <input id="business"
+                            type="text"
+                            name="business"
+                            class="Form {{ $errors->has('business') ? 'Form--error' : '' }}"
+                            placeholder="Company Name (Optional)"
+                            value="{{ old('business') }}">
                     </div>
 
                     <div class="Input__icon">

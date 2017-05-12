@@ -10,7 +10,7 @@ class AdminController extends Controller
     public function index()
     {
         return view('admins.index', [
-                    'admins' => User::haveRole('admin')->get()
+                    'admins' => User::withTrashed()->haveRole('admin')->get()
                 ]);
     }
 

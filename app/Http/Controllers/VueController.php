@@ -62,12 +62,6 @@ class VueController extends Controller
         ], 200);
     }
 
-    public function calculateShipping()
-    {
-        $shipping = $this->calculator->shipping(request()->zip);
-        return response()->json(['shipping' => $shipping], 200);
-    }
-
     public function calculateTax()
     {
         $taxPercentage = $this->calculator->tax(request()->zip);

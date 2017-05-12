@@ -6,12 +6,13 @@ use App\Models\Cart;
 use App\Models\Address;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Mail\ResetPassword as PasswordResetMail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id', 'admin_comment'
+        'name', 'email', 'password', 'role_id', 'admin_comment', 'creator_id', 'business'
     ];
 
     /**
@@ -30,6 +31,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
     /**
      * Send the password reset notification.
@@ -102,5 +110,10 @@ class User extends Authenticatable
     {
         $roleId = Role::findByName($roleName)->id;
         return $query->where('role_id', $roleId);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'creator_id');
     }
 }

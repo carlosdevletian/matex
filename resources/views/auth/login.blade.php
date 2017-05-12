@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-5 col-sm-6">
             <img src="{{ URL::to("images/matex.png") }}" alt="pulsera" class="img-responsive center-block Login__logo" onmousedown="return false">
-            <h4 class="main-title text-center">Login</h4>
+            <h3 class="main-title text-center">Login</h3>
             <div class="Card position-relative">
                 <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                     {{ csrf_field() }}

@@ -25,6 +25,7 @@ $font-size-base: 14px;
 $line-height-base: 1.6;
 $text-color: #546e7a;
 $text-color-secondary: #7e8f96;
+$title-font: 'Raleway', sans-serif;
 
 //Links
 $link-color: blue;
@@ -55,3 +56,9 @@ $navbar-default-toggle-border-color: transparent;
 
 //Footer
 $footer-size: 179px;
+
+//Tooltip
+$tooltip-max-width: 300px !default;
+$tooltip-color: #fff !default;
+$tooltip-bg: $brand-primary !default;
+$tooltip-opacity: .9 !default;

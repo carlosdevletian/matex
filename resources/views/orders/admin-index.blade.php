@@ -12,9 +12,9 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h4>Orders 
+                <h3 class="main-title">Orders 
                     {{ request()->has('client') ? 'by ' . request()->client : '' }}
-                </h4>
+                </h3>
 
                 <form method="GET" action="{{ route('orders.index') }}" class="mg-btm-20">
                     @foreach(request()->all() as $name => $value)
@@ -50,7 +50,7 @@
                             <tr>
                                 <td><a href="{{ route('orders.show', ['order' => $order->reference_number]) }}">{{ $order->reference_number }}</a></td>
                                 <td>{{ $order->email or $order->user->email }}</td>
-                                <td>{{ $order->total }} $</td>
+                                <td>{{ $order->present()->total }} $</td>
                                 <td>{{ $order->created_at->format('d M y') }}</td>
                                 <td><i class="fa fa-circle" style="color:{{ $order->status->color }}; font-size: 15pt;" data-toggle="tooltip" data-placement="bottom" title="{{ $order->status->name  . ' since ' . $order->status->updated_at->toDateString() }}" aria-hidden="true"></i></td>
                             </tr>

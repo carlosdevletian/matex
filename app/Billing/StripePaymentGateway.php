@@ -8,6 +8,7 @@ use Stripe\Error\RateLimit;
 use Stripe\Error\ApiConnection;
 use Stripe\Error\Authentication;
 use Stripe\Error\InvalidRequest;
+use App\Billing\InvalidTokenException;
 use App\Billing\PaymentFailedException;
 
 class StripePaymentGateway implements PaymentGateway
@@ -34,17 +35,17 @@ class StripePaymentGateway implements PaymentGateway
                 'card_last_four' => $stripeCharge['source']['last4']
             ]);
         } catch (Card $e) {
-            throw new PaymentFailedException;
+            $this->throwException($e);
         } catch (RateLimit $e) {
-            throw new PaymentFailedException;
+            $this->throwException($e);
         } catch (InvalidRequest $e) {
-            throw new PaymentFailedException;
+            $this->throwException($e);
         } catch (Authentication $e) {
-            throw new PaymentFailedException;
+            $this->throwException($e);
         } catch (ApiConnection $e) {
-            throw new PaymentFailedException;
+            $this->throwException($e);
         } catch (Base $e) {
-            throw new PaymentFailedException;
+            $this->throwException($e);
         }
     }
 
@@ -90,5 +91,22 @@ class StripePaymentGateway implements PaymentGateway
         )['data'];
 
         return collect($newCharges);
+    }
+
+    private function throwException($e)
+    {
+        $error = $e->getJsonBody()['error'];
+        if(! array_key_exists('charge', $error)) throw new InvalidTokenException ;
+
+        $stripeCharge = \Stripe\Charge::retrieve(
+            $error['charge'], 
+            ['api_key' => $this->apiKey]
+        );
+
+        $charge = new Charge([
+            'amount' => $stripeCharge['amount'],
+            'card_last_four' => $stripeCharge['source']['last4']
+        ]);
+        throw new PaymentFailedException($charge);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Billing;
 
+use App\Billing\InvalidTokenException;
+
 class FakePaymentGateway implements PaymentGateway
 {
     const TEST_CARD_NUMBER = '4242424242424242';
@@ -23,7 +25,7 @@ class FakePaymentGateway implements PaymentGateway
     public function charge($amount, $token)
     {
         if(! $this->tokens->has($token)) {
-            throw new PaymentFailedException;
+            throw new InvalidTokenException;
         }
         return $this->charges[] = new Charge([
              'amount' => $amount,

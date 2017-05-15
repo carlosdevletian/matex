@@ -74,11 +74,11 @@ class OwnerTest extends TestCase
         $admin = factory(User::class)->states('admin')->create([
             'id' => 99
         ]);
-        $this->assertDatabaseHas('users', ['id' => 99]);
+        $this->assertFalse($admin->trashed());
 
         $this->signIn($owner);
         $this->delete("/admins/99");
 
-        $this->assertDatabaseMissing('users', ['id' => 99]);
+        $this->assertTrue($admin->fresh()->trashed());
     }
 }

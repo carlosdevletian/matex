@@ -92,6 +92,5 @@ class PayOrderTest extends TestCase
 
         $response->assertStatus(422);
         $this->assertEquals(0, $this->paymentGateway->totalCharges());
-        $response->assertJson(['status' => 'Payment Pending']);
     }
 }

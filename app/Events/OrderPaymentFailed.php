@@ -10,13 +10,12 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class OrderPlaced
+class OrderPaymentFailed
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $order;
     public $charge;
-
     /**
      * Create a new event instance.
      *

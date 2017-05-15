@@ -9,7 +9,7 @@ use App\Mail\Traits\CreatesPdfs;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewOrderMail extends Mailable
+class NewOrderFailedMail extends Mailable
 {
     use Queueable, SerializesModels, CreatesPdfs;
 

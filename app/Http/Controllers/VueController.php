@@ -12,6 +12,8 @@ use App\Events\OrderPlaced;
 use Illuminate\Http\Request;
 use App\Models\RegisterToken;
 use App\Billing\PaymentGateway;
+use App\Events\OrderPaymentFailed;
+use App\Billing\InvalidTokenException;
 use App\Billing\PaymentFailedException;
 
 class VueController extends Controller
@@ -118,12 +120,14 @@ class VueController extends Controller
                 'order_url' => $order->showUrl()
             ], 200);
         } catch (PaymentFailedException $e) {
-            // Este event debería ser específico para cuando el pago falla
-            event(new OrderPlaced($order));
+            event(new OrderPaymentFailed($order, $e->charge));
+            
             return response()->json([
                 'status' => $order->status->name,
                 'order_url' => $order->showUrl()
             ], 422);
+        } catch (InvalidTokenException $e) {
+            return response()->json([], 422);
         }
     }
 }

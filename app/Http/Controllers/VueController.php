@@ -7,6 +7,7 @@ use App\Models\User;
 use Facades\App\Tax;
 use App\Models\Order;
 use App\ItemCalculator;
+use App\Models\Address;
 use Facades\App\Cashier;
 use App\Events\OrderPlaced;
 use Illuminate\Http\Request;
@@ -61,10 +62,15 @@ class VueController extends Controller
         ], 200);
     }
 
-    public function calculateTax()
+    public function calculateTax(Request $request)
     {
+        if($request->has('address_id')) {
+            $state = Address::findOrFail($request->address_id)->state;
+        } else {
+            $state = request()->state;
+        }
         return response()->json([
-            'tax_percentage' => Tax::calculate(request()->state)
+            'tax_percentage' => Tax::calculate($state)
         ], 200);
     }
 

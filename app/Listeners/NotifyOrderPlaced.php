@@ -25,7 +25,7 @@ class NotifyOrderPlaced
      * @param  OrderPlaced  $event
      * @return void
      */
-    public function handle(OrderPlaced $event)
+    public function handle($event)
     {
         if($event->order->belongsToUser()){
             $email = $event->order->user->email;
@@ -41,7 +41,7 @@ class NotifyOrderPlaced
         ]));
     }
 
-    public function failed(OrderPlaced $event, $exception)
+    public function failed($event, $exception)
     {
         throw $exception;
     }

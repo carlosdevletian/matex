@@ -26,7 +26,7 @@ class NotifyCompanyNewOrder implements ShouldQueue
      * @param  OrderPlaced  $event
      * @return void
      */
-    public function handle(OrderPlaced $event)
+    public function handle($event)
     {
         Mail::to(config('mail.new-orders.address'))->queue(new NewOrderMail($event->order));
     }

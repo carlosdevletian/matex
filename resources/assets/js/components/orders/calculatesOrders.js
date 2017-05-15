@@ -39,9 +39,12 @@ export const calculatesOrders = {
         },
         calculateTax: function() {
             if(this.stateSelected && this.totalQuantity() > 0) {
-                var data = {
-                    state: this.address.state
+                if(!! this.address.state) {
+                    var data = { state: this.address.state }
+                } else {
+                    var data = { address_id : this. selectedAddress}
                 }
+                
                 axios.post('/calculateTax', data).then((response) => {
                     this.tax = this.subtotal * response.data.tax_percentage;
                 });
@@ -56,6 +59,10 @@ export const calculatesOrders = {
             this.amountsLoading = true;
             this.calculateTax();
         },
+        selectedAddress: function(getTax) {
+            this.amountsLoading = true;
+            this.calculateTax();
+        },
         subtotal: function (getTax) {
             this.amountsLoading = true;
             this.calculateTax();
@@ -63,7 +70,7 @@ export const calculatesOrders = {
     },
     computed: {
         stateSelected: function() {
-            return !! this.address.state;
+            return (!! this.address.state || !! this.selectedAddress);
         },
         calculatedSubtotal: function() {
             this.amountsLoading = true;

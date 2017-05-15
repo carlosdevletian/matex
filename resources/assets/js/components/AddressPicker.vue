@@ -27,6 +27,7 @@
                                 <div>{{ existingAddress.street }}</div>
                                 <div>{{ existingAddress.city }}</div>
                                 <div v-show="showMoreId == existingAddress.id">
+                                    <div>{{ existingAddress.state }}</div>
                                     <div>{{ existingAddress.country }}</div>
                                     <div>{{ existingAddress.zip }}</div>
                                     <div>{{ existingAddress.phone_number }}</div>

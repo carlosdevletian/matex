@@ -20,8 +20,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\OrderPaymentFailed' => [
             'App\Listeners\UpdateFailedOrder',
-            'App\Listeners\NotifyOrderFailed',
-            'App\Listeners\NotifyCompanyNewOrderFailed',
+            'App\Listeners\NotifyOrderPlaced',
+            'App\Listeners\NotifyCompanyNewOrder',
         ],
         'App\Events\OrderStatusChanged' => [
             'App\Listeners\NotifyStatusChanged',

@@ -65,19 +65,19 @@
                         placeholder="Email *"
                         @blur="validateEmail"
                         v-if="!signedIn"
-                        v-bind:class="{ 'Form--error' : (!validation.email && address.show_errors) || (emailTaken && address.show_errors) }">
+                        v-bind:class="{ 'Form--error' : (!validation.email.valid && address.show_errors) || (emailTaken && address.show_errors) }">
                     <input class="Form mg-btm-20"
                         name="recipient"
                         type="text"
                         v-model="address.name"
                         placeholder="Recipient name *"
-                        v-bind:class="{ 'Form--error' : !validation.name && address.show_errors }">
+                        v-bind:class="{ 'Form--error' : !validation.name.valid && address.show_errors }">
                     <input class="Form mg-btm-20"
                         name="street"
                         type="text"
                         v-model="address.street"
                         placeholder="Street *"
-                        v-bind:class="{ 'Form--error' : !validation.street && address.show_errors }">
+                        v-bind:class="{ 'Form--error' : !validation.street.valid && address.show_errors }">
                     <div class="row">
                         <div class="col-sm-6">
                             <input class="Form mg-btm-20"
@@ -85,10 +85,10 @@
                             type="text"
                             v-model="address.city"
                             placeholder="City *"
-                            v-bind:class="{ 'Form--error' : !validation.city && address.show_errors }">
+                            v-bind:class="{ 'Form--error' : !validation.city.valid && address.show_errors }">
                         </div>
                         <div class="col-sm-6">
-                            <div class="Form__select Form__select--full-width" v-bind:class="{ 'Form--error' : !validation.state && address.show_errors }">
+                            <div class="Form__select Form__select--full-width" v-bind:class="{ 'Form--error' : !validation.state.valid && address.show_errors }">
                                 <select name="state" v-model="address.state">
                                     <option value="" disabled>Select a State *</option>
                                     <option value="AL">Alabama</option>
@@ -153,7 +153,7 @@
                                 type="text"
                                 v-model="address.zip"
                                 placeholder="Zip Code *"
-                                v-bind:class="{ 'Form--error' : !validation.zip && address.show_errors }">
+                                v-bind:class="{ 'Form--error' : !validation.zip.valid && address.show_errors }">
                             </div>
                             <div class="col-sm-6" 
                                     data-toggle="tooltip" 
@@ -165,7 +165,7 @@
                                         v-model="address.country"
                                         disabled
                                         placeholder="Country *"
-                                        v-bind:class="{ 'Form--error' : !validation.country && address.show_errors }">
+                                        v-bind:class="{ 'Form--error' : !validation.country.valid && address.show_errors }">
                             </div>
                         </div>
                         <input class="Form mg-btm-20"
@@ -173,7 +173,7 @@
                             type="text"
                             v-model="address.phone_number"
                             placeholder="Phone Number *"
-                            v-bind:class="{ 'Form--error' : !validation.phone_number && address.show_errors }">
+                            v-bind:class="{ 'Form--error' : !validation.phone_number.valid && address.show_errors }">
                         <textarea class="Form mg-btm-20" v-model="address.comment" placeholder="Comment"></textarea>
                     
                 </form>
@@ -251,14 +251,38 @@
         computed: {
             validation: function() {
                 return {
-                    email: !! emailRegex.test(this.address.email) && this.address.email != '' || this.signedIn,
-                    name: !! this.address.name != '',
-                    street: !! this.address.street != '',
-                    city: !! this.address.city != '',
-                    state: !! this.address.state != '',
-                    zip: !! this.address.zip != '' && /^[0-9]{5}(\-[0-9]{4})?$/.test(this.address.zip),
-                    country: !! this.address.country != '',
-                    phone_number: !! this.address.phone_number != '',
+                    email: {
+                        valid: !! emailRegex.test(this.address.email) && this.address.email != '' || this.signedIn,
+                        error_message: 'Please enter a valid email address'
+                    },
+                    name: {
+                        valid: !! this.address.name != '',
+                        error_message: "Please enter the recipient's name"
+                    },
+                    street: {
+                        valid: !! this.address.street != '',
+                        error_message: "Please enter the sreet"
+                    },
+                    city: {
+                        valid: !! this.address.city != '',
+                        error_message: "Please enter a city"
+                    },
+                    state: {
+                        valid: !! this.address.state != '',
+                        error_message: 'Please select a state'
+                    },
+                    zip: {
+                        valid: !! this.address.zip != '' && /^[0-9]{5}(\-[0-9]{4})?$/.test(this.address.zip),
+                        error_message: "Please enter a valid Zip or Zip+4 code"
+                    },
+                    country: {
+                        valid: !! this.address.country != '',
+                        error_message: "Please enter a country"
+                    },
+                    phone_number: {
+                        valid: !! this.address.phone_number != '',
+                        error_message: "Please enter a phone number"
+                    },
                 }
             },
             validatedAddress: function() {
@@ -270,9 +294,9 @@
                         vm.address.is_valid = false;
                         break;
                     }
-                    if(! vm.validation[field]){
+                    if(! vm.validation[field].valid){
                         vm.address.is_valid = false;
-                        vm.error = field == 'phone_number' ? 'Please enter a phone number' : 'Please enter a ' + field;
+                        vm.error = vm.validation[field].error_message;
                         break;
                     }
                 }

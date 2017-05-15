@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Calculator;
+use Facades\App\Tax;
 use App\Models\Traits\Filterable;
 use Facades\App\OrderReferenceNumber;
 use Illuminate\Database\Eloquent\Model;
@@ -102,8 +102,7 @@ class Order extends Model
 
     public function tax()
     {
-        $calculator = new Calculator;
-        $percentage = $calculator->tax($this->address->zip);
+        $percentage = Tax::calculate($this->address->state);
         $this->tax = intval($this->subtotal * $percentage);
 
         return $this;

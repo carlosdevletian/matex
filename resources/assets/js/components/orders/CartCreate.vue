@@ -79,7 +79,7 @@
                 </div>
                 <div slot="subtotal">${{ calculatedSubtotal | inDollars }}</div>
                 <div slot="zip-error">
-                    <div class="row" v-show="! zipIsValid">
+                    <div class="row" v-show="! stateSelected">
                         <div class="col-xs-12 text-center color-secondary">
                             <hr>
                             An address must be entered to calculate tax

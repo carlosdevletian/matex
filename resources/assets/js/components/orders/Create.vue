@@ -16,6 +16,13 @@
             <div v-show="productList.length != 0">
                 <hr>
             </div>
+            <div class="col-xs-12 text-center color-secondary" style="border: 1px solid #F16A26; border-radius: 2px">
+                <strong>Did you know?</strong> The item's price goes down if the quantity goes up!
+                <br>
+                <p class="color-primary">
+                    Click <a href="/faq" class="color-primary" style="text-decoration: underline; font-weight: bold">here</a> to find out more.
+                </p>
+            </div>
             <table class="table borderless mg-0">
                 <tbody>
                     <tr>
@@ -47,7 +54,7 @@
         </div>
         <div slot="subtotal">${{ calculatedSubtotal | inDollars }}</div>
         <div slot="zip-error">
-            <div class="row" v-show="! zipIsValid">
+            <div class="row" v-show="! stateSelected">
                 <div class="col-xs-12 text-center color-secondary">
                     <hr>
                     An address must be entered to calculate tax

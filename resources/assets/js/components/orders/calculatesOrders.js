@@ -38,9 +38,9 @@ export const calculatesOrders = {
             return this.totalQuantity() > 0 && (this.address.is_valid || this.selectedAddress != 0);
         },
         calculateTax: function() {
-            if(this.zipIsValid && this.totalQuantity() > 0) {
+            if(this.stateSelected && this.totalQuantity() > 0) {
                 var data = {
-                    zip: this.address.zip
+                    state: this.address.state
                 }
                 axios.post('/calculateTax', data).then((response) => {
                     this.tax = this.subtotal * response.data.tax_percentage;
@@ -52,7 +52,7 @@ export const calculatesOrders = {
         },
     },
     watch: {
-        'address.zip': function (getTax) {
+        'address.state': function (getTax) {
             this.amountsLoading = true;
             this.calculateTax();
         },
@@ -62,8 +62,8 @@ export const calculatesOrders = {
         }
     },
     computed: {
-        zipIsValid: function() {
-            return this.address.zip.length == 5;
+        stateSelected: function() {
+            return !! this.address.state;
         },
         calculatedSubtotal: function() {
             this.amountsLoading = true;
@@ -82,13 +82,13 @@ export const calculatesOrders = {
             return 0;
         },
         filteredTax: function() {
-            if(this.zipIsValid && this.calculatedSubtotal > 0) {
+            if(this.stateSelected && this.calculatedSubtotal > 0) {
                 return '$' + (this.tax / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
             }
             return '-';
         },
         filteredTotal: function() {
-            if(this.zipIsValid) {
+            if(this.stateSelected) {
                 return '$' + (this.totalPrice / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
             }
             return '-';

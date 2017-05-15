@@ -63,7 +63,7 @@ export const stripeMixin = {
             }else{
                 swal({
                     title: "<h2 class='Order__title--orange'>An error occurred</h2>",
-                    html: "<p style='font-size: 12pt'>Please make sure you have some items in your order and an address is selected</p>",
+                    html: "<p style='font-size: 12pt'>Please make sure you have some items in your order and there are no errors in your address.</p>",
                     type: 'error',
                     showConfirmButton: true,
                     confirmButtonClass: 'Button--secondary box-shadow stick-to-bottom',

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Calculator;
 use App\Models\Item;
 use App\Models\User;
+use Facades\App\Tax;
 use App\Models\Order;
 use App\ItemCalculator;
 use Facades\App\Cashier;
@@ -20,12 +20,9 @@ class VueController extends Controller
 {
     private $paymentGateway;
 
-    private $calculator;
-
-    function __construct(PaymentGateway $paymentGateway, Calculator $calculator)
+    function __construct(PaymentGateway $paymentGateway)
     {
         $this->paymentGateway = $paymentGateway;
-        $this->calculator = $calculator;
     }
 
     public function addToCart(Request $request)
@@ -66,8 +63,9 @@ class VueController extends Controller
 
     public function calculateTax()
     {
-        $taxPercentage = $this->calculator->tax(request()->zip);
-        return response()->json(['tax_percentage' => $taxPercentage], 200);
+        return response()->json([
+            'tax_percentage' => Tax::calculate(request()->state)
+        ], 200);
     }
 
     public function cartPreview()

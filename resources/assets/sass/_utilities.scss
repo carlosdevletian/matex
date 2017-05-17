@@ -32,6 +32,11 @@
 .color-secondary {
     color: $brand-secondary;
 }
+.color-hover-secondary {
+    &:hover {
+        color: $brand-secondary;
+    }
+}
 .color-white {
     color: white;
     &:hover {

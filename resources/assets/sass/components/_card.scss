@@ -73,6 +73,11 @@
         color: $text-color;
         font-size: 10pt;
         line-height: 17px;
+
+        &--disclaimer {
+            color: #f5f7f9;
+            font-size: 8pt;
+        }
     }
 
     &__chevrons {
@@ -94,6 +99,33 @@
 
         &--right {
             margin-left: 3px;
+        }
+    }
+
+    &--disclaimer {
+        position: absolute;
+        top: 30%;
+        right: 0px;
+        z-index: 100;
+        width: 220px;
+        background-color: rgba(69,135,156,0.9);
+        border: 2px solid darken(rgb(69,135,156), 4);
+        transition: none;
+        
+        &__close {
+        color: lightgrey;
+        position: absolute;
+        top: 16px;
+        right: 15px;
+            &:hover {
+                color: white;
+                cursor: pointer;
+            }
+        }
+
+        &--hidden {
+            width: 40px;
+            transition: all 0.25s linear;
         }
     }
 }

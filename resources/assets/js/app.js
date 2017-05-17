@@ -42,6 +42,7 @@ Vue.component('address-picker', require('./components/AddressPicker.vue'));
 Vue.component('cart-preview', require('./components/carts/Preview.vue'));
 
 Vue.component('faq', require('./components/Faq.vue'));
+Vue.component('disclaimer', require('./components/Disclaimer.vue'));
 
 Vue.component('active-checkbox', require('./components/ActiveCheckbox.vue'));
 

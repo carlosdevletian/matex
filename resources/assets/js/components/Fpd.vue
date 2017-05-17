@@ -1,7 +1,7 @@
 <template>
     <div>
         <hr v-if="signedIn && existingDesigns">
-        <i v-if="signedIn && existingDesigns" class="fa fa-question-circle fa-2x color-primary" aria-hidden="true" @click="help" style="position: absolute; top: 75px; right: 20px; cursor: pointer"></i>
+        <i v-if="signedIn && existingDesigns" class="fa fa-question-circle fa-2x color-primary" aria-hidden="true" @click="help" style="position: absolute; top: 75px; right: 20px; cursor: pointer; margin-right: 10px"></i>
         <i v-else class="fa fa-question-circle fa-2x color-primary" aria-hidden="true" @click="help" style="position: absolute; top: 30px; right: 20px; cursor: pointer"></i>
         <div class="Card col-xs-12 pd-0">
            <div ref="fpd" id="fpd" class="fpd-container fpd-topbar fpd-off-canvas-left fpd-top-actions-centered fpd-bottom-actions-centered">
@@ -117,14 +117,19 @@
                     imageWidth: 300,
                     imageHeight: 150,
                     confirmButtonText: 'Next',
-                    progressSteps: ['1', '2', '3', '4']
+                    progressSteps: ['1', '2', '3', '4', '5']
                 })
 
                 var steps = [
                     {
                         title: "Welcome to the Matex Designer",
-                        text: 'We have a short tutorial prepared for you!',
+                        text: 'We have a short tutorial prepared for you. To exit, press the escape key or click outside this window',
                         animation: true
+                    },
+                    {
+                        title: "Edit the product",
+                        text: 'To edit the color of the product, click on it and choose a color on the top bar',
+                        imageUrl: 'http://i.imgur.com/RdtFDso.png',
                     },
                     {
                         title: "Edit an Object",
@@ -186,8 +191,7 @@
                 langJSON: this.langJson,
                 templatesDirectory: this.templateDirectory,
                 actions:  {
-                    'top': ['manage-layers','magnify-glass', 'zoom', 'reset-product'],
-                    'bottom': ['undo','redo'],
+                    'top': ['magnify-glass', 'undo','redo', 'reset-product'],
                 },
                 selectedColor: "#dbdee3",
                 customTextParameters: {

@@ -27,6 +27,7 @@
                     </div>
                     <design-picker :designs="{{ $existingDesigns }}" v-if="showDesignPicker"></design-picker>
                 @endif
+                <disclaimer></disclaimer>
                 <fpd
                     product-template="{{ URL::to('images/design_templates/bracelet_template.png') }}"
                     template-directory="{{ URL::to('fpd') . '/'}}"

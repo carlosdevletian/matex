@@ -10,7 +10,9 @@
 <div class="About">
     <div class="container">
         <div class="row">
-            <h1 class="col-sm-10 About__title">We Strive to Make Quality Products</h1>
+            <h1 class="col-sm-10 About__title">
+                We Strive to Make Quality Products
+            </h1>
         </div>
     </div>
 </div>
@@ -28,20 +30,28 @@
                 <tr>
                     <td class="About__time__cell"><img src="/images/about/about_design.png" class="img-responsive About__time__image"></td>
                     <td class="About__time__cell--line"><img src="/images/about/about_circle.png" class="img-responsive About__time__image--circle"></td>
-                    <td class="About__time__cell">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus accusantium ex repellendus fugiat</td>
+                    <td class="About__time__cell">
+                        It all starts with you! <br>Design your ideal product or choose from beautiful existing templates. Make sure to check out our <a href="{{ route('faq') }}">design guidelines</a>.
+                    </td>
                 </tr>
                 <tr>
-                    <td class="About__time__cell">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus accusantium ex repellendus fugiat</td>
+                    <td class="About__time__cell">
+                        Our professional team will look over your design and make sure it's perfect. Don't worry, if we see something out of place we'll get in touch right away.
+                    </td>
                     <td class="About__time__cell--line"><img src="/images/about/about_circle.png" class="img-responsive About__time__image--circle"></td>
                     <td class="About__time__cell"><img src="/images/about/about_assist.png" class="img-responsive About__time__image"></td>
                 </tr>
                 <tr>
                     <td class="About__time__cell"><img src="/images/about/about_factory.png" class="img-responsive About__time__image"></td>
                     <td class="About__time__cell--line"><img src="/images/about/about_circle.png" class="img-responsive About__time__image--circle"></td>
-                    <td class="About__time__cell">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus accusantium ex repellendus fugiat</td>
+                    <td class="About__time__cell">
+                        Our state of the art looms will weave your dream designs.
+                    </td>
                 </tr>
                 <tr>
-                    <td class="About__time__cell">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus accusantium ex repellendus fugiat</td>
+                    <td class="About__time__cell">
+                        A red package full of fun will arrive to your door.
+                    </td>
                     <td class="About__time__cell--line"><img src="/images/about/about_circle.png" class="img-responsive About__time__image--circle"></td>
                     <td class="About__time__cell"><img src="/images/about/about_shipping.png" class="img-responsive About__time__image"></td>
                 </tr>

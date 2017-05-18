@@ -3,7 +3,7 @@
         <div class="col-sm-1 text-center"></div>
         <div class="col-sm-4 text-center">
             <img src="/images/matex_name.png" alt="matex" class="Landing__logo">
-            <h3 class="Landing__body">Lorem ipsum dolor sit amet, consectetur adipisicing elit</h3>
+            <h3 class="Landing__body">Woven products just for you</h3>
         </div>
         <div class="col-sm-6">
             <img src="{{ URL::to("images/home/puls.png") }}" alt="pulsera" class="img-responsive center-block Landing__image" onmousedown="return false">

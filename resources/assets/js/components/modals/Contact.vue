@@ -16,7 +16,7 @@
                         class="Form"
                         placeholder="Email address"
                         v-bind:class="{ 'Form--error' : !validation.email}"
-                        disabled="existingEmail" 
+                        :disabled="existingEmail" 
                         autofocus>
                 </div>
                 <div class="Input__icon">
@@ -49,9 +49,9 @@
                 contact: {
                     subject: '',
                     body: '',
-                    email: Matex.email ? Matex.email : ''
+                    email: !! Matex.email ? Matex.email : ''
                 },
-                existingEmail: Matex.email ? true : false,
+                existingEmail: !! Matex.email ? true : false,
                 errors: '',
             };
         },

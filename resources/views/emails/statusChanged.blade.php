@@ -54,21 +54,6 @@
     <td style="border-bottom: 1px solid lightgrey"></td>
 </tr>
 <div class="table">
-   <!--  <tr>
-        <td style="text-align: left">Subtotal</td>
-        <td></td>
-        <td style="text-align: right">${{ $order->present()->subtotal }}</td>
-    </tr>
-    <tr>
-        <td style="text-align: left">Tax</td>
-        <td></td>
-        <td style="text-align: right">${{ $order->present()->tax }}</td>
-    </tr>
-    <tr>
-        <td style="text-align: left">Shipping</td>
-        <td></td>
-        <td style="text-align: right">${{ $order->present()->shipping }}</td>
-    </tr> -->
     <tr>
         <td style="text-align: left">Total</td>
         <td></td>

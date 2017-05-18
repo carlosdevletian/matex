@@ -18,6 +18,8 @@ export const stripeMixin = {
                 description: 'Review your order before paying',
                 currency: "usd",
                 allowRememberMe: false,
+                billingAddress: true,
+                zipCode: true,
                 panelLabel: 'Pay {{amount}}',
                 amount: this.totalPrice,
                 email: Matex.signedIn ? Matex.email : this.address.email,
@@ -63,7 +65,7 @@ export const stripeMixin = {
             }else{
                 swal({
                     title: "<h2 class='Order__title--orange'>An error occurred</h2>",
-                    html: "<p style='font-size: 12pt'>Please make sure you have some items in your order and there are no errors in your address.</p>",
+                    html: "<p style='font-size: 12pt'>Please make sure you have some items in your order and there are no errors in your shipping address.</p>",
                     type: 'error',
                     showConfirmButton: true,
                     confirmButtonClass: 'Button--secondary box-shadow stick-to-bottom',

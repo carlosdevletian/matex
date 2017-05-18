@@ -1,5 +1,6 @@
 <template>
     <div class="col-xs-12">
+        <p class="color-primary">A billing address will be required upon checkout.</p>
         <div v-show="existingAddresses.length > 0 && ! showAddressForm" class="row">
             <div class="position-relative">
                 <a @mouseover="scrollLeft()" 

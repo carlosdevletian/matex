@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Image;
 use App\Events\ProductsToggled;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -12,7 +13,7 @@ class Category extends Model
 
     public function setNameAttribute($value)
     {
-        $this->attributes['name'] = $value;
+        $this->attributes['name'] = strtolower( str_singular($value) );
         $this->attributes['slug_name'] = str_slug($value);
     }
 
@@ -112,5 +113,10 @@ class Category extends Model
             }
         }
         return $countedProducts->count();
+    }
+
+    public function template()
+    {
+        return URL::to("images/design_templates/" . $this->template_name);
     }
 }

@@ -25,6 +25,10 @@ class CategoryController extends Controller
             return view('categories.admin-index', compact('activeCategories', 'inactiveCategories'));
         }
 
+        if($categories->count() == 0) {
+            return redirect()->route('home');
+        }
+
         if($categories->count() == 1){
             $category = $categories->first()->slug_name;
 
@@ -65,7 +69,7 @@ class CategoryController extends Controller
 
         $category->addImage(request()->file, request()->name);
         
-        $category->name = strtolower( str_singular(request()->name) ); 
+        $category->name = request()->name; 
         $category->crop_width = request()->cropw; 
         $category->crop_height = request()->croph; 
         $category->crop_x_position = request()->cropx; 

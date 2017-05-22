@@ -5,20 +5,7 @@
         <i v-else class="fa fa-question-circle fa-2x color-primary" aria-hidden="true" @click="help" style="position: absolute; top: 30px; right: 20px; cursor: pointer"></i>
         <div class="Card col-xs-12 pd-0">
            <div ref="fpd" id="fpd" class="fpd-container fpd-topbar fpd-off-canvas-left fpd-top-actions-centered fpd-bottom-actions-centered">
-                <div class="fpd-product" title="Titulo" data-thumbnail="#">
-                    <img :src="productTemplate"
-                        title="Bracelet"
-                        data-parameters=
-                            '{
-                                "draggable": false,
-                                "removable": false,
-                                "autoCenter": true,
-                                "zChangeable": false,
-                                "colors": [],
-                                "z": 2
-                            }'
-                    />
-                </div>
+                <slot name="category"></slot>
             </div>
         </div>
         <div v-if="signedIn">
@@ -191,7 +178,7 @@
                 langJSON: this.langJson,
                 templatesDirectory: this.templateDirectory,
                 actions:  {
-                    'top': ['magnify-glass', 'undo','redo', 'reset-product'],
+                    'top': ['undo', 'reset-product', 'zoom', 'redo'],
                 },
                 selectedColor: "#dbdee3",
                 customTextParameters: {
@@ -214,12 +201,13 @@
                 outOfBoundaryColor: "#FF0000",
                 toolbarPlacement: "inside-top",
                 hideDialogOnAdd: true,
-                mainBarModules: ['images', 'text', 'designs'],
+                mainBarModules: ['products', 'images', 'text', 'designs'],
             };
             $(document).ready(function(){
                 vm.designer = new FancyProductDesigner(fpd, pluginOptions);
                 
                 $('#fpd').on('ready', function() {
+
                     if(Object.keys(vm.existingDesign).length !== 0) {
                         Event.$emit('design-selected', vm.existingDesign)
                     }

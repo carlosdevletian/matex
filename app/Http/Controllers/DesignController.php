@@ -48,6 +48,9 @@ class DesignController extends Controller
         }
         
         $category = Category::where('slug_name', $categorySlug)->firstOrFail();
+        if(! $category->isActive()) {
+            return redirect()->route('home');
+        }
         if(auth()->check()) {
             return view('designs.create', [
                         'category' => $category, 

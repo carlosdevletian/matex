@@ -23,6 +23,7 @@ class PayOrderTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
+        Mail::fake();
         $this->paymentGateway = new FakePaymentGateway;
         $this->app->instance(PaymentGateway::class, $this->paymentGateway);
     }
@@ -53,6 +54,37 @@ class PayOrderTest extends TestCase
             'items' => $items,
             'order' => $order,
         ];
+    }
+
+    private function getTotalPrice($items)
+    {
+        return $items->each->calculate()->sum('total_price');
+    }
+
+    /** @test */
+    public function guest_can_pay_order()
+    {
+        factory(Status::class)->create(['name' => 'Payment Pending']);
+        factory(Status::class)->create(['name' => 'Payment Approved']);
+        $items = factory(Item::class, 3)->make();
+
+        $this->assertEquals(Order::count(), 0);
+
+        session(['design' => 'image_name.png']);
+        $response = $this->json('POST', "/pay", [
+            'payment_token' => $this->paymentGateway->getValidTestToken(),
+            'newAddress' => factory(Address::class)->make(),
+            'selectedAddress' => 0,
+            'items' => $items,
+            'design' => 'image_name.png',
+            'category_id' => 1,
+            'total_price' => $this->getTotalPrice($items)
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertEquals(Order::count(), 1);
+        $this->assertEquals(Address::count(), 1);
+        $this->assertEquals(Item::count(), 3);
     }
 
     /** @test */

@@ -27,17 +27,25 @@ class InitialSeeder extends Seeder
 
         $address = factory(Address::class)->states('with-user')->create(['user_id' => $user->id]);
 
-        $category = factory(Category::class)->create([
-            'name' => 'Bracelets', 
+        $bracelet = factory(Category::class)->create([
+            'name' => 'bracelet', 
             'crop_width' => 1077, 
             'crop_height' => 42, 
             'crop_x_position' => 61, 
             'crop_y_position' => 279,
-            'image_name' => 'bracelet_image.png']);
+            'image_name' => 'bracelet_image.png',
+            'template_name' => 'bracelet.png'
+        ]);
 
-        // $category = factory(Category::class)->create([
-        //     'name' => 'Calendars',
-        //     'image_name' => 'calendar_image.png']);
+        $calendar = factory(Category::class)->create([
+            'name' => 'calendar', 
+            'crop_width' => 283, 
+            'crop_height' => 510, 
+            'crop_x_position' => 458, 
+            'crop_y_position' => 64,
+            'image_name' => 'calendar.png',
+            'template_name' => 'calendar.png'
+        ]);
 
         factory(Status::class)->create(['name' => 'Payment Pending', 'color' => 'red']);
         factory(Status::class)->create(['name' => 'Payment Approved', 'color' => 'blue']);
@@ -46,10 +54,13 @@ class InitialSeeder extends Seeder
         factory(Status::class)->create(['name' => 'Delivered', 'color' => 'green']);
         factory(Status::class)->create(['name' => 'Canceled', 'color' => 'black']);
         
-        $product = factory(Product::class)->create(['name' => 'Small', 'category_id' => $category->id, 'display_position' => 1]);
-        $product2 = factory(Product::class)->create(['name' => 'Medium', 'category_id' => $category->id, 'display_position' => 2]);
-        $product3 = factory(Product::class)->create(['name' => 'Large', 'category_id' => $category->id, 'display_position' => 3]);
-        $product4 = factory(Product::class)->create(['name' => 'X-Large', 'category_id' => $category->id, 'display_position' => 4]);
-        $product5 = factory(Product::class)->create(['name' => 'XX-Large', 'category_id' => $category->id, 'display_position' => 5]);
+        $product = factory(Product::class)->create(['name' => 'small', 'category_id' => $calendar->id, 'display_position' => 1]);
+        $product2 = factory(Product::class)->create(['name' => 'medium', 'category_id' => $calendar->id, 'display_position' => 2]);
+        
+        $product = factory(Product::class)->create(['name' => 'small', 'category_id' => $bracelet->id, 'display_position' => 1]);
+        $product2 = factory(Product::class)->create(['name' => 'medium', 'category_id' => $bracelet->id, 'display_position' => 2]);
+        $product3 = factory(Product::class)->create(['name' => 'large', 'category_id' => $bracelet->id, 'display_position' => 3]);
+        $product4 = factory(Product::class)->create(['name' => 'x-large', 'category_id' => $bracelet->id, 'display_position' => 4]);
+        $product5 = factory(Product::class)->create(['name' => 'xx-Large', 'category_id' => $bracelet->id, 'display_position' => 5]);
     }
 }

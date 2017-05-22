@@ -22,7 +22,8 @@ class CreateCategoriesTable extends Migration
             $table->integer('crop_x_position')->default(0);
             $table->integer('crop_y_position')->default(0);
             $table->string('image_name');
-            $table->boolean('is_active')->default(true);
+            $table->string('template_name')->nullable();
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }

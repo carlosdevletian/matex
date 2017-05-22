@@ -92,3 +92,6 @@
   color: white !important;
   background-color: #F16A26 !important;
 }
+.fpd-actions-wrapper > .fpd-action-btn.fpd-active {
+  background-color: #F16A26;
+}

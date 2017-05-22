@@ -29711,19 +29711,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -29876,7 +29863,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             langJSON: this.langJson,
             templatesDirectory: this.templateDirectory,
             actions: {
-                'top': ['magnify-glass', 'undo', 'redo', 'reset-product']
+                'top': ['undo', 'reset-product', 'zoom', 'redo']
             },
             selectedColor: "#dbdee3",
             customTextParameters: {
@@ -29899,12 +29886,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             outOfBoundaryColor: "#FF0000",
             toolbarPlacement: "inside-top",
             hideDialogOnAdd: true,
-            mainBarModules: ['images', 'text', 'designs']
+            mainBarModules: ['products', 'images', 'text', 'designs']
         };
         $(document).ready(function () {
             vm.designer = new FancyProductDesigner(fpd, pluginOptions);
 
             $('#fpd').on('ready', function () {
+
                 if (Object.keys(vm.existingDesign).length !== 0) {
                     Event.$emit('design-selected', vm.existingDesign);
                 }
@@ -56377,19 +56365,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "fpd"
     }
-  }, [_c('div', {
-    staticClass: "fpd-product",
-    attrs: {
-      "title": "Titulo",
-      "data-thumbnail": "#"
-    }
-  }, [_c('img', {
-    attrs: {
-      "src": _vm.productTemplate,
-      "title": "Bracelet",
-      "data-parameters": "{\n                            \"draggable\": false,\n                            \"removable\": false,\n                            \"autoCenter\": true,\n                            \"zChangeable\": false,\n                            \"colors\": [],\n                            \"z\": 2\n                        }"
-    }
-  })])])]), _vm._v(" "), (_vm.signedIn) ? _c('div', [_c('button', {
+  }, [_vm._t("category")], 2)]), _vm._v(" "), (_vm.signedIn) ? _c('div', [_c('button', {
     staticClass: "Button--primary mg-btm-20",
     on: {
       "click": function($event) {

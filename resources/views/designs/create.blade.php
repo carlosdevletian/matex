@@ -29,13 +29,14 @@
                 @endif
                 <disclaimer></disclaimer>
                 <fpd
-                    product-template="{{ URL::to('images/design_templates/bracelet_template.png') }}"
                     template-directory="{{ URL::to('fpd') . '/'}}"
                     lang-json="{{ URL::to('default.json') }}"
                     :category-id="{{ $category->id }}"
                     :existing-design="{{ $design ? $design : '{}' }}"
                     existing-designs="{{ auth()->check() && auth()->user()->hasAnyDesignsInCategory($category->id) ? true : false }}"
-                ></fpd>
+                >
+                    @include("fpd.{$category->slug_name}")
+                </fpd>
             </div>
         </div>
     </div>

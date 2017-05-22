@@ -8,6 +8,11 @@ class Product extends Model
 {
     protected $fillable = ['display_position', 'category_id', 'name', 'width', 'length', 'is_active'];
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = strtolower( str_singular($value) );
+    }
+
     public function items()
     {
         return $this->hasMany(Item::class);

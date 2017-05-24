@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h4>Edit Category</h4>
+                <h3 class="main-title">Edit Category</h3>
                 <form method="POST" action="{{ route('categories.update', ['category' => $category->id]) }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="_method" value="PUT">

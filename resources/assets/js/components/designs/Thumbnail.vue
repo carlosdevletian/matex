@@ -11,18 +11,18 @@
 
 <script>
     export default {
-        props: ['image'],
+        props: ['image', 'predesigned'],
         data: function () {
             return {
                 imageUrl: {
-                    backgroundImage : "url('/images/"+this.image+"')",
+                    backgroundImage : "url('/images/"+this.image+this.predesigned+"')",
                 }
             }
         },
         methods: {
             openImage: function() {
                 var design = {
-                    image_name : this.image,
+                    image_name : this.image+this.predesigned,
                     initial: true
                 }
                 Event.$emit('open-image', design);

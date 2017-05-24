@@ -70,6 +70,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/categories', 'CategoryController@store')->name('categories.store');
     Route::put('/categories/{category}', 'CategoryController@update')->name('categories.update');
     Route::get('/categories/edit/{category}', 'CategoryController@edit')->name('categories.edit');
+    Route::get('/categories/designs/{category}', 'CategoryController@designsIndex')->name('categories.designs');
+    Route::get('/categories/designs/add/{category}', 'CategoryController@addDesign')->name('categories.add-design');
+    Route::post('/categories/designs/{category}', 'CategoryController@storeDesign')->name('categories.store-design');
     Route::get('/category/disable/{category}', 'CategoryController@disable')->name('categories.disable');
     Route::get('/category/enable/{category}', 'CategoryController@enable')->name('categories.enable');
     // Orders

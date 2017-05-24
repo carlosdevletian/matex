@@ -63,6 +63,12 @@ class OrderController extends Controller
         $category = Category::where('slug_name', $categorySlug)->firstOrFail();
         if($redirect = $this->isUnauthorized($design, $category)) return $redirect;
 
+        if($design->exists && $design->is_predesigned) {
+            $predesigned = "/1";
+        }else {
+            $predesigned = "";
+        }
+
         if(auth()->check()) {
             $design = $design->exists ? $design : Design::findOrFail(session('design'));
 
@@ -70,16 +76,21 @@ class OrderController extends Controller
                 'products' => Product::activeFrom($category->id),
                 'addresses' => Address::where('user_id', auth()->user()->id)->get(),
                 'design' => $design->id, 
-                'design_image' => $design->image_name
+                'design_image' => $design->image_name,
+                'predesigned' => $predesigned
             ]);
         }
+
+        $orderDesign = $design->exists ? $design->id : session('design');
+        $design_image = $design->exists ? $design->image_name : session('design');
 
         return view('orders.create', [
             'products' => Product::activeFrom($category->id),
             'addresses' => collect(),
-            'design' => session('design'), 
-            'design_image' => session('design'), 
-            'categoryId' => $category->id
+            'design' => $design, 
+            'design_image' => $design_image, 
+            'categoryId' => $category->id,
+            'predesigned' => $predesigned
         ]);
     }
 
@@ -111,8 +122,10 @@ class OrderController extends Controller
 
     private function isUnauthorized($design, $category)
     {
-        if(! $design->exists && ! session('design')) return redirect()->route('home');
-        if($design->exists && ! $design->ownedByUser())return redirect()->route('dashboard');
+        if(!$design->is_predesigned){
+            if(! $design->exists && ! session('design')) return redirect()->route('home');
+            if($design->exists && ! $design->ownedByUser())return redirect()->route('dashboard');
+        }
         if(! $category->isActive()) return redirect()->route('home');
 
         return;

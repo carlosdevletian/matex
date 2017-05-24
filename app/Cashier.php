@@ -61,17 +61,21 @@ class Cashier
         if($this->client['is_registered']){
             session()->forget(['design']); 
             return $this;
-        } 
-
-        $this->design = Design::create([
-            'email' => $this->client['email'], 
-            'category_id' => $this->request->category_id,
-            'image_name' => session('design'), 
-            'views' => session('fpd-views'), 
-            'comment' => session('design_comment')
-        ]);
-        $this->design->move();
-        session()->forget(['fpd-views', 'design_comment', 'design']);
+        }
+        
+        if(! empty(json_decode($this->request->design)) && json_decode($this->request->design)->is_predesigned) {
+            $this->design = Design::findOrFail(json_decode($this->request->design)->id);
+        }else{
+            $this->design = Design::create([
+                'email' => $this->client['email'], 
+                'category_id' => $this->request->category_id,
+                'image_name' => session('design'), 
+                'views' => session('fpd-views'), 
+                'comment' => session('design_comment')
+            ]);
+            $this->design->move();
+            session()->forget(['fpd-views', 'design_comment', 'design']);
+        }
 
         return $this;
     }

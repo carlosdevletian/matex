@@ -149,4 +149,32 @@ class CategoryController extends Controller
     {
         $category->enable();
     }
+
+    public function designsIndex(Category $category)
+    {
+        $designs = Design::where('is_predesigned',true)->where('category_id', $category->id)->get();
+
+        return view('categories.designs', compact('category', 'designs'));
+    }
+
+    public function addDesign(Category $category)
+    {
+        return view('categories.add-design', compact('category'));
+    }
+
+    public function storeDesign(Category $category)
+    {
+        $this->validate(request(), [
+            'file' => 'required|image|max:10000'
+        ]);
+
+        $design = new Design();
+        $design->makeImage($category, true);
+        $design->category_id = $category->id;
+        $design->is_predesigned = true;
+        $design->save();
+
+        flash()->success('Success!','Changes Made');
+        return redirect()->route('categories.designs', compact('category'));
+    }
 }

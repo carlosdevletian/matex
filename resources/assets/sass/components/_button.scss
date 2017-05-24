@@ -16,6 +16,22 @@
     @include button($brand-secondary, true, 9pt, $full-size: false);
     padding: 5px;
     margin: 0px 5px;
+
+    &--active {
+        background-color: $brand-secondary;
+        color: white;
+    }
+}
+
+.Button--product--primary {
+    @include button($brand-primary, true, 9pt, $full-size: false);
+    padding: 5px;
+    margin: 0px 5px;
+
+    &--active {
+        background-color: $brand-primary;
+        color: white;
+    }
 }
 
 .Button--modal {

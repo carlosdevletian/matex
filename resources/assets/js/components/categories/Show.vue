@@ -6,6 +6,7 @@
                 <div class="Flippable__back position-relative" @click.stop>
                     <div class="Thumbnail--image position-absolute text-center" style="width: 100%; bottom: 0">
                         <a role="button" @click="editCategory" class="Icon__more--element">Edit</a>
+                        <a role="button" @click="designs" class="Icon__more--element">Designs</a>
                         <a v-if="!! +category.is_active" role="button" @click="disableCategory" class="Icon__more--element">Disable</a>
                         <a v-else role="button" @click="enableCategory" class="Icon__more--element">Enable</a>
                     </div>
@@ -44,6 +45,9 @@
             },
             editCategory: function() {
                 window.location = `/categories/edit/${this.category.id}`
+            },
+            designs: function() {
+                window.location = `/categories/designs/${this.category.id}`
             },
             disableCategory: function() {
                 axios.get(`/category/disable/${this.category.id}`)

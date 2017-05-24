@@ -73,6 +73,7 @@ const app = new Vue({
         showCartPreview: false,
         showContactModal: false,
         showDesignPicker: false,
+        showPredesignedPicker: false,
         showContactUserModal: false,
         showUserCommentModal: false,
     },

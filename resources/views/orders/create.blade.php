@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div style="margin-bottom: 20px;">
-                    <design-thumbnail image="{{ $design_image }}"></design-thumbnail>
+                    <design-thumbnail predesigned="{{ $predesigned }}" image="{{ $design_image }}"></design-thumbnail>
                 </div>
                 <div>
                     <order-create

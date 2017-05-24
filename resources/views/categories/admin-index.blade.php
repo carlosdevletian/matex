@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="row">
-                    <h4>Active Categories</h4>
+                    <h3 class="main-title">Active Categories</h3>
                     @foreach($activeCategories as $category)
                         <category-show 
                             :category="{{ $category }}" 
@@ -21,7 +21,7 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <h4>Inactive Categories</h4>
+                    <h3 class="main-title">Inactive Categories</h3>
                     @foreach($inactiveCategories as $category)
                         <category-show 
                             :category="{{ $category }}" 

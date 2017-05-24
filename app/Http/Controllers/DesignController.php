@@ -51,13 +51,16 @@ class DesignController extends Controller
         if(! $category->isActive()) {
             return redirect()->route('home');
         }
+        $predesignedDesigns = Design::where('is_predesigned', true)->where('category_id', $category->id)->get();
         if(auth()->check()) {
             return view('designs.create', [
                         'category' => $category, 
                         'design' => $design, 
-                        'existingDesigns'=> Design::fromCategory(auth()->id(), $category->id)]);
+                        'existingDesigns'=> Design::fromCategory(auth()->id(), $category->id),
+                        'predesignedDesigns' => $predesignedDesigns
+                        ]);
         }
-        return view('designs.create', compact('category', 'design'));
+        return view('designs.create', compact('category', 'design', 'predesignedDesigns'));
     }
 
     /**

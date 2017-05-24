@@ -6,14 +6,20 @@
             </a>
             <div class="Flippable__back position-relative" @click.stop>
                 <div class="Thumbnail--image position-absolute text-center" style="width: 100%; bottom: 0;display: flex; justify-content: center; flex-direction: column">
-                    <a role="button" v-if="!!+design.category.is_active" @click="orderAgain" class="Icon__more--element Icon__more--element--no-border">Order Again</a>
-                    <a role="button" @click="deleteDesign" class="Icon__more--element">Delete</a>
-                    <a role="button" v-if="!!+design.category.is_active" @click="redesign" class="Icon__more--element">Redesign</a>
+                    <div v-if="!!+design.is_predesigned">
+                        <a role="button" v-if="! admin" @click="orderAgain" class="Icon__more--element Icon__more--element--no-border">Order</a>
+                        <a role="button" v-if="admin" @click="deleteDesign" class="Icon__more--element Icon__more--element--no-border">Delete</a>
+                    </div>
+                    <div v-else>
+                        <a role="button" v-if="!!+design.category.is_active" @click="orderAgain" class="Icon__more--element Icon__more--element--no-border">Order Again</a>
+                        <a role="button" @click="deleteDesign" class="Icon__more--element">Delete</a>
+                        <a role="button" v-if="!!+design.category.is_active" @click="redesign" class="Icon__more--element">Redesign</a>   
+                    </div>
                 </div>
             </div>
             <div class="Thumbnail__text text-center">{{ categoryName() }}</div>
         </div>
-        <div class="position-relative" v-if="! admin">
+        <div class="position-relative" v-if="! admin || design.is_predesigned">
             <button @click="showMore = !showMore" class="Icon__more">
                 &#x22ee;
             </button>

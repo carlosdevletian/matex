@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h4>Create a Product Category</h4>
+                <h3 class="main-title">Create a Product Category</h3>
                 <form method="POST" action="{{ route('categories.store') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
 

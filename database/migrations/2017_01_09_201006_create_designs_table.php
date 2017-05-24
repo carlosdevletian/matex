@@ -23,6 +23,7 @@ class CreateDesignsTable extends Migration
             $table->integer('price')->unsigned()->default(0);
             $table->integer('color_quantity')->unsigned()->nullable();
             $table->text('comment')->nullable();
+            $table->boolean('is_predesigned')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

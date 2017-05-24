@@ -13,7 +13,7 @@ class Design extends Model
     use SoftDeletes, Filterable;
  
     protected $fillable = [
-        'image_name', 'price', 'user_id', 'email', 'views', 'crop_width', 'crop_height', 'crop_x_position', 'crop_y_position', 'category_id', 'comment'
+        'image_name', 'price', 'user_id', 'email', 'views', 'crop_width', 'crop_height', 'crop_x_position', 'crop_y_position', 'category_id', 'comment', 'is_predesigned'
     ];
 
     protected $dates = ['deleted_at'];
@@ -54,13 +54,17 @@ class Design extends Model
         return $this->hasMany(Item::class);
     }
 
-    public function makeImage($category)
+    public function makeImage($category, $predesigned = false)
     {
         $this->assignFilePath();
 
-        $encoded = substr(request()->base64_image, strpos(request()->base64_image, ",")+1);
+        if($predesigned) {
+            Image::make(request()->file)->save($this->filepath);
+        }else {
+            $encoded = substr(request()->base64_image, strpos(request()->base64_image, ",")+1);
+            Image::make($encoded)->crop($category->crop_width, $category->crop_height, $category->crop_x_position, $category->crop_y_position)->save($this->filepath);
+        }
 
-        Image::make($encoded)->crop($category->crop_width, $category->crop_height, $category->crop_x_position, $category->crop_y_position)->save($this->filepath);
 
         return $this->image_name;
     }

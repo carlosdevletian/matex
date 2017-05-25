@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row">
             <h1 class="col-sm-10 About__title">
-                We Strive to Make Quality Products
+                We strive to make quality products
             </h1>
         </div>
     </div>
@@ -69,8 +69,12 @@
     <div class="container" style="">
         <div class="row">
             <h1 class="col-sm-12 About__title About__title--secondary" style="color: #0000AA">
-                Lorem ipsum dolor sit amet, consectetur adipisicing
+                Weaving is our thing
             </h1>
+            <h3 class="text-center">
+                Labels, calendars, ribbons, and much more. 
+                We have been weaving quality narrow fabrics in Latin America for industrial corporations for over three decades.
+            </h3>
             <img src="/images/about/about_world.png" class="img-responsive" style="max-width: 350px; margin: 0 auto; background-color: white; border-radius: 100%"> 
         </div>
     </div>

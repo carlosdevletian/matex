@@ -54,7 +54,8 @@ $factory->define(App\Models\Design::class, function (Faker\Generator $faker) {
         },
         'category_id' => function () {
             return factory(App\Models\Category::class)->create()->id;
-        }
+        },
+        'is_predesigned' => false
     ];
 });
 

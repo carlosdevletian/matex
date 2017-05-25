@@ -20,7 +20,12 @@
             <div class="Thumbnail__text text-center">{{ categoryName() }}</div>
         </div>
         <div class="position-relative" v-if="! admin || design.is_predesigned">
-            <button @click="showMore = !showMore" class="Icon__more">
+            <button @click="showMore = !showMore" 
+                    class="Icon__more" 
+                    data-toggle="tooltip"
+                    data-trigger="hover"
+                    data-placement="bottom"
+                    title="Options">
                 &#x22ee;
             </button>
         </div>

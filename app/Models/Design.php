@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Image;
+use App\Models\Category;
 use App\Models\Traits\Filterable;
 use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
@@ -45,13 +46,39 @@ class Design extends Model
         // When a design is soft-deleted, its items in cart are deleted
         static::deleted(function($design) {
             $design->itemsInCart()->delete();
-            // $design->items()->delete();
         });
     } 
 
     public function items()
     {
         return $this->hasMany(Item::class);
+    }
+
+    public function scopePreexisting($query)
+    {
+        return $query->where('is_predesigned', true);
+    }
+
+    public function scopeCategoryActive($query)
+    {
+        return $query->whereHas('category', function($q){ 
+                    $q->active();
+                });
+    }
+
+    public static function selectForShop($take = 5)
+    {
+        $results = collect();
+        foreach(Category::active()->get() as $category) {
+            $designs = self::preexisting()
+                        ->where('category_id', $category->id)
+                        ->take($take)
+                        ->get();
+            if($designs->count() > 0) {
+                $results[$category->name] = $designs;
+            }
+        }
+        return $results;
     }
 
     public function makeImage($category, $predesigned = false)

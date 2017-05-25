@@ -15,7 +15,7 @@ export const stripeMixin = {
         openStripe(callback) {
             this.stripeHandler.open({
                 name: 'Matex',
-                description: 'Review your order before paying',
+                description: 'Add billing address & payment info',
                 currency: "usd",
                 allowRememberMe: false,
                 billingAddress: true,

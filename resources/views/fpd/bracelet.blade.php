@@ -3,7 +3,6 @@
         title="Base template"
         data-parameters=
             '{
-                "autoSelect" : true,
                 "draggable": false,
                 "removable": false,
                 "autoCenter": true,

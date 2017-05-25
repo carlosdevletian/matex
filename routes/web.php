@@ -11,6 +11,8 @@ Route::get('/categories', 'CategoryController@index')->name('categories.index');
 Route::get('/orders/{order}/{token?}', 'OrderController@show')->name('orders.show');
 // Route::post('/orders', 'OrderController@store')->name('orders.store');
 Route::get('/order/{category}/{design?}', 'OrderController@create')->name('orders.create');
+Route::get('/shop', 'ShopController@index')->name('shop.index');
+Route::get('/shop/{category}', 'ShopCategoryController@index')->name('shop-category.index');
 Route::post('/items/create','ItemController@create')->name('items.create');
 Route::put('/items/{item?}', 'ItemController@update')->name('items.update');
 Auth::routes();

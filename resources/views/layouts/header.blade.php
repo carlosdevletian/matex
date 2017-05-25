@@ -23,7 +23,8 @@
                 @if(admin())
                     <li><a href="{{ route('categories.index') }}">Products</a></li>
                 @else
-                    <li><a href="{{ route('categories.index') }}">Designer</a></li>
+                    <li><a href="{{ route('categories.index') }}">Design your own</a></li>
+                    <li><a href="{{ route('shop.index') }}">Shop</a></li>
                 @endif
                 @unless(admin())
                     <li><a @click="openContactModal()" role="button">Contact Us</a></li>
@@ -82,7 +83,7 @@
             <div class="row">
                 <a href="{{ route('dashboard') }}" class="navbar-secondary-link">
                     <div class="col-xs-4 col-sm-2 col-sm-offset-3 navbar-secondary-button navbar-secondary-button-left navbar-secondary-padding {{ Route::currentRouteName() == 'dashboard' ? 'navbar-secondary-active' : ''}}">
-                        Dashboard
+                        My Account
                     </div>
                 </a>
                 <a href="{{ route('orders.index') }}" class="navbar-secondary-link">

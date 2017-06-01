@@ -18,7 +18,7 @@ class ItemController extends Controller
         if($item->exists) {
             $item = $this->updateExisting($item, $request);
         } else {
-            $item = (new Item($request->item))->calculate()->load('product');
+            $item = (new Item($request->item))->calculate()->load(['product', 'accessory']);
         }
         
         return response()->json([

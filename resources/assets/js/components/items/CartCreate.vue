@@ -16,9 +16,13 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <p>
-                                        {{ productName() }} {{ categoryName() }} ({{ item.product.width + 'x' + item.product.length }})
+                                        {{ productName() }} 
+                                        {{ categoryName() }} 
+                                        ({{ item.product.width + 'x' + item.product.length }}) 
+                                        {{ item.accessory_id != null ? 'with ' + item.accessory.name : '' }}
                                     </p>
-                                    <a role="button" @click="addAccessory" class="color-primary">Add an accessory</a>
+                                    <a role="button" @click="addAccessory" class="color-primary" v-if="item.accessory_id == null">Add an accessory</a>
+                                    <a v-else role="button" @click="addAccessory" class="color-primary">Change accessory</a>
                                 </div>
                             </div>
                         </td>
@@ -49,6 +53,7 @@
             </div>
             <add-accessory v-if="showModal" 
                             :product="item.product"
+                            :selected-accessory="item.accessory"
                             @close="showModal = false" 
                             @accessory-selected="assignAccessory"></add-accessory>
         </div>

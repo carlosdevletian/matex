@@ -21,7 +21,7 @@ class Item extends Model
         'accessory_id'
     ];
 
-    protected $with = ['design', 'product.category'];
+    protected $with = ['design', 'product.category', 'accessory'];
 
     public function product()
     {

@@ -12,7 +12,7 @@
                             :style="imageUrl(accessory)" >
                         </div>
                         <div class="selectedAccessory" 
-                            v-show="selected == accessory.id">
+                            v-show="selected != null && selected.id == accessory.id">
                                 &#10004;
                         </div>
                     </div>
@@ -30,6 +30,10 @@
         props: {
             product: {
                 required: true
+            },
+            selectedAccessory: {
+                required: false,
+                default: null
             }
         },
         data() {
@@ -39,8 +43,10 @@
             }
         },
         created() {
+            var vm = this;
             axios.get(`/accessories/category/${this.product.category_id}`).then((response) => {
-                this.accessories = response.data.accessories
+                vm.accessories = response.data.accessories
+                vm.setSelected();
             });
         },
         methods: {
@@ -51,8 +57,22 @@
                 this.$emit('accessory-selected', this.selected);
                 this.close();
             },
+            setSelected(){
+                var vm = this;
+                if(vm.selectedAccessory != null) {
+                    vm.accessories.forEach( function(accessory) {
+                        if(accessory.id == vm.selectedAccessory.id) {
+                            vm.selected = vm.selectedAccessory;
+                        }
+                    });
+                }
+            },
             selectAccessory(accessory) {
-                this.selected = accessory.id
+                if(this.selected != null && this.selected.id == accessory.id) {
+                    this.selected = null;
+                } else {
+                    this.selected = accessory
+                }
             },
             imageUrl: function(accessory) {
                 return {

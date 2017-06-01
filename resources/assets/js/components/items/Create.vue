@@ -8,8 +8,13 @@
                             <div class="row position-relative">
                                 <div class="col-xs-12">
                                     <a @click="deleteItem" role="button" class="Item__delete" style="position: absolute; top: 3%;left: 0;">&#10005;</a>
-                                    <p class="color-secondary">{{ productName() }} ( {{ item.product.width + 'x' + item.product.length }} )</p>
-                                    <a role="button" @click="addAccessory" class="color-primary">Add an accessory</a>
+                                    <p class="color-secondary">
+                                        {{ productName() }} 
+                                        ( {{ item.product.width + 'x' + item.product.length }} ) 
+                                        {{ item.accessory_id != null ? 'with ' + item.accessory.name : '' }}
+                                    </p>
+                                    <a role="button" @click="addAccessory" class="color-primary" v-if="item.accessory_id == null">Add an accessory</a>
+                                    <a v-else role="button" @click="addAccessory" class="color-primary">Change accessory</a>
                                 </div>
                             </div>
                         </td>
@@ -36,6 +41,7 @@
             </table>
             <add-accessory v-if="showModal" 
                             :product="item.product"
+                            :selected-accessory="item.accessory"
                             @close="showModal = false" 
                             @accessory-selected="assignAccessory"></add-accessory>
         </div>

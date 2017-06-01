@@ -39,9 +39,15 @@ export const updatesItems = {
         addAccessory: function() {
             this.showModal = true;
         },
-        assignAccessory(accessoryId) {
+        assignAccessory(accessory) {
             var item = this.item;
-            item.accessory_id = accessoryId;
+            if(accessory != null) {
+                item.accessory_id = accessory.id;
+                item.accessory = accessory;
+            } else {
+                delete item['accessory_id']; 
+                delete item['accessory']; 
+            }
             this.$emit('item-updated', item);
         }
     }

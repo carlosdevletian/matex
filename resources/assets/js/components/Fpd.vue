@@ -49,6 +49,7 @@
         methods: {
             continue: function(throughLogin = false) {
                 var vm = this;
+                Event.$emit('page-is-loading');
                 this.designer.getProductDataURL( function(base64) {
                     axios.post('/designs', {
                         base64_image: base64,

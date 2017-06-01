@@ -27,6 +27,11 @@ class Category extends Model
         return $this->hasMany(Design::class);
     }
 
+    public function accessories()
+    {
+        return $this->hasMany(Accessory::class);
+    }
+
     public function updateProducts($request)
     {
         $toggledProducts = collect();

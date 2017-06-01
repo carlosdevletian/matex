@@ -8,6 +8,7 @@ use Facades\App\Tax;
 use App\Models\Order;
 use App\ItemCalculator;
 use App\Models\Address;
+use App\Models\Category;
 use Facades\App\Cashier;
 use App\Events\OrderPlaced;
 use Illuminate\Http\Request;
@@ -51,6 +52,17 @@ class VueController extends Controller
             return response()->json(['email' => 'Email address is not valid, please try another one.'], 422);
         }
         return response()->json([], 200);
+    }
+
+    public function getAccessories(Category $category)
+    {
+        $accessories = $category->accessories->map(function($accessory) {
+            return $accessory->image_path = $accessory->imagePath();
+        });
+
+        return response()->json([
+            'accessories' => $category->accessories,
+        ], 200);
     }
 
     public function calculatePrice(Request $request)

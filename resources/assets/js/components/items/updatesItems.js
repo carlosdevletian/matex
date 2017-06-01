@@ -3,6 +3,7 @@ export const updatesItems = {
         return {
             error: '',
             processing: false,
+            showModal: false
         }
     },
     methods: {
@@ -34,6 +35,14 @@ export const updatesItems = {
         },
         productName: function() {
             return `${this.item.product.name.charAt(0).toUpperCase()}${this.item.product.name.slice(1)}`;
+        },
+        addAccessory: function() {
+            this.showModal = true;
+        },
+        assignAccessory(accessoryId) {
+            var item = this.item;
+            item.accessory_id = accessoryId;
+            this.$emit('item-updated', item);
         }
     }
 }

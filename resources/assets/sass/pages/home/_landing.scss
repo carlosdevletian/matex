@@ -3,7 +3,7 @@
     padding-top: 8vh;
     height: 100vh;
     max-height: 800px;
-    background-image: radial-gradient(circle, $gradient-blue, $brand-primary 60%);
+    background-image: radial-gradient(circle, $gradient-blue, $brand-primary 40%);
     color: white;
     @include xs(){
         min-height: 568px;

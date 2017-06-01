@@ -79,6 +79,16 @@ $factory->define(App\Models\Category::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Models\Accessory::class, function (Faker\Generator $faker) {
+    return [
+        'category_id' => function () {
+            return factory(App\Models\Category::class)->create()->id;
+        },
+        'name' => 'Hook',
+        'price' => 1000,
+    ];
+});
+
 $factory->define(App\Models\Order::class, function (Faker\Generator $faker) {
     return [
         'reference_number' => $faker->ean13,
@@ -146,6 +156,9 @@ $factory->define(App\Models\Item::class, function (Faker\Generator $faker) {
         },
         'design_id' => function () {
             return factory(App\Models\Design::class)->create()->id;
+        },
+        'accessory_id' => function () {
+            return factory(App\Models\Accessory::class)->create()->id;
         },
         'quantity' => $faker->numberBetween($min = 5, $max = 1000),
         'unit_price' => $faker->numberBetween($min = 10, $max = 100),

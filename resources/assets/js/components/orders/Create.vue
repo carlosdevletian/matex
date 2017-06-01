@@ -26,11 +26,8 @@
             <table class="table borderless mg-0">
                 <tbody>
                     <tr>
-                        <td class="col-xs-7 col-sm-5">
+                        <td class="col-xs-7">
                             <p>Items</p>
-                        </td>
-                        <td class="hidden-xs col-sm-2">
-                            <p>Size</p>
                         </td>
                         <td class="col-xs-3">
                             <p class="visible-xs-block">Qty</p>

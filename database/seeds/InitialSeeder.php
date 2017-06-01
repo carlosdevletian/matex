@@ -6,6 +6,7 @@ use App\Models\Status;
 use App\Models\Address;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Accessory;
 use Illuminate\Database\Seeder;
 
 class InitialSeeder extends Seeder
@@ -54,6 +55,11 @@ class InitialSeeder extends Seeder
         factory(Status::class)->create(['name' => 'Delivered', 'color' => 'green']);
         factory(Status::class)->create(['name' => 'Canceled', 'color' => 'black']);
         
+        factory(Accessory::class)->create(['name' => 'hook', 'category_id' => $calendar->id, 'image_name' => 'epa']);
+        factory(Accessory::class)->create(['name' => 'thing', 'category_id' => $calendar->id, 'image_name' => 'epa']);
+        factory(Accessory::class)->create(['name' => 'ribbon', 'category_id' => $bracelet->id, 'image_name' => 'epa']);
+        factory(Accessory::class)->create(['name' => 'hook', 'category_id' => $bracelet->id, 'image_name' => 'epa']);
+        
         $product = factory(Product::class)->create(['name' => 'small', 'category_id' => $calendar->id, 'display_position' => 1]);
         $product2 = factory(Product::class)->create(['name' => 'medium', 'category_id' => $calendar->id, 'display_position' => 2]);
         
@@ -62,5 +68,8 @@ class InitialSeeder extends Seeder
         $product3 = factory(Product::class)->create(['name' => 'large', 'category_id' => $bracelet->id, 'display_position' => 3]);
         $product4 = factory(Product::class)->create(['name' => 'x-large', 'category_id' => $bracelet->id, 'display_position' => 4]);
         $product5 = factory(Product::class)->create(['name' => 'xx-Large', 'category_id' => $bracelet->id, 'display_position' => 5]);
+
+        $bracelet->enable();
+        $calendar->enable();
     }
 }

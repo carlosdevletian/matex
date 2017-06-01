@@ -4,7 +4,7 @@
             <table class="table borderless mg-0">
                 <tbody>
                     <tr>
-                        <td class="col-xs-7 col-sm-5">
+                        <td class="col-xs-7">
                             <div class="row position-relative">
                                 <div class="col-xs-4">
                                     <a @click="deleteItem" role="button" class="Item__delete" style="position: absolute; top: 25%;left: -5%;">&#10005;</a>
@@ -16,13 +16,11 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <p>
-                                        {{ productName() }} {{ categoryName() }}
+                                        {{ productName() }} {{ categoryName() }} ({{ item.product.width + 'x' + item.product.length }})
                                     </p>
+                                    <a role="button" @click="addAccessory" class="color-primary">Add an accessory</a>
                                 </div>
                             </div>
-                        </td>
-                        <td class="hidden-xs col-sm-2">
-                            <p>{{ item.product.width + 'x' + item.product.length }}</p>
                         </td>
                         <td class="col-xs-3">
                             <div class="position-relative">
@@ -49,6 +47,10 @@
                     height: 100%; 
                     top: 0;">
             </div>
+            <add-accessory v-if="showModal" 
+                            :product="item.product"
+                            @close="showModal = false" 
+                            @accessory-selected="assignAccessory"></add-accessory>
         </div>
     </div>
 </template>

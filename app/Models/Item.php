@@ -17,7 +17,8 @@ class Item extends Model
         'quantity',
         'unit_price',
         'total_price',
-        'available'
+        'available',
+        'accessory_id'
     ];
 
     protected $with = ['design', 'product.category'];
@@ -30,6 +31,11 @@ class Item extends Model
     public function design()
     {
         return $this->belongsTo(Design::class);
+    }
+
+    public function accessory()
+    {
+        return $this->belongsTo(Accessory::class);
     }
 
     public function order()
@@ -47,6 +53,7 @@ class Item extends Model
         return self::where('cart_id', $item->cart_id)
             ->where('design_id', $item->design_id)
             ->where('product_id', $item->product_id)
+            ->where('accessory_id', $item->accessory_id)
             ->first();
     }
 

@@ -25,6 +25,7 @@ Route::post('/calculateTax', 'VueController@calculateTax')->name('calculate-tax'
 Route::post('/pay', 'VueController@pay')->name('pay');
 Route::post('/retryPayment', 'VueController@retryPayment')->name('retryPayment');
 Route::post('/addresses', 'AddressController@store')->name('addresses.store');
+Route::get('/accessories/category/{category}', 'VueController@getAccessories')->name('category-accessories.index');
 
  /* AUTH ROUTES */
 Route::group(['middleware' => 'auth'], function () {

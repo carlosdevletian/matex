@@ -17,6 +17,7 @@ class CreateItemsTable extends Migration
             $table->increments('id');
             $table->integer('order_id')->unsigned()->nullable();
             $table->integer('cart_id')->unsigned()->nullable();
+            $table->integer('accessory_id')->unsigned()->nullable();
             $table->integer('product_id')->unsigned();
             $table->integer('design_id')->unsigned();
             $table->integer('quantity')->unsigned();
@@ -29,6 +30,7 @@ class CreateItemsTable extends Migration
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('design_id')->references('id')->on('designs')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('accessory_id')->references('id')->on('accessories')->onDelete('cascade');
         });
     }
 

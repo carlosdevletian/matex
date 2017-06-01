@@ -33,6 +33,7 @@ Vue.component('modal-contact', require('./components/modals/Contact.vue'));
 Vue.component('modal-template', require('./components/modals/Template.vue'));
 Vue.component('user-comment', require('./components/modals/UserComment.vue'));
 Vue.component('contact-user', require('./components/modals/ContactUser.vue'));
+Vue.component('add-accessory', require('./components/modals/AddAccessory.vue'));
 
 Vue.component('fpd', require('./components/Fpd.vue'));
 Vue.component('products', require('./components/Products.vue'));
@@ -45,6 +46,7 @@ Vue.component('faq', require('./components/Faq.vue'));
 Vue.component('disclaimer', require('./components/Disclaimer.vue'));
 
 Vue.component('active-checkbox', require('./components/ActiveCheckbox.vue'));
+Vue.component('page-loader', require('./components/PageLoader.vue'));
 
 Vue.directive('focus', {
     inserted: function (el) {
@@ -68,6 +70,8 @@ const app = new Vue({
         design: '',
         user: null,
         modalActive: false,
+        pageIsLoading: true,
+        pageLoaderTop: null,
         selectedRole: 'Select a role for the new user',
         showImageModal: false,
         showCartPreview: false,
@@ -79,6 +83,10 @@ const app = new Vue({
     },
     created: function() {
         var vm = this;
+        this.setLoadingSpinner();
+        Event.$on('page-is-loading', function($top = null) {
+            vm.pageIsLoading = true;
+        })
         Event.$on('close-design-picker', function() {
             vm.showDesignPicker = false;
         })
@@ -157,6 +165,12 @@ const app = new Vue({
             }).then(function () {
                 event.target.submit();
             }).catch(swal.noop);
+        },
+        setLoadingSpinner: function() {
+            var vm = this;
+            window.onload = function() {
+                vm.pageIsLoading = false;
+            }
         }
     }
 });

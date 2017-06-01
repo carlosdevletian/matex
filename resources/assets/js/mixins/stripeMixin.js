@@ -30,6 +30,9 @@ export const stripeMixin = {
         purchaseOrder(token) {
             // window.onbeforeunload = this.leaving;
 
+            Event.$emit('page-is-loading', {
+                top: '32.4%'
+            });
             swal({
                 title: 'Thank you for shopping with us!',
                 customClass: 'Modal',
@@ -39,7 +42,6 @@ export const stripeMixin = {
                 allowEscapeKey : false,
                 allowOutsideClick : false,
             }).catch(swal.noop)
-
             axios.post(`/pay`, {
                 payment_token: token.id,
                 newAddress: this.address,

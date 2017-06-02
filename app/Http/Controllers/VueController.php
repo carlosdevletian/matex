@@ -56,12 +56,12 @@ class VueController extends Controller
 
     public function getAccessories(Category $category)
     {
-        $accessories = $category->accessories->map(function($accessory) {
+        $accessories = $category->activeAccessories->map(function($accessory) {
             return $accessory->image_path = $accessory->imagePath();
         });
 
         return response()->json([
-            'accessories' => $category->accessories,
+            'accessories' => $category->activeAccessories,
         ], 200);
     }
 

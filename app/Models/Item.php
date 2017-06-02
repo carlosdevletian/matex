@@ -102,7 +102,7 @@ class Item extends Model
     {
         // Takes the Item instance and strips out the previously eager 
         // loaded relationships so it can be saved to the database.
-        $filtered = collect($this->toArray())->except(['product', 'design'])->all();
+        $filtered = collect($this->toArray())->except(['product', 'design', 'accessory'])->all();
         return $this->newFromBuilder($filtered);
     }
 

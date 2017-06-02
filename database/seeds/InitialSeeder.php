@@ -55,10 +55,10 @@ class InitialSeeder extends Seeder
         factory(Status::class)->create(['name' => 'Delivered', 'color' => 'green']);
         factory(Status::class)->create(['name' => 'Canceled', 'color' => 'black']);
         
-        factory(Accessory::class)->create(['name' => 'hook', 'category_id' => $calendar->id, 'image_name' => 'epa']);
-        factory(Accessory::class)->create(['name' => 'thing', 'category_id' => $calendar->id, 'image_name' => 'epa']);
-        factory(Accessory::class)->create(['name' => 'ribbon', 'category_id' => $bracelet->id, 'image_name' => 'epa']);
-        factory(Accessory::class)->create(['name' => 'hook', 'category_id' => $bracelet->id, 'image_name' => 'epa']);
+        factory(Accessory::class)->create(['name' => 'hook', 'category_id' => $calendar->id, 'image_name' => 'epa', 'is_active' => true]);
+        factory(Accessory::class)->create(['name' => 'thing', 'category_id' => $calendar->id, 'image_name' => 'epa', 'is_active' => true]);
+        factory(Accessory::class)->create(['name' => 'ribbon', 'category_id' => $bracelet->id, 'image_name' => 'epa', 'is_active' => true]);
+        factory(Accessory::class)->create(['name' => 'hook', 'category_id' => $bracelet->id, 'image_name' => 'epa', 'is_active' => true]);
         
         $product = factory(Product::class)->create(['name' => 'small', 'category_id' => $calendar->id, 'display_position' => 1]);
         $product2 = factory(Product::class)->create(['name' => 'medium', 'category_id' => $calendar->id, 'display_position' => 2]);

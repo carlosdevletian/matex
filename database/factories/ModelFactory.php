@@ -86,6 +86,7 @@ $factory->define(App\Models\Accessory::class, function (Faker\Generator $faker) 
         },
         'name' => 'Hook',
         'price' => 1000,
+        'image_name' => 'some_image.png'
     ];
 });
 

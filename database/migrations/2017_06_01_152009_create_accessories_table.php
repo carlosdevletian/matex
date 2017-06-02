@@ -19,6 +19,7 @@ class CreateAccessoriesTable extends Migration
             $table->unsignedInteger('price');
             $table->string('image_name');
             $table->string('name');
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');

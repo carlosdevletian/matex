@@ -87,4 +87,7 @@ Route::group(['middleware' => 'admin'], function () {
     // Addresses
     Route::get('/addresses/{address}', 'AddressController@edit')->name('addresses.edit');
     Route::put('/addresses/{address}', 'AddressController@update')->name('addresses.update');
+    // Accessories
+    Route::get('/accessory/enable/{accessory}', 'AccessoryController@enable')->name('accessories.enable');
+    Route::get('/accessory/disable/{accessory}', 'AccessoryController@disable')->name('accessories.disable');
 });

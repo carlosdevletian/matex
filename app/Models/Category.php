@@ -32,6 +32,11 @@ class Category extends Model
         return $this->hasMany(Accessory::class);
     }
 
+    public function activeAccessories()
+    {
+        return $this->accessories()->where('is_active', true);
+    }
+
     public function updateProducts($request)
     {
         $toggledProducts = collect();

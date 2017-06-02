@@ -17024,9 +17024,7 @@ var stripeMixin = {
         purchaseOrder: function purchaseOrder(token) {
             // window.onbeforeunload = this.leaving;
 
-            Event.$emit('page-is-loading', {
-                top: '32.4%'
-            });
+            Event.$emit('page-is-loading');
             swal({
                 title: 'Thank you for shopping with us!',
                 customClass: 'Modal',
@@ -28269,7 +28267,6 @@ var app = new Vue({
         user: null,
         modalActive: false,
         pageIsLoading: true,
-        pageLoaderTop: null,
         selectedRole: 'Select a role for the new user',
         showImageModal: false,
         showCartPreview: false,
@@ -28283,8 +28280,6 @@ var app = new Vue({
         var vm = this;
         this.setLoadingSpinner();
         Event.$on('page-is-loading', function () {
-            var $top = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
             vm.pageIsLoading = true;
         });
         Event.$on('close-design-picker', function () {
@@ -29960,20 +29955,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    topPosition: {
-      default: '50%'
-    }
-  },
-  computed: {
-    top: function top() {
-      return {
-        top: this.topPosition
-      };
-    }
-  }
-});
+/* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
 /* 162 */
@@ -34216,7 +34198,7 @@ exports.push([module.i, "\n.left {\n    left: 0;\n}\n", ""]);
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n.page-background {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-image: -webkit-radial-gradient(circle, rgba(0,0,0,0), rgba(0,0,0,0.4) 60%);\n    background-image: radial-gradient(circle, rgba(0,0,0,0), rgba(0,0,0,0.4) 60%);\n    -webkit-transition: opacity .3s ease;\n    transition: opacity .3s ease;\n    overflow-y: hidden;\n}\n.span {\n  position: absolute;\n  display: block;\n  width: 60px;\n  height: 60px;\n  border: 3px solid #111;\n  border-radius: 100%;\n}\n.a, .b, .c {\n  -webkit-animation-name: rotate;\n          animation-name: rotate;\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n  -webkit-animation-timing-function: linear;\n          animation-timing-function: linear;\n}\n.a {\n  border-color: #D04343;\n  -webkit-animation-duration: 1500ms;\n          animation-duration: 1500ms;\n}\n.b {\n  border-color: #0000AA;\n  -webkit-animation-duration: 4500ms;\n          animation-duration: 4500ms;\n  -webkit-transform-origin: 63% 63%;\n          transform-origin: 63% 63%;\n  width: 40px;\n  height: 40px;\n}\n.c {\n  border-color: #F16A26;\n  -webkit-animation-duration: 9000ms;\n          animation-duration: 9000ms;\n  -webkit-transform-origin: 74% 74%;\n          transform-origin: 74% 74%;\n  width: 20px;\n  height: 20px;\n}\n@-webkit-keyframes rotate {\n0% {\n    -webkit-transform: rotateZ(0deg);\n            transform: rotateZ(0deg);\n}\n100% {\n    -webkit-transform: rotateZ(360deg);\n            transform: rotateZ(360deg);\n}\n}\n@keyframes rotate {\n0% {\n    -webkit-transform: rotateZ(0deg);\n            transform: rotateZ(0deg);\n}\n100% {\n    -webkit-transform: rotateZ(360deg);\n            transform: rotateZ(360deg);\n}\n}\n.center {\n  z-index: 99999999;\n  position: fixed;\n  top: 50%;\n  left: 44.6%;\n}\n", ""]);
+exports.push([module.i, "\n.page-background {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  position: fixed;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  padding: 10px;\n  background-color: transparent;\n  position: fixed;\n  z-index: 9998;\n  background-image: -webkit-radial-gradient(circle, rgba(0,0,0,0), rgba(0,0,0,0.4) 60%);\n  background-image: radial-gradient(circle, rgba(0,0,0,0), rgba(0,0,0,0.4) 60%);\n  -webkit-transition: opacity .3s ease;\n  transition: opacity .3s ease;\n}\n.span {\n  position: absolute;\n  display: block;\n  width: 60px;\n  height: 60px;\n  border: 3px solid #111;\n  border-radius: 100%;\n}\n.outer, .middle, .inner {\n  -webkit-animation-name: rotate;\n          animation-name: rotate;\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n  -webkit-animation-timing-function: linear;\n          animation-timing-function: linear;\n}\n.outer {\n  border-color: #D04343;\n  -webkit-animation-duration: 1500ms;\n          animation-duration: 1500ms;\n}\n.middle {\n  border-color: #0000AA;\n  -webkit-animation-duration: 4500ms;\n          animation-duration: 4500ms;\n  -webkit-transform-origin: 63% 63%;\n          transform-origin: 63% 63%;\n  width: 40px;\n  height: 40px;\n}\n.inner {\n  border-color: #F16A26;\n  -webkit-animation-duration: 9000ms;\n          animation-duration: 9000ms;\n  -webkit-transform-origin: 74% 74%;\n          transform-origin: 74% 74%;\n  width: 20px;\n  height: 20px;\n}\n.center {\n  margin: auto;\n  padding-right: 60px;\n  z-index: 99999999;\n}\n@-webkit-keyframes rotate {\n0% {\n    -webkit-transform: rotateZ(0deg);\n            transform: rotateZ(0deg);\n}\n100% {\n    -webkit-transform: rotateZ(360deg);\n            transform: rotateZ(360deg);\n}\n}\n@keyframes rotate {\n0% {\n    -webkit-transform: rotateZ(0deg);\n            transform: rotateZ(0deg);\n}\n100% {\n    -webkit-transform: rotateZ(360deg);\n            transform: rotateZ(360deg);\n}\n}\n", ""]);
 
 /***/ }),
 /* 188 */
@@ -58840,20 +58822,19 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "page-background"
   }, [_c('div', {
-    staticClass: "center",
-    style: (_vm.top)
-  }, [_vm._m(0)])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "span a"
+    staticClass: "center"
   }, [_c('span', {
-    staticClass: "span b"
+    staticClass: "span outer"
   }, [_c('span', {
-    staticClass: "span c"
-  })])])
+    staticClass: "span middle"
+  }, [_c('span', {
+    staticClass: "span inner"
+  })])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

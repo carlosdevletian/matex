@@ -30,9 +30,7 @@ export const stripeMixin = {
         purchaseOrder(token) {
             // window.onbeforeunload = this.leaving;
 
-            Event.$emit('page-is-loading', {
-                top: '32.4%'
-            });
+            Event.$emit('page-is-loading');
             swal({
                 title: 'Thank you for shopping with us!',
                 customClass: 'Modal',

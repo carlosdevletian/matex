@@ -48,7 +48,7 @@
     </head>
     <body class="{{ $backgroundColor or '' }}">
         <div id="app">
-            <page-loader v-if="pageIsLoading" top-position="pageLoaderTop"></page-loader>
+            <page-loader v-if="pageIsLoading"></page-loader>
             <!-- <div v-bind:class="{ Blur: modalActive }"> -->
                 <header>
                     @include('layouts.header')

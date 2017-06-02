@@ -71,7 +71,6 @@ const app = new Vue({
         user: null,
         modalActive: false,
         pageIsLoading: true,
-        pageLoaderTop: null,
         selectedRole: 'Select a role for the new user',
         showImageModal: false,
         showCartPreview: false,
@@ -84,7 +83,7 @@ const app = new Vue({
     created: function() {
         var vm = this;
         this.setLoadingSpinner();
-        Event.$on('page-is-loading', function($top = null) {
+        Event.$on('page-is-loading', function() {
             vm.pageIsLoading = true;
         })
         Event.$on('close-design-picker', function() {

@@ -6,7 +6,7 @@
 
         <div slot="body" class="pd-btm-50">
             <div class="Card Card--thumbnail" v-for="accessory in accessories">
-                <a href="#" role="button" @click="selectAccessory(accessory)">
+                <a role="button" @click="selectAccessory(accessory)">
                     <div class="position-relative color-primary">
                         <div class="Thumbnail--image background-image" 
                             :style="imageUrl(accessory)" >

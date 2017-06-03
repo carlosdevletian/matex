@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Categories
+    Design for {{ ucfirst($category->name) }}
 @endsection
 
 @section('content')

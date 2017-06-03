@@ -6,6 +6,7 @@ use Storage;
 use App\Models\Design;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Accessory;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -74,6 +75,7 @@ class CategoryController extends Controller
         $category->crop_height = request()->croph; 
         $category->crop_x_position = request()->cropx; 
         $category->crop_y_position = request()->cropy;
+        $category->disclaimer = request()->disclaimer;
 
         $category->save();
 
@@ -131,7 +133,8 @@ class CategoryController extends Controller
             'crop_width' => request()->cropw, 
             'crop_height' => request()->croph, 
             'crop_x_position' => request()->cropx, 
-            'crop_y_position' => request()->cropy
+            'crop_y_position' => request()->cropy,
+            'disclaimer' => request()->disclaimer
         ]);
 
         $category->updateProducts(request('products'));

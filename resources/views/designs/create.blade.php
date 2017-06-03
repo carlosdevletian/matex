@@ -36,7 +36,9 @@
                 @if(auth()->check() && auth()->user()->hasAnyDesignsInCategory($category->id))
                     <design-picker :designs="{{ $existingDesigns }}" v-if="showDesignPicker" key="2"></design-picker>
                 @endif
-                <disclaimer></disclaimer>
+                @unless(empty($category->disclaimer))
+                    <disclaimer text="{{ $category->disclaimer }}"></disclaimer>
+                @endunless
                 <fpd
                     template-directory="{{ URL::to('fpd') . '/'}}"
                     lang-json="{{ URL::to('default.json') }}"

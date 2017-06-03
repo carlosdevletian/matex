@@ -88,6 +88,11 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/addresses/{address}', 'AddressController@edit')->name('addresses.edit');
     Route::put('/addresses/{address}', 'AddressController@update')->name('addresses.update');
     // Accessories
+    Route::get('/categories/accessories/{category}', 'AccessoryController@index')->name('accessories.index');
+    Route::get('/categories/accessories/add/{category}', 'AccessoryController@create')->name('accessories.create');
+    Route::post('/categories/accessories/{category}', 'AccessoryController@store')->name('accessories.store');
+    Route::get('/accessories/{accessory}', 'AccessoryController@edit')->name('accessories.edit');
+    Route::put('/accessories/{accessory}', 'AccessoryController@update')->name('accessories.update');
     Route::get('/accessory/enable/{accessory}', 'AccessoryController@enable')->name('accessories.enable');
     Route::get('/accessory/disable/{accessory}', 'AccessoryController@disable')->name('accessories.disable');
 });

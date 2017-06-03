@@ -5,7 +5,7 @@
                 <div class="Flippable__front Thumbnail--image background-image" :style="imageUrl"></div>
                 <div class="Flippable__back position-relative" @click.stop>
                     <div class="Thumbnail--image position-absolute text-center" style="width: 100%; bottom: 0">
-                        <a role="button" @click="editCategory" class="Icon__more--element">Edit</a>
+                        <a role="button" @click="accessories" class="Icon__more--element">Accessories</a>
                         <a role="button" @click="designs" class="Icon__more--element">Designs</a>
                         <a v-if="!! +category.is_active" role="button" @click="disableCategory" class="Icon__more--element">Disable</a>
                         <a v-else role="button" @click="enableCategory" class="Icon__more--element">Enable</a>
@@ -48,6 +48,9 @@
             },
             designs: function() {
                 window.location = `/categories/designs/${this.category.id}`
+            },
+            accessories: function() {
+                window.location = `/categories/accessories/${this.category.id}`
             },
             disableCategory: function() {
                 axios.get(`/category/disable/${this.category.id}`)

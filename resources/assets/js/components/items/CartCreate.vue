@@ -18,11 +18,10 @@
                                     <p>
                                         {{ productName() }} 
                                         {{ categoryName() }} 
-                                        ({{ item.product.width + 'x' + item.product.length }}) 
-                                        {{ item.accessory_id != null ? 'with ' + item.accessory.name : '' }}
+                                        ({{ item.product.width + 'x' + item.product.length }})
                                     </p>
                                     <a role="button" @click="addAccessory" class="color-primary" v-if="item.accessory_id == null">Add an accessory</a>
-                                    <a v-else role="button" @click="addAccessory" class="color-primary">Change accessory</a>
+                                    <a v-else role="button" @click="addAccessory" class="color-primary">{{ 'with ' + item.accessory.name }}</a>
                                 </div>
                             </div>
                         </td>

@@ -23,6 +23,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('crop_y_position')->default(0);
             $table->string('image_name');
             $table->string('template_name')->nullable();
+            $table->text('disclaimer')->nullable();
             $table->boolean('is_active')->default(false);
             $table->timestamps();
         });

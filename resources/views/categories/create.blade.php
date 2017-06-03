@@ -83,6 +83,15 @@
                             </div>
                         </div>
                     </div>
+                        
+                    <div class="Input__icon">
+                        <label for="disclaimer" class="control-label">Disclaimer</label>
+                        <textarea class="Form"
+                            id="disclaimer"
+                            name="disclaimer"
+                            placeholder="Add a disclaimer"
+                            rows=4>{{ old('disclaimer') }}</textarea>
+                    </div>
 
                     <div class="col-sm-6 col-sm-offset-3 mg-top-10 mg-btm-20">
                         <button class="Button--primary">Create</button>

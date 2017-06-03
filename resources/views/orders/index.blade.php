@@ -65,6 +65,11 @@
                                                                             </p>
                                                                             <p class="Order__index__price">${{ $item->present()->unit_price}}</p>
                                                                         </div>
+                                                                        @unless(empty($item->accessory))
+                                                                            <div style="margin-bottom: 20px; margin-top: -15px; margin-left: 30px">
+                                                                                <p  class="Order__index__name">{{ 'with ' . $item->accessory->name}}</p>
+                                                                            </div>
+                                                                        @endunless
                                                                     @endforeach
                                                                 </div>
                                                             </div>

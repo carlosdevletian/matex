@@ -4,7 +4,7 @@
             <table class="table borderless mg-0">
                 <tbody>
                     <tr>
-                        <td class="col-xs-7 col-sm-5">
+                        <td class="col-xs-7">
                             <div class="row">
                                 <div class="col-xs-4">
                                     <a role="button" @click="openImage">
@@ -15,13 +15,11 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <p class="mg-0 pd-top-8">
-                                        {{ productName() }} {{ categoryName() }}
+                                        {{ productName() }} {{ categoryName() }} ({{ item.product.width + 'x' + item.product.length }})
                                     </p>
+                                    <p v-if="item.accessory !== null">{{ 'with ' + item.accessory.name }}</p>
                                 </div>
                             </div>
-                        </td>
-                        <td class="hidden-xs col-sm-2">
-                            <p class="text-center mg-0 pd-top-8">{{ item.product.width + 'x' + item.product.length }}</p>
                         </td>
                         <td class="col-xs-3">
                             <p class="text-center mg-0 pd-top-8">{{ item.quantity }}</p>

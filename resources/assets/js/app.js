@@ -27,6 +27,7 @@ Vue.component('design-show', require('./components/designs/Show.vue'));
 Vue.component('design-thumbnail', require('./components/designs/Thumbnail.vue'));
 
 Vue.component('category-show', require('./components/categories/Show.vue'));
+Vue.component('accessory-show', require('./components/accessories/Show.vue'));
 
 Vue.component('modal-image', require('./components/modals/Image.vue'));
 Vue.component('modal-contact', require('./components/modals/Contact.vue'));

@@ -5,15 +5,23 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\Status;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ToggleProductsTest extends TestCase
+class TogglingProductsTest extends TestCase
 {
     use DatabaseMigrations;
+
+    public function setUp()
+    {
+        parent::setUp();
+        factory(Status::class)->create(['name' => 'unpaid', 'id' => 1]);
+        factory(Status::class)->create(['name' => 'paid', 'id' => 2]);
+    }
 
     /** @test */
     public function unpaid_items_are_made_unavailable_when_products_are_disabled()
@@ -31,7 +39,6 @@ class ToggleProductsTest extends TestCase
             'product_id' => $this->product->id,
             'available' => 1
         ]);
-
         $this->category->updateProducts(
             $this->setProduct('unavailable')
         );
@@ -48,7 +55,7 @@ class ToggleProductsTest extends TestCase
         $unpaidItem = factory(Item::class)->create([
             'order_id' => $unpaidOrder->id,
             'product_id' => $this->product->id,
-            'available' => 1
+            'available' => 0
         ]);
 
         $this->category->updateProducts(

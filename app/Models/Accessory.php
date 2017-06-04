@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Image;
+use App\Models\Traits\HasItems;
 use Illuminate\Database\Eloquent\Model;
 
 class Accessory extends Model
 {
+    use HasItems;
+
     protected $guarded = [];
 
     public function category()
@@ -17,16 +20,6 @@ class Accessory extends Model
     public function imagePath()
     {
         return asset('accessories/'.$this->image_name);
-    }
-
-    public function enable()
-    {
-        $this->update(['is_active' => true]);
-    }
-
-    public function disable()
-    {
-        $this->update(['is_active' => false]);
     }
 
     public function isActive()

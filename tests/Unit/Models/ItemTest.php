@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Models\Item;
 use App\Models\Design;
 use App\Models\Product;
+use App\Models\Accessory;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -73,10 +74,14 @@ class ItemTest extends TestCase
     function it_correctly_asigns_all_fields_to_items_excluding_loaded_relationships()
     {
         $product = factory(Product::class)->create();
+        $design = factory(Design::class)->create();
+        $accessory = factory(Accessory::class)->create();
         $validItem = factory(Item::class)->make([
             'quantity' => 10,
             'unit_price' => 10,
-            'product_id' => $product->id
+            'product_id' => $product->id,
+            'design_id' => $design->id,
+            'accessory_id' => $accessory->id
         ]);
 
         $requestData = collect([$validItem->load('product')]);

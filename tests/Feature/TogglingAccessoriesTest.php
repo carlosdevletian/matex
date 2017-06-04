@@ -3,7 +3,12 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Models\Item;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Status;
+use App\Models\Product;
+use App\Models\Category;
 use App\Models\Accessory;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -12,6 +17,13 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class TogglingAccessoriesTest extends TestCase
 {
     use DatabaseMigrations;
+
+    public function setUp()
+    {
+        parent::setUp();
+        factory(Status::class)->create(['name' => 'unpaid', 'id' => 1]);
+        factory(Status::class)->create(['name' => 'paid', 'id' => 2]);
+    }
 
     /** @test */
     public function an_admin_can_enable_an_accessory()
@@ -63,5 +75,77 @@ class TogglingAccessoriesTest extends TestCase
 
         $response->assertRedirect(route('home'));
         $this->assertTrue($accessory->fresh()->isActive());
+    }
+
+    /** @test */
+    public function unpaid_items_are_made_unavailable_when_accessories_are_disabled()
+    {
+        $accessory = factory(Accessory::class)->create(['is_active' => true]);
+        $unpaidOrder = factory(Order::class)->states('for-guest')->create(['status_id' => 1]);
+        $paidOrder = factory(Order::class)->states('for-guest')->create(['status_id' => 2]);
+        $paidItem = factory(Item::class)->create([
+            'order_id' => $paidOrder->id,
+            'accessory_id' => $accessory->id,
+            'available' => 1
+        ]);
+        $unpaidItem = factory(Item::class)->create([
+            'order_id' => $unpaidOrder->id,
+            'accessory_id' => $accessory->id,
+            'available' => 1
+        ]);
+
+        $accessory->disable();
+
+        $this->assertFalse($accessory->fresh()->isActive());
+        $this->assertEquals(1, $paidItem->fresh()->available);
+        $this->assertEquals(0, $unpaidItem->fresh()->available);
+    }
+
+    /** @test */
+    public function unpaid_items_are_made_available_when_accessories_are_enabled()
+    {
+        $accessory = factory(Accessory::class)->create(['is_active' => true]);
+        $unpaidOrder = factory(Order::class)->states('for-guest')->create(['status_id' => 1]);
+        $unpaidItem = factory(Item::class)->create([
+            'order_id' => $unpaidOrder->id,
+            'accessory_id' => $accessory->id,
+            'available' => 0
+        ]);
+
+        $accessory->enable();
+
+        $this->assertEquals(1, $unpaidItem->fresh()->available);
+    }
+
+    /** @test */
+    public function items_in_carts_are_made_unavailable_when_accessories_are_disabled()
+    {
+        $accessory = factory(Accessory::class)->create(['is_active' => true]);
+        $cartItem = factory(Item::class)->create([
+            'order_id' => null, 
+            'cart_id' => 1, 
+            'accessory_id' => $accessory->id,
+            'available' => 1
+        ]);
+
+        $accessory->disable();
+
+        $this->assertEquals(0, $cartItem->fresh()->available);
+    }
+
+    /** @test */
+    public function items_in_carts_are_made_available_when_accessories_are_enabled()
+    {
+        $accessory = factory(Accessory::class)->create(['is_active' => false]);
+        $cartItem = factory(Item::class)->create([
+            'order_id' => null, 
+            'cart_id' => 1, 
+            'accessory_id' => $accessory->id,
+            'available' => 0
+        ]);
+
+        $accessory->enable();
+
+        $this->assertEquals(1, $cartItem->fresh()->available);
     }
 }

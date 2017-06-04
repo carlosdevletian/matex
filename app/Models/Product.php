@@ -2,20 +2,18 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasItems;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use HasItems;
+
     protected $fillable = ['display_position', 'category_id', 'name', 'width', 'length', 'is_active'];
 
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtolower( str_singular($value) );
-    }
-
-    public function items()
-    {
-        return $this->hasMany(Item::class);
     }
 
     public function category()
@@ -28,18 +26,6 @@ class Product extends Model
        return static::where('category_id', $categoryId)
                 ->where('is_active', true)
                 ->get();
-    }
-
-    public function enable()
-    {
-        $this->update(['is_active' => true]);
-        $this->unpaidItems->each->enable();
-    }
-
-    public function disable()
-    {
-        $this->update(['is_active' => false]);
-        $this->unpaidItems->each->disable();
     }
 
     public function setActive(bool $active)
@@ -84,17 +70,5 @@ class Product extends Model
     public function scopeInactive($query)
     {
         return $query->where('is_active', 0);
-    }
-
-    public function unpaidItems()
-    {
-        return $this->items()
-                    ->where(function ($q) {
-                        $q->whereNull('order_id')
-                            ->orWhereHas('order.status', function ($q) {
-                                // Status de 'Payment Pending'
-                                $q->where('id', 1);
-                            });
-                    });
     }
 }

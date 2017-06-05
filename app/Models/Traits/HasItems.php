@@ -3,6 +3,7 @@
 namespace App\Models\Traits;
 
 use App\Models\Item;
+use App\Models\Status;
 
 trait hasItems
 {
@@ -17,8 +18,7 @@ trait hasItems
                     ->where(function ($q) {
                         $q->whereNull('order_id')
                             ->orWhereHas('order.status', function ($q) {
-                                // Status de 'Payment Pending'
-                                $q->whereIn('id', [1]);
+                                $q->whereIn('id', Status::unpaid());
                             });
                     });
     } 

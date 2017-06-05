@@ -60,4 +60,19 @@ class OrderTest extends TestCase
         $this->assertEquals(3, $order->items()->count());
         $this->assertNull($items->first()->cart_id);
     }
+
+    /** @test */
+    public function can_get_all_active_orders_for_a_given_user()
+    {
+        $user = factory(User::class)->create();
+        $activeOrder = factory(Order::class)->states('active')->create(['user_id' => $user->id]);
+        $canceledOrder = factory(Order::class)->states('canceled')->create(['user_id' => $user->id]);
+
+        $queriedOrders = Order::activeForUser($user->id);
+
+        $this->assertEquals(1, $queriedOrders->count());
+        $this->assertTrue(
+            $queriedOrders->first()->is($activeOrder)
+        );
+    }
 }

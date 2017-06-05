@@ -141,12 +141,12 @@ class Order extends Model
             ->where('reference_number', $referenceNumber)->firstOrFail();
     }
 
-    public static function activeForUser($userId)
+    public static function activeForUser($userId = null, $take = 5)
     {
         return self::with('status')
-            ->where('user_id', $userId)
-            ->whereIn('status_id', [1,2,3,4])
-            ->take(5)
+            ->where('user_id', $userId ?: auth()->id())
+            ->whereIn('status_id', Status::active())
+            ->take($take)
             ->get();
     }
 
@@ -159,17 +159,19 @@ class Order extends Model
 
     public function scopeUnpaid($query)
     {
-        return $query->whereIn('status_id', [1]);
+        return $query->whereIn('status_id', Status::unpaid());
     }
 
     public function cancel()
     {
-        $this->update(['status_id' => 6]);
+        $canceledStatus = Status::canceled()[0];
+        $this->update(['status_id' => $canceledStatus]);
     }
 
     public function isCanceled()
     {
-        return $this->status_id == 6;
+        $canceledStatus = Status::canceled()[0];
+        return $this->status_id == $canceledStatus;
     }
 
     public function present()

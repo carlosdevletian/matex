@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Models;
 
 use Tests\TestCase;
 use App\Models\Cart;
@@ -13,6 +13,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class CartTest extends TestCase
 {
     use DatabaseMigrations;
+
     /** @test */
     function it_adds_calculates_order_total()
     {

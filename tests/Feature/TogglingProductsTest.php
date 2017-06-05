@@ -16,19 +16,12 @@ class TogglingProductsTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function setUp()
-    {
-        parent::setUp();
-        factory(Status::class)->create(['name' => 'unpaid', 'id' => 1]);
-        factory(Status::class)->create(['name' => 'paid', 'id' => 2]);
-    }
-
     /** @test */
     public function unpaid_items_are_made_unavailable_when_products_are_disabled()
     {
         $this->createProduct('available');
-        $unpaidOrder = factory(Order::class)->states('for-guest')->create(['status_id' => 1]);
-        $paidOrder = factory(Order::class)->states('for-guest')->create(['status_id' => 2]);
+        $unpaidOrder = factory(Order::class)->states(['for-guest', 'unpaid'])->create();
+        $paidOrder = factory(Order::class)->states(['for-guest', 'paid'])->create();
         $paidItem = factory(Item::class)->create([
             'order_id' => $paidOrder->id,
             'product_id' => $this->product->id,
@@ -51,7 +44,7 @@ class TogglingProductsTest extends TestCase
     public function unpaid_items_are_made_available_when_products_are_enabled()
     {
         $this->createProduct('unavailable');
-        $unpaidOrder = factory(Order::class)->states('for-guest')->create(['status_id' => 1]);
+        $unpaidOrder = factory(Order::class)->states(['for-guest', 'unpaid'])->create();
         $unpaidItem = factory(Item::class)->create([
             'order_id' => $unpaidOrder->id,
             'product_id' => $this->product->id,
@@ -105,7 +98,7 @@ class TogglingProductsTest extends TestCase
     public function an_order_is_canceled_when_all_its_items_are_unavailable()
     {
         $this->createProduct('available');
-        $unpaidOrder = factory(Order::class)->states('for-guest')->create(['status_id' => 1]);
+        $unpaidOrder = factory(Order::class)->states(['for-guest', 'unpaid'])->create();
         $unpaidItem = factory(Item::class, 2)->create([
             'order_id' => $unpaidOrder->id,
             'product_id' => $this->product->id,
@@ -128,7 +121,7 @@ class TogglingProductsTest extends TestCase
             'is_active' => 1
         ]);
 
-        $unpaidOrder = factory(Order::class)->states('for-guest')->create(['status_id' => 1]);
+        $unpaidOrder = factory(Order::class)->states(['for-guest', 'unpaid'])->create();
         $item1 = factory(Item::class)->create([
             'order_id' => $unpaidOrder->id,
             'product_id' => $this->product->id,

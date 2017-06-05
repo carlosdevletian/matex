@@ -6,7 +6,6 @@ use Tests\TestCase;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Order;
-use App\Models\Status;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Accessory;
@@ -17,13 +16,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class TogglingAccessoriesTest extends TestCase
 {
     use DatabaseMigrations;
-
-    public function setUp()
-    {
-        parent::setUp();
-        factory(Status::class)->create(['name' => 'unpaid', 'id' => 1]);
-        factory(Status::class)->create(['name' => 'paid', 'id' => 2]);
-    }
 
     /** @test */
     public function an_admin_can_enable_an_accessory()
@@ -81,8 +73,8 @@ class TogglingAccessoriesTest extends TestCase
     public function unpaid_items_are_made_unavailable_when_accessories_are_disabled()
     {
         $accessory = factory(Accessory::class)->create(['is_active' => true]);
-        $unpaidOrder = factory(Order::class)->states('for-guest')->create(['status_id' => 1]);
-        $paidOrder = factory(Order::class)->states('for-guest')->create(['status_id' => 2]);
+        $unpaidOrder = factory(Order::class)->states(['for-guest', 'unpaid'])->create();
+        $paidOrder = factory(Order::class)->states(['for-guest', 'paid'])->create();
         $paidItem = factory(Item::class)->create([
             'order_id' => $paidOrder->id,
             'accessory_id' => $accessory->id,
@@ -105,7 +97,7 @@ class TogglingAccessoriesTest extends TestCase
     public function unpaid_items_are_made_available_when_accessories_are_enabled()
     {
         $accessory = factory(Accessory::class)->create(['is_active' => true]);
-        $unpaidOrder = factory(Order::class)->states('for-guest')->create(['status_id' => 1]);
+        $unpaidOrder = factory(Order::class)->states(['for-guest', 'unpaid'])->create();
         $unpaidItem = factory(Item::class)->create([
             'order_id' => $unpaidOrder->id,
             'accessory_id' => $accessory->id,

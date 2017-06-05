@@ -21,7 +21,7 @@ class ViewOrderTest extends TestCase
     {
         $design = factory(Design::class)->create(['image_name' => 'test_filename.jpg']);
         $product = factory(Product::class)->create(['name' => 'small bracelet']);
-        $order = factory(Order::class)->states('for-user')->create(['user_id' => $user, 'email' => $email]);
+        $order = factory(Order::class)->states(['for-user', 'active'])->create(['user_id' => $user, 'email' => $email]);
 
         $item = Item::create([
             'order_id' => $order->id,

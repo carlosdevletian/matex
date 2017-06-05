@@ -93,9 +93,6 @@ $factory->define(App\Models\Accessory::class, function (Faker\Generator $faker) 
 $factory->define(App\Models\Order::class, function (Faker\Generator $faker) {
     return [
         'reference_number' => $faker->ean13,
-        'status_id' => function () {
-            return factory(App\Models\Status::class)->create()->id;
-        },
     ];
 });
 
@@ -116,6 +113,50 @@ $factory->state(App\Models\Order::class, 'for-user', function (Faker\Generator $
         'address_id' => function (array $order) {
             return factory(App\Models\Address::class)->create(['user_id' => $order['user_id']])->id;
         }
+    ];
+});
+
+$factory->state(App\Models\Order::class, 'active', function (Faker\Generator $faker) {
+    $activeStatusId = App\Models\Status::active()[0];
+    return [
+        'status_id' => function () use ($activeStatusId) {
+            return factory(App\Models\Status::class)
+                    ->create(['id' => $activeStatusId])
+                    ->id;
+        },
+    ];
+});
+
+$factory->state(App\Models\Order::class, 'canceled', function (Faker\Generator $faker) {
+    $canceledStatusId = App\Models\Status::canceled()[0];
+    return [
+        'status_id' => function () use ($canceledStatusId) {
+            return factory(App\Models\Status::class)
+                    ->create(['id' => $canceledStatusId])
+                    ->id;
+        },
+    ];
+});
+
+$factory->state(App\Models\Order::class, 'unpaid', function (Faker\Generator $faker) {
+    $unpaidStatusId = App\Models\Status::unpaid()[0];
+    return [
+        'status_id' => function () use ($unpaidStatusId) {
+            return factory(App\Models\Status::class)
+                    ->create(['id' => $unpaidStatusId])
+                    ->id;
+        },
+    ];
+});
+
+$factory->state(App\Models\Order::class, 'paid', function (Faker\Generator $faker) {
+    $paidStatusId = App\Models\Status::paid()[0];
+    return [
+        'status_id' => function () use ($paidStatusId) {
+            return factory(App\Models\Status::class)
+                    ->create(['id' => $paidStatusId])
+                    ->id;
+        },
     ];
 });
 

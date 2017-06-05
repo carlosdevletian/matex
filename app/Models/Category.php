@@ -39,18 +39,13 @@ class Category extends Model
 
     public function updateProducts($request)
     {
-        $toggledProducts = collect();
-        $products = collect($request)->transpose()->map(function ($productData, $key) use ($toggledProducts) {
+        $products = collect($request)->transpose()->map(function ($productData, $key){
             if($productData[0] && $product = Product::find($productData[0])) {
-                if($productData[4] !== $product->is_active) {
-                    $toggledProducts[] = $product;  
-                } 
                 return $product->updateFromRequest($productData, $key);
             }
             return Product::newProduct($productData, $this->id, $key);
         });
         if($this->countActive($products) == 0) $this->disable();
-        if($toggledProducts->count() > 0) event(new ProductsToggled($toggledProducts));
         return $products;
     }
 

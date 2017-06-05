@@ -174,6 +174,14 @@ class Order extends Model
         return $this->status_id == $canceledStatus;
     }
 
+    public function updateOrCancel()
+    {
+        $this->calculatePricing();
+        if($this->availableItems()->count() == 0) {
+            $this->cancel();
+        }
+    }
+
     public function present()
     {
         return new OrderPresenter($this);

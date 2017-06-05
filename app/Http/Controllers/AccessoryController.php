@@ -73,9 +73,9 @@ class AccessoryController extends Controller
         }
 
         if(request()->active == true) {
-            $accessory->is_active = true;
+            $accessory->enable();
         }else {
-            $accessory->is_active = false;
+            $accessory->disable();
         }
         
         $accessory->update([

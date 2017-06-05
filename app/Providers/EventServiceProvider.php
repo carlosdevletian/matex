@@ -26,9 +26,6 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\OrderStatusChanged' => [
             'App\Listeners\NotifyStatusChanged',
         ],
-        'App\Events\ProductsToggled' => [
-            'App\Listeners\UpdateItemsInUnpaidOrders',
-        ],
     ];
 
     /**

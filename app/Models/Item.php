@@ -76,11 +76,13 @@ class Item extends Model
     public function enable()
     {
         $this->update(['available' => true]);
+        if($this->order_id != null) $this->order->calculatePricing();
     }
 
     public function disable()
     {
         $this->update(['available' => false]);
+        if($this->order_id != null) $this->order->updateOrCancel();
     }
 
     public function present()

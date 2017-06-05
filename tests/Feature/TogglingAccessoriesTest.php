@@ -140,4 +140,45 @@ class TogglingAccessoriesTest extends TestCase
 
         $this->assertEquals(1, $cartItem->fresh()->available);
     }
+
+    /** @test */
+    public function an_order_is_canceled_when_all_its_items_accessories_are_unavailable()
+    {
+        $accessory = factory(Accessory::class)->create(['is_active' => true]);
+        $unpaidOrder = factory(Order::class)->states(['for-guest', 'unpaid'])->create();
+        $unpaidItem = factory(Item::class, 2)->create([
+            'order_id' => $unpaidOrder->id,
+            'accessory_id' => $accessory->id,
+            'available' => 1
+        ]);
+
+        $accessory->disable();
+
+        $this->assertTrue($unpaidOrder->fresh()->isCanceled());
+    }
+
+    /** @test */
+    public function an_order_is_not_canceled_when_some_items_accessories_are_unavailable()
+    {
+        $accessory1 = factory(Accessory::class)->create(['is_active' => true]);
+        $accessory2 = factory(Accessory::class)->create(['is_active' => true]);
+
+        $unpaidOrder = factory(Order::class)->states(['for-guest', 'unpaid'])->create();
+        $item1 = factory(Item::class)->create([
+            'order_id' => $unpaidOrder->id,
+            'accessory_id' => $accessory1->id,
+            'available' => 1
+        ]);
+        $item2 = factory(Item::class)->create([
+            'order_id' => $unpaidOrder->id,
+            'accessory_id' => $accessory2->id,
+            'available' => 1
+        ]);
+
+        $accessory2->disable();
+
+        $this->assertEquals(1, $item1->fresh()->available);
+        $this->assertEquals(0, $item2->fresh()->available);
+        $this->assertFalse($unpaidOrder->fresh()->isCanceled());
+    }
 }

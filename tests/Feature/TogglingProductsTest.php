@@ -95,7 +95,7 @@ class TogglingProductsTest extends TestCase
     }
 
     /** @test */
-    public function an_order_is_canceled_when_all_its_items_are_unavailable()
+    public function an_order_is_canceled_when_all_its_items_products_are_unavailable()
     {
         $this->createProduct('available');
         $unpaidOrder = factory(Order::class)->states(['for-guest', 'unpaid'])->create();
@@ -113,7 +113,7 @@ class TogglingProductsTest extends TestCase
     }
 
     /** @test */
-    public function an_order_is_not_canceled_when_some_items_are_unavailable()
+    public function an_order_is_not_canceled_when_some_items_products_are_unavailable()
     {
         $this->createProduct('available');
         $anotherProduct = factory(Product::class)->create([

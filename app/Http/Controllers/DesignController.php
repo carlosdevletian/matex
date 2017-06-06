@@ -9,6 +9,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Filters\DesignFilters;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class DesignController extends Controller
 {
@@ -52,15 +53,23 @@ class DesignController extends Controller
             return redirect()->route('home');
         }
         $predesignedDesigns = Design::where('is_predesigned', true)->where('category_id', $category->id)->get();
+
+        $symbols = collect(Storage::files('/public/symbols/'))->map(function($file) {
+            return substr($file, 6);
+        });
+
+        $predesignedDesigns = Design::where('is_predesigned', true)->where('category_id', $category->id)->get();
         if(auth()->check()) {
             return view('designs.create', [
                         'category' => $category, 
                         'design' => $design, 
                         'existingDesigns'=> Design::fromCategory(auth()->id(), $category->id),
-                        'predesignedDesigns' => $predesignedDesigns
+                        'predesignedDesigns' => $predesignedDesigns,
+                        'symbols' => $symbols
                         ]);
         }
-        return view('designs.create', compact('category', 'design', 'predesignedDesigns'));
+
+        return view('designs.create', compact('category', 'design', 'predesignedDesigns', 'symbols'));
     }
 
     /**

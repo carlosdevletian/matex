@@ -45,6 +45,7 @@
                     :category-id="{{ $category->id }}"
                     :existing-design="{{ $design ? $design : '{}' }}"
                     existing-designs="{{ auth()->check() && auth()->user()->hasAnyDesignsInCategory($category->id) ? true : false }}"
+                    :symbols="{{ json_encode($symbols) }}"
                 >
                     @include("fpd.{$category->slug_name}")
                 </fpd>

@@ -6,6 +6,19 @@
         <div class="Card col-xs-12 pd-0">
            <div ref="fpd" id="fpd" class="fpd-container fpd-topbar fpd-off-canvas-left fpd-top-actions-centered fpd-bottom-actions-centered">
                 <slot name="category"></slot>
+                <div class="fpd-design">
+                    <img v-for="symbol in symbols" 
+                        :src="symbol" 
+                        title="" 
+                        data-parameters='{
+                            "autoCenter" : true,
+                            "colors": "#000000", 
+                            "removable": true, 
+                            "draggable": true, 
+                            "rotatable": true, 
+                            "resizable": true
+                    }'/>
+                </div>
             </div>
         </div>
         <div v-if="signedIn">
@@ -27,10 +40,15 @@
 <script>
     export default {
         props: {
-            productTemplate: null, 
             templateDirectory: null, 
             langJson: null, 
             categoryId: null, 
+            symbols: {
+                type: Array,
+                default: function() {
+                    return []
+                }
+            },
             existingDesign: {
                 type: Object,
                 default: function () {

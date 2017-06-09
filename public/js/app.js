@@ -29752,6 +29752,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -29930,6 +29932,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 autoCenter: true,
                 z: -1
             },
+            fonts: [{ name: "Roboto", url: "google" }, { name: "Vibur", url: "google" }, { name: "Bubbler One", url: "google" }, { name: "Lato", url: "google" }],
             outOfBoundaryColor: "#FF0000",
             toolbarPlacement: "inside-top",
             hideDialogOnAdd: true,
@@ -56835,7 +56838,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "src": symbol,
         "title": "",
-        "data-parameters": "{\n                        \"autoCenter\" : true,\n                        \"colors\": \"#000000\", \n                        \"removable\": true, \n                        \"draggable\": true, \n                        \"rotatable\": true, \n                        \"resizable\": true\n                }"
+        "data-parameters": "{\n                        \"autoCenter\" : true,\n                        \"autoSelect\" : true,\n                        \"colors\": \"#000000\",\n                        \"resizeToH\" : 100,\n                        \"removable\": true, \n                        \"draggable\": true, \n                        \"rotatable\": true, \n                        \"resizable\": true\n                }"
       }
     })
   }))], 2)]), _vm._v(" "), (_vm.signedIn) ? _c('div', [_c('button', {

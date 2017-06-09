@@ -12,7 +12,9 @@
                         title="" 
                         data-parameters='{
                             "autoCenter" : true,
-                            "colors": "#000000", 
+                            "autoSelect" : true,
+                            "colors": "#000000",
+                            "resizeToH" : 100,
                             "removable": true, 
                             "draggable": true, 
                             "rotatable": true, 
@@ -217,6 +219,12 @@
                     autoCenter: true,
                     z: -1,
                 },
+                fonts: [
+                    {name: "Roboto", url: "google",},
+                    {name: "Vibur", url: "google",},
+                    {name: "Bubbler One", url: "google",},
+                    {name: "Lato", url: "google",},
+                ],
                 outOfBoundaryColor: "#FF0000",
                 toolbarPlacement: "inside-top",
                 hideDialogOnAdd: true,

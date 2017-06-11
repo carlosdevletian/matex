@@ -223,3 +223,14 @@ $factory->define(App\Models\Status::class, function (Faker\Generator $faker) {
         'color' => $faker->hexcolor
     ];
 });
+
+$factory->define(App\Models\CategoryPricing::class, function (Faker\Generator $faker) {
+    return [
+        'category_id' => function() {
+            return factory(App\Models\Category::class)->create()->id;
+        },
+        'min_quantity' => 10,
+        'max_quantity' => 20,
+        'unit_price' => 150
+    ];
+});

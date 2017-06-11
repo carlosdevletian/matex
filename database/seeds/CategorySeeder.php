@@ -1,15 +1,11 @@
 <?php
 
-use App\Models\Role;
-use App\Models\User;
-use App\Models\Status;
-use App\Models\Address;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Accessory;
 use Illuminate\Database\Seeder;
 
-class InitialSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,23 +14,6 @@ class InitialSeeder extends Seeder
      */
     public function run()
     {
-        $adminRole = Role::create(['name' => 'admin']);
-        $userRole = Role::create(['name' => 'user']);
-        $ownerRole = Role::create(['name' => 'owner']);
-
-        $admin = User::create(['name' => 'Admin', 'email' => 'admin@gmail.com', 'password' => bcrypt('123123'), 'role_id' => $adminRole->id]);
-        $owner = User::create(['name' => 'Owner', 'email' => 'owner@gmail.com', 'password' => bcrypt('123123'), 'role_id' => $ownerRole->id]);
-        $user = User::create(['name' => 'User', 'email' => 'user@gmail.com', 'password' => bcrypt('123123'), 'role_id' => $userRole->id]);
-
-        $address = factory(Address::class)->states('with-user')->create(['user_id' => $user->id]);
-
-        factory(Status::class)->create(['name' => 'Payment Pending', 'color' => 'red']);
-        factory(Status::class)->create(['name' => 'Payment Approved', 'color' => 'blue']);
-        factory(Status::class)->create(['name' => 'Manufacturing', 'color' => 'yellow']);
-        factory(Status::class)->create(['name' => 'Shipped', 'color' => 'orange']);
-        factory(Status::class)->create(['name' => 'Delivered', 'color' => 'green']);
-        factory(Status::class)->create(['name' => 'Canceled', 'color' => 'black']);
-
         $this->createBracelets();
         $this->createCalendars();
     }

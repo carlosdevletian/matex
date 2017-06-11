@@ -29,6 +29,16 @@ class AppServiceProvider extends ServiceProvider
             return preg_match('/^[0-9]{5}(\-[0-9]{4})?$/', $value);
         }, 'Please enter a valid zip code');
 
+        Validator::extend('less_than', function ($attribute, $value, $parameters, $validator) {
+            if((int) $parameters[0] !== 0 ) {
+                $greaterValue = (int) $parameters[0];
+            } else {
+                $greaterValue = data_get($validator->getData(), $parameters[0]);
+            }
+
+            return $greaterValue === null ? true : $greaterValue > $value;
+        }, 'The minimum quantity must be be smaller than the maximum quantity');
+
         Collection::macro('transpose', function() {
             $items = array_map(function (...$items) {
                 return $items;

@@ -32,6 +32,11 @@ class Category extends Model
         return $this->hasMany(Accessory::class);
     }
 
+    public function pricings()
+    {
+        return $this->hasMany(CategoryPricing::class);
+    }
+
     public function activeAccessories()
     {
         return $this->accessories()->where('is_active', true);

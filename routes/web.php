@@ -78,6 +78,11 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/categories/designs/{category}', 'CategoryController@storeDesign')->name('categories.store-design');
     Route::get('/category/disable/{category}', 'CategoryController@disable')->name('categories.disable');
     Route::get('/category/enable/{category}', 'CategoryController@enable')->name('categories.enable');
+    // Pricings
+    Route::get('/pricings/{category}', 'CategoryPricingController@index')->name('pricings.index');
+    Route::post('/pricings/{category}', 'CategoryPricingController@store')->name('pricings.store');
+    Route::put('/pricings/{pricing}', 'CategoryPricingController@update')->name('pricings.update');
+    Route::delete('/pricings/{pricing}', 'CategoryPricingController@destroy')->name('pricings.delete');
     // Orders
     Route::put('/orders/{order}', 'OrderController@update')->name('orders.update');
     // Items

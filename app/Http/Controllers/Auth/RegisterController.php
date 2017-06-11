@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Order;
-use App\Models\Design;
-use App\Models\Address;
 use App\Models\RegisterToken;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;

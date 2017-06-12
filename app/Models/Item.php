@@ -116,7 +116,7 @@ class Item extends Model
 
     private function persistOrDelete($design)
     {
-        if($this->quantity < $this->minimumQuantity()) return $this->delete();
+        if($this->quantity < $this->minQuantityPricing()->min_quantity) return $this->delete();
 
         // If the item has an id, its "exist" property must be set to 
         // true. That way the save() method will update that item,
@@ -130,11 +130,17 @@ class Item extends Model
         return $this;
     }
 
-    public function minimumQuantity()
+    public function minQuantityPricing()
     {
         return $this->pricings()
             ->sortBy('min_quantity')
-            ->first()
-            ->min_quantity;
+            ->first();
+    }
+
+    public function maxQuantityPricing()
+    {
+        return $this->pricings()
+            ->sortByDesc('max_quantity')
+            ->first();
     }
 }

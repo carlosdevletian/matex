@@ -17,21 +17,16 @@ class ItemCalculator
 
     public function calculate()
     {
-        $this->basePrice()
+        $this->productPrice()
             ->accessoryPrice()
             ->set();
 
         return $this->item;
     }
 
-    public function basePrice()
+    public function productPrice()
     {
-        $this->calculatedPrice +=
-            $this->item
-            ->pricings()
-            ->where('min_quantity', '<=', $this->item->quantity)
-            ->where('max_quantity', '>=', $this->item->quantity)
-            ->first()->unit_price;
+        $this->calculatedPrice += $this->getPricing();
 
         return $this;    
     }
@@ -52,6 +47,29 @@ class ItemCalculator
         $this->item->total_price = $this->item->quantity * $this->item->unit_price; 
 
         return $this;  
+    }
+
+    private function getPricing()
+    {
+        $this->validateQuantity();
+
+        if($this->item->quantity >= $this->item->maxQuantityPricing()->max_quantity) {
+            return $this->item->maxQuantityPricing()->unit_price;
+        }
+
+        return $this->item
+            ->pricings()
+            ->where('min_quantity', '<=', $this->item->quantity)
+            ->where('max_quantity', '>=', $this->item->quantity)
+            ->first()
+            ->unit_price;
+    }
+
+    private function validateQuantity()
+    {
+        if($this->item->quantity < $minQuantity = $this->item->minQuantityPricing()->min_quantity) {
+            $this->item->quantity = $minQuantity;
+        }
     }
 
     public function getCalculatedPrice()

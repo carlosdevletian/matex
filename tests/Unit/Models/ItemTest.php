@@ -130,7 +130,7 @@ class ItemTest extends TestCase
     }
     
     /** @test */    
-    public function an_items_minimum_quantity_is_the_minimum_quantity_of_the_lowest_associated_pricins()
+    public function an_items_min_quantity_pricing_is_the_pricing_of_lowest_minimum_quantity()
     {
         $category = factory(Category::class)->create();
         $lowestPricing = factory(Pricing::class)->create([
@@ -146,6 +146,26 @@ class ItemTest extends TestCase
         $product = factory(Product::class)->create(['category_id' => $category->id]);
         $item = factory(Item::class)->create(['product_id' => $product->id]);
 
-        $this->assertEquals(10, $item->minimumQuantity());
+        $this->assertEquals(10, $item->minQuantityPricing()->min_quantity);
+    }
+    
+    /** @test */    
+    public function an_items_max_quantity_pricing_is_the_pricing_of_highest_maximum_quantity()
+    {
+        $category = factory(Category::class)->create();
+        $lowestPricing = factory(Pricing::class)->create([
+            'min_quantity' => 10,
+            'max_quantity' => 99,
+            'category_id' => $category->id
+        ]);
+        $highestPricing = factory(Pricing::class)->create([
+            'min_quantity' => 100,
+            'max_quantity' => 199,
+            'category_id' => $category->id
+        ]);
+        $product = factory(Product::class)->create(['category_id' => $category->id]);
+        $item = factory(Item::class)->create(['product_id' => $product->id]);
+
+        $this->assertEquals(199, $item->maxQuantityPricing()->max_quantity);
     }
 }

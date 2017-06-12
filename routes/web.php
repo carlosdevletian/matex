@@ -81,7 +81,7 @@ Route::group(['middleware' => 'admin'], function () {
     // Pricings
     Route::get('/pricings/{category}', 'CategoryPricingController@index')->name('pricings.index');
     Route::post('/pricings/{category}', 'CategoryPricingController@store')->name('pricings.store');
-    Route::put('/pricings/{pricing}', 'CategoryPricingController@update')->name('pricings.update');
+    Route::put('/pricings', 'CategoryPricingController@update')->name('pricings.update');
     Route::delete('/pricings/{pricing}', 'CategoryPricingController@destroy')->name('pricings.delete');
     // Orders
     Route::put('/orders/{order}', 'OrderController@update')->name('orders.update');

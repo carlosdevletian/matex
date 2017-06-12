@@ -15,6 +15,7 @@ class CategoryPricingController extends Controller
         $category = Category::findOrFail($categoryId);
 
         return view('pricings.index', [
+            'category' => $category,
             'pricings' => $category->pricings
         ]);
     }
@@ -34,28 +35,19 @@ class CategoryPricingController extends Controller
         // Redirect
     }
 
-    public function update($pricingId, Request $request)
+    public function update(Request $request)
     {
-        $this->validator($request->all())->validate();
+        foreach ($request['pricings'] as $pricingId => $pricingData) {
+            $this->validator($pricingData)->validate();
+            Pricing::findOrFail($pricingId)->update($pricingData);
+        }
 
-        Pricing::findOrFail($pricingId)->update(
-             array_filter($request->toArray(), function() {
-                return [
-                    'min_quantity',
-                    'max_quantity',
-                    'unit_price',
-                ];
-            })
-        );
-
-        // Redirect
+        return redirect()->back();
     }
 
     public function destroy($pricingId)
     {
         Pricing::findOrFail($pricingId)->delete();
-
-        // Redirect
     }
 
     protected function validator(array $data)

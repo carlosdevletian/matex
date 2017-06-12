@@ -29,6 +29,9 @@ Vue.component('design-thumbnail', require('./components/designs/Thumbnail.vue'))
 Vue.component('category-show', require('./components/categories/Show.vue'));
 Vue.component('accessory-show', require('./components/accessories/Show.vue'));
 
+Vue.component('pricing-delete', require('./components/pricings/Delete.vue'));
+Vue.component('pricing-create', require('./components/pricings/Create.vue'));
+
 Vue.component('modal-image', require('./components/modals/Image.vue'));
 Vue.component('modal-contact', require('./components/modals/Contact.vue'));
 Vue.component('modal-template', require('./components/modals/Template.vue'));
@@ -77,6 +80,7 @@ const app = new Vue({
         showCartPreview: false,
         showContactModal: false,
         showDesignPicker: false,
+        showCreatePricing: false,
         showPredesignedPicker: false,
         showContactUserModal: false,
         showUserCommentModal: false,

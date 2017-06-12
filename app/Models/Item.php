@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Calculator;
 use App\ItemCalculator;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Presenters\ItemPresenter;
 
@@ -41,6 +42,11 @@ class Item extends Model
     public function order()
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function pricings()
+    {
+        return $this->product->category->pricings;
     }
 
     public function calculate()
@@ -110,7 +116,7 @@ class Item extends Model
 
     private function persistOrDelete($design)
     {
-        if($this->quantity < 1) return $this->delete();
+        if($this->quantity < $this->minimumQuantity()) return $this->delete();
 
         // If the item has an id, its "exist" property must be set to 
         // true. That way the save() method will update that item,
@@ -122,5 +128,13 @@ class Item extends Model
         if(isset($design)) $this->design_id = $design->id;
         $this->calculate()->save();
         return $this;
+    }
+
+    public function minimumQuantity()
+    {
+        return $this->pricings()
+            ->sortBy('min_quantity')
+            ->first()
+            ->min_quantity;
     }
 }

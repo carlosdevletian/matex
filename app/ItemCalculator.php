@@ -8,6 +8,8 @@ class ItemCalculator
 {
     public $item;
 
+    private $calculatedPrice = 0;
+
     function __construct(Item $item)
     {
         $this->item = $item;
@@ -15,23 +17,45 @@ class ItemCalculator
 
     public function calculate()
     {
-        $this->setUnitPrice()
-            ->setTotalPrice();
+        $this->basePrice()
+            ->accessoryPrice()
+            ->set();
 
         return $this->item;
     }
 
-    public function setUnitPrice()
+    public function basePrice()
     {
-        $this->item->unit_price = 700;
+        $this->calculatedPrice +=
+            $this->item
+            ->pricings()
+            ->where('min_quantity', '<=', $this->item->quantity)
+            ->where('max_quantity', '>=', $this->item->quantity)
+            ->first()->unit_price;
+
+        return $this;    
+    }
+
+    public function accessoryPrice()
+    {
+        if($accessory = $this->item->accessory) {
+            $this->calculatedPrice += $accessory->price;
+        }
+
+        return $this;
+    }
+
+    public function set()
+    {
+        $this->item->unit_price = $this->calculatedPrice;
+
+        $this->item->total_price = $this->item->quantity * $this->item->unit_price; 
 
         return $this;  
     }
 
-    public function setTotalPrice()
+    public function getCalculatedPrice()
     {
-        $this->item->total_price = $this->item->quantity * $this->item->unit_price; 
-
-        return $this;
+        return $this->calculatedPrice;
     }
 }

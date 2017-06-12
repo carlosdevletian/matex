@@ -2,19 +2,22 @@
 
 namespace Tests\Feature;
 
-use App\Billing\FakePaymentGateway;
-use App\Billing\PaymentGateway;
-use App\Models\Address;
-use App\Models\Design;
+use Tests\TestCase;
 use App\Models\Item;
-use App\Models\Order;
-use App\Models\Status;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Design;
+use App\Models\Status;
+use App\Models\Address;
+use App\Models\Product;
+use App\Models\Category;
+use App\Billing\PaymentGateway;
+use App\Billing\FakePaymentGateway;
+use Illuminate\Support\Facades\Mail;
+use App\Models\CategoryPricing as Pricing;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Support\Facades\Mail;
-use Tests\TestCase;
 
 class PayOrderTest extends TestCase
 {
@@ -30,12 +33,16 @@ class PayOrderTest extends TestCase
 
     private function makeOrderThings()
     {
+        $category = factory(Category::class)->create();
+        factory(Pricing::class)->create(['category_id' => $category->id, 'min_quantity' => 50, 'max_quantity' => 100]);
+        $product = factory(Product::class)->create(['category_id' => $category->id]);
+        
         factory(Status::class)->create(['name' => 'Payment Pending']);
         factory(Status::class)->create(['name' => 'Payment Approved']);
         $user = factory(User::class)->create();
         $address = factory(Address::class)->states('with-user')->create(['user_id' => $user->id]);
         $design = factory(Design::class)->create();
-        $items = factory(Item::class, 2)->create();
+        $items = factory(Item::class, 2)->create(['product_id' => $product->id, 'quantity' => 75]);
         foreach ($items as $item) {
             $item->calculate()->save();
         }
@@ -64,9 +71,12 @@ class PayOrderTest extends TestCase
     /** @test */
     public function guest_can_pay_order()
     {
+        $category = factory(Category::class)->create();
+        factory(Pricing::class)->create(['category_id' => $category->id, 'min_quantity' => 50, 'max_quantity' => 100]);
+        $product = factory(Product::class)->create(['category_id' => $category->id]);
         factory(Status::class)->create(['name' => 'Payment Pending']);
         factory(Status::class)->create(['name' => 'Payment Approved']);
-        $items = factory(Item::class, 3)->make();
+        $items = factory(Item::class, 3)->make(['product_id' => $product->id, 'quantity' => 75]);
 
         $this->assertEquals(Order::count(), 0);
 

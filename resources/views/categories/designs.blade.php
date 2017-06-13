@@ -10,6 +10,13 @@
             <div class="col-xs-12">
                 <div class="page-header">
                     <h3 class="main-title">Designs for {{ $category->name }}</h3>
+                    @include('layouts.breadcrumbs', [
+                        'links' => [
+                            'Categories' => route('categories.index'),
+                            ucfirst($category->name) => route('categories.edit', $category),
+                            'active' => 'Designs'
+                        ]
+                    ])
                     <a href="{{ route('categories.add-design', compact('category'))}}" class="Button--product">Add a design</a>
                 </div>
                 @if($designs->count() > 0)

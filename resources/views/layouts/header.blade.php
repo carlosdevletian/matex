@@ -21,7 +21,7 @@
 			<ul class="nav navbar-nav {{ Route::currentRouteName() == 'home' && !auth()->check() ? 'navbar-home' : '' }} {{ Route::currentRouteName() == 'about' && !auth()->check() ? 'navbar-about' : ''}}">
 				<li><a href="{{ route('about') }}">About</a></li>
                 @if(admin())
-                    <li><a href="{{ route('categories.index') }}">Products</a></li>
+                    <li><a href="{{ route('categories.index') }}">Categories</a></li>
                 @else
                     <li><a href="{{ route('categories.index') }}">Design your own</a></li>
                     <li><a href="{{ route('shop.index') }}">Shop</a></li>

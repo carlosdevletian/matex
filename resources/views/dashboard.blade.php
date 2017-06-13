@@ -22,7 +22,6 @@
                         @include('widgets.addresses')
                     </div>
                 </div>
-                <img src="{{ URL::to("images/matex2.png") }}" alt="pulsera" class="img-responsive center-block Login__logo" style="filter:none" onmousedown="return false">
             </div>
         </div>
     </div>

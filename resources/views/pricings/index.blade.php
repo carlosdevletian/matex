@@ -7,9 +7,18 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h3 class="main-title">{{ ucfirst($category->name) }} - Pricing </h3>
-            <div class="col-xs-12">
+            <div class="page-header">
+                <h3 class="main-title">{{ ucfirst($category->name) }} - Pricing </h3>
+                @include('layouts.breadcrumbs', [
+                        'links' => [
+                            'Categories' => route('categories.index'),
+                            ucfirst($category->name) => route('categories.edit', $category),
+                            'active' => 'Pricings'
+                        ]
+                    ])
                 <a role="button" class="Button--product" @click="showCreatePricing = true">Add a new price range</a>
+            </div>
+            <div class="col-xs-12">
                 <div class="Card position-relative pd-btm-50  mg-top-10">
                     <form method="POST" action="{{ route('pricings.update') }}">
                         {{ csrf_field() }}

@@ -74,7 +74,7 @@
                             <p class="Card__title">Products</p>
                             <a href="{{ route('categories.create') }}">Create a new product category</a>
                             <br>
-                            <a href="{{ route('categories.index') }}">Manage all products</a>
+                            <a href="{{ route('categories.index') }}">Manage all categories</a>
                         </div>
                     </div>
 

@@ -2,7 +2,7 @@
     <div class="mg-btm-20" :class="addClass">
         <a role="button" @click="onClick">
             <div class="Card Card--thumbnail" :class="{ Flipped : showMore, Flippable : isAdmin}">
-                <div class="Flippable__front Thumbnail--image background-image" :style="imageUrl"></div>
+                <div class="Flippable__front Thumbnail--image cursor-pointer background-image" :style="imageUrl"></div>
                 <div class="Flippable__back position-relative" @click.stop>
                     <div class="Thumbnail--image position-absolute text-center" style="width: 100%; bottom: 0">
                         <a role="button" @click="accessories" class="Icon__more--element">Accessories</a>

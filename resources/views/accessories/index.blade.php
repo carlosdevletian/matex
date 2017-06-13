@@ -10,6 +10,13 @@
             <div class="col-xs-12">
                 <div class="page-header">
                     <h3 class="main-title">Accessories for {{ $category->name }}</h3>
+                    @include('layouts.breadcrumbs', [
+                        'links' => [
+                            'Categories' => route('categories.index'),
+                            ucfirst($category->name) => route('categories.edit', $category),
+                            'active' => 'Accessories'
+                        ]
+                    ])
                     <a href="{{ route('accessories.create', compact('category'))}}" class="Button--product">Add an accessory</a>
                 </div>
                 <div class="row">

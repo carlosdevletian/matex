@@ -8,7 +8,23 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h3 class="main-title">Edit Category</h3>
+                <div class="page-header">
+                    <h3 class="main-title">Edit {{ ucfirst($category->name) }}</h3>
+                    @include('layouts.breadcrumbs', [
+                        'links' => [
+                            'Categories' => route('categories.index'),
+                            'active' => ucfirst($category->name)
+                        ]
+                    ])
+                    <div class="row">
+                        <div class="col-xs-12">
+                          <a href="{{ route('categories.edit-products', $category) }}" class="Button--product">Products</a>
+                          <a href="{{ route('accessories.index', $category) }}" class="Button--product">Accessories</a>
+                          <a href="{{ route('categories.designs', $category) }}" class="Button--product">Designs</a>
+                          <a href="{{ route('pricings.index', $category) }}" class="Button--product">Pricing</a>
+                        </div>
+                    </div>
+                </div>
                 <form method="POST" action="{{ route('categories.update', ['category' => $category->id]) }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <input type="hidden" name="_method" value="PUT">
@@ -98,7 +114,6 @@
                             rows=4>{{ old('disclaimer', $category->disclaimer) }}</textarea>
                     </div>
                     
-                    <products :products="{{ $category->products }}"></products>
                     <div class="col-sm-6 col-sm-offset-3 mg-top-10 mg-btm-20">
                         <button class="Button--primary">Update</button>
                     </div>

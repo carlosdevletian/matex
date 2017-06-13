@@ -137,7 +137,18 @@ class CategoryController extends Controller
             'disclaimer' => request()->disclaimer
         ]);
 
-        $category->updateProducts(request('products'));
+        flash()->success('Success!','Changes Made');
+        return redirect()->back();
+    }
+
+    public function editProducts(Category $category)
+    {
+        return view('categories.edit-products', compact('category'));
+    }
+
+    public function updateProducts(Category $category, Request $request)
+    {
+        $category->updateProducts($request['products']);
 
         flash()->success('Success!','Changes Made');
         return redirect()->back();

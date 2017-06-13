@@ -55,6 +55,7 @@
                 </header>
 
                 @yield('content')
+                <img src="{{ URL::to("images/matex2.png") }}" alt="pulsera" class="img-responsive center-block Login__logo" style="filter:none" onmousedown="return false">
 
                 <footer>
                     @include('layouts.footer')

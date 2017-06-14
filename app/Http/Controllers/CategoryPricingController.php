@@ -16,7 +16,7 @@ class CategoryPricingController extends Controller
 
         return view('pricings.index', [
             'category' => $category,
-            'pricings' => $category->pricings
+            'pricings' => $category->pricings->sortBy('min_quantity')
         ]);
     }
     

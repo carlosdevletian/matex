@@ -59,6 +59,34 @@ class ViewPricingsTest extends TestCase
     }
 
     /** @test */
+    public function pricings_are_sorted_by_their_minimum_quantity_in_descending_order()
+    {
+        $category = factory('App\Models\Category')->create();
+        $pricingA = factory(Pricing::class)->create([
+            'min_quantity' => 1000,
+            'category_id' => $category->id
+        ]);
+        $pricingB = factory(Pricing::class)->create([
+            'min_quantity' => 10,
+            'category_id' => $category->id
+        ]);
+        $pricingC = factory(Pricing::class)->create([
+            'min_quantity' => 100,
+            'category_id' => $category->id
+        ]);
+
+        $response = $this->signIn($this->admin)
+            ->get(route('pricings.index', ['category' => $category->id]));
+
+        $response->assertStatus(200);
+        $this->assertEquals([
+            $pricingB->id,
+            $pricingC->id,
+            $pricingA->id
+        ], $response->data('pricings')->pluck('id')->all());
+    }
+
+    /** @test */
     public function a_guest_cannot_view_all_pricings_for_a_category()
     {
         $category = factory('App\Models\Category')->create();

@@ -37,6 +37,7 @@ class InitialSeeder extends Seeder
 
         $this->createBracelets();
         $this->createCalendars();
+        $this->createBusinessCards();
     }
 
     private function createBracelets()
@@ -73,6 +74,31 @@ class InitialSeeder extends Seeder
         $bracelet->pricings()->create(['min_quantity' => 16000, 'max_quantity' => 20000, 'unit_price' => 17]);
 
         $bracelet->enable();
+    }
+
+    private function createBusinessCards()
+    {
+        $businessCard = factory(Category::class)->create([
+            'name' => 'business card', 
+            'crop_width' => 360, 
+            'crop_height' => 200, 
+            'crop_x_position' => 420, 
+            'crop_y_position' => 199,
+            'image_name' => 'business_card_image.png',
+            'template_name' => 'business-card.png'
+        ]);
+
+        factory(Product::class)->create(['name' => 'small', 'category_id' => $businessCard->id, 'display_position' => 1]);
+        factory(Product::class)->create(['name' => 'medium', 'category_id' => $businessCard->id, 'display_position' => 2]);
+
+        $businessCard->pricings()->create(['min_quantity' => 50, 'max_quantity' => 99, 'unit_price' => 130]);
+        $businessCard->pricings()->create(['min_quantity' => 100, 'max_quantity' => 199, 'unit_price' => 90]);
+        $businessCard->pricings()->create(['min_quantity' => 200, 'max_quantity' => 299, 'unit_price' => 85]);
+        $businessCard->pricings()->create(['min_quantity' => 300, 'max_quantity' => 499, 'unit_price' => 80]);
+        $businessCard->pricings()->create(['min_quantity' => 500, 'max_quantity' => 999, 'unit_price' => 62]);
+        $businessCard->pricings()->create(['min_quantity' => 1000, 'max_quantity' => 2999, 'unit_price' => 48]);
+
+        $businessCard->enable();
     }
 
     private function createCalendars()

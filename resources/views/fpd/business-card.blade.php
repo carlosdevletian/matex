@@ -1,6 +1,6 @@
 <div slot="category" class="fpd-product" title="BASE">
     <img src="{{ $category->template() }}"
-        title="Base template"
+        title="{{ $category->name }}"
         data-parameters=
             '{
                 "draggable": false,

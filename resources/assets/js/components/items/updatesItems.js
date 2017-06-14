@@ -7,17 +7,17 @@ export const updatesItems = {
         }
     },
     methods: {
-        updateItem: function () {
+        updateItem: function (updatingItem) {
             this.processing = true;
             if(! this.quantityIsValid()) {
                 this.error = 'Please input a valid quantity';
-                this.item.quantity = 1;
+                updatingItem.quantity = 1;
             } else {
                 this.error = '';
             }
-            var itemId = this.item.id ? this.item.id : '';
+            var itemId = updatingItem.id ? updatingItem.id : '';
             axios.put(`/items/${itemId}`, {
-                item: this.item
+                item: updatingItem
             }).then((response) => {
                 this.$emit('item-updated', response.data.item);
                 Event.$emit('item-updated', response.data.item);
@@ -48,7 +48,7 @@ export const updatesItems = {
                 delete item['accessory_id']; 
                 delete item['accessory']; 
             }
-            this.$emit('item-updated', item);
+            this.updateItem(item);
         }
     }
 }

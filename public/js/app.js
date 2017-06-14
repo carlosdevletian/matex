@@ -16781,19 +16781,19 @@ var updatesItems = {
         };
     },
     methods: {
-        updateItem: function updateItem() {
+        updateItem: function updateItem(updatingItem) {
             var _this = this;
 
             this.processing = true;
             if (!this.quantityIsValid()) {
                 this.error = 'Please input a valid quantity';
-                this.item.quantity = 1;
+                updatingItem.quantity = 1;
             } else {
                 this.error = '';
             }
-            var itemId = this.item.id ? this.item.id : '';
+            var itemId = updatingItem.id ? updatingItem.id : '';
             axios.put('/items/' + itemId, {
-                item: this.item
+                item: updatingItem
             }).then(function (response) {
                 _this.$emit('item-updated', response.data.item);
                 Event.$emit('item-updated', response.data.item);
@@ -16824,7 +16824,7 @@ var updatesItems = {
                 delete item['accessory_id'];
                 delete item['accessory'];
             }
-            this.$emit('item-updated', item);
+            this.updateItem(item);
         }
     }
 };
@@ -57599,7 +57599,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": (_vm.item.quantity)
     },
     on: {
-      "change": _vm.updateItem,
+      "change": function($event) {
+        _vm.updateItem(_vm.item)
+      },
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.item.quantity = $event.target.value
@@ -58724,7 +58726,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": (_vm.item.quantity)
     },
     on: {
-      "change": _vm.updateItem,
+      "change": function($event) {
+        _vm.updateItem(_vm.item)
+      },
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.item.quantity = $event.target.value

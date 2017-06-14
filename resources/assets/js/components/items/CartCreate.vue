@@ -29,7 +29,7 @@
                             <div class="position-relative">
                                 <input type="number"
                                     v-model="item.quantity"
-                                    @change="updateItem"
+                                    @change="updateItem(item)"
                                     class="Form text-center pd-0"
                                     onfocus="if(this.value == '0') { this.value = ''; }"
                                     v-bind:class="{ 'Form--error' : this.error }"

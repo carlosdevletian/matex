@@ -53,7 +53,11 @@ return [
             'root' => storage_path('app/public'),
             'visibility' => 'public',
         ],
-
+        'real_public' => [
+            'driver' => 'local',
+            'root'   => public_path(),
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => 'your-key',

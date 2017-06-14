@@ -54,7 +54,7 @@ class DesignController extends Controller
         }
         $predesignedDesigns = Design::where('is_predesigned', true)->where('category_id', $category->id)->get();
 
-        $symbols = collect(Storage::files('/public/symbols/'))->map(function($file) {
+        $symbols = collect(Storage::disk('real_public')->files('/images/symbols/'))->map(function($file) {
             return substr($file, 6);
         });
 

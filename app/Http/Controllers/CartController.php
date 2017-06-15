@@ -10,9 +10,15 @@ class CartController extends Controller
     public function show()
     {
         $cart = auth()->user()->cart;
-        $addresses = auth()->user()->addresses;
-        $items = $cart->availableItems()->values();
-        $unavailableItems = $cart->unavailableItems()->values();
-        return view('carts.show', compact('cart', 'addresses', 'items', 'unavailableItems'));
+
+        return view('carts.show', [
+                    'cart' => $cart, 
+                    'addresses' => auth()->user()->addresses, 
+                    'items' => $cart->availableItems()->values(), 
+                    'unavailableItems' => $cart->unavailableItems()->values(),
+                    'categoryPricings' => $cart->categories()->mapWithKeys(function($category) {
+                                    return [$category->name => $category->pricings];
+                                })
+                ]);
     }
 }

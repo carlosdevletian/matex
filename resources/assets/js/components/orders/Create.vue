@@ -1,5 +1,7 @@
 <template>
-    <order-template>
+    <order-template :show-pricing-modal="showPricingModal" 
+                    @close-pricing="showPricingModal = false" 
+                    :category-pricings="categoryPricings">
         <p slot="items-title">Choose your sizes</p>
         <div slot="products">
              <div class="row">
@@ -20,7 +22,7 @@
                 <strong>Did you know?</strong> The item's price goes down if the quantity goes up!
                 <br>
                 <p class="color-primary">
-                    Click <a href="/faq" class="color-primary" style="text-decoration: underline; font-weight: bold">here</a> to find out more.
+                    <a role="button" class="color-primary" style="text-decoration: underline; font-weight: bold" @click="showPricingModal = true">Find out more about pricing</a>
                 </p>
             </div>
             <table class="table borderless mg-0">
@@ -93,12 +95,13 @@
 
     export default {
         mixins: [stripeMixin, calculatesOrders],
-        props: ['products', 'design', 'addresses', 'categoryId'],
+        props: ['products', 'design', 'addresses', 'categoryId', 'categoryPricings'],
         data: function() {
             return {
                 items: [],
                 productList: this.products,
                 signedIn: Matex.signedIn,
+                showPricingModal: false,
             }
         },
         methods: {

@@ -38,6 +38,7 @@ Vue.component('modal-template', require('./components/modals/Template.vue'));
 Vue.component('user-comment', require('./components/modals/UserComment.vue'));
 Vue.component('contact-user', require('./components/modals/ContactUser.vue'));
 Vue.component('add-accessory', require('./components/modals/AddAccessory.vue'));
+Vue.component('modal-pricing', require('./components/modals/Pricing.vue'));
 
 Vue.component('fpd', require('./components/Fpd.vue'));
 Vue.component('products', require('./components/Products.vue'));

@@ -1,6 +1,6 @@
 <template>
     <transition name="modal"> 
-        <div class="Modal__background" @click="$emit('close')">
+        <div class="Modal__background" @click="$emit('close')" :style="addOverflow">
             <div class="Modal" :class="childClassObject" @click.stop>
                 <span class="Modal__close" @click="$emit('close')">&#10005;</span>
                 <div class="Modal__header">
@@ -29,6 +29,19 @@
                     return {}
                 }
             },
+            overflowY: {
+                type: Boolean,
+                default: false
+            },
+        },
+        computed: {
+            addOverflow() {
+                if(this.overflowY) {
+                    return {
+                        overflowY : 'scroll'
+                    }
+                }
+            }
         },
         mounted: function () {
             document.addEventListener("keydown", (e) => {

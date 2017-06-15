@@ -16,7 +16,8 @@
                         :products="{{ $products }}"
                         :addresses="{{ $addresses }}"
                         design="{{ $design }}"
-                        category-id="{{ $categoryId or '' }}">
+                        category-id="{{ $categoryId or '' }}"
+                        :category-pricings="{{ json_encode($categoryPricings) }}">
                     </order-create>
                 </div>
             </div>

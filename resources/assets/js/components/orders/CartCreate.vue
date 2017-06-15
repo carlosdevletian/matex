@@ -45,9 +45,18 @@
             </div>
         </div>
         <div v-if="items.length > 0 && ! showUnavailable">
-            <order-template>
+            <order-template :show-pricing-modal="showPricingModal" 
+                    @close-pricing="showPricingModal = false" 
+                    :category-pricings="categoryPricings">
                 <p slot="items-title">Your items</p>
                 <div slot="table-header" class="borderless">
+                    <div class="col-xs-12 text-center color-secondary" style="border: 1px solid #F16A26; border-radius: 2px">
+                        <strong>Did you know?</strong> The item's price goes down if the quantity goes up!
+                        <br>
+                        <p class="color-primary">
+                            <a role="button" class="color-primary" style="text-decoration: underline; font-weight: bold" @click="showPricingModal = true">Find out more about pricing</a>
+                        </p>
+                    </div>
                     <table class="table borderless mg-0">
                         <tbody>
                             <tr>
@@ -119,12 +128,13 @@
 
     export default {
         mixins: [stripeMixin, calculatesOrders],
-        props: ['addresses', 'originalItems', 'originalUnavailableItems'],
+        props: ['addresses', 'originalItems', 'originalUnavailableItems', 'categoryPricings'],
         data: function() {
             return {
                 items: this.originalItems,
                 unavailableItems: this.originalUnavailableItems,
                 showUnavailable: false,
+                showPricingModal: false,
             }
         },
         methods: {

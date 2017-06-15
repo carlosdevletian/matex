@@ -12,7 +12,8 @@
                 <order-cart-create 
                     :addresses="{{ $addresses }}" 
                     :original-items="{{ $items }}" 
-                    :original-unavailable-items="{{ $unavailableItems }}">
+                    :original-unavailable-items="{{ $unavailableItems }}"
+                    :category-pricings="{{ $categoryPricings }}">
                 </order-cart-create>
             </div>
         </div>

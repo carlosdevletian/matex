@@ -15,6 +15,13 @@ class Cart extends Model
         return $this->hasMany(Item::class);   
     }
 
+    public function categories()
+    {
+        return $this->availableItems()->map(function($item) {
+            return $item->product->category;
+        })->unique('id');
+    }
+
     public function orderTotal()
     {
         return $this->items->sum(function ($item) {

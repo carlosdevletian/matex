@@ -96,10 +96,17 @@
         <div class="row">
             <slot name="buttons"></slot>
         </div>
+        <modal-pricing v-if="showPricingModal" @close="closePricingModal" :category-pricings="categoryPricings"></modal-pricing>
     </div>
 </template>
 
 <script>
     export default {
+        props: ['showPricingModal', 'categoryPricings'],
+        methods: {
+            closePricingModal() {
+                this.$emit('close-pricing');
+            }
+        },
     }
 </script>

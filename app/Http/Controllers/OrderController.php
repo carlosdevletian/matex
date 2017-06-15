@@ -69,6 +69,8 @@ class OrderController extends Controller
             $predesigned = "";
         }
 
+        $categoryPricings = [$category->name => $category->pricings->sortBy('min_quantity')->values()];
+
         if(auth()->check()) {
             $design = $design->exists ? $design : Design::findOrFail(session('design'));
 
@@ -77,7 +79,8 @@ class OrderController extends Controller
                 'addresses' => Address::where('user_id', auth()->user()->id)->get(),
                 'design' => $design->id, 
                 'design_image' => $design->image_name,
-                'predesigned' => $predesigned
+                'predesigned' => $predesigned,
+                'categoryPricings' => $categoryPricings
             ]);
         }
 
@@ -90,7 +93,8 @@ class OrderController extends Controller
             'design' => $design, 
             'design_image' => $design_image, 
             'categoryId' => $category->id,
-            'predesigned' => $predesigned
+            'predesigned' => $predesigned,
+            'categoryPricings' => $categoryPricings
         ]);
     }
 

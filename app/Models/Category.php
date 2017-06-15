@@ -11,6 +11,15 @@ class Category extends Model
 {
     protected $fillable = ['name', 'crop_width', 'crop_height', 'crop_x_position', 'crop_y_position', 'image_name', 'is_active', 'disclaimer'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('accessoryCount', function($builder) {
+            $builder->withCount('accessories');
+        });
+    }
+
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = strtolower( str_singular($value) );

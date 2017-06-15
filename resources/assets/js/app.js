@@ -53,6 +53,9 @@ Vue.component('disclaimer', require('./components/Disclaimer.vue'));
 Vue.component('active-checkbox', require('./components/ActiveCheckbox.vue'));
 Vue.component('page-loader', require('./components/PageLoader.vue'));
 
+Vue.component('tab', require('./components/tabs/Tab.vue'));
+Vue.component('tabs', require('./components/tabs/Tabs.vue'));
+
 Vue.directive('focus', {
     inserted: function (el) {
         el.focus()
@@ -65,6 +68,10 @@ Vue.filter('inDollars', function(cents) {
 
 Vue.filter('ago', function(date) {
     return moment(date).format("dddd, MMMM Do YYYY");
+});
+
+Vue.filter('ucfirst', function(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 });
 
 window.Event = new Vue();

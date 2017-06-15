@@ -20,8 +20,10 @@
                                         {{ categoryName() }} 
                                         ({{ item.product.width + 'x' + item.product.length }})
                                     </p>
-                                    <a role="button" @click="addAccessory" class="color-primary" v-if="item.accessory_id == null">Add an accessory</a>
-                                    <a v-else role="button" @click="addAccessory" class="color-primary">{{ 'with ' + item.accessory.name }}</a>
+                                    <div v-if="hasAccessories">
+                                        <a role="button" @click="addAccessory" class="color-primary" v-if="item.accessory_id == null">Add an accessory</a>
+                                        <a v-else role="button" @click="addAccessory" class="color-primary">{{ 'with ' + item.accessory.name }}</a>
+                                    </div>
                                 </div>
                             </div>
                         </td>

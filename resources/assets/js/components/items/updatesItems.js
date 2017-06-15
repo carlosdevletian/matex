@@ -50,5 +50,11 @@ export const updatesItems = {
             }
             this.updateItem(item);
         }
+    },
+    computed: {
+        hasAccessories() {
+            var category = this.item.product.category;
+            return !! category && category.accessories_count > 0;
+        },
     }
 }

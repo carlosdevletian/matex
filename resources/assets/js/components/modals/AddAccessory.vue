@@ -1,25 +1,29 @@
 <template>
     <modal-template @close="close()" v-cloak>
-        <div slot="header">
+        <div slot="header" style="font-size: 13pt">
             Choose an accessory!
         </div>
 
         <div slot="body" class="pd-btm-50">
-            <div class="Card Card--thumbnail" v-for="accessory in accessories">
-                <a role="button" @click="selectAccessory(accessory)">
-                    <div class="position-relative color-primary">
-                        <div class="Thumbnail--image background-image" 
-                            :style="imageUrl(accessory)" >
-                        </div>
-                        <div class="selectedAccessory" 
-                            v-show="selected != null && selected.id == accessory.id">
-                                &#10004;
-                        </div>
+            <div class="row">
+                <div class="Thumbnail col-xs-6 mg-btm-5" v-for="accessory in accessories">
+                    <div :class = "{'Card--thumbnail--selected' : selected != null && selected.id == accessory.id }"
+                    class="Card Card--thumbnail">
+                        <a role="button" @click="selectAccessory(accessory)">
+                            <div class="position-relative color-primary">
+                                <div :style="imageUrl(accessory)" 
+                                    class="Thumbnail--image background-image cursor-pointer" >
+                                </div>
+                            </div>
+                            <div class="text-center color-primary"
+                            :class = "{'color-white' : selected != null && selected.id == accessory.id }">
+                                {{ accessory.name.toUpperCase() }}
+                            </div>
+                        </a>
                     </div>
-                    <div class="text-center color-primary">{{ accessory.name.toUpperCase() }}</div>
-                </a>
+                </div>
             </div>
-            <button class="Button--secondary stick-to-bottom" @click="select">Select</button>
+            <button class="Button--secondary stick-to-bottom" @click="select" style="font-size: 13pt">Select</button>
         </div>
 
     </modal-template>

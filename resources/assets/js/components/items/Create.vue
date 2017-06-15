@@ -40,12 +40,12 @@
                     </tr>
                 </tbody>
             </table>
-            <add-accessory v-if="showModal" 
-                            :product="item.product"
-                            :selected-accessory="item.accessory"
-                            @close="showModal = false" 
-                            @accessory-selected="assignAccessory"></add-accessory>
         </div>
+        <add-accessory v-if="showModal" 
+                        :product="item.product"
+                        :selected-accessory="item.accessory"
+                        @close="showModal = false" 
+                        @accessory-selected="assignAccessory"></add-accessory>
     </div>
 </template>
 

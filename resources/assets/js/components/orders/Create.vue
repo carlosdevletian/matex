@@ -18,12 +18,10 @@
             <div v-show="productList.length != 0">
                 <hr>
             </div>
-            <div class="col-xs-12 text-center color-secondary" style="border: 1px solid #F16A26; border-radius: 2px">
+            <div class="col-xs-12 text-center" style="background-image: linear-gradient(#f98927, #F16A26); border-radius: 5px; padding: 5px 0; color: #f9dac7">
                 <strong>Did you know?</strong> The item's price goes down if the quantity goes up!
                 <br>
-                <p class="color-primary">
-                    <a role="button" class="color-primary" style="text-decoration: underline; font-weight: bold" @click="showPricingModal = true">Find out more about pricing</a>
-                </p>
+                <a role="button" class="color-white" style="text-decoration: underline; font-weight: bold" @click="showPricingModal = true">Find out more about pricing</a>
             </div>
             <table class="table borderless mg-0">
                 <tbody>

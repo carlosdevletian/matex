@@ -56,6 +56,8 @@ class CategoryPricingController extends Controller
             'min_quantity' => "required|integer|less_than:max_quantity",
             'max_quantity' => 'required|integer',
             'unit_price' => 'required|integer'
+        ], [
+            'unit_price.integer' => 'The unit price must be a valid number'
         ]);
     }
 }

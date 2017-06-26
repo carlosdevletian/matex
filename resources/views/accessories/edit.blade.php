@@ -7,6 +7,14 @@
 @section('content')
     <div class="container">
         <div class="row">
+        @include('layouts.breadcrumbs', [
+                        'links' => [
+                            'Categories' => route('categories.index'),
+                            ucfirst($accessory->category->name) => route('categories.edit', $accessory->category),
+                            'Accessories' => route('accessories.index', $accessory->category),
+                            'active' => ucfirst($accessory->name)
+                        ]
+                    ])
             <div class="col-sm-6 col-sm-offset-3">
                 <h3 class="main-title">Edit {{ $accessory->name }}</h3>
                 <form method="POST" action="{{ route('accessories.update', compact('accessory')) }}" enctype="multipart/form-data">
@@ -39,13 +47,13 @@
     
                     <div class="Input__icon">
                         <label for="price" class="control-label">Price</label>
-                        <input id="price"
-                            type="number"
-                            name="price"
-                            class="Form {{ $errors->has('price') ? 'Form--error' : '' }}"
+                        <float-input 
+                            id="price"
+                            name="price" 
+                            classes="Form {{ $errors->has('price') ? 'Form--error' : '' }}" 
                             placeholder="Price"
-                            value="{{ old('price', $accessory->price) }}"
-                            required>
+                            value="{{ old('price', $accessory->price) }}">
+                        </float-input>
                     </div>
 
                     <div class="Input__icon">

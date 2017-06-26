@@ -20,6 +20,11 @@
             </div>
             <div class="col-xs-12">
                 <div class="Card position-relative pd-btm-50  mg-top-10">
+                    @if ($errors->any())
+                        <div class="error">
+                            {{ $errors->first() }}
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('pricings.update') }}">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
@@ -48,11 +53,11 @@
                                                     value="{{ $pricing->max_quantity }}">
                                             </td>
                                             <td class="col-xs-3">
-                                                <input style="width: 100%" 
-                                                    class="Form pd-0 text-center" 
-                                                    type="number" 
+                                                <float-input 
                                                     name="pricings[{{ $pricing->id }}][unit_price]" 
+                                                    classes="Form pd-0 text-center" 
                                                     value="{{ $pricing->unit_price }}">
+                                                </float-input>
                                             </td>
                                             <td class="col-xs-1">
                                                 <pricing-delete :pricing="{{ $pricing }}"></pricing-delete>

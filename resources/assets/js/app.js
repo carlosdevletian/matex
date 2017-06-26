@@ -52,6 +52,7 @@ Vue.component('disclaimer', require('./components/Disclaimer.vue'));
 
 Vue.component('active-checkbox', require('./components/ActiveCheckbox.vue'));
 Vue.component('page-loader', require('./components/PageLoader.vue'));
+Vue.component('float-input', require('./components/FloatInput.vue'));
 
 Vue.component('tab', require('./components/tabs/Tab.vue'));
 Vue.component('tabs', require('./components/tabs/Tabs.vue'));

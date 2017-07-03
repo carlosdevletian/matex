@@ -29742,13 +29742,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['id', 'name', 'classes', 'value', 'placeholder'],
     data: function data() {
         return {
-            number: this.value ? this.value / 100 : 0
+            number: this.value ? (this.value / 100).toFixed(2) : 0
         };
     },
 
     computed: {
         numberToInteger: function numberToInteger() {
-            return this.number * 100;
+            return parseInt(this.number * 100);
         }
     }
 });
@@ -32042,9 +32042,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             pricing: {
                 min_quantity: null,
-                max_quantity: null,
                 unit_price: null
-            }
+            },
+            unit_price: null
         };
     },
     methods: {
@@ -32055,6 +32055,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('/pricings/' + this.category.id, this.pricing).then(function (response) {
                 location.reload();
             });
+        },
+        updateUnitPrice: function updateUnitPrice() {
+            this.pricing.unit_price = parseInt(this.unit_price * 100);
         }
     }
 });
@@ -60156,24 +60159,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.pricing.max_quantity),
-      expression: "pricing.max_quantity"
+      value: (_vm.unit_price),
+      expression: "unit_price"
     }],
     staticClass: "Form text-center",
     attrs: {
-      "type": "number",
-      "placeholder": "To"
+      "type": "text",
+      "placeholder": "Unit Price"
     },
     domProps: {
-      "value": (_vm.pricing.max_quantity)
+      "value": (_vm.unit_price)
     },
     on: {
+      "change": _vm.updateUnitPrice,
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.pricing.max_quantity = $event.target.value
-      },
-      "blur": function($event) {
-        _vm.$forceUpdate()
+        _vm.unit_price = $event.target.value
       }
     }
   }), _vm._v(" "), _c('input', {
@@ -60185,8 +60186,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "Form text-center",
     attrs: {
-      "type": "number",
-      "placeholder": "Unit Price"
+      "type": "hidden"
     },
     domProps: {
       "value": (_vm.pricing.unit_price)
@@ -60195,9 +60195,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.pricing.unit_price = $event.target.value
-      },
-      "blur": function($event) {
-        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), _c('button', {

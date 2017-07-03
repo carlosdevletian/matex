@@ -52,16 +52,12 @@ class ItemCalculator
     private function getPricing()
     {
         $this->validateQuantity();
-
-        if($this->item->quantity >= $this->item->maxQuantityPricing()->max_quantity) {
-            return $this->item->maxQuantityPricing()->unit_price;
-        }
-
+        
         return $this->item
             ->pricings()
             ->where('min_quantity', '<=', $this->item->quantity)
-            ->where('max_quantity', '>=', $this->item->quantity)
-            ->first()
+            ->sortBy('min_quantity')
+            ->last()
             ->unit_price;
     }
 

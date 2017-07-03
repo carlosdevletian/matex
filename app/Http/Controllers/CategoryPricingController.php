@@ -28,7 +28,6 @@ class CategoryPricingController extends Controller
 
         $category->pricings()->create([
             'min_quantity' => $request['min_quantity'],
-            'max_quantity' => $request['max_quantity'],
             'unit_price' => $request['unit_price'],
         ]);
 
@@ -53,8 +52,7 @@ class CategoryPricingController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'min_quantity' => "required|integer|less_than:max_quantity",
-            'max_quantity' => 'required|integer',
+            'min_quantity' => "required|integer",
             'unit_price' => 'required|integer'
         ], [
             'unit_price.integer' => 'The unit price must be a valid number'

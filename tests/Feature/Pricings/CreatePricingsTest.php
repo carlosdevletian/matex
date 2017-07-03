@@ -35,13 +35,11 @@ class CreatePricingsTest extends TestCase
 
         $response = $this->post(route('pricings.store', ['category' => $category->id]), [
             'min_quantity' => 5,
-            'max_quantity' => 199,
             'unit_price' => 150,
         ]);
 
         tap($category->pricings()->first(), function($pricing) use($category) {
             $this->assertEquals(5, $pricing->min_quantity);
-            $this->assertEquals(199, $pricing->max_quantity);
             $this->assertEquals(150, $pricing->unit_price);
             $this->assertTrue($pricing->category->is($category));
         });
@@ -91,38 +89,6 @@ class CreatePricingsTest extends TestCase
     }
 
     /** @test */
-    public function max_quantity_is_required()
-    {
-        $category = factory('App\Models\Category')->create();
-
-        $response = $this->withExceptionHandling()
-                    ->signIn($this->admin)
-                    ->post(route('pricings.store', ['category' => $category->id]), $this->validParams([
-                        'max_quantity' => ''
-                    ]));
-
-        $response->assertStatus(302);
-        $response->assertSessionHasErrors('max_quantity');
-        $this->assertEquals(0, Pricing::count());
-    }
-
-    /** @test */
-    public function max_quantity_must_be_an_integer()
-    {
-        $category = factory('App\Models\Category')->create();
-
-        $response = $this->withExceptionHandling()
-                    ->signIn($this->admin)
-                    ->post(route('pricings.store', ['category' => $category->id]), $this->validParams([
-                        'max_quantity' => 0.4
-                    ]));
-
-        $response->assertStatus(302);
-        $response->assertSessionHasErrors('max_quantity');
-        $this->assertEquals(0, Pricing::count());
-    }
-
-    /** @test */
     public function unit_price_is_required()
     {
         $category = factory('App\Models\Category')->create();
@@ -151,23 +117,6 @@ class CreatePricingsTest extends TestCase
 
         $response->assertStatus(302);
         $response->assertSessionHasErrors('unit_price');
-        $this->assertEquals(0, Pricing::count());
-    }
-
-    /** @test */
-    public function min_quantity_must_be_smaller_than_max_quantity()
-    {
-        $category = factory('App\Models\Category')->create();
-
-        $response = $this->withExceptionHandling()
-                    ->signIn($this->admin)
-                    ->post(route('pricings.store', ['category' => $category->id]), $this->validParams([
-                        'min_quantity' => 100,
-                        'max_quantity' => 50,
-                    ]));
-
-        $response->assertStatus(302);
-        $response->assertSessionHasErrors('min_quantity');
         $this->assertEquals(0, Pricing::count());
     }
 

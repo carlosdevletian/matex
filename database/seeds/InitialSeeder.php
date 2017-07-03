@@ -61,17 +61,17 @@ class InitialSeeder extends Seeder
         factory(Product::class)->create(['name' => 'x-large', 'category_id' => $bracelet->id, 'display_position' => 4]);
         factory(Product::class)->create(['name' => 'xx-Large', 'category_id' => $bracelet->id, 'display_position' => 5]);
 
-        $bracelet->pricings()->create(['min_quantity' => 50, 'max_quantity' => 99, 'unit_price' => 130]);
-        $bracelet->pricings()->create(['min_quantity' => 100, 'max_quantity' => 199, 'unit_price' => 90]);
-        $bracelet->pricings()->create(['min_quantity' => 200, 'max_quantity' => 299, 'unit_price' => 85]);
-        $bracelet->pricings()->create(['min_quantity' => 300, 'max_quantity' => 499, 'unit_price' => 80]);
-        $bracelet->pricings()->create(['min_quantity' => 500, 'max_quantity' => 999, 'unit_price' => 62]);
-        $bracelet->pricings()->create(['min_quantity' => 1000, 'max_quantity' => 2999, 'unit_price' => 48]);
-        $bracelet->pricings()->create(['min_quantity' => 3000, 'max_quantity' => 4999, 'unit_price' => 36]);
-        $bracelet->pricings()->create(['min_quantity' => 5000, 'max_quantity' => 7999, 'unit_price' => 28]);
-        $bracelet->pricings()->create(['min_quantity' => 8000, 'max_quantity' => 11999, 'unit_price' => 20]);
-        $bracelet->pricings()->create(['min_quantity' => 12000, 'max_quantity' => 15999, 'unit_price' => 18]);
-        $bracelet->pricings()->create(['min_quantity' => 16000, 'max_quantity' => 20000, 'unit_price' => 17]);
+        $bracelet->pricings()->create(['min_quantity' => 50, 'unit_price' => 130]);
+        $bracelet->pricings()->create(['min_quantity' => 100, 'unit_price' => 90]);
+        $bracelet->pricings()->create(['min_quantity' => 200, 'unit_price' => 85]);
+        $bracelet->pricings()->create(['min_quantity' => 300, 'unit_price' => 80]);
+        $bracelet->pricings()->create(['min_quantity' => 500, 'unit_price' => 62]);
+        $bracelet->pricings()->create(['min_quantity' => 1000, 'unit_price' => 48]);
+        $bracelet->pricings()->create(['min_quantity' => 3000, 'unit_price' => 36]);
+        $bracelet->pricings()->create(['min_quantity' => 5000, 'unit_price' => 28]);
+        $bracelet->pricings()->create(['min_quantity' => 8000, 'unit_price' => 20]);
+        $bracelet->pricings()->create(['min_quantity' => 12000, 'unit_price' => 18]);
+        $bracelet->pricings()->create(['min_quantity' => 16000, 'unit_price' => 17]);
 
         $bracelet->enable();
     }
@@ -91,12 +91,12 @@ class InitialSeeder extends Seeder
         factory(Product::class)->create(['name' => 'small', 'category_id' => $businessCard->id, 'display_position' => 1]);
         factory(Product::class)->create(['name' => 'medium', 'category_id' => $businessCard->id, 'display_position' => 2]);
 
-        $businessCard->pricings()->create(['min_quantity' => 50, 'max_quantity' => 99, 'unit_price' => 130]);
-        $businessCard->pricings()->create(['min_quantity' => 100, 'max_quantity' => 199, 'unit_price' => 90]);
-        $businessCard->pricings()->create(['min_quantity' => 200, 'max_quantity' => 299, 'unit_price' => 85]);
-        $businessCard->pricings()->create(['min_quantity' => 300, 'max_quantity' => 499, 'unit_price' => 80]);
-        $businessCard->pricings()->create(['min_quantity' => 500, 'max_quantity' => 999, 'unit_price' => 62]);
-        $businessCard->pricings()->create(['min_quantity' => 1000, 'max_quantity' => 2999, 'unit_price' => 48]);
+        $businessCard->pricings()->create(['min_quantity' => 50, 'unit_price' => 130]);
+        $businessCard->pricings()->create(['min_quantity' => 100, 'unit_price' => 90]);
+        $businessCard->pricings()->create(['min_quantity' => 200, 'unit_price' => 85]);
+        $businessCard->pricings()->create(['min_quantity' => 300, 'unit_price' => 80]);
+        $businessCard->pricings()->create(['min_quantity' => 500, 'unit_price' => 62]);
+        $businessCard->pricings()->create(['min_quantity' => 1000, 'unit_price' => 48]);
 
         $businessCard->enable();
     }
@@ -119,14 +119,14 @@ class InitialSeeder extends Seeder
         factory(Product::class)->create(['name' => 'small', 'category_id' => $calendar->id, 'display_position' => 1]);
         factory(Product::class)->create(['name' => 'medium', 'category_id' => $calendar->id, 'display_position' => 2]);
 
-        $calendar->pricings()->create(['min_quantity' => 5, 'max_quantity' => 9, 'unit_price' => 2600]);
-        $calendar->pricings()->create(['min_quantity' => 10, 'max_quantity' => 19, 'unit_price' => 1800]);
-        $calendar->pricings()->create(['min_quantity' => 20, 'max_quantity' => 49, 'unit_price' => 1700]);
-        $calendar->pricings()->create(['min_quantity' => 50, 'max_quantity' => 99, 'unit_price' => 1600]);
-        $calendar->pricings()->create(['min_quantity' => 100, 'max_quantity' => 199, 'unit_price' => 1240]);
-        $calendar->pricings()->create(['min_quantity' => 200, 'max_quantity' => 499, 'unit_price' => 960]);
-        $calendar->pricings()->create(['min_quantity' => 500, 'max_quantity' => 999, 'unit_price' => 720]);
-        $calendar->pricings()->create(['min_quantity' => 1000, 'max_quantity' => 10000, 'unit_price' => 560]);
+        $calendar->pricings()->create(['min_quantity' => 5, 'unit_price' => 2600]);
+        $calendar->pricings()->create(['min_quantity' => 10, 'unit_price' => 1800]);
+        $calendar->pricings()->create(['min_quantity' => 20, 'unit_price' => 1700]);
+        $calendar->pricings()->create(['min_quantity' => 50, 'unit_price' => 1600]);
+        $calendar->pricings()->create(['min_quantity' => 100, 'unit_price' => 1240]);
+        $calendar->pricings()->create(['min_quantity' => 200, 'unit_price' => 960]);
+        $calendar->pricings()->create(['min_quantity' => 500, 'unit_price' => 720]);
+        $calendar->pricings()->create(['min_quantity' => 1000, 'unit_price' => 560]);
 
         $calendar->enable();
     }

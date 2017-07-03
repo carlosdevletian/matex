@@ -22,13 +22,11 @@ class ItemCalculatorTest extends TestCase
         $category = factory(Category::class)->create();
         $correctPricing = factory(Pricing::class)->create([
             'min_quantity' => 50,
-            'max_quantity' => 199,
             'unit_price' => 130,
             'category_id' => $category->id,
         ]);
         $incorrectPricing = factory(Pricing::class)->create([
             'min_quantity' => 200,
-            'max_quantity' => 299,
             'unit_price' => 110,
             'category_id' => $category->id,
         ]);
@@ -44,19 +42,42 @@ class ItemCalculatorTest extends TestCase
     }
 
     /** @test */
+    public function the_quantity_corresponds_to_a_pricings_min_quantity()
+    {
+        $category = factory(Category::class)->create();
+        $correctPricing = factory(Pricing::class)->create([
+            'min_quantity' => 50,
+            'unit_price' => 130,
+            'category_id' => $category->id,
+        ]);
+        $incorrectPricing = factory(Pricing::class)->create([
+            'min_quantity' => 200,
+            'unit_price' => 110,
+            'category_id' => $category->id,
+        ]);
+        $product = factory(Product::class)->create(['category_id' => $category->id]);
+        $item = factory(Item::class)->make([
+            'quantity' => 200,
+            'product_id' => $product->id
+        ]);
+
+        $basePrice = (new ItemCalculator($item))->productPrice()->getCalculatedPrice();
+
+        $this->assertEquals(110, $basePrice);
+    }
+
+    /** @test */
     public function it_calculates_the_price_correctly()
     {
         $accessory = factory(Accessory::class)->create(['price' => 15]);
         $category = factory(Category::class)->create();
         $correctPricing = factory(Pricing::class)->create([
             'min_quantity' => 50,
-            'max_quantity' => 199,
             'unit_price' => 130,
             'category_id' => $category->id,
         ]);
         $incorrectPricing = factory(Pricing::class)->create([
             'min_quantity' => 200,
-            'max_quantity' => 299,
             'unit_price' => 110,
             'category_id' => $category->id,
         ]);
@@ -71,9 +92,6 @@ class ItemCalculatorTest extends TestCase
 
         $item = (new ItemCalculator($item))->calculate();
 
-        // unit_price = 130 ($basePrice) + 15($accessoryPrice) = 145
-        // total_price = 145*100 (unit_price * quantity)
-
         $this->assertEquals(145, $item->unit_price);
         $this->assertEquals(14500, $item->total_price);
     }
@@ -84,7 +102,6 @@ class ItemCalculatorTest extends TestCase
         $category = factory(Category::class)->create();
         $lowestQuantityPricing = factory(Pricing::class)->create([
             'min_quantity' => 50,
-            'max_quantity' => 199,
             'unit_price' => 130,
             'category_id' => $category->id,
         ]);
@@ -104,18 +121,16 @@ class ItemCalculatorTest extends TestCase
     }
 
     /** @test */
-    public function the_items_quantity_is_higher_than_the_maximum_quantity()
+    public function the_items_quantity_is_higher_than_the_pricing_with_highest_min_quantity()
     {
         $category = factory(Category::class)->create();
         $lowestQuantityPricing = factory(Pricing::class)->create([
             'min_quantity' => 50,
-            'max_quantity' => 99,
             'unit_price' => 130,
             'category_id' => $category->id,
         ]);
         $highestQuantityPricing = factory(Pricing::class)->create([
             'min_quantity' => 100,
-            'max_quantity' => 199,
             'unit_price' => 90,
             'category_id' => $category->id,
         ]);

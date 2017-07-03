@@ -34,7 +34,7 @@ class PayOrderTest extends TestCase
     private function makeOrderThings()
     {
         $category = factory(Category::class)->create();
-        factory(Pricing::class)->create(['category_id' => $category->id, 'min_quantity' => 50, 'max_quantity' => 100]);
+        factory(Pricing::class)->create(['category_id' => $category->id, 'min_quantity' => 50]);
         $product = factory(Product::class)->create(['category_id' => $category->id]);
         
         factory(Status::class)->create(['name' => 'Payment Pending']);
@@ -72,7 +72,7 @@ class PayOrderTest extends TestCase
     public function guest_can_pay_order()
     {
         $category = factory(Category::class)->create();
-        factory(Pricing::class)->create(['category_id' => $category->id, 'min_quantity' => 50, 'max_quantity' => 100]);
+        factory(Pricing::class)->create(['category_id' => $category->id, 'min_quantity' => 50]);
         $product = factory(Product::class)->create(['category_id' => $category->id]);
         factory(Status::class)->create(['name' => 'Payment Pending']);
         factory(Status::class)->create(['name' => 'Payment Approved']);

@@ -23,7 +23,6 @@ class EditPricingTest extends TestCase
     {
         return array_merge([
             'min_quantity' => 10,
-            'max_quantity' => 99,
             'unit_price' => 130,
         ], $overrides);
     }
@@ -33,17 +32,14 @@ class EditPricingTest extends TestCase
     {
         $pricingA = factory(Pricing::class)->create([
             'min_quantity' => 10,
-            'max_quantity' => 19,
             'unit_price' => 130,
         ]);
         $pricingB = factory(Pricing::class)->create([
             'min_quantity' => 20,
-            'max_quantity' => 29,
             'unit_price' => 110,
         ]);
         $pricingC = factory(Pricing::class)->create([
             'min_quantity' => 30,
-            'max_quantity' => 39,
             'unit_price' => 90,
         ]);
 
@@ -52,17 +48,14 @@ class EditPricingTest extends TestCase
                 'pricings' => [
                     $pricingA->id => [
                         'min_quantity' => 100,
-                        'max_quantity' => 199,
                         'unit_price' => 50
                     ],
                     $pricingB->id => [
                         'min_quantity' => 200,
-                        'max_quantity' => 299,
                         'unit_price' => 30
                     ],
                     $pricingC->id => [
                         'min_quantity' => 300,
-                        'max_quantity' => 399,
                         'unit_price' => 10
                     ],
                 ]
@@ -70,17 +63,14 @@ class EditPricingTest extends TestCase
 
         tap($pricingA->fresh(), function($A) {
             $this->assertEquals(100, $A->min_quantity);
-            $this->assertEquals(199, $A->max_quantity);
             $this->assertEquals(50, $A->unit_price);
         });
         tap($pricingB->fresh(), function($B) {
             $this->assertEquals(200, $B->min_quantity);
-            $this->assertEquals(299, $B->max_quantity);
             $this->assertEquals(30, $B->unit_price);
         });
         tap($pricingC->fresh(), function($C) {
             $this->assertEquals(300, $C->min_quantity);
-            $this->assertEquals(399, $C->max_quantity);
             $this->assertEquals(10, $C->unit_price);
         });
     }
@@ -103,7 +93,6 @@ class EditPricingTest extends TestCase
     {
         $pricingA = factory(Pricing::class)->create([
             'min_quantity' => 10,
-            'max_quantity' => 19,
             'unit_price' => 130,
         ]);
 
@@ -113,7 +102,6 @@ class EditPricingTest extends TestCase
                 'pricings' => [
                     $pricingA->id => [
                         'min_quantity' => '',
-                        'max_quantity' => 199,
                         'unit_price' => 50
                     ],
                 ]
@@ -124,36 +112,10 @@ class EditPricingTest extends TestCase
     }
 
     /** @test */
-    public function each_updating_pricing_must_have_a_maximum_quantity()
-    {
-        $pricingA = factory(Pricing::class)->create([
-            'min_quantity' => 10,
-            'max_quantity' => 19,
-            'unit_price' => 130,
-        ]);
-
-        $response = $this->withExceptionHandling()
-            ->signIn($this->admin)
-            ->put(route('pricings.update'), [
-                'pricings' => [
-                    $pricingA->id => [
-                        'min_quantity' => 100,
-                        'max_quantity' => '',
-                        'unit_price' => 50
-                    ],
-                ]
-            ]);
-
-        $response->assertStatus(302);
-        $response->assertSessionHasErrors('max_quantity');
-    }
-
-    /** @test */
     public function each_updating_pricing_must_have_a_unit_price()
     {
         $pricingA = factory(Pricing::class)->create([
             'min_quantity' => 10,
-            'max_quantity' => 19,
             'unit_price' => 130,
         ]);
 
@@ -163,7 +125,6 @@ class EditPricingTest extends TestCase
                 'pricings' => [
                     $pricingA->id => [
                         'min_quantity' => 100,
-                        'max_quantity' => 199,
                         'unit_price' => ''
                     ],
                 ]

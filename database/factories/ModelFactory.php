@@ -230,7 +230,6 @@ $factory->define(App\Models\CategoryPricing::class, function (Faker\Generator $f
             return factory(App\Models\Category::class)->create()->id;
         },
         'min_quantity' => 10,
-        'max_quantity' => 20,
         'unit_price' => 150
     ];
 });

@@ -17,7 +17,6 @@ class CreateCategoryPricingsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('min_quantity');
-            $table->unsignedInteger('max_quantity');
             $table->unsignedInteger('unit_price');
             $table->timestamps();
 

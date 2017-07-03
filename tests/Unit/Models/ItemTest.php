@@ -21,7 +21,7 @@ class ItemTest extends TestCase
     {
         parent::setUp();
         $category = factory(Category::class)->create();
-        factory(Pricing::class)->create(['category_id' => $category->id, 'min_quantity' => 50, 'max_quantity' => 100]);
+        factory(Pricing::class)->create(['category_id' => $category->id, 'min_quantity' => 50]);
         $this->product = factory(Product::class)->create(['category_id' => $category->id]);
     }
     
@@ -135,12 +135,10 @@ class ItemTest extends TestCase
         $category = factory(Category::class)->create();
         $lowestPricing = factory(Pricing::class)->create([
             'min_quantity' => 10,
-            'max_quantity' => 99,
             'category_id' => $category->id
         ]);
         $highestPricing = factory(Pricing::class)->create([
             'min_quantity' => 100,
-            'max_quantity' => 199,
             'category_id' => $category->id
         ]);
         $product = factory(Product::class)->create(['category_id' => $category->id]);
@@ -150,22 +148,20 @@ class ItemTest extends TestCase
     }
     
     /** @test */    
-    public function an_items_max_quantity_pricing_is_the_pricing_of_highest_maximum_quantity()
+    public function an_items_max_quantity_pricing_is_the_pricing_of_highest_minimum_quantity()
     {
         $category = factory(Category::class)->create();
         $lowestPricing = factory(Pricing::class)->create([
             'min_quantity' => 10,
-            'max_quantity' => 99,
             'category_id' => $category->id
         ]);
         $highestPricing = factory(Pricing::class)->create([
             'min_quantity' => 100,
-            'max_quantity' => 199,
             'category_id' => $category->id
         ]);
         $product = factory(Product::class)->create(['category_id' => $category->id]);
         $item = factory(Item::class)->create(['product_id' => $product->id]);
 
-        $this->assertEquals(199, $item->maxQuantityPricing()->max_quantity);
+        $this->assertEquals(100, $item->maxQuantityPricing()->min_quantity);
     }
 }

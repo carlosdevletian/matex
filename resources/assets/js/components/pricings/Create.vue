@@ -14,12 +14,12 @@
                 placeholder="From" 
                 v-model="pricing.min_quantity">
             <input class="Form text-center" 
-                type="number" 
-                placeholder="To" 
-                v-model="pricing.max_quantity">
+                type="text"
+                placeholder="Unit Price"
+                @change="updateUnitPrice" 
+                v-model="unit_price">
             <input class="Form text-center" 
-                type="number"
-                placeholder="Unit Price" 
+                type="hidden" 
                 v-model="pricing.unit_price">
             <button class="Button--secondary stick-to-bottom" @click="createPricing">Confirm</button>
         </div>
@@ -34,9 +34,9 @@
             return {
                 pricing: {
                     min_quantity: null,
-                    max_quantity: null,
                     unit_price: null,
-                }
+                },
+                unit_price: null
             }
         },
         methods: {
@@ -48,6 +48,9 @@
                 .then((response) => {
                     location.reload();
                 });
+            },
+            updateUnitPrice() {
+                this.pricing.unit_price = parseInt(this.unit_price * 100);
             }
         },
     }

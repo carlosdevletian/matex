@@ -33,24 +33,16 @@
                                 <tbody>
                                     <tr>
                                         <th class="text-center">From</th>
-                                        <th class="text-center">To</th> 
                                         <th class="text-center">Unit Price</th>
                                     </tr>
                                     @foreach($pricings as $pricing)
                                         <tr class="text-center">
-                                            <td class="col-xs-4">
+                                            <td class="col-xs-3">
                                                 <input style="width: 100%" 
                                                     class="Form pd-0 text-center" 
                                                     type="number" 
                                                     name="pricings[{{ $pricing->id }}][min_quantity]" 
                                                     value="{{ $pricing->min_quantity }}">
-                                            </td>
-                                            <td class="col-xs-4">
-                                                <input style="width: 100%" 
-                                                    class="Form pd-0 text-center" 
-                                                    type="number" 
-                                                    name="pricings[{{ $pricing->id }}][max_quantity]" 
-                                                    value="{{ $pricing->max_quantity }}">
                                             </td>
                                             <td class="col-xs-3">
                                                 <float-input 

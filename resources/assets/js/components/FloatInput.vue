@@ -10,12 +10,12 @@
         props: ['id', 'name', 'classes', 'value', 'placeholder'],
         data() {
             return {
-                number: this.value ? this.value/100 : 0,
+                number: this.value ? (this.value/100).toFixed(2) : 0,
             }
         },
         computed: {
             numberToInteger() {
-                return this.number * 100;
+                return parseInt(this.number * 100);
             }
         }
     }

@@ -140,7 +140,7 @@ class Item extends Model
     public function maxQuantityPricing()
     {
         return $this->pricings()
-            ->sortByDesc('max_quantity')
+            ->sortByDesc('min_quantity')
             ->first();
     }
 }

@@ -9,6 +9,7 @@
         </div>
 
         <div slot="body" class="pd-btm-25">
+            <div v-if="error" class="error" v-text="error[Object.keys(error)[0]][0]"></div>
             <input class="Form text-center" 
                 type="number"
                 placeholder="From" 
@@ -36,7 +37,8 @@
                     min_quantity: null,
                     unit_price: null,
                 },
-                unit_price: null
+                unit_price: null,
+                error: null
             }
         },
         methods: {
@@ -47,6 +49,8 @@
                 axios.post(`/pricings/${this.category.id}`, this.pricing)
                 .then((response) => {
                     location.reload();
+                }).catch((error) => {
+                    this.error = error.response.data;
                 });
             },
             updateUnitPrice() {

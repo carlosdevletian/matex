@@ -121,6 +121,32 @@ class CreatePricingsTest extends TestCase
     }
 
     /** @test */
+    public function when_creating_a_pricing_its_unit_price_must_be_consistent_with_existing_pricings()
+    {
+        $category = factory('App\Models\Category')->create();
+        factory(Pricing::class)->create([
+            'min_quantity' => 50, 
+            'unit_price' => 150, 
+            'category_id' => $category->id
+        ]);
+        factory(Pricing::class)->create([
+            'min_quantity' => 100,
+            'unit_price' => 100, 
+            'category_id' => $category->id
+        ]);
+
+        $response = $this->withExceptionHandling()
+                    ->signIn($this->admin)
+                    ->post(route('pricings.store', ['category' => $category->id]), [
+                        'min_quantity' => 75,
+                        'unit_price' => 200
+                    ]);
+
+        $this->assertEquals(2, Pricing::count());
+        $response->assertSessionHasErrors('unit_price');
+    }
+
+    /** @test */
     public function a_guest_cannot_delete_a_pricing()
     {
         $pricing = factory(Pricing::class)->create();

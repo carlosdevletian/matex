@@ -26,16 +26,18 @@ class CategoryPricingController extends Controller
         
         $category = Category::findOrFail($categoryId);
 
-        $category->pricings()->create([
+        Pricing::addToCategory($category, [
+            'category_id' => $categoryId,
             'min_quantity' => $request['min_quantity'],
             'unit_price' => $request['unit_price'],
         ]);
-
         // Redirect
     }
 
     public function update(Request $request)
     {
+        Pricing::validateUnitPrice($request['pricings']);
+        
         foreach ($request['pricings'] as $pricingId => $pricingData) {
             $this->validator($pricingData)->validate();
             Pricing::findOrFail($pricingId)->update($pricingData);

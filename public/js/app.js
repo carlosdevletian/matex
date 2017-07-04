@@ -32035,6 +32035,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['category'],
@@ -32044,7 +32045,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 min_quantity: null,
                 unit_price: null
             },
-            unit_price: null
+            unit_price: null,
+            error: null
         };
     },
     methods: {
@@ -32052,8 +32054,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$emit('close');
         },
         createPricing: function createPricing() {
+            var _this = this;
+
             axios.post('/pricings/' + this.category.id, this.pricing).then(function (response) {
                 location.reload();
+            }).catch(function (error) {
+                _this.error = error.response.data;
             });
         },
         updateUnitPrice: function updateUnitPrice() {
@@ -60131,7 +60137,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n        Add a pricing for the " + _vm._s(_vm.category.name) + " category\n    ")]), _vm._v(" "), _c('div', {
     staticClass: "pd-btm-25",
     slot: "body"
-  }, [_c('input', {
+  }, [(_vm.error) ? _c('div', {
+    staticClass: "error",
+    domProps: {
+      "textContent": _vm._s(_vm.error[Object.keys(_vm.error)[0]][0])
+    }
+  }) : _vm._e(), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",

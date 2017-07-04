@@ -133,4 +133,52 @@ class EditPricingTest extends TestCase
         $response->assertStatus(302);
         $response->assertSessionHasErrors('unit_price');
     }
+
+    /** @test */
+    public function when_creating_a_pricing_its_unit_price_must_be_consistent_with_existing_pricings()
+    {
+        $pricingA = factory(Pricing::class)->create([
+            'min_quantity' => 10,
+            'unit_price' => 130,
+        ]);
+        $pricingB = factory(Pricing::class)->create([
+            'min_quantity' => 20,
+            'unit_price' => 110,
+        ]);
+        $pricingC = factory(Pricing::class)->create([
+            'min_quantity' => 30,
+            'unit_price' => 90,
+        ]);
+
+        $response = $this->withExceptionHandling()->signIn($this->admin)
+            ->put(route('pricings.update'), [
+                'pricings' => [
+                    $pricingA->id => [
+                        'min_quantity' => 100,
+                        'unit_price' => 50
+                    ],
+                    $pricingB->id => [
+                        'min_quantity' => 50,
+                        'unit_price' => 30
+                    ],
+                    $pricingC->id => [
+                        'min_quantity' => 300,
+                        'unit_price' => 10
+                    ],
+                ]
+            ]);
+
+        tap($pricingA->fresh(), function($A) {
+            $this->assertEquals(10, $A->min_quantity);
+            $this->assertEquals(130, $A->unit_price);
+        });
+        tap($pricingB->fresh(), function($B) {
+            $this->assertEquals(20, $B->min_quantity);
+            $this->assertEquals(110, $B->unit_price);
+        });
+        tap($pricingC->fresh(), function($C) {
+            $this->assertEquals(30, $C->min_quantity);
+            $this->assertEquals(90, $C->unit_price);
+        });
+    }
 }

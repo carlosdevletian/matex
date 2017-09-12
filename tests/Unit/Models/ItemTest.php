@@ -21,10 +21,11 @@ class ItemTest extends TestCase
     {
         parent::setUp();
         $category = factory(Category::class)->create();
+        factory(\App\Models\CurrencyRate::class)->create(['currency_code' => 'cop']);
         factory(Pricing::class)->create(['category_id' => $category->id, 'min_quantity' => 50]);
         $this->product = factory(Product::class)->create(['category_id' => $category->id]);
     }
-    
+
     /** @test */
     function it_generates_new_items_from_request_data()
     {
@@ -39,7 +40,7 @@ class ItemTest extends TestCase
     function it_creates_new_items_from_request_data_for_a_given_design()
     {
        $requestData = factory(Item::class, 3)->make([
-            'product_id' => $this->product->id, 
+            'product_id' => $this->product->id,
             'quantity' => 75
         ]);
        $design = factory(Design::class)->create(['id' => 99]);
@@ -55,8 +56,8 @@ class ItemTest extends TestCase
     {
         $existingItem = factory(Item::class)->create([
             'id' => 99,
-            'product_id' => $this->product->id, 
-            'quantity' => 75, 
+            'product_id' => $this->product->id,
+            'quantity' => 75,
         ]);
 
         $requestData = collect([
@@ -73,16 +74,16 @@ class ItemTest extends TestCase
     function it_only_generates_items_with_a_valid_quantity()
     {
         $invalidItem1 = factory(Item::class)->make([
-            'product_id' => $this->product->id, 
-            'quantity' => -1, 
+            'product_id' => $this->product->id,
+            'quantity' => -1,
         ]);
         $validItem = factory(Item::class)->make([
-            'product_id' => $this->product->id, 
-            'quantity' => 75, 
+            'product_id' => $this->product->id,
+            'quantity' => 75,
         ]);
         $invalidItem2 = factory(Item::class)->make([
-            'product_id' => $this->product->id, 
-            'quantity' => 0, 
+            'product_id' => $this->product->id,
+            'quantity' => 0,
         ]);
 
         $requestData = collect(
@@ -128,8 +129,8 @@ class ItemTest extends TestCase
 
         $this->assertInstanceOf(Pricing::class, $item->pricings()->first());
     }
-    
-    /** @test */    
+
+    /** @test */
     public function an_items_min_quantity_pricing_is_the_pricing_of_lowest_minimum_quantity()
     {
         $category = factory(Category::class)->create();
@@ -146,8 +147,8 @@ class ItemTest extends TestCase
 
         $this->assertEquals(10, $item->minQuantityPricing()->min_quantity);
     }
-    
-    /** @test */    
+
+    /** @test */
     public function an_items_max_quantity_pricing_is_the_pricing_of_highest_minimum_quantity()
     {
         $category = factory(Category::class)->create();

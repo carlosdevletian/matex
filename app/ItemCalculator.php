@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Item;
+use App\Models\CurrencyRate;
 
 class ItemCalculator
 {
@@ -19,6 +20,7 @@ class ItemCalculator
     {
         $this->productPrice()
             ->accessoryPrice()
+            ->toPesos()
             ->set();
 
         return $this->item;
@@ -28,7 +30,7 @@ class ItemCalculator
     {
         $this->calculatedPrice += $this->getPricing();
 
-        return $this;    
+        return $this;
     }
 
     public function accessoryPrice()
@@ -40,19 +42,28 @@ class ItemCalculator
         return $this;
     }
 
+    public function toPesos()
+    {
+        $rate = CurrencyRate::where('currency_code', 'COP')->firstOrFail();
+
+        $this->calculatedPrice *= $rate->to_dollar;
+
+        return $this;
+    }
+
     public function set()
     {
         $this->item->unit_price = $this->calculatedPrice;
 
-        $this->item->total_price = $this->item->quantity * $this->item->unit_price; 
+        $this->item->total_price = $this->item->quantity * $this->item->unit_price;
 
-        return $this;  
+        return $this;
     }
 
     private function getPricing()
     {
         $this->validateQuantity();
-        
+
         return $this->item
             ->pricings()
             ->where('min_quantity', '<=', $this->item->quantity)

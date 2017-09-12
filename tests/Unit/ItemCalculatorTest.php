@@ -16,6 +16,13 @@ class ItemCalculatorTest extends TestCase
 {
     use DatabaseMigrations;
 
+    protected function setUp()
+    {
+        parent::setUp();
+
+        factory(\App\Models\CurrencyRate::class)->create(['currency_code' => 'cop', 'to_dollar' => 2]);
+    }
+
     /** @test */
     public function it_gets_a_base_price_from_its_category_based_on_quantity()
     {
@@ -92,8 +99,8 @@ class ItemCalculatorTest extends TestCase
 
         $item = (new ItemCalculator($item))->calculate();
 
-        $this->assertEquals(145, $item->unit_price);
-        $this->assertEquals(14500, $item->total_price);
+        $this->assertEquals(290, $item->unit_price);
+        $this->assertEquals(29000, $item->total_price);
     }
 
     /** @test */
@@ -117,7 +124,7 @@ class ItemCalculatorTest extends TestCase
         $item = (new ItemCalculator($item))->calculate();
 
         $this->assertEquals(50, $item->quantity);
-        $this->assertEquals(130, $item->unit_price);
+        $this->assertEquals(260, $item->unit_price);
     }
 
     /** @test */

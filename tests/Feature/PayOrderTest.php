@@ -29,6 +29,7 @@ class PayOrderTest extends TestCase
         Mail::fake();
         $this->paymentGateway = new FakePaymentGateway;
         $this->app->instance(PaymentGateway::class, $this->paymentGateway);
+        factory(\App\Models\CurrencyRate::class)->create(['currency_code' => 'cop']);
     }
 
     private function makeOrderThings()
@@ -36,7 +37,7 @@ class PayOrderTest extends TestCase
         $category = factory(Category::class)->create();
         factory(Pricing::class)->create(['category_id' => $category->id, 'min_quantity' => 50]);
         $product = factory(Product::class)->create(['category_id' => $category->id]);
-        
+
         factory(Status::class)->create(['name' => 'Payment Pending']);
         factory(Status::class)->create(['name' => 'Payment Approved']);
         $user = factory(User::class)->create();

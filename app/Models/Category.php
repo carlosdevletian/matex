@@ -88,7 +88,7 @@ class Category extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', 1)
-                    ->whereHas('products', function($q){ 
+                    ->whereHas('products', function($q){
                         $q->active();
                     });
     }
@@ -103,6 +103,16 @@ class Category extends Model
     public function activeProducts()
     {
          return $this->products()->active();
+    }
+
+    public function pricingsInPesos()
+    {
+        $rate = CurrencyRate::where('currency_code', 'COP')->firstOrFail();
+
+        return $this->pricings->map(function($pricing) use ($rate) {
+            $pricing->unit_price = $pricing->toRate($rate);
+            return $pricing;
+        });
     }
 
     public function addImage($file, $name)

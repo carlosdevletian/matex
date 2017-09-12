@@ -30,4 +30,9 @@ class CategoryPricing extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function toRate($rate)
+    {
+        return $this->unit_price * $rate->to_dollar;
+    }
 }

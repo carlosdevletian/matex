@@ -69,7 +69,9 @@ class OrderController extends Controller
             $predesigned = "";
         }
 
-        $categoryPricings = [$category->name => $category->pricings->sortBy('min_quantity')->values()];
+        $categoryPricings = [
+            $category->name => $category->pricingsInPesos()->sortBy('min_quantity')->values()
+        ];
 
         if(auth()->check()) {
             $design = $design->exists ? $design : Design::findOrFail(session('design'));
@@ -77,7 +79,7 @@ class OrderController extends Controller
             return view('orders.create', [
                 'products' => Product::activeFrom($category->id),
                 'addresses' => Address::where('user_id', auth()->user()->id)->get(),
-                'design' => $design->id, 
+                'design' => $design->id,
                 'design_image' => $design->image_name,
                 'predesigned' => $predesigned,
                 'categoryPricings' => $categoryPricings
@@ -90,8 +92,8 @@ class OrderController extends Controller
         return view('orders.create', [
             'products' => Product::activeFrom($category->id),
             'addresses' => collect(),
-            'design' => $design, 
-            'design_image' => $design_image, 
+            'design' => $design,
+            'design_image' => $design_image,
             'categoryId' => $category->id,
             'predesigned' => $predesigned,
             'categoryPricings' => $categoryPricings
@@ -118,7 +120,7 @@ class OrderController extends Controller
         ]);
 
         event(new OrderStatusChanged($order, request('comment')));
-        
+
         flash()->success('Success','Status changed successfully');
 
         return redirect()->back();

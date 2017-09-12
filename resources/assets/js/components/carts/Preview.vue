@@ -1,32 +1,37 @@
 <template>
     <div class="row color-grey">
-        <div v-if="itemQuantity > 0">
-            <div style="padding: 5px 0px; min-height: 180px">
-                <div class="col-xs-5">
-                    <a role="button" @click="openImage">
-                        <div class="background-image Thumbnail--image box-shadow" 
-                            :style="imageUrl">
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-7">
-                    <p>
-                        {{ firstItem.quantity }} {{ firstItem.product.name }} {{ firstItem.design.category.name }} 
-                    </p>
-                    <div v-if="itemQuantity != 1">
+        <div v-if="itemQuantity > 0" style="padding: 5px 0px; min-height: 180px">
+            <div>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <a role="button" @click="openImage">
+                            <div class="background-image Thumbnail--image box-shadow"
+                                :style="imageUrl">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-7">
                         <p>
-                            ... and {{ itemQuantity - 1 }} more
+                            {{ firstItem.quantity }} {{ firstItem.product.name }} {{ firstItem.design.category.name }}
+                        </p>
+                        <div v-if="itemQuantity != 1">
+                            <p>
+                                ... and {{ itemQuantity - 1 }} more
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <p class="color-secondary pd-btm-25 mg-top-20">
+                            Subtotal: ${{ subtotal | inDollars }}
                         </p>
                     </div>
-                    <hr>
-                    <p class="color-secondary">
-                        Subtotal: ${{ subtotal | inDollars }}
-                    </p>
                 </div>
             </div>
             <a href="/cart" class="Button Button--primary stick-to-bottom color-white">Go to cart</a>
         </div>
-        <p v-else class="text-center mg-top-10">
+        <p v-else class="text-center mg-top-20">
             Your cart is empty
         </p>
     </div>

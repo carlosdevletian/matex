@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Accessory;
 use Illuminate\Database\Seeder;
+use App\Models\CurrencyRate as Rate;
 
 class InitialSeeder extends Seeder
 {
@@ -35,6 +36,8 @@ class InitialSeeder extends Seeder
         factory(Status::class)->create(['name' => 'Delivered', 'color' => 'green']);
         factory(Status::class)->create(['name' => 'Canceled', 'color' => 'black']);
 
+        factory(Rate::class)->create(['currency_code' => 'COP', 'to_dollar' => 3000]);
+
         $this->createBracelets();
         $this->createCalendars();
         $this->createBusinessCards();
@@ -43,10 +46,10 @@ class InitialSeeder extends Seeder
     private function createBracelets()
     {
         $bracelet = factory(Category::class)->create([
-            'name' => 'bracelet', 
-            'crop_width' => 1077, 
-            'crop_height' => 42, 
-            'crop_x_position' => 61, 
+            'name' => 'bracelet',
+            'crop_width' => 1077,
+            'crop_height' => 42,
+            'crop_x_position' => 61,
             'crop_y_position' => 279,
             'image_name' => 'bracelet_image.png',
             'template_name' => 'bracelet.png'
@@ -79,10 +82,10 @@ class InitialSeeder extends Seeder
     private function createBusinessCards()
     {
         $businessCard = factory(Category::class)->create([
-            'name' => 'business card', 
-            'crop_width' => 360, 
-            'crop_height' => 200, 
-            'crop_x_position' => 420, 
+            'name' => 'business card',
+            'crop_width' => 360,
+            'crop_height' => 200,
+            'crop_x_position' => 420,
             'crop_y_position' => 199,
             'image_name' => 'business_card_image.png',
             'template_name' => 'business-card.png'
@@ -104,18 +107,18 @@ class InitialSeeder extends Seeder
     private function createCalendars()
     {
         $calendar = factory(Category::class)->create([
-            'name' => 'calendar', 
-            'crop_width' => 283, 
-            'crop_height' => 510, 
-            'crop_x_position' => 458, 
+            'name' => 'calendar',
+            'crop_width' => 283,
+            'crop_height' => 510,
+            'crop_x_position' => 458,
             'crop_y_position' => 64,
             'image_name' => 'calendar.png',
             'template_name' => 'calendar.png'
         ]);
-        
+
         factory(Accessory::class)->create(['name' => 'hook', 'category_id' => $calendar->id, 'image_name' => 'epa', 'is_active' => true]);
         factory(Accessory::class)->create(['name' => 'thing', 'category_id' => $calendar->id, 'image_name' => 'epa', 'is_active' => true]);
-        
+
         factory(Product::class)->create(['name' => 'small', 'category_id' => $calendar->id, 'display_position' => 1]);
         factory(Product::class)->create(['name' => 'medium', 'category_id' => $calendar->id, 'display_position' => 2]);
 

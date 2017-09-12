@@ -5,11 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Models\CurrencyRate as Rate;
 
 class DashboardController extends Controller
 {
     public function show()
     {
+        if(owner()){
+            return view('admin-dashboard', [
+                'rate' => Rate::where('currency_code', 'COP')->firstOrFail()
+            ]);
+        }
+
         if(admin()){
             return view('admin-dashboard');
         }

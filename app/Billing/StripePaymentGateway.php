@@ -27,7 +27,7 @@ class StripePaymentGateway implements PaymentGateway
             $stripeCharge = \Stripe\Charge::create([
                 'amount' => $amount,
                 'source' => $token,
-                'currency' => 'usd',
+                'currency' => 'cop',
             ], ['api_key' => $this->apiKey]);
 
             return new Charge([
@@ -99,7 +99,7 @@ class StripePaymentGateway implements PaymentGateway
         if(! array_key_exists('charge', $error)) throw new InvalidTokenException ;
 
         $stripeCharge = \Stripe\Charge::retrieve(
-            $error['charge'], 
+            $error['charge'],
             ['api_key' => $this->apiKey]
         );
 

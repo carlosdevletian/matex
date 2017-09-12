@@ -14,11 +14,15 @@
     "cross-env": "^3.2.3",
     "dropify": "^0.2.2",
     "jquery": "^1.12.4",
-    "laravel-mix": "^0.8.3",
+    "laravel-mix": "^1.0",
     "lodash": "^4.17.4",
     "moment": "^2.17.1",
     "sweetalert2": "^6.0.1",
     "vue": "^2.1.10",
     "vue-dragula": "^1.3.1"
+  },
+  "dependencies": {
+    "less": "^2.7.2",
+    "less-loader": "^4.0.5"
   }
 }

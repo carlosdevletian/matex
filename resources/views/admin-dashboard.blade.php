@@ -88,6 +88,28 @@
                                 <a href="{{ route('users.create') }}">Create a new user</a>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="col-xs-12 Card position-relative pd-btm-50">
+                                <p class="Card__title">Peso colombiano</p>
+                                <form class="form-horizontal" method="POST" action="{{ route('currency-rate.update', $rate) }}">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PUT') }}
+
+                                    <div class="Input__icon">
+                                        <label for="rate" class="control-label">Cambio a USD</label>
+                                        <input id="rate"
+                                            type="text"
+                                            name="to_dollar"
+                                            class="Form {{ $errors->has('to_dollar') ? 'Form--error' : '' }}"
+                                            placeholder="Cambio de peso a USD"
+                                            value="{{ $rate->to_dollar }}"
+                                            required>
+                                    </div>
+
+                                    <button type="submit" class="Button--card stick-to-bottom">Cambiar</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 @endif
             </div>

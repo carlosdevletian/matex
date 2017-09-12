@@ -54,6 +54,8 @@ Route::group(['middleware' => 'owner'], function () {
     Route::get('/users/create','UserController@create')->name('users.create');
     Route::get('/admins', 'AdminController@index')->name('admins.index');
     Route::delete('/admins/{user}', 'AdminController@destroy')->name('admins.delete');
+
+    Route::put('/currency-rates/{rate}', 'CurrencyRateController@update')->name('currency-rate.update');
 });
 
  /* ADMIN ROUTES */

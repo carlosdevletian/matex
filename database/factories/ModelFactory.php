@@ -39,6 +39,7 @@ $factory->state(App\Models\User::class, 'admin', function (Faker\Generator $fake
 });
 
 $factory->state(App\Models\User::class, 'owner', function (Faker\Generator $faker) {
+    factory(App\Models\CurrencyRate::class)->create(['currency_code' => 'cop']);
     return [
         'role_id' => factory(App\Models\Role::class)->create(['name' => 'owner'])->id,
     ];
@@ -231,5 +232,12 @@ $factory->define(App\Models\CategoryPricing::class, function (Faker\Generator $f
         },
         'min_quantity' => 10,
         'unit_price' => 150
+    ];
+});
+
+$factory->define(App\Models\CurrencyRate::class, function (Faker\Generator $faker) {
+    return [
+        'currency_code' => $faker->currencyCode,
+        'to_dollar' => $faker->numberBetween($min = 1, $max = 9999)
     ];
 });

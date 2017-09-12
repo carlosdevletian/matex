@@ -16,7 +16,7 @@ export const stripeMixin = {
             this.stripeHandler.open({
                 name: 'Matex',
                 description: 'Add billing address & payment info',
-                currency: "usd",
+                currency: "cop",
                 allowRememberMe: false,
                 billingAddress: true,
                 zipCode: true,
